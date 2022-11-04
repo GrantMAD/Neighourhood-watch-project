@@ -1,16 +1,15 @@
-import 'flowbite';
+const Members = () => {
 
-const DashBoard = () => {
-    const buttonObject = {
-        position: "absolute",
-        inset: "0px auto auto 0px",
-        margin: "0px", 
-        transform: "translate(0px, 10px)",
-    }
+        const buttonObject = {
+            position: "absolute",
+            inset: "0px auto auto 0px",
+            margin: "0px", 
+            transform: "translate(0px, 10px)",
+        }
 
     return (
-    
-<nav class="bg-white border-2 border-b-stone-900  px-2 sm:px-4 py-2.5 rounded ">
+        <main>
+            <nav class="bg-white border-2 border-b-stone-900  px-2 sm:px-4 py-2.5 rounded ">
                 <div class="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="/" class="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/>
@@ -19,7 +18,7 @@ const DashBoard = () => {
                 <div class="flex items-center md:order-2">
                     <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                       <span class="sr-only">Open user menu</span>
-                      <input type="image" img class="w-8 h-8 rounded-full" src="/images/profileimage.jpg" alt=""/>
+                      <input type="image" img class="w-8 h-8 rounded-full" src="images/profileimage.jpg" alt="user photo"/>
                     </button>
                     <div class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown" style={buttonObject} data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
                       <div class="py-3 px-4">
@@ -67,8 +66,78 @@ const DashBoard = () => {
                 </div>
                 </div>
               </nav>
-
+            <div class="pt-10">
+                <h1 class="grid text-4xl place-content-center font-semibold underline underline-offset-8">Members List</h1>
+            </div>
+            <div class="pt-10 ">
+                    <div class="flex flex-col">
+                        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+                            <div class="overflow-hidden">
+                                <table class="min-w-full text-center">
+                                <thead class="border-b bg-gray-800">
+                                    <tr>
+                                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                                        
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                                        Name
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                                        Street
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                                        Contact-Number
+                                    </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        Rohan
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        64 Ballarat Road
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        074 444 1804
+                                    </td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        Rohan
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        64 Ballarat Road
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        074 444 1804
+                                    </td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        Rohan
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        64 Ballarat Road
+                                    </td>
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        074 444 1804
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </main>
+        
     )
 }
 
-export default DashBoard
+export default Members

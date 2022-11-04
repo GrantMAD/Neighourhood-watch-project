@@ -1,7 +1,8 @@
 import './App.css';
-import Login from './Login';
-import DashBoard from './DashBoard';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import DashBoard from './DashBoard';
+import Members from './Members';
+
 
 function App() {
 
@@ -9,8 +10,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={ <Login/>} />
-          <Route exact path="/DashBoard" element={ <DashBoard/>} />
+        <Route path="/" element={ <DashBoard/>} />
+        <Route path="/Members" element={ <Members/>} />
         </Routes>
       </BrowserRouter>
     </div>
