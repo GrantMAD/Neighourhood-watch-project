@@ -5,6 +5,7 @@ import Members from './Members';
 import ContactPage from './ContactPage';
 import Nav from './Nav';
 import AboutUs from './AboutUs';
+import GalleryPage from './GalleryPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
+        <Route path="/GalleryPage" element={ <GalleryPage/>} />
         </Routes>
       </BrowserRouter>
     </div>
