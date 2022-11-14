@@ -6,6 +6,8 @@ import ContactPage from './ContactPage';
 import Nav from './Nav';
 import AboutUs from './AboutUs';
 import GalleryPage from './GalleryPage';
+import Footer from './Footer';
+import ProfilePage from './ProfilePage';
 
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
+        <Route path="/ProfilePage" element={ <ProfilePage/>} />
         </Routes>
+      <Footer/>
       </BrowserRouter>
     </div>
   );

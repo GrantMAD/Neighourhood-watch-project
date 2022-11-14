@@ -3,10 +3,7 @@ const AboutUs = () => {
 
     return (
       <div class="h-screen bg-zinc-200 p-20">
-        <h1 class="grid text-4xl place-content-center font-semibold mb-9">About us</h1>
-        <div class="flex justify-center">
-            <hr class="dashed border-1 border-black mb-12 w-1/4"/>
-        </div>
+        <h1 class="grid text-4xl place-content-center font-semibold mb-9 underline underline-offset-8">About us</h1>
             <div class="grid grid-cols-2">
                 <div class="pr-[25%] pl-[25%] w-full">
                     <h1 class="grid text-2xl place-content-center font-semibold underline underline-offset-8 mb-20">Our Values</h1>
