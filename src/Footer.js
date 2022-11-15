@@ -1,7 +1,7 @@
 const Footer = () => {
 
     return (
-        <section class="bg-white ">
+        <section class="bg-white border-t-2 border-gray-500">
             <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
                 <nav class="flex flex-wrap justify-center -mx-5 -my-2">
                 <div class="px-5 py-2">

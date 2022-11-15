@@ -8,6 +8,7 @@ import AboutUs from './AboutUs';
 import GalleryPage from './GalleryPage';
 import Footer from './Footer';
 import ProfilePage from './ProfilePage';
+import LandingPage from './LandingPage';
 
 
 function App() {
@@ -17,12 +18,13 @@ function App() {
       <BrowserRouter>
       <Nav/>
         <Routes>
-        <Route path="/" element={ <DashBoard/>} />
+        <Route path="/" element={ <LandingPage/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
+        <Route path="/DashBoard" element={ <DashBoard/>} />
         </Routes>
       <Footer/>
       </BrowserRouter>

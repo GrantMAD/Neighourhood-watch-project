@@ -39,7 +39,7 @@ const Nav = () => {
               <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                 <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                   <a href="/ProfilePage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-                  <a href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">DashBoard</a>
+                  <a href="/DashBoard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">DashBoard</a>
                   {!isAuthenticated && (
                     <a 
                       onClick={() => loginWithRedirect()}
@@ -83,8 +83,8 @@ const Nav = () => {
           </div>
         </div>
         <div class="mt-3 px-2">
-          <a href="/#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
-          <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">DashBoard</a>   
+          <a href="/ProfilePage" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
+          <a href="/DashBoard" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">DashBoard</a>   
           {!isAuthenticated && (
             <a 
               onClick={() => loginWithRedirect()}
