@@ -12,13 +12,12 @@ const Nav = () => {
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img class="h-8 w-8" src="/img/logos/workflow-mark-on-dark.svg" alt="#" />
+            <img class="h-8 w-8" src="/images/ALPHAS-LOGO.png" alt="#" />
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline">
-              <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Dashboard</a>
+              <a href="/" class=" text-sm font-medium text-white">Home</a>
               <a href="/AboutUs" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">About Us</a>
-              <a href="/#" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Blog</a>
               <a href="/Members" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Members</a>
               <a href="/GalleryPage" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Gallery</a>
               <a href="/ContactPage" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Contact Us</a>
@@ -39,8 +38,8 @@ const Nav = () => {
               </button>
               <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                 <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                  <a href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-                  <a href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+                  <a href="/ProfilePage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+                  <a href="/DashBoard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">DashBoard</a>
                   {!isAuthenticated && (
                     <a 
                       onClick={() => loginWithRedirect()}
@@ -84,8 +83,8 @@ const Nav = () => {
           </div>
         </div>
         <div class="mt-3 px-2">
-          <a href="/#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
-          <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Settings</a>   
+          <a href="/ProfilePage" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
+          <a href="/DashBoard" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">DashBoard</a>   
           {!isAuthenticated && (
             <a 
               onClick={() => loginWithRedirect()}
