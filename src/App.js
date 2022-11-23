@@ -9,16 +9,23 @@ import GalleryPage from './GalleryPage';
 import Footer from './Footer';
 import ProfilePage from './ProfilePage';
 import LandingPage from './LandingPage';
+import { useState } from 'react';
+import IncidentReportPage from './IncidentReportPage';
 
 
 function App() {
 
+  const [showNav, setShowNav] = useState(true)
+
   return (
     <div className="App">
       <BrowserRouter>
-      <Nav/>
+      { showNav &&
+        <Nav/>
+      }
         <Routes>
-        <Route path="/" element={ <LandingPage/>} />
+        <Route path="/" element={ <LandingPage funcNav={setShowNav}/>} />
+        <Route path="/IncidentReportPage" element={ <IncidentReportPage/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
@@ -26,7 +33,9 @@ function App() {
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
         <Route path="/DashBoard" element={ <DashBoard/>} />
         </Routes>
-      <Footer/>
+      { showNav &&
+        <Footer/>
+      }
       </BrowserRouter>
     </div>
   );
