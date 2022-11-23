@@ -1,4 +1,11 @@
+
 const LandingPage = () => {
+  
+  /* eslint-disable no-unused-vars */
+  const funcNav = (props) => {
+    props.funcNav(false);
+  }
+  /* eslint-disable no-unused-vars */
 
     return (
         <main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">

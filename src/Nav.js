@@ -1,8 +1,6 @@
 import "./index.css";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Nav = () => {
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     return (
         <nav>
@@ -16,7 +14,7 @@ const Nav = () => {
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline">
-              <a href="/" class=" text-sm font-medium text-white">Home</a>
+              <a href="IncidentReportPage" class=" text-sm font-medium text-white">Incident Report's</a>
               <a href="/AboutUs" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">About Us</a>
               <a href="/Members" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Members</a>
               <a href="/GalleryPage" class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Gallery</a>
@@ -40,12 +38,8 @@ const Nav = () => {
                 <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                   <a href="/ProfilePage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
                   <a href="/DashBoard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">DashBoard</a>
-                  {!isAuthenticated && (
-                    <a 
-                      onClick={() => loginWithRedirect()}
-                      href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign In
-                      </a>
-                  )}
+                  
+                    <a href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign Out</a>
                 </div>
               </div>
             </div>
@@ -85,13 +79,8 @@ const Nav = () => {
         <div class="mt-3 px-2">
           <a href="/ProfilePage" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
           <a href="/DashBoard" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">DashBoard</a>   
-          {!isAuthenticated && (
-            <a 
-              onClick={() => loginWithRedirect()}
-              href="/"  
-              class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign In</a>
-          )}
-          </div>
+          <a href="/"  class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign In</a>
+         </div>
       </div>
     </div>
   </nav>
