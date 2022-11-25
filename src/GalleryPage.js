@@ -66,7 +66,7 @@ const GalleryPage = () => {
                 </div> 
                 <div class="flex justify-center max-w-2xl mx-auto mb-10">
                     <nav aria-label="Page navigation example">
-                        <ul class="inline-flex -space-x-px">
+                        <ul class="inline-flex -space-x-px shadow-xl">
                             <li>
                                 <a href="/#" aria-current="page"
                                     class="bg-white border border-gray-300 text-gray-500  hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
