@@ -8,10 +8,10 @@ import AboutUs from './AboutUs';
 import GalleryPage from './GalleryPage';
 import Footer from './Footer';
 import ProfilePage from './ProfilePage';
-import LandingPage from './LandingPage';
+import SignUpPage from './SignUpPage';
+import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
-import SignUpPage from './SignUpPage';
 import { app } from './firebase-config';
 
 
@@ -26,8 +26,9 @@ function App() {
         <Nav/>
       }
         <Routes>
-        <Route path="/" element={ <LandingPage funcNav={setShowNav}/>} />
-        <Route path="/SignUpPage" element={ <SignUpPage/>} />
+        <Route path="/" element={ <AboutUs/>} />
+        <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
+        <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
