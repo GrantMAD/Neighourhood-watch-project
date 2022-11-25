@@ -23,7 +23,7 @@ const AboutUs = () => {
                     </div>
                 </div>
                 <div>
-                    <img class="w-full pl-10 mt-28" src="/images/ALPHAS-LOGO.png" alt=""></img>
+                    <img class="pl-10 mt-28 drop-shadow-2xl" src="/images/ALPHAS-LOGO.png" alt=""></img>
                 </div>
             </div>
       </div>

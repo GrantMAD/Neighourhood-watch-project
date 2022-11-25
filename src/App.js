@@ -11,11 +11,13 @@ import ProfilePage from './ProfilePage';
 import LandingPage from './LandingPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
+import SignUpPage from './SignUpPage';
+import { app } from './firebase-config';
 
 
 function App() {
 
-  const [showNav, setShowNav] = useState(true)
+  const [showNav, setShowNav] = useState(true);
 
   return (
     <div className="App">
@@ -25,6 +27,7 @@ function App() {
       }
         <Routes>
         <Route path="/" element={ <LandingPage funcNav={setShowNav}/>} />
+        <Route path="/SignUpPage" element={ <SignUpPage/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />

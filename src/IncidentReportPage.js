@@ -1,11 +1,11 @@
 const IncidentReportPage = () => {
 
     return (
-        <main class="h-screen bg-zinc-200">
+        <main class="flex flex-col bg-zinc-200 min-h-screen">
             <div class="pt-10">
                 <h1 class="grid text-4xl place-content-center font-semibold underline underline-offset-8">Incident Report's</h1>
             </div>
-            <div class="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg border-b-2 border-slate-400">
+            <div class="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg shadow-xl">
                 <div class="flex justify-between">
                     <h1 class="text-2xl mb-6 font-semibold underline underline-offset-8">Title of report</h1>
                     <div class="flex items-end pb-4">
@@ -34,16 +34,16 @@ const IncidentReportPage = () => {
                         </div>
                     </div>
                     <div class="flex items-end">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl">
                         Edit
                         </button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl">
                         Delete
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg border-b-2 border-slate-400">
+            <div class="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg shadow-xl">
                 <div class="flex justify-between">
                     <h1 class="text-2xl mb-6 font-semibold underline underline-offset-8">Title of report</h1>
                     <div class="flex items-end pb-4">
@@ -72,10 +72,10 @@ const IncidentReportPage = () => {
                         </div>
                     </div>
                     <div class="flex items-end">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl">
                         Edit
                         </button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl">
                         Delete
                         </button>
                     </div>
