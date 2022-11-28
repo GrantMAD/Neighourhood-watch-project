@@ -12,8 +12,6 @@ import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
-import { app } from './firebase';
-
 
 function App() {
 
