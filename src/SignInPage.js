@@ -1,9 +1,11 @@
-const SignUpPage = () => {
-/* eslint-disable no-unused-vars */
-  function funcNav (props) {
-    props.funcNav(false);
-  }
+import { useEffect } from "react";
 
+const SignUpPage = (props) => {
+  useEffect(() => {
+    if (props.funcNav) {
+      props.funcNav(false)
+    }
+  })
     return (
         <main class="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
           <section class="flex w-[30rem] flex-col space-y-10">
@@ -34,6 +36,11 @@ const SignUpPage = () => {
               href="/#"
               class="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300"
               >FORGOT PASSWORD?</a
+            >
+            <a
+              href="SignUpPage"
+              class="transform text-center font-semibold text-indigo-600 duration-300 hover:text-gray-300"
+              >Sign Up</a
             >
           </section>
         </main>

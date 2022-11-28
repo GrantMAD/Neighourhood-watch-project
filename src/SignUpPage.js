@@ -1,10 +1,18 @@
-const SignUpPage = () => {
+import { useEffect } from "react";
+
+const SignUpPage = (props) => {
+    useEffect(() => {
+        if (props.funcNav) {
+          props.funcNav(false)
+        }
+      })
+
     return (
         <main class="p-10 bg-gray-900">
             <div class="bg-grey-lighter min-h-screen flex flex-col">
                 <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                     <div class="bg-gray-900 px-6 py-8 rounded shadow-md text-white w-full">
-                        <h1 class="mb-8 text-3xl text-center underline">Sign up</h1>
+                        <h1 class="mb-8 text-3xl text-center">Sign up</h1>
                         <input 
                             type="text"
                             class="block border border-white-light w-full p-3 rounded mb-4"
