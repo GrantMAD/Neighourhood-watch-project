@@ -1,6 +1,21 @@
 import { useEffect } from "react";
+import { useState } from "react";
+import { auth } from "./firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const SignUpPage = (props) => {
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+
+  const login = async () => {
+      try{
+        const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+        console.log(user);
+    } catch (error) {
+        console.log(error.message);
+  }
+  }
+
   useEffect(() => {
     if (props.funcNav) {
       props.funcNav(false)
@@ -15,6 +30,9 @@ const SignUpPage = (props) => {
                         type="text"
                         placeholder="Email or Username"
                         class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                        onChange={(event) => {
+                          setLoginEmail(event.target.value);
+                      }}
                     />
                 </div>
         
@@ -23,11 +41,15 @@ const SignUpPage = (props) => {
                     type="password"
                     placeholder="Password"
                     class="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none"
+                    onChange={(event) => {
+                      setLoginPassword(event.target.value);
+                  }}
                   />
                 </div>
             
                 <button 
                   class="transform rounded-lg bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-700"
+                  onClick={login}
                   >
                   LOG IN
                 </button>
