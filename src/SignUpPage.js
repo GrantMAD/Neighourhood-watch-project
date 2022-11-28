@@ -1,17 +1,44 @@
 import { useEffect } from "react";
+import useInput from "./useInput";
+import getFirebase from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = (props) => {
+  const email = useInput("");
+  const password = useInput("");
+  const firebaseInstance = getFirebase();
+  const navigate = useNavigate();
+
     useEffect(() => {
         if (props.funcNav) {
           props.funcNav(false)
         }
       })
 
+      const signUp = async (event) => {
+        event.preventDefault();
+    
+        try {
+          if (firebaseInstance) {
+            const user = await firebaseInstance
+              .auth()
+              .createUserWithEmailAndPassword(email.value, password.value);
+            console.log("user", user);
+            navigate('./IncidentReportPage');
+          }
+        } catch (error) {
+          console.log("error", error);
+          navigate('./SignUpPage');
+        }
+      };
+
     return (
         <main class="p-10 bg-gray-900">
             <div class="bg-grey-lighter min-h-screen flex flex-col">
                 <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                    <div class="bg-gray-900 px-6 py-8 rounded shadow-md text-white w-full">
+                    <div 
+                      class="bg-gray-900 px-6 py-8 rounded shadow-md text-white w-full"
+                      onSubmit={signUp}>
                         <h1 class="mb-8 text-3xl text-center">Sign up</h1>
                         <input 
                             type="text"
@@ -20,13 +47,15 @@ const SignUpPage = (props) => {
                             placeholder="Full Name" />
                             
                         <input
-                            type="text"
+                            value={email}
+                            type="email"
                             class="block border border-white-light w-full p-3 rounded mb-4"
                             name="email"
                             placeholder="Email"
                             />
 
-                        <input 
+                        <input
+                            value={password} 
                             type="password"
                             class="block border border-white-light w-full p-3 rounded mb-4"
                             name="password"
