@@ -12,12 +12,34 @@ import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
-import { app } from './firebase-config';
+import * as React from 'react';
+import { auth } from './firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 function App() {
 
   const [showNav, setShowNav] = useState(true);
+  const [user, setUser] = React.useState(null);
+  const [authState, setAuthState] = React.useState(null);
+
+  React.useEffect(() => {
+    const unSubscribeAuth = onAuthStateChanged(auth, async authenticatedUser => {
+      if(authenticatedUser) {
+        setUser(authenticatedUser.email)
+        setAuthState('incidentReportPage');
+      } else {
+        setUser(null);
+        setAuthState('SignInPage')
+      }
+    })
+
+    return unSubscribeAuth;
+  }, [user])
+
+  if(authState === 'SignInPage') return <SignInPage setAuthState={setAuthState} setUser={setUser}/>
+  if(authState === 'SignUpPage') return <SignUpPage setAuthState={setAuthState} setUser={setUser}/>
+  if(user) return <IncidentReportPage/>
 
   return (
     <div className="App">
