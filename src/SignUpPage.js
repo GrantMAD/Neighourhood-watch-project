@@ -1,11 +1,28 @@
+import { useState } from "react";
 import { useEffect } from "react";
+import { createUserWithEmailAndPassword} from "firebase/auth";
+import { auth } from "./firebase";
+
 
   const SignUpPage = (props) => {
+    const [registerEmail, setRegisterEmail] = useState('');
+    const [registerPassword, setRegisterPassword] = useState('');
+   
+
     useEffect(() => {
       if (props.funcNav) {
         props.funcNav(false)
       }
     },)
+
+    const register = async () => {
+        try{
+            const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+            console.log(user);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     return (
         <main class="p-10 bg-gray-900">
@@ -21,20 +38,27 @@ import { useEffect } from "react";
                             
                         <input
                             type="text"
-                            class="block border border-white-light w-full p-3 rounded mb-4"
+                            class="block border border-white-light w-full p-3 rounded mb-4 text-black"
                             name="email"
                             placeholder="Email"
+                            onChange={(event) => {
+                                setRegisterEmail(event.target.value);
+                            }}
                             />
 
                         <input 
                             type="password"
-                            class="block border border-white-light w-full p-3 rounded mb-4"
+                            class="block border border-white-light w-full p-3 rounded mb-4 text-black"
                             name="password"
                             placeholder="Password"
+                            onChange={(event) => {
+                                setRegisterPassword(event.target.value);
+                            }}
                             />
                         <button
                             type="submit"
                             class="w-full bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
+                            onClick={register}
                         >Create Account</button>
 
                         <div class="text-center text-sm text-white mt-4">
