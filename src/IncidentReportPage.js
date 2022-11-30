@@ -1,4 +1,12 @@
-const IncidentReportPage = () => {
+import { useEffect } from "react";
+
+const IncidentReportPage = (props) => {
+    useEffect(() => {
+        if (props.funcNav) {
+          props.funcNav(true)
+        }
+      })
+    
 
     return (
         <main class="flex flex-col bg-zinc-200 min-h-screen">
