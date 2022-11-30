@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={ <AboutUs/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
-        <Route path="/IncidentReportPage" element={ <IncidentReportPage/>} />
+        <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
