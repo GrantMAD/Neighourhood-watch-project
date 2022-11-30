@@ -2,15 +2,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { auth } from "./firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = (props) => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const navigate = useNavigate();
 
   const login = async () => {
       try{
         const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
         console.log(user);
+        navigate('/IncidentReportPage');
     } catch (error) {
         console.log(error.message);
   }

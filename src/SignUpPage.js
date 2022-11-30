@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 
   const SignUpPage = (props) => {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
+    const navigate = useNavigate();
    
 
     useEffect(() => {
@@ -19,6 +21,7 @@ import { auth } from "./firebase";
         try{
             const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             console.log(user);
+            navigate("/SignInPage");
         } catch (error) {
             console.log(error.message);
         }
@@ -59,6 +62,7 @@ import { auth } from "./firebase";
                             type="submit"
                             class="w-full bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
                             onClick={register}
+                            
                         >Create Account</button>
 
                         <div class="text-center text-sm text-white mt-4">
