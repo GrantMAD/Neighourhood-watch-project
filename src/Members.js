@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react"
+import { db } from "./firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 const Members = () => {
+    const [users, setUsers] = useState([]);
+    const usersCollectionRef = collection(db, 'users');
+
+    useEffect(() => {
+        const getUsers = async () =>{
+            const data = await getDocs(usersCollectionRef);
+            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        };
+
+        getUsers();
+    },)
 
     return (
         <main class="h-screen bg-zinc-200">
@@ -26,63 +41,38 @@ const Members = () => {
                                         Contact-Number
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                                        Email
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
                                         Checked  in
                                     </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        Rohan Davidson
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        64 Ballarat Road
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        074 444 1804
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        <li class="text-lime-500 text-xl ml-4">
-                                        
-                                        </li>
-                                    </td>
-                                    </tr>
-                                    <tr class="bg-white border-b">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        Rohan Davidson
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        64 Ballarat Road
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        074 444 1804
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        <li class="text-lime-500 text-xl ml-4">
-                                        
-                                        </li>
-                                    </td>
-                                    </tr>
-                                    <tr class="bg-white border-b">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        Rohan Davidson
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        64 Ballarat Road
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        074 444 1804
-                                    </td>
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        <li class="text-lime-500 text-xl ml-4">
-                                        
-                                        </li>
-                                    </td>
-                                    </tr>
-                                    
+                                    {users.map((user) => {
+                                        return <tr class="bg-white border-b">
+                                            {" "}
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {user.name}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {user.address}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {user.number}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {user.email}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <li class="text-lime-500 text-xl ml-4">
+                                            
+                                            </li>
+                                        </td>
+                                        </tr>
+                                    })}
+                                            
                                 </tbody>
                                 </table>
                             </div>
