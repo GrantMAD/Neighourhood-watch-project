@@ -2,7 +2,7 @@ import { useState } from "react"
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-export default function DashBoardForm() {
+const DashBoardForm = () => {
   const [newTitle, setNewTitle] =useState();
   const [newPatrollerName, setNewPatrollerName] =useState();
   const [newTime, setNewTime] =useState();
@@ -10,10 +10,10 @@ export default function DashBoardForm() {
   const [newDateReport, setNewDateReport] =useState();
   const [newLocation, setNewLocation] =useState();
   const [newDescription, setNewDescription] =useState();
-
   const usersCollecctionRef = collection(db, "reports");
 
-  const UpdateReport = async () => {
+  const UpdateReport = async (e) => {
+    e.preventDefault();
     await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
   }
 
@@ -316,4 +316,6 @@ export default function DashBoardForm() {
       </>
     )
   }
+
+export default DashBoardForm
   
