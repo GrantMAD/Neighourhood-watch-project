@@ -9,7 +9,7 @@ const Members = () => {
     useEffect(() => {
         const getUsers = async () =>{
             const data = await getDocs(usersCollectionRef);
-            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
         };
 
         getUsers();
@@ -59,7 +59,9 @@ const Members = () => {
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {user.address}
                                         </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td 
+                                            type="number"
+                                            class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
                                             {user.number}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

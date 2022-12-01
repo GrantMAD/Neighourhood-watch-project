@@ -9,7 +9,7 @@ const IncidentReportPage = (props) => {
     useEffect(() => {
         const getReports = async () => {
             const reportData = await getDocs(usersCollectionRef);
-            setReports(reportData.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            setReports(reportData.docs.map((doc) => ({...doc.data(), id: doc.id })));
         };
 
         getReports();
@@ -29,8 +29,9 @@ const IncidentReportPage = (props) => {
             </div>
             {reports.map((report) => { 
                 return <div class="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg shadow-xl">
+                    {" "}
                 <div class="flex justify-between">
-                    <h1 class="text-2xl mb-6 font-semibold underline underline-offset-8">Title of report</h1>
+                    <h1 class="text-2xl mb-6 font-semibold underline underline-offset-8">{report.title}</h1>
                     <div class="flex items-end pb-4">
                     <h1 class="font-semibold mr-2">Date of report:</h1>
                     <h1>{report.dateReport}</h1>
@@ -45,7 +46,7 @@ const IncidentReportPage = (props) => {
                         </div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Location:</h1>
-                            <h1>{report.loctaion}</h1>
+                            <h1>{report.location}</h1>
                         </div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Date of incident:</h1>

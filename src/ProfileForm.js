@@ -2,13 +2,14 @@ import { useState } from "react"
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-export default function ProfileForm() {
+const ProfileForm = () => {
   const [newName, setNewName] =useState();
   const [newEmail, setNewEmail] =useState();
   const [newAddress, setNewAddress] =useState();
   const usersCollecctionRef = collection(db, "users");
 
-  const UpdateUser = async () => {
+  const UpdateUser = async (e) => {
+    e.preventDefault();
     await addDoc(usersCollecctionRef, { name: newName, email: newEmail, address: newAddress });
   }
   
@@ -205,3 +206,4 @@ export default function ProfileForm() {
     )
   }
   
+export default ProfileForm
