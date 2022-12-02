@@ -279,14 +279,16 @@ const DashBoardForm = () => {
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                resize 
                             "
                             id="incidentDesciption"
-                            rows="5"
+                            rows="10"
                             placeholder="Desciption"
                             onChange={(event) => {
                               setNewDescription(event.target.value);
                             }}
                             ></textarea>
+                            <h1 class="text-xs">To make the window larger click and drag the bottem right corner</h1>
                         </div>
                         </div>
                       </div>
