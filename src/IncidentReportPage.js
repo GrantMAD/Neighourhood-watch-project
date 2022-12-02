@@ -55,7 +55,7 @@ const IncidentReportPage = (props) => {
                     <div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Patroller's name:</h1>
-                            <h1>{report.name}</h1>
+                            <h1>{report.patrollerName}</h1>
                         </div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Location:</h1>

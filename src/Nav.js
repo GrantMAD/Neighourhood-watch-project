@@ -3,9 +3,11 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import { useState } from "react";
 
+
+
 const Nav = () => {
   const [user, setUser] = useState({});
-
+  
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   })
@@ -49,7 +51,7 @@ const Nav = () => {
                         {user &&
                         <div class="ml-3 relative">
                           <button class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
-                            <img class="h-8 w-8 rounded-full" src="/images/profileimage.jpg" alt="" />
+                             <img class="h-8 w-8 rounded-full bg-gray-100" src="/images/profileimage.jpg" alt="" />
                           </button>
                           <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                             <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
@@ -85,7 +87,7 @@ const Nav = () => {
                   </div>
                   <div class="pt-4 pb-3 border-t border-gray-700">
                     <div class="flex items-center px-5">
-                      <div class="flex-shrink-0">
+                     <div class="flex-shrink-0">
                         <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                       </div>
                       <div class="ml-3">
