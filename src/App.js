@@ -12,6 +12,7 @@ import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
+import LandingPage from './LandingPage';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
         <Nav/>
       }
         <Routes>
-        <Route path="/" element={ <AboutUs/>} />
+        <Route path="/" element={ <LandingPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
@@ -34,6 +35,7 @@ function App() {
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
         <Route path="/DashBoard" element={ <DashBoard/>} />
+        <Route path="/LandingPage" element={ <LandingPage/>} />
         </Routes>
       { showNav &&
         <Footer/>

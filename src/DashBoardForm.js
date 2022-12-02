@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { storage } from "./firebase";
+import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { useNavigate } from "react-router-dom";
 
 const DashBoardForm = () => {
   const [newTitle, setNewTitle] =useState();
@@ -10,12 +14,24 @@ const DashBoardForm = () => {
   const [newDateReport, setNewDateReport] =useState();
   const [newLocation, setNewLocation] =useState();
   const [newDescription, setNewDescription] =useState();
+  const [imageUpload, setImageUpload] = useState();
+  const navigate = useNavigate();
   const usersCollecctionRef = collection(db, "reports");
 
   const UpdateReport = async (e) => {
     e.preventDefault();
     await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
   }
+
+  const uploadImage = (e) => {
+    e.preventDefault();
+    if (imageUpload == null) return;
+
+    const imageRef = ref(storage, `galleryImages/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      navigate('/GalleryPage')
+    })
+  };
 
     return (
       <>
@@ -40,21 +56,29 @@ const DashBoardForm = () => {
                       <div class="flex justify-center">
                         <div class="mb-3 w-96">
                             <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700">Input files here</label>
-                            <input class="form-control
-                            block
-                            w-full
-                            px-3
-                            py-1.5
-                            text-base
-                            font-normal
-                            text-gray-700
-                            bg-white bg-clip-padding
-                            border border-solid border-gray-500
-                            rounded
-                            transition
-                            ease-in-out
-                            m-0
-                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFileMultiple" multiple/>
+                            <input 
+                              class="form-control
+                                block
+                                w-full
+                                px-3
+                                py-1.5
+                                text-base
+                                font-normal
+                                text-gray-700
+                                bg-white bg-clip-padding
+                                border border-solid border-gray-500
+                                rounded
+                                transition
+                                ease-in-out
+                                m-0
+                                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" 
+                              type="file" 
+                              id="formFileMultiple"
+                              multiple
+                              onChange={(event) => {
+                                setImageUpload(event.target.files[0]);
+                              }}
+                              />
                         </div>
                         </div>
                     </div>
@@ -62,6 +86,7 @@ const DashBoardForm = () => {
                   <div className="bg-white px-4 py-3 text-right sm:px-6">
                     <button
                       className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={uploadImage}
                     >
                       Submit
                     </button>
