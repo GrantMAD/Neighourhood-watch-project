@@ -1,4 +1,21 @@
+import { useEffect, useState } from "react";
+import { listAll, ref, getDownloadURL } from "firebase/storage";
+import { storage } from "./firebase";
+
 const GalleryPage = () => {
+    const [imageUrls, setImageUrls] = useState([]);
+
+    useEffect (() => {
+        const imageRef = ref(storage, 'galleryImages/');
+        listAll(imageRef).then((response) => {
+            response.items.forEach((item) => {
+                getDownloadURL(item).then((url) => {
+                    setImageUrls((prev) => [...prev, url])
+                })
+            })
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <main class="h-100% bg-zinc-200">
@@ -7,61 +24,14 @@ const GalleryPage = () => {
             </div>
             <section class="overflow-hidden text-gray-700">
                 <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
-                    <div class="flex flex-wrap -m-1 md:-m-2">
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                        <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg shadow-md shadow-stone-400"
-                            src="/images/aboutUsImage.jpg"/>
-                        </div>
-                    </div>
+                    <div class="flex flex-wrap m-1 md:-m-2">
+                    {imageUrls.map((url) => {
+                        return  <div class="flex flex-wrap w-1/3">
+                                    <div class="w-full p-1 md:p-2 object-constain">
+                                        <img alt="gallery" src={url} />
+                                    </div>
+                                </div>
+                    })}
                     </div>
                 </div> 
                 <div class="flex justify-center max-w-2xl mx-auto mb-10">

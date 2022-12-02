@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
     const usersCollectionRef = collection(db, 'reports');
+    const navigate = useNavigate();
+
+    const deleteReport = async (id) => {
+        const reportDoc = doc(db, "reports", id);
+        await deleteDoc(reportDoc);
+      };
+
+    const updateReport = async (id) => {
+        navigate('/Dashboard')
+    }
+
+    
 
     useEffect(() => {
         const getReports = async () => {
@@ -37,12 +50,12 @@ const IncidentReportPage = (props) => {
                     <h1>{report.dateReport}</h1>
                     </div>
                 </div>
-                <p class="mb-10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="mb-10">{report.description}</p>
                 <div class="flex justify-between">
                     <div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Patroller's name:</h1>
-                            <h1>{report.name}</h1>
+                            <h1>{report.patrollerName}</h1>
                         </div>
                         <div class="flex">
                             <h1 class="font-semibold mr-2">Location:</h1>
@@ -58,10 +71,16 @@ const IncidentReportPage = (props) => {
                         </div>
                     </div>
                     <div class="flex items-end">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl">
+                        <button 
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl"
+                        onClick={updateReport}
+                        >
                         Edit
                         </button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl">
+                        <button 
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl"
+                        onClick={() => {deleteReport(report.id)}}
+                        >
                         Delete
                         </button>
                     </div>
