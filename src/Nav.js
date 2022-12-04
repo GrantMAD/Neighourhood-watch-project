@@ -28,6 +28,7 @@ const Nav = () => {
                       </div>
                       <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline">
+                          <a href="/LandingPage" class="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
                           {user &&
                           <a href="IncidentReportPage" class=" text-sm font-medium text-white">Incident Report's</a>
                           }
@@ -49,13 +50,13 @@ const Nav = () => {
                         </div>
                         }
                         {user &&
-                        <div class="ml-3 relative">
+                        <div class="flex ml-3 relative">
                           <button class="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
                              <img class="h-8 w-8 rounded-full bg-gray-100" src="/images/profileimage.jpg" alt="" />
                           </button>
                           <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                             <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                              <a href="/ProfilePage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+                              <a href="/Profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
                               <a href="/DashBoard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">DashBoard</a>
                               <a href="/#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logout}>Sign Out</a>
                             </div>
@@ -78,13 +79,6 @@ const Nav = () => {
                 </div>
 
                 <div class="hidden md:hidden">
-                  <div class="px-2 pt-2 pb-3 sm:px-3">
-                    <a href="/#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700">Dashboard</a>
-                    <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Team</a>
-                    <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Projects</a>
-                    <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Calendar</a>
-                    <a href="/#" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Reports</a>
-                  </div>
                   <div class="pt-4 pb-3 border-t border-gray-700">
                     <div class="flex items-center px-5">
                      <div class="flex-shrink-0">
