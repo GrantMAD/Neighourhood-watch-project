@@ -21,6 +21,7 @@ const DashBoardForm = () => {
   const UpdateReport = async (e) => {
     e.preventDefault();
     await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
+    navigate('/IncidentReportPage')
   }
 
   const uploadImage = (e) => {

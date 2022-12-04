@@ -13,6 +13,7 @@ import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
 import LandingPage from './LandingPage';
+import Profile from './Profile';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/AboutUs" element={ <AboutUs/>} />
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
+        <Route path="/Profile" element={ <Profile/>} />
         <Route path="/DashBoard" element={ <DashBoard/>} />
         <Route path="/LandingPage" element={ <LandingPage/>} />
         </Routes>
