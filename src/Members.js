@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 
 const Members = () => {
     const [users, setUsers] = useState([]);
+    
     const usersCollectionRef = collection(db, 'users');
 
     useEffect(() => {
@@ -68,9 +69,7 @@ const Members = () => {
                                             {user.email}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            <li class="text-lime-500 text-xl ml-4">
-                                            
-                                            </li>
+                                                <li class="text-lime-500 text-xl ml-4"></li>                                 
                                         </td>
                                         </tr>
                                     })}
