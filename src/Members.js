@@ -19,7 +19,7 @@ const Members = () => {
     return (
         <main class="h-screen bg-zinc-200">
             <div class="pt-10">
-                <h1 class="grid text-4xl place-content-center font-semibold underline underline-offset-8">Members List</h1>
+                <h1 class="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1">Members List</h1>
             </div>
             <div class="pt-10 ">
                     <div class="flex flex-col">

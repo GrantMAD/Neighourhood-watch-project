@@ -1,5 +1,34 @@
+import { useState, useEffect } from "react"
+import { db } from "./firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const [storys, setStorys] = useState([]);
+  const usersCollectionRef = collection(db, 'storys');
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const getStorys = async () => {
+        const storyData = await getDocs(usersCollectionRef);
+        setStorys(storyData.docs.map((doc) => ({...doc.data(), id: doc.id })));     
+    };
+
+    getStorys();
+},)
+
+const deleteReport = async (id) => {
+  const storyDoc = doc(db, "storys", id);
+  await deleteDoc(storyDoc);
+};
+
+const updateReport = async (id) => {
+  navigate('/Dashboard')
+}
+
+const addStory = () => {
+  navigate('/Dashboard')
+}
 
     return (
       <main className="pt-10 pb-10 pr-60 pl-60 bg-zinc-200">
@@ -29,48 +58,48 @@ const LandingPage = () => {
             src="/images/ALPHAS-LOGO.png"
             />
           </div>
-          
         </div>
-        <div className="mt-10 p-5 bg-gray-800 text-white rounded-md">
-          <h1 className="text-5xl mb-3 font-semibold">NEWS</h1>
-          <hr></hr>
-          <div className="mt-5">
-            <h1 className="text-3xl underline">Title</h1>
-            <div className="flex flex-row">
-              <p className="mt-5 mr-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
-                publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
-                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-              <img 
-                className="h-1/4 w-1/4 mt-5 rounded-md" 
-                alt="" 
-                src="/images/aboutUsImage.jpg"
-              />
-            </div>
+          <div className="mt-10 p-5 bg-gray-800 text-white rounded-md">
+          <div className="flex justify-between">
+            <h1 className="text-5xl mb-3 font-semibold">NEWS</h1>
+            <button 
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl h-1/4 mt-1"
+                        onClick={addStory}
+                        >
+                        Add Story
+                        </button>
           </div>
-            <hr className="mt-10"></hr>
-          <div className="mt-5">
-            <h1 className="text-3xl underline">Title</h1>
-            <div className="flex flex-row">
-              <p className="mt-5 mr-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
-                publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, 
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop 
-                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-              <img 
-                className="h-1/4 w-1/4 mt-5 rounded-md" 
-                alt="" 
-                src="/images/aboutUsImage.jpg"
-              />
+          {storys.map((story) => {
+            return <div>
+              {" "}
+              <hr></hr>
+              <div className="mt-5">
+                <h1 className="text-3xl underline underline-offset-8 decoration-1">{story.storyTitle}</h1>
+                <div className="flex flex-row">
+                  <p className="mt-5 mr-5">{story.contents}</p>
+                  <img 
+                    className="h-1/4 w-1/4 mt-5 rounded-md" 
+                    alt="" 
+                    src="/images/aboutUsImage.jpg"
+                  />
+                </div>
+                <div class="flex items-end mb-5">
+                        <button 
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl"
+                        onClick={updateReport}
+                        >
+                        Edit
+                        </button>
+                        <button 
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl"
+                        onClick={() => {deleteReport(story.id)}}
+                        >
+                        Delete
+                        </button>
+                    </div>
+              </div>
             </div>
-          </div>
+          })}
         </div>
     
        </main>
