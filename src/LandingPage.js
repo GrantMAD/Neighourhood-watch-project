@@ -70,7 +70,7 @@ const addStory = () => {
                         </button>
           </div>
           {storys.map((story) => {
-            return <div>
+            return <div key={story.id}>
               {" "}
               <hr></hr>
               <div className="mt-5">
@@ -80,7 +80,7 @@ const addStory = () => {
                   <img 
                     className="h-1/4 w-1/4 mt-5 rounded-md" 
                     alt="" 
-                    src="/images/aboutUsImage.jpg"
+                    src={story.image}
                   />
                 </div>
                 <div class="flex items-end mb-5">
