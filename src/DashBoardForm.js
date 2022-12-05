@@ -2,7 +2,7 @@ import { useState } from "react"
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { storage } from "./firebase";
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 
@@ -30,17 +30,18 @@ const DashBoardForm = () => {
 
   const addStory = async (e) => {
     e.preventDefault();
-    await addDoc(usersCollecctionRef2, { storyTitle: newStoryTitle, contents: newStoryContent });
+    const URL = await uploadStoryImage();
+    await addDoc(usersCollecctionRef2, { storyTitle: newStoryTitle, contents: newStoryContent, image: URL });
     navigate('/LandingPage')
   }
 
-  const uploadStoryImage = (e) => {
-    e.preventDefault();
+  const uploadStoryImage = async (e) => {
     if (storyImageUpload == null) return;
-
     const imageRef = ref(storage, `storyImages/${storyImageUpload.name + v4()}`);
-    uploadBytes(imageRef, storyImageUpload).then(() => {
-      navigate('/LandingPage')
+    return uploadBytes(imageRef, storyImageUpload).then((uploadResult) => {
+      return getDownloadURL(uploadResult.ref).then((downloadURL) => {
+        return downloadURL
+      })
     })
   };
 
@@ -459,12 +460,6 @@ const DashBoardForm = () => {
                             }}
                           />
                         </div>
-                        <button
-                            className="ml-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            onClick={uploadStoryImage}
-                          >
-                            Upload
-                          </button>
                       </div>
                       <h1 class="text-xs">Input image here</h1>
                     </div>
