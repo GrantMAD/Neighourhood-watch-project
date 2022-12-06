@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const IncidentReportPage = (props) => {
@@ -13,11 +13,11 @@ const IncidentReportPage = (props) => {
         await deleteDoc(reportDoc);
       };
 
-    const updateReport = async (id) => {
+    const updateReport = async (id, title, description, patrollerName, location, date, time, dateReport) => {
+        const userDoc = doc(db, 'reports', id, title, description, patrollerName, location, date, time, dateReport);
+        await updateDoc(userDoc);
         navigate('/Dashboard')
     }
-
-    
 
     useEffect(() => {
         const getReports = async () => {
