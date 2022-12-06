@@ -37,8 +37,8 @@ const DashBoardForm = () => {
 
   const uploadStoryImage = async (e) => {
     if (storyImageUpload == null) return;
-    const imageRef = ref(storage, `storyImages/${storyImageUpload.name + v4()}`);
-    return uploadBytes(imageRef, storyImageUpload).then((uploadResult) => {
+    const storyImageRef = ref(storage, `storyImages/${storyImageUpload.name + v4()}`);
+    return uploadBytes(storyImageRef, storyImageUpload).then((uploadResult) => {
       return getDownloadURL(uploadResult.ref).then((downloadURL) => {
         return downloadURL
       })

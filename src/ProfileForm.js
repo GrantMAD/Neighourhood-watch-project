@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { storage } from "./firebase";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 
 const ProfileForm = () => {
@@ -9,16 +12,26 @@ const ProfileForm = () => {
   const [newAddress, setNewAddress] = useState();
   const [newAbout, setNewAbout] = useState();
   const [newNumber, setNewNumber] = useState(0);
+  const [profileImageUpload, setProfileImageUpload] = useState();
   const navigate = useNavigate();
   const usersCollecctionRef = collection(db, "users");
 
   const UpdateUser = async (e) => {
     e.preventDefault();
-    await addDoc(usersCollecctionRef, { name: newName, email: newEmail, address: newAddress, number: newNumber, about: newAbout });
+    const profileURL = await uploadProfileImage();
+    await addDoc(usersCollecctionRef, { name: newName, email: newEmail, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
     navigate('/Profile')
   }
 
-  
+  const uploadProfileImage = async (e) => {
+    if (profileImageUpload == null) return;
+    const storyProfileRef = ref(storage, `storyImages/${profileImageUpload.name + v4()}`);
+    return uploadBytes(storyProfileRef, profileImageUpload).then((uploadResult) => {
+      return getDownloadURL(uploadResult.ref).then((downloadURL) => {
+        return downloadURL
+      })
+    })
+  };
 
   
     return (
@@ -155,6 +168,9 @@ const ProfileForm = () => {
                               type="file" 
                               id="formFileMultiple"
                               multiple
+                              onChange={(event) => {
+                                setProfileImageUpload(event.target.value);
+                              }}
                               />
                         </div>
                         {/*
