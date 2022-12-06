@@ -75,11 +75,11 @@ const DashBoardForm = () => {
                       <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                         Image Input
                       </label>
-                      <div class="flex justify-center">
-                        <div class="mb-3 w-96">
-                            <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700">Input files here</label>
+                      <div className="flex justify-center">
+                        <div className="mb-3 w-96">
+                            <label for="formFileMultiple" className="form-label inline-block mb-2 text-gray-700">Input files here</label>
                             <input 
-                              class="form-control
+                              className="form-control
                                 block
                                 w-full
                                 px-3
@@ -161,11 +161,11 @@ const DashBoardForm = () => {
                       <div className="col-span-6 sm:col-span-4">
                         <div class="flex">
                             <div class="mb-3 xl:w-96">
-                                <label for="name" class="form-label inline-block mb-2 font-medium text-gray-700"
+                                <label for="name" className="form-label inline-block mb-2 font-medium text-gray-700"
                                 >Patroller's name</label>
                                 <input
                                 type="text"
-                                class="
+                                className="
                                     form-control
                                     block
                                     w-full
@@ -193,13 +193,13 @@ const DashBoardForm = () => {
                       </div>
   
                       <div className="col-span-6 sm:col-span-4">
-                        <div class="flex">
-                            <div class="mb-3 xl:w-96">
-                                <label for="Time" class="form-label inline-block mb-2 font-medium text-gray-700"
+                        <div className="flex">
+                            <div className="mb-3 xl:w-96">
+                                <label for="Time" className="form-label inline-block mb-2 font-medium text-gray-700"
                                 >Time of Incident</label>
                                 <input
                                 type="number"
-                                class="
+                                className="
                                     form-control
                                     block
                                     w-full
@@ -226,13 +226,13 @@ const DashBoardForm = () => {
                         </div>
                       </div>
                       <div className="col-span-6 sm:col-span-4">
-                        <div class="flex">
-                            <div class="mb-3 xl:w-96">
-                                <label for="date" class="form-label inline-block mb-2 font-medium text-gray-700"
+                        <div className="flex">
+                            <div className="mb-3 xl:w-96">
+                                <label for="date" className="form-label inline-block mb-2 font-medium text-gray-700"
                                 >Date of Incident</label>
                                 <input
                                 type="Date"
-                                class="
+                                className="
                                     form-control
                                     block
                                     w-full
@@ -258,13 +258,13 @@ const DashBoardForm = () => {
                         </div>
                       </div>
                       <div className="col-span-6 sm:col-span-4">
-                        <div class="flex">
-                            <div class="mb-3 xl:w-96">
-                                <label for="Time" class="form-label inline-block mb-2 font-medium text-gray-700"
+                        <div className="flex">
+                            <div className="mb-3 xl:w-96">
+                                <label for="Time" className="form-label inline-block mb-2 font-medium text-gray-700"
                                 >Date of Report</label>
                                 <input
                                 type="Date"
-                                class="
+                                className="
                                     form-control
                                     block
                                     w-full
@@ -307,12 +307,12 @@ const DashBoardForm = () => {
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-4">
-                      <div class="flex">
-                        <div class="mb-3 xl:w-96">
-                            <label for="incident-desciption" class="form-label inline-block mb-2 font-medium text-gray-700">Incident Desciption</label>
+                      <div className="flex">
+                        <div className="mb-3 xl:w-96">
+                            <label for="incident-desciption" className="form-label inline-block mb-2 font-medium text-gray-700">Incident Desciption</label>
                             <textarea
                             type="text"
-                            class="
+                            className="
                                 form-control
                                 block
                                 w-full
@@ -337,7 +337,7 @@ const DashBoardForm = () => {
                               setNewDescription(event.target.value);
                             }}
                             ></textarea>
-                            <h1 class="text-xs">To make the window larger click and drag the bottem right corner</h1>
+                            <h1 className="text-xs">To make the window larger click and drag the bottem right corner</h1>
                         </div>
                         </div>
                       </div>
@@ -396,12 +396,12 @@ const DashBoardForm = () => {
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-4">
-                        <div class="flex">
-                          <div class="xl:w-96">
-                              <label for="storyDesciption" class="form-label inline-block mb-2 font-medium text-gray-700">Story Description</label>
+                        <div className="flex">
+                          <div className="xl:w-96">
+                              <label for="storyDesciption" className="form-label inline-block mb-2 font-medium text-gray-700">Story Description</label>
                               <textarea
                               type="text"
-                              class="
+                              className="
                                   form-control
                                   block
                                   w-full
@@ -426,7 +426,7 @@ const DashBoardForm = () => {
                                 setNewStoryContent(event.target.value);
                               }}
                               ></textarea>
-                              <h1 class="text-xs">To make the window larger click and drag the bottem right corner</h1>
+                              <h1 className="text-xs">To make the window larger click and drag the bottem right corner</h1>
                           </div>
                           </div>
                         </div>
@@ -434,10 +434,10 @@ const DashBoardForm = () => {
                       <label htmlFor="about" className="block text-sm font-medium text-gray-700 mb-2">
                         Image Input
                       </label>
-                      <div class="flex flex-row">
-                        <div class="w-96">
+                      <div className="flex flex-row">
+                        <div className="w-96">
                           <input 
-                            class="form-control
+                            className="form-control
                                 block
                                 w-full
                                 px-3
@@ -461,7 +461,7 @@ const DashBoardForm = () => {
                           />
                         </div>
                       </div>
-                      <h1 class="text-xs">Input image here</h1>
+                      <h1 className="text-xs">Input image here</h1>
                     </div>
                     </div>
                   </div>
