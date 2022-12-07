@@ -1,5 +1,19 @@
+import emailjs from 'emailjs-com'
 
 const ContactPage = () => {
+
+  const sendEmail = (e) => {
+      e.preventDefault();
+  
+      emailjs.sendForm('service_eclqt7c', 'Neighbourhood_rw0it3m', e.target, 'soAbfXEvIO-hm50JH')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+        e.target.reset();
+  };
+
   
     return (
       <div className="h-screen bg-zinc-200 flex min-h-screen items-center justify-start">
@@ -7,7 +21,7 @@ const ContactPage = () => {
           <h1 className="text-4xl font-medium">Contact us</h1>
           <p className="mt-3"><a className="font-bold" href="mailto:Charlies.Coedmore@gmail.com">Email us </a> or message us here:</p>
 
-          <form action="https://api.web3forms.com/submit" className="mt-10">
+          <form onSubmit={sendEmail} className="mt-10">
             <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" /> 
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="relative z-0">

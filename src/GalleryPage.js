@@ -31,7 +31,7 @@ const GalleryPage = () => {
                                         <img 
                                             alt="gallery" 
                                             src={url} 
-                                            className="w-[416px] h-[277px]"
+                                            className="w-[416px] h-[277px] rounded-md shadow-lg shadow-gray-500 hover:scale-150"
                                             />
                                     </div>
                                 </div>

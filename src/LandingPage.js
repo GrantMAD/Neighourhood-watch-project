@@ -37,7 +37,7 @@ const addStory = () => {
           src="/images/Seaview.PNG"
           className="w-screen shadow-xl shadow-gray-500 rounded-md"
           />
-        <div className="mt-10 p-5 bg-gray-800 text-white rounded-md">
+        <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
           <h1 className="text-5xl mb-3 font-semibold">WELCOME</h1>
           <hr></hr>
           <div className="flex flex-row">
@@ -59,7 +59,7 @@ const addStory = () => {
             />
           </div>
         </div>
-          <div className="mt-10 p-5 bg-gray-800 text-white rounded-md">
+          <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
           <div className="flex justify-between">
             <h1 className="text-5xl mb-3 font-semibold">NEWS</h1>
             <button 
