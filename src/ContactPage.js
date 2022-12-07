@@ -4,15 +4,12 @@ import { useState } from 'react';
 const ContactPage = () => {
   const [showAlert, setShowAlert] = useState(false);
 
-  const Alert = () =>  {
-    setShowAlert(true)
-  }
-
   const sendEmail = (e) => {
       e.preventDefault();
   
       emailjs.sendForm('service_eclqt7c', 'Neighbourhood_rw0it3m', e.target, 'soAbfXEvIO-hm50JH')
         .then((result) => {
+            setShowAlert(true)
             console.log(result.text);
         }, (error) => {
             console.log(error.text);
@@ -54,7 +51,7 @@ const ContactPage = () => {
                 <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Your message</label>
               </div>
             </div>
-            <button onClick={Alert} type="submit" className="mt-5 rounded-md bg-black px-10 py-2 text-white shadow-xl">Send Message</button>
+            <button type="submit" className="mt-5 rounded-md bg-black px-10 py-2 text-white shadow-xl">Send Message</button>
           </form>
         </div>
       </div>
