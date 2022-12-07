@@ -1,4 +1,13 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import { useState } from "react";
+
 const Footer = () => {
+    const [user, setUser] = useState({});
+  
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
 
     return (
         <section className="bg-gray-800 border-t-2 border-white mt-auto">
@@ -9,21 +18,25 @@ const Footer = () => {
                             Home
                         </a>
                     </div>
+                    {user &&
+                    <div className="px-5 py-2">
+                        <a href="/IncidentReportPage" className="text-base leading-6 text-white hover:text-lg">
+                            Incident Report's
+                        </a>
+                    </div>
+                    }
                     <div className="px-5 py-2">
                         <a href="/AboutUs" className="text-base leading-6 text-white hover:text-lg">
                             About Us
                         </a>
                     </div>
-                    <div className="px-5 py-2">
-                        <a href="/Blog" className="text-base leading-6 text-white hover:text-lg">
-                            Blog
-                        </a>
-                    </div>
+                    {user &&
                     <div className="px-5 py-2">
                         <a href="/Members" className="text-base leading-6 text-white hover:text-lg">
                             Members
                         </a>
                     </div>
+                    }
                     <div className="px-5 py-2">
                         <a href="/GalleryPage" className="text-base leading-6 text-white hover:text-lg">
                             Gallery

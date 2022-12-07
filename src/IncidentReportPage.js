@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const IncidentReportPage = (props) => {
@@ -13,11 +13,11 @@ const IncidentReportPage = (props) => {
         await deleteDoc(reportDoc);
       };
 
-    const updateReport = async (id) => {
+    const updateReport = async (id, title, description, patrollerName, location, date, time, dateReport) => {
+        const userDoc = doc(db, 'reports', id, title, description, patrollerName, location, date, time, dateReport);
+        await updateDoc(userDoc);
         navigate('/Dashboard')
     }
-
-    
 
     useEffect(() => {
         const getReports = async () => {
@@ -38,11 +38,11 @@ const IncidentReportPage = (props) => {
     return (
         <main className="flex flex-col bg-zinc-200 min-h-screen">
             <div className="pt-10">
-                <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1">Incident Report's</h1>
+                <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Incident Report's</h1>
             </div>
             {reports.map((report) => { 
                 return <div 
-                            className="bg-white p-10 mt-10 ml-[25%] mr-[25%] rounded-lg shadow-xl"
+                            className="bg-white p-10 mb-10 ml-[25%] mr-[25%] rounded-lg shadow-xl shadow-gray-500"
                             key={report.id}
                             >
                     {" "}
@@ -75,7 +75,7 @@ const IncidentReportPage = (props) => {
                     </div>
                     <div className="flex items-end">
                         <button 
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl "
                         onClick={updateReport}
                         >
                         Edit
