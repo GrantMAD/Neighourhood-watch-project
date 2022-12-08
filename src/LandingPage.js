@@ -47,7 +47,7 @@ const addStory = () => {
               The community initiatives are owned and run by our members which are supported by the police.
               We work by developing a close relationship between community members and the local police.
             </p>
-            <h1 className="text-lg font-semibold underline">How to join a Watch scheme</h1>
+            <h1 className="text-lg font-semibold underline underline-offset-8 mb-3">How to join a Watch scheme</h1>
             <p>Go to the contact us tab and send us a message, for more information on how these schemes work the benefits of the schemes advice on running a scheme in your local
               area.
             </p>
