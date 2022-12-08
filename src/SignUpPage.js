@@ -2,12 +2,17 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from "./firebase";
+import { db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 
   const SignUpPage = (props) => {
+    const [newName, setNewName] = useState();
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const usersCollecctionRef = collection(db, "users");
     const navigate = useNavigate();
    
 
@@ -23,24 +28,34 @@ import { useNavigate } from "react-router-dom";
             console.log(user);
             navigate("/SignInPage");
         } catch (error) {
-            console.log(error.message);
+            setShowAlert(true)
         }
     }
+
+    const UpdateUserFullName = async (e) => {
+        e.preventDefault();
+        await addDoc(usersCollecctionRef, { name: newName });
+        navigate('/Profile')
+      }
 
     return (
         <main className="p-10 bg-gray-900">
             <div className="bg-grey-lighter min-h-screen flex flex-col">
                 <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
                     <div className="bg-gray-900 px-6 py-8 rounded shadow-md text-white w-full">
-                        <h1 className="mb-8 text-3xl text-center underline">Sign up</h1>
+                        <h1 className="mb-8 text-3xl text-center">Sign up</h1>
                         <input 
                             type="text"
                             className="block border border-white-light w-full p-3 rounded mb-4"
                             name="fullname"
-                            placeholder="Full Name" />
+                            placeholder="Full Name"
+                            onChange={(event) => {
+                                setNewName(event.target.value);
+                              }}
+                            />
                             
                         <input
-                            type="text"
+                            type="email"
                             className="block border border-white-light w-full p-3 rounded mb-4 text-black"
                             name="email"
                             placeholder="Email"
@@ -48,6 +63,16 @@ import { useNavigate } from "react-router-dom";
                                 setRegisterEmail(event.target.value);
                             }}
                             />
+                            {showAlert &&
+                                <div>
+                                    <div class="flex bg-red-200 rounded-lg p-4 mb-4 text-sm text-red-700" role="alert">
+                                    <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                        <div>
+                                            <span class="font-medium">Incorrect Email or password, Please try again</span> 
+                                        </div>
+                                    </div>
+                                </div>
+                            }
 
                         <input 
                             type="password"
@@ -61,10 +86,13 @@ import { useNavigate } from "react-router-dom";
                         <button
                             type="submit"
                             className="w-full bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
-                            onClick={register}
+                            onClick={() => {
+                                register()
+                                UpdateUserFullName()
+                            }}
                             
                         >Create Account</button>
-
+                        {/*
                         <div className="text-center text-sm text-white mt-4">
                             By signing up, you agree to the &nbsp;
                             <a className="no-underline border-b border-grey-dark text-grey-dark" href="#/">
@@ -74,11 +102,12 @@ import { useNavigate } from "react-router-dom";
                                 Privacy Policy
                             </a>
                         </div>
+                        */}
                     </div>
-
-                    <div className="text-white mt-6">
+                        
+                    <div className="text-white">
                         Already have an account? &nbsp;
-                        <a className="no-underline border-b border-blue text-blue" href="../login/">
+                        <a className="no-underline border-b border-blue text-blue" href="../SignInPage">
                             Log in
                         </a>.
                     </div>
