@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileForm = () => {
   const [newName, setNewName] = useState();
-  const [newEmail, setNewEmail] = useState();
+  const [email, setEmail] = useState();
   const [newAddress, setNewAddress] = useState();
   const [newAbout, setNewAbout] = useState();
   const [newNumber, setNewNumber] = useState(0);
@@ -19,7 +19,7 @@ const ProfileForm = () => {
   const UpdateUser = async (e) => {
     e.preventDefault();
     const profileURL = await uploadProfileImage();
-    await addDoc(usersCollecctionRef, { name: newName, email: newEmail, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
+    await addDoc(usersCollecctionRef, { name: newName, email: email, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
     navigate('/Profile')
   }
 
@@ -117,7 +117,7 @@ const ProfileForm = () => {
                           autoComplete="email"
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
-                            setNewEmail(event.target.value);
+                            setEmail(event.target.value);
                           }}
                         />
                       </div>
