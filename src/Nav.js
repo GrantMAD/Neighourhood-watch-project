@@ -30,7 +30,7 @@ const Nav = () => {
                         <div className="ml-10 flex items-baseline">
                           <a href="/LandingPage" className="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
                           {user &&
-                          <a href="IncidentReportPage" className=" text-sm font-medium text-white">Incident Report's</a>
+                          <a href="/IncidentReportPage" className=" text-sm font-medium text-white">Incident Report's</a>
                           }
                           <a href="/AboutUs" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">About Us</a>
                           {user &&
@@ -92,7 +92,7 @@ const Nav = () => {
                     <div className="mt-3 px-2">
                       <a href="/ProfilePage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your Profile</a>
                       <a href="/DashBoard" className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">DashBoard</a>   
-                      <a href="/"  className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign In</a>
+                      <a href="/SignInPage"  className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Sign In</a>
                     </div>
                   </div>
                 </div>

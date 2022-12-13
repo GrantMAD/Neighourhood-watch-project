@@ -107,7 +107,7 @@ import { useNavigate } from "react-router-dom";
                         
                     <div className="text-white">
                         Already have an account? &nbsp;
-                        <a className="no-underline border-b border-blue text-blue" href="../SignInPage">
+                        <a className="no-underline border-b border-blue text-blue" href="../components/SignInPage">
                             Log in
                         </a>.
                     </div>
