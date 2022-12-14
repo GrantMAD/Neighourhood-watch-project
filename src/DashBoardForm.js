@@ -23,7 +23,7 @@ const DashBoardForm = () => {
   const usersCollecctionRef = collection(db, "reports");
   const usersCollecctionRef2 = collection(db, "storys");
   const location = useLocation();
-  const previousData = location.state.previousData;
+  const previousData = location.state && location.state.previousData;
 
   const addReport = async (e) => {
     e.preventDefault();
