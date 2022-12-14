@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const DashBoardForm = () => {
   const [newTitle, setNewTitle] =useState();
@@ -21,6 +22,8 @@ const DashBoardForm = () => {
   const navigate = useNavigate();
   const usersCollecctionRef = collection(db, "reports");
   const usersCollecctionRef2 = collection(db, "storys");
+  const location = useLocation();
+  const previousData = location.state.previousData;
 
   const addReport = async (e) => {
     e.preventDefault();
@@ -55,6 +58,23 @@ const DashBoardForm = () => {
     })
   };
 
+  useEffect(() => {
+    if (previousData) {
+      const reportsCollection = collection(db, 'reports');
+      const reportDoc = doc(reportsCollection, previousData.id);
+      getDoc(reportDoc).then((snapshot) => {
+        const data = snapshot.data();
+        setNewTitle(data.title);
+        setNewPatrollerName(data.patrollerName);
+        setNewDescription(data.description);
+        setNewLocation(data.location);
+        setNewDate(data.date)
+        setNewDateReport(data.dateReport)
+      });
+    }
+  }, [previousData]);
+  
+ 
     return (
       <>
         <div>
