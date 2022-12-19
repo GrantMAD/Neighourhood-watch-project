@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from "./firebase";
 import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,17 +26,17 @@ import { useNavigate } from "react-router-dom";
         try{
             const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             console.log(user);
+
+            await usersCollecctionRef.add({
+                name: newName,
+                email: registerEmail,
+            });
+
             navigate("/SignInPage");
         } catch (error) {
             setShowAlert(true)
         }
     }
-
-    const UpdateUserFullName = async (e) => {
-        e.preventDefault();
-        await addDoc(usersCollecctionRef, { name: newName });
-        navigate('/Profile')
-      }
 
     return (
         <main className="p-10 bg-gray-900">
@@ -88,7 +88,6 @@ import { useNavigate } from "react-router-dom";
                             className="w-full bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
                             onClick={() => {
                                 register()
-                                UpdateUserFullName()
                             }}
                             
                         >Create Account</button>
