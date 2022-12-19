@@ -49,6 +49,11 @@ const Nav = () => {
                         <a href="/SignInPage" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 border border-white">Sign In</a>
                         </div>
                         }
+                        {!user &&
+                      <div className="ml-3 relative">
+                        <a href="/SignUpPage" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 border border-white">Sign Up</a>
+                        </div>
+                        }
                         {user &&
                         <div className="flex ml-3 relative">
                           <button className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">

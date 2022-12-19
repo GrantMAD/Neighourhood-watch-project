@@ -73,11 +73,6 @@ const SignUpPage = (props) => {
               className="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300"
               >FORGOT PASSWORD?</a
             >
-            <a
-              href="SignUpPage"
-              className="transform text-center font-semibold text-indigo-600 duration-300 hover:text-gray-300"
-              >Sign Up</a
-            >
           </section>
         </main>
     )
