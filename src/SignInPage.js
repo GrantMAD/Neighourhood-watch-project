@@ -4,7 +4,7 @@ import { auth } from "./firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-const SignUpPage = (props) => {
+const SignInPage = (props) => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
@@ -78,4 +78,4 @@ const SignUpPage = (props) => {
     )
 }
 
-export default SignUpPage;
+export default SignInPage;

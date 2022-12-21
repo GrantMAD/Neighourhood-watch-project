@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
-  const usersCollectionRef = collection(db, 'storys');
   const navigate = useNavigate();
   
   useEffect(() => {
     const getStorys = async () => {
+        const usersCollectionRef = collection(db, 'storys');
         const storyData = await getDocs(usersCollectionRef);
         setStorys(storyData.docs.map((doc) => ({...doc.data(), id: doc.id })));     
     };
 
     getStorys();
-},)
+},[])
 
 const deleteReport = async (id) => {
   const storyDoc = doc(db, "storys", id);
