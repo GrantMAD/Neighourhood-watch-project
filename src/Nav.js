@@ -1,11 +1,27 @@
 import "./index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { useState } from "react";
 
 const Nav = () => {
   const [user, setUser] = useState({});
-  
+  const [checkedIn, setCheckedIn] = useState(false);
+
+  const handleCheckIn = () => {
+    try {
+      if(user && user.id) {
+        setCheckedIn(!checkedIn);
+    
+        const userDoc = db.collection('users').doc(user.id);
+    
+        userDoc.update({ checkedIn: !checkedIn });
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   })
@@ -52,6 +68,16 @@ const Nav = () => {
                         {!user &&
                       <div className="ml-3 relative">
                         <a href="/SignUpPage" className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 border border-white">Sign Up</a>
+                        </div>
+                        }
+                        {user &&
+                        <div className="mr-5 relative">
+                          <button 
+                            className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid bg-lime-200' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid'} 
+                            onClick={handleCheckIn}
+                            >
+                            {checkedIn ? 'Check out' : 'Check in'}
+                          </button>
                         </div>
                         }
                         {user &&

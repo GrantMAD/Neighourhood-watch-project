@@ -1,21 +1,34 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { db } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { db, auth } from "./firebase";
+import {collection, getDocs, query, where } from "firebase/firestore";
+import {onAuthStateChanged} from "firebase/auth";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(db, 'users');
+  const [user, setUser] = useState()
 
-    useEffect(() => {
-        const getUsers = async () =>{
-            const data = await getDocs(usersCollectionRef);
-            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-        };
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    })
+}, [])
 
-        getUsers();
-    },)
+  useEffect(() => {
+    const getUsers = async () => {
+        try {
+            const usersCollectionRef = collection(db, 'users')
+            const userQuery = query(usersCollectionRef, where("email", "==", user.email))
+            const data = await getDocs(userQuery)
+            setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    getUsers();
+}, [user])
 
   const editProfile = () => {
     navigate('/ProfilePage');
@@ -53,7 +66,7 @@ const Profile = () => {
             </div>
 
             <div className="mt-20 text-center border-b pb-12">
-              <h1 className="text-4xl font-medium text-gray-700">{user.name}, <span className="font-light text-gray-500">27</span></h1>
+              <h1 className="text-4xl font-medium text-gray-700">{user.name}</h1>
               <p className="font-light text-gray-600 mt-3">{user.address}</p>
 
               <p className="mt-8 text-gray-500">{user.number}</p>
