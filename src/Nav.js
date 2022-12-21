@@ -1,17 +1,27 @@
 import "./index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { useState } from "react";
 
 const Nav = () => {
   const [user, setUser] = useState({});
-  const [isCheckingIn, setIsCheckingIn] = useState(true);
+  const [checkedIn, setCheckedIn] = useState(false);
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    setIsCheckingIn(current => !current);
+  const handleCheckIn = () => {
+    try {
+      if(user && user.id) {
+        setCheckedIn(!checkedIn);
+    
+        const userDoc = db.collection('users').doc(user.id);
+    
+        userDoc.update({ checkedIn: !checkedIn });
+        }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
+
+
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   })
@@ -63,13 +73,10 @@ const Nav = () => {
                         {user &&
                         <div className="mr-5 relative">
                           <button 
-                            className="px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid" 
-                            id="user-menu" 
-                            aria-label="User menu" 
-                            aria-haspopup="true"
-                            onClick={handleClick}
+                            className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid bg-lime-200' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid'} 
+                            onClick={handleCheckIn}
                             >
-                             {isCheckingIn ? "Check In" : "Check Out"}
+                            {checkedIn ? 'Check out' : 'Check in'}
                           </button>
                         </div>
                         }

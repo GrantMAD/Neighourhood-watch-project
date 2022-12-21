@@ -34,6 +34,7 @@ import { useNavigate } from "react-router-dom";
                 email: registerEmail,
                 number: newNumber,
                 address: newAddress,
+                checkedIn: false,
             });
 
             navigate("/SignInPage");

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-const Members = () => {
-    const [users, setUsers] = useState([])
+const Members = (props) => {
+    const [users, setUsers] = useState([]);
+    const { checkedIn } = props;
     const usersCollectionRef = collection(db, 'users');
     
 
@@ -14,7 +15,8 @@ const Members = () => {
         };
 
         getUsers();
-    },)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
 
     return (
@@ -68,7 +70,7 @@ const Members = () => {
                                             {user.email}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <li className="text-xl ml-4 text-lime-500" ></li>                                 
+                                                <li className={checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>                                 
                                         </td>
                                         </tr>
                                     })}
