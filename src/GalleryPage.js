@@ -5,7 +5,7 @@ import { storage } from "./firebase";
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
 
-    useEffect (() => {
+    useEffect(() => {
         const imageRef = ref(storage, 'galleryImages/');
         listAll(imageRef).then((response) => {
             response.items.forEach((item) => {
@@ -14,7 +14,7 @@ const GalleryPage = () => {
                 })
             })
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -25,19 +25,19 @@ const GalleryPage = () => {
             <section className="overflow-hidden text-gray-700">
                 <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
                     <div className="flex flex-wrap m-1 md:-m-2">
-                    {imageUrls.map((url) => {
-                        return  <div className="flex flex-wrap w-1/3">
-                                    <div className="w-full p-1 md:p-2 object-constain">
-                                        <img 
-                                            alt="gallery" 
-                                            src={url} 
-                                            className="w-[416px] h-[277px] rounded-md shadow-lg shadow-gray-500 hover:scale-150"
-                                            />
-                                    </div>
+                        {imageUrls.map((url) => {
+                            return <div className="flex flex-wrap w-1/3">
+                                <div className="w-full p-1 md:p-2 object-constain">
+                                    <img
+                                        alt="gallery"
+                                        src={url}
+                                        className="w-[416px] h-[277px] rounded-md shadow-lg shadow-gray-500 hover:scale-150"
+                                    />
                                 </div>
-                    })}
+                            </div>
+                        })}
                     </div>
-                </div> 
+                </div>
                 <div className="flex justify-center max-w-2xl mx-auto mb-10">
                     <nav aria-label="Page navigation example">
                         <ul className="inline-flex -space-x-px shadow-xl">
@@ -54,7 +54,7 @@ const GalleryPage = () => {
                                     className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
                             </li>
                             <li>
-                                <a href="/#" 
+                                <a href="/#"
                                     className="bg-white border border-gray-300 text-gray-500 hover:bg-blue-100 hover:text-blue-700  py-2 px-3 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
                             </li>
                             <li>

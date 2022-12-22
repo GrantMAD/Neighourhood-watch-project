@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const Footer = () => {
     const [user, setUser] = useState({});
-  
+
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
     })
@@ -13,17 +13,17 @@ const Footer = () => {
         <section className="bg-gray-800 border-t-2 border-white mt-auto">
             <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
                 <nav className="flex flex-wrap justify-center -mx-5 -my-2">
-                <div className="px-5 py-2">
+                    <div className="px-5 py-2">
                         <a href="/" className="text-base leading-6 text-white hover:text-lg">
                             Home
                         </a>
                     </div>
                     {user &&
-                    <div className="px-5 py-2">
-                        <a href="/IncidentReportPage" className="text-base leading-6 text-white hover:text-lg">
-                            Incident Report's
-                        </a>
-                    </div>
+                        <div className="px-5 py-2">
+                            <a href="/IncidentReportPage" className="text-base leading-6 text-white hover:text-lg">
+                                Incident Report's
+                            </a>
+                        </div>
                     }
                     <div className="px-5 py-2">
                         <a href="/AboutUs" className="text-base leading-6 text-white hover:text-lg">
@@ -31,11 +31,11 @@ const Footer = () => {
                         </a>
                     </div>
                     {user &&
-                    <div className="px-5 py-2">
-                        <a href="/Members" className="text-base leading-6 text-white hover:text-lg">
-                            Members
-                        </a>
-                    </div>
+                        <div className="px-5 py-2">
+                            <a href="/Members" className="text-base leading-6 text-white hover:text-lg">
+                                Members
+                            </a>
+                        </div>
                     }
                     <div className="px-5 py-2">
                         <a href="/GalleryPage" className="text-base leading-6 text-white hover:text-lg">
