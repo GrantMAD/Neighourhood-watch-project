@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const imageRef = ref(storage, 'galleryImages/');
@@ -17,13 +19,27 @@ const GalleryPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const addImage = () => {
+        navigate('/Dashboard')
+      }
+
     return (
         <main className="h-100% bg-zinc-200">
             <div className="grid pt-10 place-content-center">
                 <h1 className="text-4xl  font-semibold mb-5 underline underline-offset-8 decoration-1">Gallery</h1>
             </div>
+
             <section className="overflow-hidden text-gray-700">
                 <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
+                    <div className="flex justify-end mb-5">
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl "
+                            onClick={addImage}
+                        >
+                            Add new image
+                        </button>
+
+                    </div>
                     <div className="flex flex-wrap m-1 md:-m-2">
                         {imageUrls.map((url) => {
                             return <div className="flex flex-wrap w-1/3">

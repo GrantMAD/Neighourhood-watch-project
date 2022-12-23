@@ -48,7 +48,6 @@ const DashBoardForm = () => {
   const uploadImage = (e) => {
     e.preventDefault();
     if (imageUpload == null) return;
-
     const imageRef = ref(storage, `galleryImages/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then(() => {
       navigate('/GalleryPage')

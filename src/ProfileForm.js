@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react"
+import { db, auth } from "./firebase";
+import { collection, doc } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -16,12 +16,30 @@ const ProfileForm = () => {
   const navigate = useNavigate();
   const usersCollecctionRef = collection(db, "users");
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userDocRef = doc(usersCollecctionRef, auth.currentUser.uid);
+      const userDoc = await userDocRef.getDocs();
+      if (userDoc.exists) {
+        setNewName(userDoc.data().name);
+        setEmail(userDoc.data().email);
+        setNewAddress(userDoc.data().address);
+        setNewAbout(userDoc.data().about);
+        setNewNumber(userDoc.data().number);
+      }
+    };
+    fetchUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const UpdateUser = async (e) => {
     e.preventDefault();
     const profileURL = await uploadProfileImage();
-    await addDoc(usersCollecctionRef, { name: newName, email: email, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
-    navigate('/Profile')
-  }
+    const userDocRef = collection(db, "users").doc(auth.currentUser.uid);
+  
+    await userDocRef.update({ name: newName, email: email, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
+    navigate('/Profile');
+  };
 
   const uploadProfileImage = async (e) => {
     if (profileImageUpload == null) return;
