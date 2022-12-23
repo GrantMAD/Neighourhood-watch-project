@@ -2,21 +2,25 @@ import "./index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useState } from "react";
-import { collection } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 const Nav = () => {
   const [user, setUser] = useState({});
   const [checkedIn, setCheckedIn] = useState(false);
-  const usersCollectionRef = collection(db, "users");
+  
 
-  const handleCheckIn = () => {
+  const handleCheckIn  = async () => {
     try {
-      if (user && user.id) {
-        setCheckedIn(!checkedIn);
-
-        const userDoc = usersCollectionRef.doc(user.id);
-
-        userDoc.update({ checkedIn: !checkedIn });
+      console.log("Clicked 2")
+      if (user && user.uid) { 
+        console.log('click 3');
+        
+        
+        const usersCollectionRef = collection(db, "users");
+        const userQuery = query(usersCollectionRef, where("email", "==", user.email))
+        const data = await getDocs(userQuery);
+        const userDoc = data.docs[0];
+        updateDoc(userDoc, { checkedIn: !checkedIn });
       }
     } catch (error) {
       console.log(error);
@@ -25,6 +29,7 @@ const Nav = () => {
 
 
   onAuthStateChanged(auth, (currentUser) => {
+    console.log(JSON.stringify(currentUser, null, 2))
     setUser(currentUser);
   })
 
@@ -76,7 +81,10 @@ const Nav = () => {
                     <div className="mr-5">
                       <button
                         className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid bg-lime-200' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid'}
-                        onClick={handleCheckIn}
+                        onClick={() => {
+                          console.log("clicked");
+                          handleCheckIn();
+                        }}
                       >
                         {checkedIn ? 'Check out' : 'Check in'}
                       </button>
