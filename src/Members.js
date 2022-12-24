@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react"
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
-
-const Members = (props) => {
+const Members = () => {
     const [users, setUsers] = useState([]);
-    const { checkedIn } = props;
     const usersCollectionRef = collection(db, 'users');
-
 
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs(usersCollectionRef);
             setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         };
-
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-
     return (
         <main className="h-screen bg-zinc-200">
             <div className="pt-10">
@@ -70,11 +64,10 @@ const Members = (props) => {
                                                     {user.email}
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    <li className={checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
+                                                    <li className={user.checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
                                                 </td>
                                             </tr>
                                         })}
-
                                     </tbody>
                                 </table>
                             </div>
@@ -83,8 +76,6 @@ const Members = (props) => {
                 </div>
             </div>
         </main>
-
     )
 }
-
 export default Members
