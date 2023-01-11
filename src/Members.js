@@ -35,6 +35,9 @@ const Members = () => {
                                                 Street
                                             </th>
                                             <th scope="col" className="text-sm font-medium text-white px-6 py-4">
+                                                CPF Sector
+                                            </th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">
                                                 Contact-Number
                                             </th>
                                             <th scope="col" className="text-sm font-medium text-white px-6 py-4">
@@ -54,6 +57,9 @@ const Members = () => {
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                     {user.address}
+                                                </td>
+                                                <td className="flex justify-center items-center text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {user.CPFSector}
                                                 </td>
                                                 <td
                                                     type="number"

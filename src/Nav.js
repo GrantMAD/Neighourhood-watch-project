@@ -63,22 +63,22 @@ const Nav = () => {
                                 <div className="hidden md:block">
                                     <div className="ml-10 flex items-baseline">
                                         <a href="/LandingPage"
-                                            className="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Home</a>
+                                            className="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         {user &&
-                                            <a href="/IncidentReportPage" className=" text-sm font-medium text-white">Incident
+                                            <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-white px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Incident
                                                 Report's</a>
                                         }
                                         <a href="/AboutUs"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">About
+                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">About
                                             Us</a>
                                         {user &&
                                             <a href="/Members"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Members</a>
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
                                         }
                                         <a href="/GalleryPage"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Gallery</a>
+                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
                                         <a href="/ContactPage"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Contact
+                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Contact
                                             Us</a>
                                     </div>
                                 </div>
@@ -99,13 +99,13 @@ const Nav = () => {
                                                 Up</a>
                                         </div>
                                     }
-                                        <div id="popup" className="hidden bg-gray-700 p-5 rounded-md text-lime-300 border border-lime-300 max-h-min">
-                                            You have checked in
-                                        </div>
+                                    <div id="popup" className="hidden p-5 rounded-md text-lime-300 max-h-min">
+                                        You have checked in
+                                    </div>
                                     {user &&
                                         <div className="mr-5">
                                             <button
-                                                className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid'}
+                                                className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500'}
                                                 onClick={handleCheckIn}
                                             >
                                                 {checkedIn ? 'Check out' : 'Check in'}
@@ -121,7 +121,7 @@ const Nav = () => {
                                                     src="/images/profileimage.jpg" alt="" />
                                             </button>
                                             <div id="user-menu-dropdown"
-                                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg border border-gray-800">
                                                 <div className="py-1 rounded-md bg-white shadow-xs" role="menu"
                                                     aria-orientation="vertical" aria-labelledby="user-menu">
                                                     <a href="/Profile"
@@ -131,7 +131,7 @@ const Nav = () => {
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">DashBoard</a>
                                                     <a href="/#"
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                                         role="menuitem" onClick={logout}>Sign Out</a>
                                                 </div>
                                             </div>

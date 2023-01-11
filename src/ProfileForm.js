@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "./firebase";
-import { collection, doc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 
 const ProfileForm = () => {
+  const [userData, setUserData] = useState(null);
   const [newName, setNewName] = useState();
   const [email, setEmail] = useState();
   const [newAddress, setNewAddress] = useState();
@@ -14,28 +15,28 @@ const ProfileForm = () => {
   const [newNumber, setNewNumber] = useState(0);
   const [profileImageUpload, setProfileImageUpload] = useState();
   const navigate = useNavigate();
-  const usersCollecctionRef = collection(db, "users");
+  const usersCollectionRef = collection(db, "users");
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userDocRef = doc(usersCollecctionRef, auth.currentUser.uid);
-      const userDoc = await userDocRef.getDocs();
-      if (userDoc.exists) {
-        setNewName(userDoc.data().name);
-        setEmail(userDoc.data().email);
-        setNewAddress(userDoc.data().address);
-        setNewAbout(userDoc.data().about);
-        setNewNumber(userDoc.data().number);
+      const usersCollectionRef = collection(db, "users");
+      const userQuery = query(usersCollectionRef, where("email", "==", auth.currentUser.email));
+      const querySnapshot = await getDocs(userQuery);
+      if (querySnapshot.empty) {
+        console.log("No matching documents.");
+        return;
       }
+      querySnapshot.forEach((doc) => {
+        setUserData(doc.data());
+      });
     };
-    fetchUserData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      fetchUserData();
   }, []);
 
   const UpdateUser = async (e) => {
     e.preventDefault();
     const profileURL = await uploadProfileImage();
-    const userDocRef = collection(db, "users").doc(auth.currentUser.uid);
+    const userDocRef = await usersCollectionRef.doc(userData.id);
   
     await userDocRef.update({ name: newName, email: email, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
     navigate('/Profile');
@@ -67,6 +68,7 @@ const ProfileForm = () => {
           <div className="mt-5 md:col-span-2 md:mt-0">
             <form action="#">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
+              {userData && (
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div>
                     <label htmlFor="about" className="block text-sm font-medium text-gray-700">
@@ -74,6 +76,7 @@ const ProfileForm = () => {
                     </label>
                     <div className="mt-1">
                       <textarea
+                        defaultValue={userData.about}
                         key="{about}"
                         type="text"
                         id="about"
@@ -81,10 +84,10 @@ const ProfileForm = () => {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="About yourself"
-                        defaultValue={''}
                         onChange={(event) => {
                           setNewAbout(event.target.value);
                         }}
+                        
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
@@ -98,6 +101,7 @@ const ProfileForm = () => {
                           Name
                         </label>
                         <input
+                          defaultValue={userData.name}
                           type="text"
                           name="first-name"
                           id="first-name"
@@ -106,6 +110,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewName(event.target.value);
                           }}
+                          
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-4">
@@ -113,6 +118,7 @@ const ProfileForm = () => {
                           Contact Number
                         </label>
                         <input
+                          defaultValue={userData.number}
                           type="number"
                           name="number"
                           id="number"
@@ -121,6 +127,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewNumber(event.target.value);
                           }}
+                          
                         />
                       </div>
 
@@ -129,6 +136,7 @@ const ProfileForm = () => {
                           Email address
                         </label>
                         <input
+                          defaultValue={userData.email}
                           type="text"
                           name="email-address"
                           id="email-address"
@@ -137,6 +145,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setEmail(event.target.value);
                           }}
+                          
                         />
                       </div>
 
@@ -145,6 +154,7 @@ const ProfileForm = () => {
                           Street address
                         </label>
                         <input
+                          defaultValue={userData.address}
                           type="text"
                           name="street-address"
                           id="street-address"
@@ -153,6 +163,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewAddress(event.target.value);
                           }}
+                          
                         />
                       </div>
                     </div>
@@ -183,12 +194,14 @@ const ProfileForm = () => {
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          defaultValue={userData.image}
                           type="file"
                           id="formFileMultiple"
                           multiple
                           onChange={(event) => {
                             setProfileImageUpload(event.target.value);
                           }}
+                          
                         />
                       </div>
                       {/*
@@ -202,6 +215,7 @@ const ProfileForm = () => {
                     </div>
                   </div>
                 </div>
+                )}
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                   <button
                     className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
