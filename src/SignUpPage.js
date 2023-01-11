@@ -11,6 +11,7 @@ const SignUpPage = (props) => {
     const [newName, setNewName] = useState();
     const [newNumber, setNewNumber] = useState(0);
     const [newAddress, setNewAddress] = useState();
+    const [newCpfSector, setNewCpfSector] = useState();
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
@@ -34,6 +35,7 @@ const SignUpPage = (props) => {
                 email: registerEmail,
                 number: newNumber,
                 address: newAddress,
+                CPFSector: newCpfSector,
                 checkedIn: false,
             });
 
@@ -76,6 +78,15 @@ const SignUpPage = (props) => {
                                 placeholder="Address"
                                 onChange={(event) => {
                                     setNewAddress(event.target.value);
+                                }}
+                            />
+                            <input
+                                type="text"
+                                className="block border border-white-light w-full p-3 rounded mb-4 text-black"
+                                name="CPFSector"
+                                placeholder="Sector(Charles/Alphas/Bravo)"
+                                onChange={(event) => {
+                                    setNewCpfSector(event.target.value);
                                 }}
                             />
                             <input

@@ -74,7 +74,8 @@ const LandingPage = () => {
             {" "}
             <hr></hr>
             <div className="mt-5">
-              <h1 className="text-3xl underline underline-offset-8 decoration-1">{story.storyTitle}</h1>
+              <h1 className="text-3xl mb-3 decoration-1">{story.storyTitle}</h1>
+              <hr></hr>
               <div className="flex flex-row">
                 <p className="mt-5 mr-5">{story.contents}</p>
                 <img
