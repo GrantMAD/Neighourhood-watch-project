@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "./firebase";
-import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -38,7 +38,14 @@ const ProfileForm = () => {
     const profileURL = await uploadProfileImage();
     const userDocRef = await usersCollectionRef.doc(userData.id);
   
-    await updateDoc(userDocRef, { name: newName, email: email, address: newAddress, number: newNumber, about: newAbout, profileImage: profileURL });
+    await userDocRef.update({
+      name: newName,
+      email: email,
+      address: newAddress,
+      number: newNumber,
+      about: newAbout,
+      profileImage: profileURL,
+    });
     navigate('/Profile');
   };
 

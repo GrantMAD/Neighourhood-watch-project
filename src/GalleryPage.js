@@ -26,7 +26,7 @@ const GalleryPage = () => {
     return (
         <main className="h-100% bg-zinc-200">
             <div className="grid pt-10 place-content-center">
-                <h1 className="text-4xl  font-semibold mb-5 underline underline-offset-8 decoration-1">Gallery</h1>
+                <h1 className="text-4xl  font-semibold underline underline-offset-8 decoration-1">Gallery</h1>
             </div>
 
             <section className="overflow-hidden text-gray-700">
