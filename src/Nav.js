@@ -121,7 +121,7 @@ const Nav = () => {
                                                     src="/images/profileimage.jpg" alt="" />
                                             </button>
                                             <div id="user-menu-dropdown"
-                                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg border border-gray-800">
+                                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                                                 <div className="py-1 rounded-md bg-white shadow-xs" role="menu"
                                                     aria-orientation="vertical" aria-labelledby="user-menu">
                                                     <a href="/Profile"
