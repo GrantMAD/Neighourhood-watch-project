@@ -69,6 +69,7 @@ const LandingPage = () => {
             Add Story
           </button>
         </div>
+        <a href="/StoryPage">
         {storys.map((story) => {
           return <div key={story.id}>
             {" "}
@@ -77,7 +78,7 @@ const LandingPage = () => {
               <h1 className="text-3xl mb-3 decoration-1">{story.storyTitle}</h1>
               <hr></hr>
               <div className="flex flex-row">
-                <p className="mt-5 mr-5">{story.contents}</p>
+                <p className="mt-5 mr-5">{story.contents.slice(0, 500) + "... Read More"}</p>
                 <img
                   className="h-1/4 w-1/4 mt-5 rounded-md"
                   alt=""
@@ -101,6 +102,7 @@ const LandingPage = () => {
             </div>
           </div>
         })}
+        </a>
       </div>
 
     </main>
