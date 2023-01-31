@@ -16,6 +16,7 @@ import LandingPage from './LandingPage';
 import Profile from './Profile';
 import PasswordResetEmail from './PasswordResetEmail';
 import PasswordResetPage from './PasswordResetPage';
+import StoryPage from './StoryPage';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Routes>
         <Route path="/" element={ <LandingPage/>} />
         <Route path="LandingPage" element={ <LandingPage/>} />
+        <Route path="StoryPage" element={ <StoryPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
