@@ -30,6 +30,11 @@ const LandingPage = () => {
     navigate('/Dashboard')
   }
 
+  const handleStoryClick = (story) => {
+    navigate('/StoryPage', { state: { story: story } });
+    console.log(story)
+  }
+
   return (
     <main className="pt-10 pb-10 pr-60 pl-60 bg-zinc-200">
       <img
@@ -59,17 +64,17 @@ const LandingPage = () => {
           />
         </div>
       </div>
-      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
+      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500"
+        >
         <div className="flex justify-between">
           <h1 className="text-5xl mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl h-1/4 mt-1"
+            className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl h-1/4 mt-1 border-2 border-white"
             onClick={addStory}
           >
             Add Story
           </button>
         </div>
-        <a href="/StoryPage">
         {storys.map((story) => {
           return <div key={story.id}>
             {" "}
@@ -77,23 +82,25 @@ const LandingPage = () => {
             <div className="mt-5">
               <h1 className="text-3xl mb-3 decoration-1">{story.storyTitle}</h1>
               <hr></hr>
-              <div className="flex flex-row">
-                <p className="mt-5 mr-5">{story.contents.slice(0, 500) + "... Read More"}</p>
+              <div 
+                className="flex flex-row"
+                >
+                <p className="mt-5 mr-5">{story.contents.slice(0, 500) + "..."} <button className="text-cyan-500" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                 <img
-                  className="h-1/4 w-1/4 mt-5 rounded-md"
+                  className="max-h-xs max-w-xs mt-5 rounded-md"
                   alt=""
                   src={story.image}
                 />
               </div>
               <div className="flex items-end mb-5 mt-5">
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl"
+                  className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl border-2 border-white"
                   onClick={updateReport}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl"
+                  className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded shadow-xl border-2 border-white"
                   onClick={() => { deleteReport(story.id) }}
                 >
                   Delete
@@ -102,7 +109,6 @@ const LandingPage = () => {
             </div>
           </div>
         })}
-        </a>
       </div>
 
     </main>
