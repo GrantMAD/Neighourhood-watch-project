@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import 'firebase/compat/auth';
 import { confirmPasswordReset, getAuth } from "firebase/auth";
+// eslint-disable-next-line no-unused-vars
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const PasswordResetPage = (props) => {
     const auth = getAuth();
     const [newPassword, setNewPassword] = useState('');
+    // eslint-disable-next-line no-use-before-define
     const query = useQuery()
     const [successShowAlert, setSuccessShowAlert] = useState(false);
     const navigate = useNavigate();

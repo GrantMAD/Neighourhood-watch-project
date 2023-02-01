@@ -38,7 +38,7 @@ const ProfileForm = () => {
     const profileURL = await uploadProfileImage();
     const userDocRef = await usersCollectionRef.doc(userData.id);
   
-    await userDocRef.update({
+    await userDocRef.updateDoc({
       name: newName,
       email: email,
       address: newAddress,
