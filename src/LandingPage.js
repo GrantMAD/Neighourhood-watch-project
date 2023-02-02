@@ -69,7 +69,7 @@ const LandingPage = () => {
         <div className="flex justify-between">
           <h1 className="text-5xl mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl h-1/4 mt-1 border-2 border-white"
+            className="bg-gray-800 hover:bg-gray-600 text-cyan-500 font-bold py-2 px-4 rounded mr-2 shadow-xl h-1/4 mt-1 border-2 border-cyan-500"
             onClick={addStory}
           >
             Add Story
@@ -80,12 +80,12 @@ const LandingPage = () => {
             {" "}
             <hr></hr>
             <div className="mt-5">
-              <h1 className="text-3xl mb-3 decoration-1">{story.storyTitle}</h1>
-              <hr></hr>
+              <h1 className="text-3xl mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
+              <hr className="w-1/4"></hr>
               <div 
                 className="flex flex-row"
                 >
-                <p className="mt-5 mr-5">{story.contents.slice(0, 500) + "..."} <button className="text-cyan-500" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                <p className="mt-5 mr-5">{story.contents.slice(0, 500) + "..."} <button className="text-cyan-500 hover:text-cyan-300" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                 <img
                   className="max-h-xs max-w-xs mt-5 rounded-md"
                   alt=""
@@ -94,13 +94,13 @@ const LandingPage = () => {
               </div>
               <div className="flex items-end mb-5 mt-5">
                 <button
-                  className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl border-2 border-white"
+                  className="bg-gray-800 hover:bg-gray-600 text-cyan-500 font-bold py-2 px-4 rounded mr-2 shadow-xl border-2 border-cyan-500"
                   onClick={updateReport}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-gray-800 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded shadow-xl border-2 border-white"
+                  className="bg-gray-800 hover:bg-gray-600 text-cyan-500 font-bold py-2 px-4 rounded shadow-xl border-2 border-cyan-500"
                   onClick={() => { deleteReport(story.id) }}
                 >
                   Delete

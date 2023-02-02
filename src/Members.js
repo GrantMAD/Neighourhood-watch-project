@@ -16,7 +16,7 @@ const Members = () => {
     return (
         <main className="h-screen bg-zinc-200">
             <div className="pt-10">
-                <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1">Members List</h1>
+                <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1">Members List</h1>
             </div>
             <div className="pt-10 ">
                 <div className="flex flex-col">
