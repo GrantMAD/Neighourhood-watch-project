@@ -21,7 +21,7 @@ const PasswordResetEmail = (props) => {
 
     return (
         <main className="mx-auto flex flex-col min-h-screen w-full items-center justify-center bg-gray-900 text-white">
-            <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Password Reset</h1>
+            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Password Reset</h1>
             <div>
                 <input
                     value={email}
