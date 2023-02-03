@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import SkeletonReport from "./Skeletons/SkeletonReport";
 
 const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
     const usersCollectionRef = collection(db, 'reports');
+    const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
 
     const deleteReport = async (id) => {
@@ -21,6 +23,7 @@ const IncidentReportPage = (props) => {
         const getReports = async () => {
             const reportData = await getDocs(usersCollectionRef);
             setReports(reportData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            setIsLoading(false);
         };
 
         getReports();
@@ -38,8 +41,12 @@ const IncidentReportPage = (props) => {
         <main className="flex flex-col bg-zinc-200 min-h-screen">
             <div className="pt-10">
                 <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 text-gray-800">Incident Report's</h1>
+                
             </div>
-            {reports.map((report) => {
+            {isLoading ? (
+                <SkeletonReport />
+            ) :
+            reports.map((report) => {
                 return <div
                     className="bg-white p-10 mb-10 ml-[25%] mr-[25%] rounded-lg shadow-xl shadow-gray-500 border border-gray-800"
                     key={report.id}

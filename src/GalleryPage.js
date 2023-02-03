@@ -44,11 +44,9 @@ const GalleryPage = () => {
 
                     </div>
                     <div className="flex flex-wrap m-1 md:-m-2">
-                        {isLoading
-                            ? Array.from({ length: 12 }, (_, i) => (
-                                <SkeletonImage key={i} />
-                            ))
-                            :
+                        {isLoading ? (  
+                                <SkeletonImage />
+                            ) :
                             imageUrls.map((url) => {
                                 return <div className="flex flex-wrap w-1/3">
                                     <div className="w-full p-1 md:p-2 object-constain">
