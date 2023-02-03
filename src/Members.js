@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
+import SkeletonMember from "./Skeletons/SkeletonMember";
+
 const Members = () => {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const usersCollectionRef = collection(db, 'users');
 
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs(usersCollectionRef);
             setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            setIsLoading(false);
         };
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,7 +24,7 @@ const Members = () => {
             </div>
             <div className="pt-10 ">
                 <div className="flex flex-col">
-                    <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
                         <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
                             <div className="overflow-hidden">
                                 <table className="min-w-full text-center">
@@ -49,7 +53,10 @@ const Members = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map((user, index) => {
+                                    {isLoading ? (
+                                        <SkeletonMember />
+                                    ) : 
+                                        users.map((user, index) => {
                                             return <tr className="bg-white border-b" key={user.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -76,6 +83,7 @@ const Members = () => {
                                         })}
                                     </tbody>
                                 </table>
+                                <SkeletonMember />
                             </div>
                         </div>
                     </div>

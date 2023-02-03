@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
       { showNav &&
-        <Nav/>
+        <Nav />
       }
         <Routes>
         <Route path="/" element={ <LandingPage/>} />
