@@ -2,7 +2,7 @@
 const AboutUs = () => {
 
     return (
-        <div class="bg-zinc-200 p-10">
+        <div class="bg-zinc-200 p-24">
             <h1 class="grid text-4xl place-content-center font-semibold mb-9 underline underline-offset-8 decoration-1">About us</h1>
             <div class="grid grid-cols-2">
                 <div class="pr-[25%] pl-[25%] w-full">
