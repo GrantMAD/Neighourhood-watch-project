@@ -11,7 +11,12 @@ const Members = () => {
     useEffect(() => {
         const getUsers = async () => {
             const data = await getDocs(usersCollectionRef);
-            setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+              });
+              setUsers(sortedUsers);
             setIsLoading(false);
         };
         getUsers();
@@ -19,13 +24,13 @@ const Members = () => {
     }, [])
     return (
         <main className="h-screen bg-zinc-200">
-            <div className="pt-10">
+            <div className="pt-24">
                 <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1">Members List</h1>
             </div>
-            <div className="pt-10 ">
+            <div className="pt-10">
                 <div className="flex flex-col">
-                    <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
-                        <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div>
+                        <div className="pt-4 inline-block min-w-full ">
                             <div className="overflow-hidden">
                                 <table className="min-w-full text-center">
                                     <thead className="border-b bg-gray-800">
@@ -83,7 +88,6 @@ const Members = () => {
                                         })}
                                     </tbody>
                                 </table>
-                                <SkeletonMember />
                             </div>
                         </div>
                     </div>

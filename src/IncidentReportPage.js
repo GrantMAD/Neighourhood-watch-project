@@ -39,9 +39,8 @@ const IncidentReportPage = (props) => {
 
     return (
         <main className="flex flex-col bg-zinc-200 min-h-screen">
-            <div className="pt-10">
+            <div className="pt-24">
                 <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 text-gray-800">Incident Report's</h1>
-                
             </div>
             {isLoading ? (
                 <SkeletonReport />
