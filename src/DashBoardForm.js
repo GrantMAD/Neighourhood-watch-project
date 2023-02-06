@@ -336,7 +336,7 @@ const DashBoardForm = () => {
                               setNewDescription(event.target.value);
                             }}
                           ></textarea>
-                          <h1 className="text-xs">To make the window larger click and drag the bottem right corner</h1>
+                          <h1 className="text-xs">To make the window larger click and drag the bottom right corner</h1>
                         </div>
                       </div>
                     </div>

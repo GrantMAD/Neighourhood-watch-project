@@ -3,11 +3,13 @@ import { db } from "./firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "./Skeletons/SkeletonReport";
+import "./index.css";
 
 const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
     const usersCollectionRef = collection(db, 'reports');
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
     const deleteReport = async (id) => {
@@ -19,6 +21,10 @@ const IncidentReportPage = (props) => {
         navigate('/Dashboard')
     }
 
+    const addReport = () => {
+        navigate('/Dashboard')
+      }
+
     useEffect(() => {
         const getReports = async () => {
             const reportData = await getDocs(usersCollectionRef);
@@ -27,8 +33,8 @@ const IncidentReportPage = (props) => {
         };
 
         getReports();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         if (props.funcNav) {
@@ -42,60 +48,98 @@ const IncidentReportPage = (props) => {
             <div className="pt-24">
                 <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 text-gray-800">Incident Report's</h1>
             </div>
+            <div className="flex flex-row justify-between ml-[25%] mr-[25%] mb-5">
+                <div
+                    class="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md">
+                    <button
+                        class="py-2 px-4 bg-white text-gray-600 rounded-l border-r border-gray-200 hover:bg-gray-50 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
+                        Search
+                    </button>
+                    <input
+                        type="search"
+                        placeholder="Report Name"
+                        class="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
+                        onChange={e => { setSearchTerm(e.target.value) }}
+                    />
+                </div>
+                <button
+                    className="bg-gray-800 hover:bg-gray-700 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl"
+                    onClick={addReport}
+                >
+                    Add Report
+                </button>
+            </div>
+            <div className="ml-[25%] mr-[25%] mb-5">
+                <p>This is where all incident report's are displayed. Registered patroller's have access to all report's that are currently posted. To search for a report input the name of the report above. To add a new report click on the add repor button</p>
+            </div>
             {isLoading ? (
                 <SkeletonReport />
             ) :
-            reports.map((report) => {
-                return <div
-                    className="bg-white p-10 mb-10 ml-[25%] mr-[25%] rounded-lg shadow-xl shadow-gray-500 border border-gray-800"
-                    key={report.id}
-                >
-                    {" "}
-                    <div className="flex justify-between">
-                        <h1 className="text-2xl mb-6 font-semibold underline underline-offset-8 decoration-1 text-gray-800">{report.title}</h1>
-                        <div className="flex items-end pb-4">
-                            <h1 className="font-semibold mr-2 text-gray-800">Date of report:</h1>
-                            <h1>{report.dateReport}</h1>
+                // eslint-disable-next-line array-callback-return
+                reports.filter((value) => {
+                    if (searchTerm === "") {
+                        return value
+                    } else if (value.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        return value
+                    }
+                }).map((report) => {
+                    return <div class="flex flex-col items-center">
+                        <div class="w-1/2 mb-3">
+                            <input type="checkbox" name="panel" id="panel-1" class="hidden" />
+                            <label for="panel-1" class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg ">{report.title}</label>
+                            <div class="accordion__content overflow-hidden bg-grey-lighter">
+                                <div
+                                    className="bg-white p-10 mb-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-gray-800"
+                                    key={report.id}
+                                >
+                                    {" "}
+                                    <div className="flex justify-between">
+                                        <h1 className="text-2xl mb-6 font-semibold underline underline-offset-8 decoration-1 text-gray-800">{report.title}</h1>
+                                        <div className="flex items-end pb-4">
+                                            <h1 className="font-semibold mr-2 text-gray-800">Date of report:</h1>
+                                            <h1>{report.dateReport}</h1>
+                                        </div>
+                                    </div>
+                                    <p className="mb-10 whitespace-pre-line ...">{report.description}</p>
+                                    <div className="flex justify-between">
+                                        <div>
+                                            <div className="flex">
+                                                <h1 className="font-semibold mr-2 text-gray-800">Patroller's name:</h1>
+                                                <h1>{report.patrollerName}</h1>
+                                            </div>
+                                            <div className="flex">
+                                                <h1 className="font-semibold mr-2 text-gray-800">Location:</h1>
+                                                <h1>{report.location}</h1>
+                                            </div>
+                                            <div className="flex">
+                                                <h1 className="font-semibold mr-2 text-gray-800">Date of incident:</h1>
+                                                <h1>{report.date}</h1>
+                                            </div>
+                                            <div className="flex">
+                                                <h1 className="font-semibold mr-2 text-gray-800">Time of incident:</h1>
+                                                <h1>{report.time}</h1>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-end">
+                                            <button
+                                                className="bg-gray-800 hover:bg-blue-700 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl "
+                                                onClick={() => updateReport()}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="bg-gray-800 hover:bg-red-700 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl"
+                                                onClick={() => { deleteReport(report.id) }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p className="mb-10">{report.description}</p>
-                    <div className="flex justify-between">
-                        <div>
-                            <div className="flex">
-                                <h1 className="font-semibold mr-2 text-gray-800">Patroller's name:</h1>
-                                <h1>{report.patrollerName}</h1>
-                            </div>
-                            <div className="flex">
-                                <h1 className="font-semibold mr-2 text-gray-800">Location:</h1>
-                                <h1>{report.location}</h1>
-                            </div>
-                            <div className="flex">
-                                <h1 className="font-semibold mr-2 text-gray-800">Date of incident:</h1>
-                                <h1>{report.date}</h1>
-                            </div>
-                            <div className="flex">
-                                <h1 className="font-semibold mr-2 text-gray-800">Time of incident:</h1>
-                                <h1>{report.time}</h1>
-                            </div>
-                        </div>
-                        <div className="flex items-end">
-                            <button
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl "
-                                onClick={() => updateReport()}
-                            >
-                                Edit
-                            </button>
-                            <button
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow-xl"
-                                onClick={() => { deleteReport(report.id) }}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            })}
-
+                })}
         </main>
     )
 }

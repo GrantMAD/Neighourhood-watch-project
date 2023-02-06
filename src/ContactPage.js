@@ -51,7 +51,8 @@ const ContactPage = () => {
               <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Your message</label>
             </div>
           </div>
-          <button type="submit" className="mt-5 rounded-md bg-gray-800 px-10 py-2 text-white shadow-xl hover:bg-gray-600">Send Message</button>
+          <h1 className='text-gray-500 text-sm'>Click and drag bottom right cornner to make larger</h1>
+          <button type="submit" className="mt-3 rounded-md bg-gray-800 px-10 py-2 text-white shadow-xl hover:bg-gray-600">Send Message</button>
         </form>
       </div>
     </div>
