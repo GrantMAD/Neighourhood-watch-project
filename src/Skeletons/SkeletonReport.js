@@ -3,7 +3,7 @@ import React from "react";
 const SkeletonReport = () => {
     return (
         <div>
-            <div role="status" class="flex flex-col ml-[25%] mr-[25%] p-4 space-y-4 divide-y divide-gray-200 rounded animate-pulse mb-10">
+            <div role="status" class="flex flex-col ml-[25%] mr-[25%] space-y-4 divide-y divide-gray-200 rounded animate-pulse mb-10">
                 <div class="flex">
                     <div>
                         <div className="flex flex-col">
