@@ -31,7 +31,6 @@ const GalleryPage = () => {
             <div className="grid pt-24 place-content-center">
                 <h1 className="text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">Gallery</h1>
             </div>
-
             <section className="overflow-hidden text-gray-700">
                 <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
                     <div className="flex justify-end mb-5">
@@ -43,24 +42,25 @@ const GalleryPage = () => {
                         </button>
 
                     </div>
+                        <p className="mb-5">The image's displayed here are all from past event's that have happened. All image's are posted by admin's only. To enlarge an image hover over it.</p>
                     <div className="flex flex-wrap m-1 md:-m-2">
-                        {isLoading ? (  
-                                <SkeletonImage />
-                            ) :
+                        {isLoading ? (
+                            <SkeletonImage />
+                        ) :
                             imageUrls.map((url) => {
                                 return <div className="flex flex-wrap w-1/3">
                                     <div className="w-full p-1 md:p-2 object-constain">
                                         <img
                                             alt="gallery"
                                             src={url}
-                                            className="w-[416px] h-[277px] rounded-xl shadow-lg shadow-gray-500 hover:scale-150"
+                                            className="w-[416px] h-[277px] rounded-xl shadow-lg shadow-gray-500 hover:scale-150 border-2 border-gray-800"
                                         />
                                     </div>
                                 </div>
                             })}
                     </div>
                 </div>
-                <div className="flex justify-center max-w-2xl mx-auto mb-10">
+               {/*<div className="flex justify-center max-w-2xl mx-auto mb-10">
                     <nav aria-label="Page navigation example">
                         <ul className="inline-flex -space-x-px shadow-xl">
                             <li>
@@ -94,6 +94,7 @@ const GalleryPage = () => {
                         </ul>
                     </nav>
                 </div>
+                */}
             </section>
         </main>
     )

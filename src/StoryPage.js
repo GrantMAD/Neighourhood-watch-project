@@ -25,7 +25,7 @@ const StoryPage = (props) => {
         <div className="flex flex-row">
           <p className="text-zinc-200 whitespace-pre-line ...">{story.contents}</p>
           <img
-            className="h-1/4 w-1/4 mt-5 mb-8 rounded-md shadow-lg shadow-gray-500 ml-5 hover:scale-150"
+            className="h-1/4 w-1/4 mt-5 mb-8 rounded-md shadow-lg shadow-gray-500 ml-5 hover:scale-150 border-2 border-zinc-200"
             alt=""
             src={story.image}
           />
