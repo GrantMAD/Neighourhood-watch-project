@@ -17,6 +17,7 @@ import Profile from './Profile';
 import PasswordResetEmail from './PasswordResetEmail';
 import PasswordResetPage from './PasswordResetPage';
 import StoryPage from './StoryPage';
+import PublicProfile from './PublicProfile';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
         <Route path="/Profile" element={ <Profile/>} />
+        <Route path="/PublicProfile/:id" element={ <PublicProfile/>} />
         <Route path="/DashBoard" element={ <DashBoard/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
