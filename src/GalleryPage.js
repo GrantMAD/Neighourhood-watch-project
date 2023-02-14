@@ -35,7 +35,7 @@ const GalleryPage = () => {
                 <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
                     <div className="flex justify-end mb-5">
                         <button
-                            className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl "
+                            className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125 ..."
                             onClick={addImage}
                         >
                             Add new image

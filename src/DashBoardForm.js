@@ -5,6 +5,7 @@ import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
+import "./index.css";
 
 const DashBoardForm = () => {
   const [newTitle, setNewTitle] = useState();
@@ -87,7 +88,7 @@ const DashBoardForm = () => {
                                 font-normal
                                 text-gray-700
                                 bg-white bg-clip-padding
-                                border border-solid border-gray-500
+                                border border-solid border-gray-300
                                 rounded
                                 transition
                                 ease-in-out
@@ -106,10 +107,10 @@ const DashBoardForm = () => {
                 </div>
                 <div className="bg-white px-4 py-3 text-right sm:px-6">
                   <button
-                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:scale-125 ..."
                     onClick={uploadImage}
                   >
-                    Submit
+                    Save
                   </button>
                 </div>
               </div>
@@ -344,7 +345,7 @@ const DashBoardForm = () => {
                 </div>
                 <div className="bg-white px-4 py-3 text-right sm:px-6">
                   <button
-                    className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:scale-125 ..."
                     onClick={addReport}
                   >
                     Save
@@ -467,7 +468,7 @@ const DashBoardForm = () => {
                 </div>
                 <div className="bg-white px-4 py-3 text-right sm:px-6">
                   <button
-                    className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:scale-125 ..."
                     onClick={addStory}
                   >
                     Save
