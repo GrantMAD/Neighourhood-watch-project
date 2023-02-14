@@ -98,7 +98,7 @@ const Members = (user) => {
                                                 }).map((user, index) => {
                                                     return <tr className="bg-white border-b" key={user.id}>
                                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
-                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer"   key={user.id} onClick={userPublicProfile}>
+                                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..."   key={user.id} onClick={userPublicProfile}>
                                                             {user.name}
                                                         </td>
                                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

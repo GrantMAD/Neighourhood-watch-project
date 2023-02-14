@@ -71,7 +71,7 @@ const LandingPage = () => {
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-1 border-2 border-zinc-200"
+            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-1 border-2 border-zinc-200 hover:scale-125 ..."
             onClick={addStory}
           >
             Add Story
@@ -99,13 +99,13 @@ const LandingPage = () => {
                 </div>
                 <div className="flex items-end mb-5 mt-5">
                   <button
-                    className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-zinc-200 border-2 border-zinc-200"
+                    className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-zinc-200 border-2 border-zinc-200 hover:scale-125 ..."
                     onClick={updateReport}
                   >
                     Edit
                   </button>
                   <button
-                    className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-zinc-200 border-2 border-zinc-200"
+                    className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-zinc-200 border-2 border-zinc-200 hover:scale-125 ..."
                     onClick={() => { deleteReport(story.id) }}
                   >
                     Delete

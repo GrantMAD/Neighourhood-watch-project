@@ -22,17 +22,17 @@ const StoryPage = (props) => {
         <div className="flex justify-center">
           <hr className="mb-10 border-gray-800 w-1/4"></hr>
         </div>
-        <div className="flex flex-row">
-          <p className="text-zinc-200 whitespace-pre-line ...">{story.contents}</p>
-          <img
-            className="h-1/4 w-1/4 mt-5 mb-8 rounded-md shadow-lg shadow-gray-500 ml-5 hover:scale-150 border-2 border-zinc-200"
+        <div>
+        <img
+            className="h-1/4 w-1/4 mt-2 mb-5 rounded-md shadow-lg shadow-gray-500 ml-5 hover:scale-150 border-2 border-zinc-200 float-right"
             alt=""
             src={story.image}
           />
+          <p className="text-zinc-200 whitespace-pre-line ...">{story.contents}</p>
         </div>
         <div className="pt-5 pb-10">
           <button
-            className="bg-zinc-300 hover:bg-zinc-100 text-gray-800 font-bold py-2 px-4 rounded mr-2 float-right"
+            className="bg-zinc-300 hover:bg-zinc-100 text-gray-800 font-bold py-2 px-4 rounded mr-2 float-right hover:scale-125 ..."
             onClick={returnToLanding}
           >
             Return 

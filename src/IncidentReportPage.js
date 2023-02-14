@@ -52,7 +52,7 @@ const IncidentReportPage = (props) => {
                 <div
                     class="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md">
                     <button
-                        class="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
+                        class="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
                         Search
                     </button>
                     <input
@@ -63,7 +63,7 @@ const IncidentReportPage = (props) => {
                     />
                 </div>
                 <button
-                    className="bg-gray-800 hover:bg-gray-700 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded shadow-md shadow-gray-800"
+                    className="bg-gray-800 hover:bg-gray-700 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded shadow-md shadow-gray-800 hover:scale-125 ..."
                     onClick={addReport}
                 >
                     Add Report
@@ -83,8 +83,8 @@ const IncidentReportPage = (props) => {
                         return value
                     }
                 }).map((report,  index) => {
-                    return <div class="flex flex-col items-center">
-                        <div class="w-1/2 mb-3 shadow-md shadow-gray-800">
+                    return <div class="flex flex-col items-center hover:scale-105 ...">
+                        <div class="w-1/2 mb-3">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
                             <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg">{report.title}</label>
                             <div class="accordion__content overflow-hidden bg-grey-lighter transition duration-500 ease-in-out">

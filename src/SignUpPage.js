@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const SignUpPage = (props) => {
     const [newName, setNewName] = useState();
-    const [newNumber, setNewNumber] = useState(0);
-    const [newAddress, setNewAddress] = useState();
     const [newCpfSector, setNewCpfSector] = useState();
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
@@ -33,8 +31,6 @@ const SignUpPage = (props) => {
             await addDoc(usersCollectionRef, {
                 name: newName,
                 email: registerEmail,
-                number: newNumber,
-                address: newAddress,
                 CPFSector: newCpfSector,
                 checkedIn: false,
             });
@@ -74,30 +70,10 @@ const SignUpPage = (props) => {
                             <input
                                 type="text"
                                 className="block border border-white-light w-full p-3 rounded mb-4 text-black"
-                                name="Address"
-                                placeholder="Address"
-                                onChange={(event) => {
-                                    setNewAddress(event.target.value);
-                                }}
-                            />
-                            <input
-                                type="text"
-                                className="block border border-white-light w-full p-3 rounded mb-4 text-black"
                                 name="CPFSector"
                                 placeholder="Sector(Charles/Alphas/Bravo)"
                                 onChange={(event) => {
                                     setNewCpfSector(event.target.value);
-                                }}
-                            />
-                            <input
-                                type="number"
-                                name="number"
-                                id="number"
-                                autoComplete="number"
-                                className="block border border-white-light w-full p-3 rounded mb-4 text-black"
-                                placeholder="Number"
-                                onChange={(event) => {
-                                    setNewNumber(event.target.value);
                                 }}
                             />
                             {showAlert &&
@@ -129,17 +105,6 @@ const SignUpPage = (props) => {
                             }}
 
                         >Create Account</button>
-                        {/*
-                        <div className="text-center text-sm text-white mt-4">
-                            By signing up, you agree to the &nbsp;
-                            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#/">
-                                Terms of Service
-                            </a> and &nbsp; 
-                            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#/">
-                                Privacy Policy
-                            </a>
-                        </div>
-                        */}
                     </div>
 
                     <div className="text-white">
