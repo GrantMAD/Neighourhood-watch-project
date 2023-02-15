@@ -92,7 +92,7 @@ const LandingPage = () => {
                 >
                   <p className="mt-5 mr-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                   <img
-                    className="max-h-xs max-w-xs mt-5 rounded-md border border-zinc-200 shadow-md shadow-zinc-200"
+                    className="max-h-xs max-w-xs mt-5 rounded-md border border-zinc-200 shadow-md shadow-black"
                     alt=""
                     src={story.image}
                   />
