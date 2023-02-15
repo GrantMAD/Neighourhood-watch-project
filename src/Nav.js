@@ -13,9 +13,6 @@ const Nav = () => {
         localStorage.setItem('checkedIn', checkedIn);
     }, [checkedIn]);
 
-
-
-
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
         const popup = document.getElementById('popup');
@@ -43,8 +40,9 @@ const Nav = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-        })
-    }, [])
+        });
+    }, []);
+
     const logout = async () => {
         await signOut(auth);
     }
