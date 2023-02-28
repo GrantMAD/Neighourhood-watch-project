@@ -3,10 +3,12 @@ import { db } from "./firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "./Skeletons/SkeletonStory";
+import { Toaster, toast} from  'sonner';
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleted, setIsDeleted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,8 @@ const LandingPage = () => {
   const deleteReport = async (id) => {
     const storyDoc = doc(db, "storys", id);
     await deleteDoc(storyDoc);
+    setStorys(storys.filter((story) => story.id !== id));
+    setIsDeleted(!isDeleted);
   };
 
   const updateReport = async (id) => {
@@ -34,7 +38,6 @@ const LandingPage = () => {
 
   const handleStoryClick = (story) => {
     navigate('/StoryPage', { state: { story: story } });
-    console.log(story)
   }
 
   return (
@@ -104,9 +107,13 @@ const LandingPage = () => {
                   >
                     Edit
                   </button>
+                  <Toaster richColors/>
                   <button
                     className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-zinc-200 border-2 border-zinc-200 hover:scale-125 ..."
-                    onClick={() => { deleteReport(story.id) }}
+                    onClick={() => { 
+                      deleteReport(story.id);
+                        toast.error('Story has been deleted');  
+                    }}
                   >
                     Delete
                   </button>

@@ -94,22 +94,22 @@ const Members = (user) => {
                                     }
                                 }).map((user, index) => {
                                     return <tr className="flex w-screen pt-[.3%] bg-white border-b" key={user.id}>
-                                        <td className="pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
-                                        <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id} onClick={userPublicProfile}>
+                                        <td className="pl-8 px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">{index + 1}</td>
+                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id} onClick={userPublicProfile}>
                                             {user.name}
                                         </td>
-                                        <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {user.address}
                                         </td>
-                                        <td className="flex justify-center w-1/6 items-center text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="flex justify-center w-1/6 items-center text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {user.CPFSector}
                                         </td>
                                         <td
                                             type="number"
-                                            className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
-                                            {user.number}
+                                            className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
+                                            0{user.number}
                                         </td>
-                                        <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {user.email}
                                         </td>
                                         <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
