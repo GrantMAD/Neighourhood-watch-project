@@ -3,6 +3,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
+import { Toaster, toast} from  'sonner';
+
 const Nav = () => {
     const [user, setUser] = useState({});
     const [checkedIn, setCheckedIn] = useState(
@@ -15,12 +17,6 @@ const Nav = () => {
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
-        const popup = document.getElementById('popup');
-        popup.innerHTML = `You have checked ${checkedIn ? 'out' : 'in'}`;
-        popup.classList.remove('hidden');
-        setTimeout(() => {
-            popup.classList.add('hidden');
-        }, 3000);
         try {
             if (user && user.uid) {
                 const usersCollectionRef = collection(db, 'users')
@@ -102,9 +98,17 @@ const Nav = () => {
                                     </div>
                                     {user &&
                                         <div className="mr-5">
+                                            <Toaster richColors/>
                                             <button
                                                 className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
-                                                onClick={handleCheckIn}
+                                                onClick={() => {
+                                                    if (checkedIn) {
+                                                      toast.error('You have checked out');
+                                                    } else {
+                                                      toast.success('You have checked in');
+                                                    }
+                                                    handleCheckIn();
+                                                  }}
                                             >
                                                 {checkedIn ? 'Check out' : 'Check in'}
                                             </button>

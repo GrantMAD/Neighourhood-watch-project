@@ -4,26 +4,34 @@ import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "./Skeletons/SkeletonReport";
 import "./index.css";
+import { Toaster, toast} from  'sonner';
 
 const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
     const usersCollectionRef = collection(db, 'reports');
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isDeleted, setIsDeleted] = useState(false);
+    const [selectedReport, setSelectedReport] = useState(null);
     const navigate = useNavigate();
 
     const deleteReport = async (id) => {
         const reportDoc = doc(db, "reports", id);
         await deleteDoc(reportDoc);
+        setIsDeleted(!isDeleted);
+        setReports(reports.filter((report) => report.id !== id));
+        if (selectedReport && selectedReport.id === id) {
+            setSelectedReport(null);
+        }
     };
-
+    
     const updateReport = () => {
         navigate('/Dashboard')
     }
 
     const addReport = () => {
         navigate('/Dashboard')
-      }
+    }
 
     useEffect(() => {
         const getReports = async () => {
@@ -41,7 +49,6 @@ const IncidentReportPage = (props) => {
             props.funcNav(true)
         }
     })
-
 
     return (
         <main className="flex flex-col bg-zinc-200 min-h-screen">
@@ -82,12 +89,13 @@ const IncidentReportPage = (props) => {
                     } else if (value.title.toLowerCase().includes(searchTerm.toLowerCase())) {
                         return value
                     }
-                }).map((report,  index) => {
-                    return <div class="flex flex-col items-center hover:scale-105 ...">
-                        <div class="w-1/2 mb-3">
+                }).map((report, index) => {
+                    return <div class="flex flex-col items-center mb-3">
+                        <div class="w-1/2">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg">{report.title}</label>
-                            <div class="accordion__content overflow-hidden bg-grey-lighter transition duration-500 ease-in-out">
+                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700" onClick={() => setSelectedReport(report)}>{report.title}</label>
+                            {selectedReport?.id === report.id && (
+                                <div class="accordion__content overflow-hidden bg-grey-lighter transition duration-500 ease-in-out">
                                 <div
                                     className="bg-white p-10 mb-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-gray-800"
                                     key={report.id}
@@ -127,9 +135,13 @@ const IncidentReportPage = (props) => {
                                             >
                                                 Edit
                                             </button>
+                                            <Toaster richColors/>
                                             <button
                                                 className="bg-gray-800 hover:bg-red-700 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl"
-                                                onClick={() => { deleteReport(report.id) }}
+                                                onClick={() => {
+                                                    deleteReport(report.id);
+                                                    toast.error('Story has been deleted'); 
+                                                }}
                                             >
                                                 Delete
                                             </button>
@@ -137,6 +149,7 @@ const IncidentReportPage = (props) => {
                                     </div>
                                 </div>
                             </div>
+                            )}
                         </div>
                     </div>
                 })}

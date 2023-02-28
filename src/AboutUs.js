@@ -15,12 +15,14 @@ const AboutUs = () => {
                     <h1 class="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-10">Our Objectives</h1>
                     <p class="text-center mb-10">Minimise the incidence of preventable crime, Deter criminal activity by increasing the probability of apprehension, Reduce the fear of crime, Increase the reporting of crime and suspicious behaviour, Improve the degree of personal and household security through education, Expand the program’s involvement in wider community safety and crime prevention initiatives,.</p>
                     <hr class="border-1.5 border-black" />
+                    {/*
                     <div class="flex justify-around mt-10">
                         <img class="w-10 h-10" src="/images/sponsor-1.png" alt=""></img>
                         <img class="w-10 h-10" src="/images/sponsor-2.png" alt=""></img>
                         <img class="w-10 h-10" src="/images/sponsor-3.png" alt=""></img>
                         <img class="w-10 h-10" src="/images/sponsor-4.png" alt=""></img>
                     </div>
+    */}
                 </div>
                 <div>
                     <img class="pl-10 mt-28 drop-shadow-2xl" src="/images/ALPHAS-LOGO.png" alt=""></img>
