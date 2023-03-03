@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "./Skeletons/SkeletonStory";
-import { Toaster, toast} from  'sonner';
+import { Toaster, toast } from 'sonner';
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
@@ -41,17 +41,17 @@ const LandingPage = () => {
   }
 
   return (
-    <main className="pt-10 pb-10 pr-60 pl-60 bg-zinc-200">
+    <main className="pt-10 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200">
       <img
         alt=""
         src="/images/Seaview.PNG"
-        className="w-screen shadow-xl shadow-gray-500 rounded-md"
+        className="w-full shadow-xl shadow-gray-500 rounded-md"
       />
-      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
+      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500 w-full">
         <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">WELCOME</h1>
         <hr></hr>
-        <div className="flex flex-row">
-          <div>
+        <div className="flex flex-col items center md:flex-row">
+          <div className="sm:w-1/2 md:w-3/4">
             <p className="mt-3 mb-3 text-zinc-200">Alpha's - Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
               Our neighbourhood Watch is about people getting together with their neighbours to take action to reduce crime.
               The community initiatives are owned and run by our members which are supported by the police.
@@ -63,7 +63,7 @@ const LandingPage = () => {
             </p>
           </div>
           <img
-            className="h-1/4 w-1/4"
+            className="h-1/4 w-1/4 md:w-1/4 md:h-1/4"
             alt=""
             src="/images/ALPHAS-LOGO.png"
           />
@@ -74,7 +74,7 @@ const LandingPage = () => {
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-1 border-2 border-zinc-200 hover:scale-125 ..."
+            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-2 lg:mt-1 border-2 border-zinc-200 hover:scale-125 ..."
             onClick={addStory}
           >
             Add Story
@@ -87,18 +87,20 @@ const LandingPage = () => {
             return <div key={story.id}>
               {" "}
               <hr></hr>
-              <div className="mt-5">
+              <div className="w-full mt-5">
                 <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
                 <hr className="w-1/4"></hr>
-                <div
-                  className="flex flex-row"
-                >
-                  <p className="mt-5 mr-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-                  <img
-                    className="max-h-xs max-w-xs mt-5 rounded-md border border-zinc-200 shadow-md shadow-black"
-                    alt=""
-                    src={story.image}
-                  />
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-1/2 md:pr-5">
+                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                  </div>
+                  <div className="flex justify-end md:w-1/2">
+                    <img
+                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md"
+                      alt=""
+                      src={story.image}
+                    />
+                  </div>
                 </div>
                 <div className="flex items-end mb-5 mt-5">
                   <button
@@ -107,12 +109,12 @@ const LandingPage = () => {
                   >
                     Edit
                   </button>
-                  <Toaster richColors/>
+                  <Toaster richColors />
                   <button
                     className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-zinc-200 border-2 border-zinc-200 hover:scale-125 ..."
-                    onClick={() => { 
+                    onClick={() => {
                       deleteReport(story.id);
-                        toast.error('Story has been deleted');  
+                      toast.error('Story has been deleted');
                     }}
                   >
                     Delete

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listAll, ref, getDownloadURL } from "firebase/storage";
+import { listAll, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { storage } from "./firebase";
 import { useNavigate } from "react-router-dom";
 import SkeletonImage from "./Skeletons/SkeletonImage";
@@ -7,6 +7,7 @@ import SkeletonImage from "./Skeletons/SkeletonImage";
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedImages, setSelectedImages] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,78 +27,76 @@ const GalleryPage = () => {
         navigate('/Dashboard')
     }
 
+    const handleDelete = () => {
+        selectedImages.forEach((url) => {
+            const imageRef = ref(storage, `galleryImages/${url.split('/').pop()}`);
+            deleteObject(imageRef)
+                .then(() => {
+                    setImageUrls((prev) => prev.filter((imageUrl) => imageUrl !== url));
+                    setSelectedImages((prev) => prev.filter((selectedUrl) => selectedUrl !== url));
+                })
+                .catch((error) => {
+                    if (error.code === 'storage/object-not-found') {
+                        console.log(`File ${url} not found in Firebase Storage`);
+                        setImageUrls((prev) => prev.filter((imageUrl) => imageUrl !== url));
+                        setSelectedImages((prev) => prev.filter((selectedUrl) => selectedUrl !== url));
+                    } else {
+                        console.log(error);
+                    }
+                });
+        });
+    };
+
     return (
-        <main className="h-100% bg-zinc-200">
-            <div className="grid pt-24 place-content-center">
-                <h1 className="text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">Gallery</h1>
+        <main className="bg-zinc-200">
+            <div className="grid pt-20 md:pt-24 place-content-center">
+                <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">Gallery</h1>
             </div>
+
             <section className="overflow-hidden text-gray-700">
-                <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 border-solid mb-10">
-                    <div className="flex justify-end mb-5">
-                        <button
-                            className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125 ..."
-                            onClick={addImage}
-                        >
+                <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
+                    <div className="flex flex-wrap justify-center md:justify-end mb-5 mt-5">
+                        <button className="h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
                             Add new image
                         </button>
-
+                        <button className="h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 mr-2 md:mr-0 shadow-xl hover:scale-125" onClick={handleDelete} disabled={!selectedImages.length}>
+                            Delete
+                        </button>
                     </div>
-                        <p className="mb-5">The image's displayed here are all from past event's that have happened. All image's are posted by admin's only. To enlarge an image hover over it.</p>
-                    <div className="flex flex-wrap m-1 md:-m-2">
+
+                    <p className="mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.</p>
+                    <div className="flex flex-wrap -m-1 md:-m-2">
                         {isLoading ? (
                             <SkeletonImage />
-                        ) :
-                            imageUrls.map((url) => {
-                                return <div className="flex flex-wrap w-1/3">
-                                    <div className="w-full p-1 md:p-2 object-constain">
-                                        <img
-                                            alt="gallery"
-                                            src={url}
-                                            className="w-[416px] h-[277px] rounded-xl shadow-lg shadow-gray-500 hover:scale-150 border-2 border-gray-800"
-                                        />
+                        ) : (
+                            imageUrls.map((url, index) => {
+                                return (
+                                    <div className="w-full p-1 md:p-2 lg:w-1/2 xl:w-1/3" key={url + index}>
+                                        <div className="h-72 rounded-xl shadow-lg shadow-gray-500 hover:scale-150 border-2 overflow-hidden">
+                                            <img
+                                                alt="gallery"
+                                                src={url}
+                                                className={`w-full h-full object-cover ${selectedImages.includes(url) ? "opacity-25 border-red-500" : "border-gray-800"
+                                                    }`}
+                                                onClick={() => {
+                                                    if (selectedImages.includes(url)) {
+                                                        setSelectedImages(selectedImages.filter((selectedUrl) => selectedUrl !== url));
+                                                    } else {
+                                                        setSelectedImages([...selectedImages, url]);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            })}
+                                );
+                            })
+                        )}
                     </div>
                 </div>
-               {/*<div className="flex justify-center max-w-2xl mx-auto mb-10">
-                    <nav aria-label="Page navigation example">
-                        <ul className="inline-flex -space-x-px shadow-xl">
-                            <li>
-                                <a href="/#" aria-current="page"
-                                    className="bg-white border border-gray-300 text-gray-500  hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-blue-50 border border-gray-300 text-blue-600 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-white border border-gray-300 text-gray-500 hover:bg-blue-100 hover:text-blue-700  py-2 px-3 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                            </li>
-                            <li>
-                                <a href="/#"
-                                    className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                */}
             </section>
         </main>
-    )
+    );
+
 }
 
 export default GalleryPage;
