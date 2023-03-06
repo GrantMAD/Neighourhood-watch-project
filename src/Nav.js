@@ -3,10 +3,11 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
-import { Toaster, toast} from  'sonner';
+import { Toaster, toast } from 'sonner';
 
 const Nav = () => {
     const [user, setUser] = useState({});
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
@@ -42,6 +43,11 @@ const Nav = () => {
     const logout = async () => {
         await signOut(auth);
     }
+
+    function toggleMenu() {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
         <nav>
             <div>
@@ -98,17 +104,17 @@ const Nav = () => {
                                     </div>
                                     {user &&
                                         <div className="mr-5">
-                                            <Toaster richColors/>
+                                            <Toaster richColors />
                                             <button
                                                 className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
                                                 onClick={() => {
                                                     if (checkedIn) {
-                                                      toast.error('You have checked out');
+                                                        toast.error('You have checked out');
                                                     } else {
-                                                      toast.success('You have checked in');
+                                                        toast.success('You have checked in');
                                                     }
                                                     handleCheckIn();
-                                                  }}
+                                                }}
                                             >
                                                 {checkedIn ? 'Check out' : 'Check in'}
                                             </button>
@@ -141,9 +147,50 @@ const Nav = () => {
                                     }
                                 </div>
                             </div>
-                            <div className="-mr-2 flex md:hidden">
+                            <div className="-mr-2 flex md:hidden menu-wrapper">
+                            <div id="popup" className="hidden p-5 rounded-md text-lime-300 max-h-min">
+                                        You have checked in
+                                    </div>
+                                    {user &&
+                                        <div className="mr-5">
+                                            <Toaster richColors />
+                                            <button
+                                                className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
+                                                onClick={() => {
+                                                    if (checkedIn) {
+                                                        toast.error('You have checked out');
+                                                    } else {
+                                                        toast.success('You have checked in');
+                                                    }
+                                                    handleCheckIn();
+                                                }}
+                                            >
+                                                {checkedIn ? 'Check out' : 'Check in'}
+                                            </button>
+                                        </div>
+                                    }
+                                <div class={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
+                                    <ul class="flex flex-col p-2 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                                        <li>
+                                            <a href="/" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Profile" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="/DashBoard" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">DashBoard</a>
+                                        </li>
+                                        <li>
+                                            <a href="/#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                                onClick={logout}
+                                            >SignOut</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <button
-                                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white">
+                                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
+                                    onClick={toggleMenu}
+                                >
                                     <svg className="block h-6 w-6" stroke="currentColor" fill="none"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -164,7 +211,8 @@ const Nav = () => {
                                 <div className="flex-shrink-0">
                                     <img className="h-10 w-10 rounded-full"
                                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt="" />
+                                        alt=""
+                                    />
                                 </div>
                                 <div className="ml-3">
                                     <div className="text-base font-medium leading-none text-white">Tom Cook</div>
