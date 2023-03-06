@@ -45,3 +45,8 @@
     /* Get this as close to what height you expect */
     max-height: fit-content;
   }
+
+  .menu-wrapper {
+    max-height: 40px; /* or any other value that suits your needs */
+    
+}

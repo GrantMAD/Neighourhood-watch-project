@@ -35,9 +35,8 @@ const Profile = () => {
   }
 
   return (
-    <main className="p-10 bg-zinc-200">
-
-      <div className="p-16">
+    <main className="p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
+      <div className="p-4 md:p-8 lg:p-16">
         {users.map((user) => {
           return <div
             className="p-8 bg-white shadow mt-24"
@@ -57,7 +56,7 @@ const Profile = () => {
 
               <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                 <button
-                  className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium hover:scale-125 ..."
+                  className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium hover:scale-125"
                   onClick={editProfile}
                 >
                   Edit Profile
@@ -65,7 +64,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="mt-20 text-center border-b pb-12">
+            <div className="lg:mt-20 text-center border-b pb-12">
               <h1 className="text-4xl font-medium text-gray-800">{user.name}</h1>
               <p className="font-light text-gray-600 mt-3">{user.address}</p>
 

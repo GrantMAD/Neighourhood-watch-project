@@ -74,7 +74,7 @@ const LandingPage = () => {
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-2 lg:mt-1 border-2 border-zinc-200 hover:scale-125 ..."
+            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-2 lg:mt-1 border-2 border-zinc-200 hover:scale-125"
             onClick={addStory}
           >
             Add Story
