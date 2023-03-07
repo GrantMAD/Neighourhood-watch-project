@@ -31,14 +31,14 @@ const Members = (user) => {
     }
 
     return (
-        <main className="h-screen bg-zinc-200">
+        <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
                 <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Members List</h1>
             </div>
             <div>
-                <div className="ml-5">
+                <div className="ml-5 mr-5">
                     <div
-                        class="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-2/12">
+                        class="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-2/12">
                         <button
                             class="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
                             Search

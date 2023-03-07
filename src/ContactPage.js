@@ -21,7 +21,7 @@ const ContactPage = () => {
   return (
     <div className="h-screen bg-zinc-200 flex min-h-screen items-center justify-start">
 
-      <div className="mx-auto w-full max-w-lg">
+      <div className="mx-4 sm:mx-auto w-full max-w-screen-md">
         {showAlert &&
           <div>
             <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700" role="alert">
@@ -32,12 +32,14 @@ const ContactPage = () => {
             </div>
           </div>
         }
+        <div className='p-4'>
         <h1 className="text-gray-800 text-4xl font-medium">Contact us</h1>
         <p className="mt-3"><a className="font-bold" href="mailto:Charlies.Coedmore@gmail.com">Email us </a> or message us here:</p>
-
+        </div>
+        <div className='p-4 sm:p-0'>
         <form onSubmit={sendEmail} className="mt-10">
           <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="relative z-0">
               <input type="text" name="name" className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " />
               <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Your name</label>
@@ -54,6 +56,7 @@ const ContactPage = () => {
           <h1 className='text-gray-500 text-sm'>Click and drag bottom right cornner to make larger</h1>
           <button type="submit" className="mt-3 rounded-md bg-gray-800 px-10 py-2 text-white shadow-xl hover:bg-gray-600">Send Message</button>
         </form>
+        </div>
       </div>
     </div>
   )
