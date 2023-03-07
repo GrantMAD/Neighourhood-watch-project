@@ -3,8 +3,8 @@ const AboutUs = () => {
 
     return (
         <div className="bg-zinc-200 md:p-10 lg:p-24">
-           <div className="grid pt-20 md:pt-24 place-content-center">
-                <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">About us</h1>
+           <div className="grid pt-20 md:pt-5 place-content-center">
+                <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">About us</h1>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="pr-[25%] pl-[25%] w-full">
