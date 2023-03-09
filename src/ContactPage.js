@@ -19,7 +19,7 @@ const ContactPage = () => {
 
 
   return (
-    <div className="h-screen bg-zinc-200 flex min-h-screen items-center justify-start">
+    <div className=" bg-zinc-200 flex min-h-screen items-center justify-start sm:pb-20 sm:px-5">
 
       <div className="mx-4 sm:mx-auto w-full max-w-screen-md">
         {showAlert &&
@@ -32,8 +32,8 @@ const ContactPage = () => {
             </div>
           </div>
         }
-        <div className='p-4'>
-        <h1 className="text-gray-800 text-4xl font-medium">Contact us</h1>
+        <div>
+        <h1 className="text-gray-800 text-4xl font-medium sm:mt-20">Contact us</h1>
         <p className="mt-3"><a className="font-bold" href="mailto:Charlies.Coedmore@gmail.com">Email us </a> or message us here:</p>
         </div>
         <div className='p-4 sm:p-0'>

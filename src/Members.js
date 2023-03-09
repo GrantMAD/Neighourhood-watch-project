@@ -9,26 +9,32 @@ const Members = (user) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const usersCollectionRef = collection(db, 'users');
+    const roles = ["user","admin" ,"headAdmin"];
+    const [selectedRole, setSelectedRole] = useState(roles[0]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const getUsers = async () => {
-            const data = await getDocs(usersCollectionRef);
-            const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort((a, b) => {
-                if (a.name < b.name) return -1;
-                if (a.name > b.name) return 1;
-                return 0;
-            });
-            setUsers(sortedUsers);
-            setIsLoading(false);
+          const data = await getDocs(usersCollectionRef);
+          const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id, role: selectedRole })).sort((a, b) => {
+            if (a.name < b.name) return -1;
+            if (a.name > b.name) return 1;
+            return 0;
+          });
+          setUsers(sortedUsers);
+          setIsLoading(false);
         };
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+      }, [selectedRole])
 
     const userPublicProfile = () => {
         navigate(`/PublicProfile/${user.id}`, { state: { selectedUser: user } })
     }
+
+    const handleRoleChange = (e) => {
+        setSelectedRole(e.target.value);
+    };
 
     return (
         <main className="min-h-screen bg-zinc-200">
@@ -56,28 +62,28 @@ const Members = (user) => {
                 </div>
                 <div className="pt-4 overflow-hidden">
                     <table className="flex flex-col text-center">
-                        <thead className="pl-[1%] border-b bg-gray-800">
-                            <tr>
-                                <th scope="col" className="text-sm font-medium text-white px-6 py-4">
-
-                                </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                        <thead className="border-b bg-gray-800">
+                            <tr className="flex justify-around">
+                                <th scope="col" className="pl-[5.5%] text-sm font-medium text-white  py-4">
                                     Name
                                 </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="pl-[4.5%] text-sm font-medium text-white py-4">
                                     Street
                                 </th>
-                                <th scope="col" className="pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="pl-[4.5%]  text-sm font-medium text-white px-6 py-4">
                                     CPF Sector
                                 </th>
-                                <th scope="col" className="pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="pl-[1%] text-sm font-medium text-white py-4">
                                     Contact-Number
                                 </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="pl-[2%] text-sm font-medium text-white py-4">
                                     Email
                                 </th>
-                                <th scope="col" className="pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="pl-[5%] text-sm font-medium text-white px-6 py-4">
                                     Checked  in
+                                </th>
+                                <th scope="col" className="pl-[3%] text-sm font-medium text-white px-6 py-4">
+                                    Role
                                 </th>
                             </tr>
                         </thead>
@@ -114,6 +120,14 @@ const Members = (user) => {
                                         </td>
                                         <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <li className={user.checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
+                                        </td>
+                                        
+                                        <td className="w-1/6">
+                                            <select value={selectedRole} onChange={handleRoleChange}>
+                                                {roles.map((role, index) => (
+                                                    <option key={index} value={role}>{role}</option>
+                                                ))}
+                                            </select>
                                         </td>
                                     </tr>
                                 })}
