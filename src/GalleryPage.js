@@ -3,11 +3,18 @@ import { listAll, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { storage } from "./firebase";
 import { useNavigate } from "react-router-dom";
 import SkeletonImage from "./Skeletons/SkeletonImage";
+import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedImages, setSelectedImages] = useState([]);
+    const pageSize = 12;
+    const [currentPage, setCurrentPage] = useState(1);
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const currentImages = imageUrls.slice(startIndex, endIndex);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -69,9 +76,9 @@ const GalleryPage = () => {
                         {isLoading ? (
                             <SkeletonImage />
                         ) : (
-                            imageUrls.map((url, index) => {
+                            currentImages.map((url, index) => {
                                 return (
-                                    <div className="w-full p-1 md:p-2 lg:w-1/2 xl:w-1/3" key={url + index}>
+                                    <div className="w-full p-2 md:p-2 lg:w-1/2 xl:w-1/3" key={url + index}>
                                         <div className="h-72 rounded-xl shadow-lg shadow-gray-500 hover:scale-150 border-2 overflow-hidden">
                                             <img
                                                 alt="gallery"
@@ -91,6 +98,24 @@ const GalleryPage = () => {
                                 );
                             })
                         )}
+                    </div>
+                    <div className="max-w-screen-lg mx-auto mt-5">
+                        <div className="flex justify-center">
+                            <button
+                                className="w-full md:w-auto h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                onClick={() => setCurrentPage(currentPage - 1)}
+                                disabled={startIndex === 0}
+                            >
+                                <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
+                            </button>
+                            <button
+                                className="w-full md:w-auto h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                onClick={() => setCurrentPage(currentPage + 1)}
+                                disabled={endIndex >= imageUrls.length}
+                            >
+                                Next <FontAwesomeIcon icon={faArrowCircleRight} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
