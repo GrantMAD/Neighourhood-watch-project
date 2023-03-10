@@ -9,32 +9,26 @@ const Members = (user) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const usersCollectionRef = collection(db, 'users');
-    const roles = ["user","admin" ,"headAdmin"];
-    const [selectedRole, setSelectedRole] = useState(roles[0]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const getUsers = async () => {
-          const data = await getDocs(usersCollectionRef);
-          const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id, role: selectedRole })).sort((a, b) => {
-            if (a.name < b.name) return -1;
-            if (a.name > b.name) return 1;
-            return 0;
-          });
-          setUsers(sortedUsers);
-          setIsLoading(false);
+            const data = await getDocs(usersCollectionRef);
+            const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+            });
+            setUsers(sortedUsers);
+            setIsLoading(false);
         };
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [selectedRole])
+    }, [])
 
     const userPublicProfile = () => {
         navigate(`/PublicProfile/${user.id}`, { state: { selectedUser: user } })
     }
-
-    const handleRoleChange = (e) => {
-        setSelectedRole(e.target.value);
-    };
 
     return (
         <main className="min-h-screen bg-zinc-200">
@@ -67,7 +61,7 @@ const Members = (user) => {
                                 <th scope="col" className="pl-[5.5%] text-sm font-medium text-white  py-4">
                                     Name
                                 </th>
-                                <th scope="col" className="pl-[4.5%] text-sm font-medium text-white py-4">
+                                <th scope="col" className="pl-[5%] text-sm font-medium text-white py-4">
                                     Street
                                 </th>
                                 <th scope="col" className="pl-[4.5%]  text-sm font-medium text-white px-6 py-4">
@@ -82,9 +76,11 @@ const Members = (user) => {
                                 <th scope="col" className="pl-[5%] text-sm font-medium text-white px-6 py-4">
                                     Checked  in
                                 </th>
+                                {/*
                                 <th scope="col" className="pl-[3%] text-sm font-medium text-white px-6 py-4">
                                     Role
                                 </th>
+                                */}
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +117,7 @@ const Members = (user) => {
                                         <td className="w-1/6 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <li className={user.checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
                                         </td>
-                                        
+                                        {/*
                                         <td className="w-1/6">
                                             <select value={selectedRole} onChange={handleRoleChange}>
                                                 {roles.map((role, index) => (
@@ -129,6 +125,7 @@ const Members = (user) => {
                                                 ))}
                                             </select>
                                         </td>
+                                        */}
                                     </tr>
                                 })}
                         </tbody>
