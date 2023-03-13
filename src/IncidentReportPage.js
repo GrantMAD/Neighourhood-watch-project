@@ -105,7 +105,7 @@ const IncidentReportPage = (props) => {
                                     </div>
                                   </div>
                                   <p class="mb-5 md:mb-10 whitespace-pre-line ...">{report.description}</p>
-                                  <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                                  <div class="flex flex-col md:flex-row justify-between">
                                     <div class="mb-5 md:mb-0 md:mr-5">
                                       <div class="flex mb-3">
                                         <h1 class="font-semibold mr-2 text-black">Patroller's name:</h1>
@@ -125,7 +125,7 @@ const IncidentReportPage = (props) => {
                                       </div>
                                     </div>
                                     <div class="flex items-end">
-                                      <button class="bg-gray-800 hover:bg-blue-700 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl" onClick={() => updateReport()}>
+                                      <button class="bg-gray-800 hover:bg-green-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl" onClick={() => updateReport()}>
                                         Edit
                                       </button>
                                       <Toaster richColors />
