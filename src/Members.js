@@ -119,7 +119,7 @@ const Members = (user) => {
                                         </td>
                                         {/*
                                         <td className="w-1/6">
-                                            <select value={selectedRole} onChange={handleRoleChange}>
+                                            <select>
                                                 {roles.map((role, index) => (
                                                     <option key={index} value={role}>{role}</option>
                                                 ))}
