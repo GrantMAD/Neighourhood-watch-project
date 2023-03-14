@@ -32,7 +32,7 @@ const ContactPage = () => {
             </div>
           </div>
         }
-        <div>
+        <div className='ml-3 lg:ml-0'>
         <h1 className="text-gray-800 text-4xl font-medium sm:mt-20">Contact us</h1>
         <p className="mt-3"><a className="font-bold" href="mailto:Charlies.Coedmore@gmail.com">Email us </a> or message us here:</p>
         </div>

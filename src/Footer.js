@@ -49,7 +49,7 @@ const Footer = () => {
                     </div>
                 </nav>
                 <div>
-                    <div className="flex justify-center mt-5 space-x-6">
+                    <div className="flex justify-center space-x-6">
                         <a href="/#" className="hover:text-gray-500">
                             <span className="sr-only">Facebook</span>
                             <svg className="w-6 h-6 fill-blue-500 hover:scale-125" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">

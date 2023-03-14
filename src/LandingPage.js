@@ -74,7 +74,7 @@ const LandingPage = () => {
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           <button
-            className="bg-gray-800 hover:bg-gray-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-zinc-200 h-1/4 mt-2 lg:mt-1 border-2 border-zinc-200 hover:scale-125"
+            className="bg-gray-800 hover:bg-green-500 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-green-500 h-1/4 mt-2 lg:mt-1 border-2 border-green-500 hover:scale-125"
             onClick={addStory}
           >
             Add Story
@@ -90,35 +90,35 @@ const LandingPage = () => {
               <div className="w-full mt-5">
                 <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
                 <hr className="w-1/4"></hr>
-                <div className="flex flex-col md:flex-row">
-                  <div className="md:w-1/2 md:pr-5">
+                <div className="flex flex-col md:flex-row mb-5">
+                  <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
                     <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                    <div className="flex mt-10">
+                      <button
+                        className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
+                        onClick={updateReport}
+                      >
+                        Edit
+                      </button>
+                      <Toaster richColors />
+                      <button
+                        className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
+                        onClick={() => {
+                          deleteReport(story.id);
+                          toast.error('Story has been deleted');
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                   <div className="flex justify-end md:w-1/2">
                     <img
-                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md"
+                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md border border-zinc-200"
                       alt=""
                       src={story.image}
                     />
                   </div>
-                </div>
-                <div className="flex items-end mb-5 mt-5">
-                  <button
-                    className="bg-gray-800 hover:bg-green-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-green-500 border-2 border-green-500 hover:scale-125 ..."
-                    onClick={updateReport}
-                  >
-                    Edit
-                  </button>
-                  <Toaster richColors />
-                  <button
-                    className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125 ..."
-                    onClick={() => {
-                      deleteReport(story.id);
-                      toast.error('Story has been deleted');
-                    }}
-                  >
-                    Delete
-                  </button>
                 </div>
               </div>
             </div>
