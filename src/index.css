@@ -34,6 +34,7 @@
   }
   
   input:checked + label:after {
+    margin-top: 5px;
     content: '-';
     line-height: .8em;
   }
