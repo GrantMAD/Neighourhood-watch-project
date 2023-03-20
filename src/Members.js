@@ -45,7 +45,7 @@ const Members = (user) => {
                         </button>
                         <input
                             type="search"
-                            placeholder="Report Name"
+                            placeholder="Member's Name"
                             class="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
                             onChange={e => { setSearchTerm(e.target.value) }}
                         />
