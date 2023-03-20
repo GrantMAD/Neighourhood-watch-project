@@ -71,7 +71,7 @@ const IncidentReportPage = (props) => {
                     />
                 </div>
                 <button
-                    className="bg-green-500 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded hover:scale-125 ..."
+                    className="bg-gray-800 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded hover:scale-125 ..."
                     onClick={addReport}
                 >
                     Add Report

@@ -45,7 +45,7 @@ const Members = (user) => {
                         </button>
                         <input
                             type="search"
-                            placeholder="Report Name"
+                            placeholder="Member's Name"
                             class="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
                             onChange={e => { setSearchTerm(e.target.value) }}
                         />
@@ -107,7 +107,7 @@ const Members = (user) => {
                                         <td
                                             type="number"
                                             className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
-                                            {user.number}
+                                            0{user.number}
                                         </td>
                                         <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {user.email}
