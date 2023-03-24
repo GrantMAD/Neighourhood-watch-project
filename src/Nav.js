@@ -9,7 +9,7 @@ const Nav = () => {
     const [user, setUser] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
-    const [userRole, setUserRole] = useState("pendingUser");
+    const [userRole, setUserRole] = useState("user");
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
