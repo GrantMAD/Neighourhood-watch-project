@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react"
 import { db } from "./firebase";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "./Skeletons/SkeletonStory";
 import { Toaster, toast } from 'sonner';
+import { auth } from "./firebase";
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [userRole, setUserRole] = useState("user");
+  const usersCollectionRef = collection(db, "users");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +23,20 @@ const LandingPage = () => {
     };
     getStorys();
   }, [])
+
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userEmail = currentUser.email;
+      const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+      onSnapshot(userRef, (snapshot) => {
+        snapshot.forEach((doc) => {
+          const userData = doc.data();
+          setUserRole(userData.role);
+        });
+      });
+    }
+  }, [usersCollectionRef]);
 
   const deleteReport = async (id) => {
     const storyDoc = doc(db, "storys", id);
@@ -73,12 +90,14 @@ const LandingPage = () => {
       >
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
-          <button
-            className="bg-gray-800 hover:bg-green-500 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-green-500 h-1/4 mt-2 lg:mt-1 border-2 border-green-500 hover:scale-125"
-            onClick={addStory}
-          >
-            Add Story
-          </button>
+          {userRole === "admin" && (
+            <button
+              className="bg-gray-800 hover:bg-green-500 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-green-500 h-1/4 mt-2 lg:mt-1 border-2 border-green-500 hover:scale-125"
+              onClick={addStory}
+            >
+              Add Story
+            </button>
+          )}
         </div>
         {isLoading ? (
           <SkeletonStory />
@@ -93,24 +112,26 @@ const LandingPage = () => {
                 <div className="flex flex-col md:flex-row mb-5">
                   <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
                     <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-                    <div className="flex mt-10">
-                      <button
-                        className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
-                        onClick={updateReport}
-                      >
-                        Edit
-                      </button>
-                      <Toaster richColors />
-                      <button
-                        className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
-                        onClick={() => {
-                          deleteReport(story.id);
-                          toast.error('Story has been deleted');
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    {userRole === "admin" && (
+                      <div className="flex mt-10">
+                        <button
+                          className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
+                          onClick={updateReport}
+                        >
+                          Edit
+                        </button>
+                        <Toaster richColors />
+                        <button
+                          className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
+                          onClick={() => {
+                            deleteReport(story.id);
+                            toast.error('Story has been deleted');
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="flex justify-end md:w-1/2">
                     <img
