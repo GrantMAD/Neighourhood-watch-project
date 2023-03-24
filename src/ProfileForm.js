@@ -59,7 +59,6 @@ const ProfileForm = () => {
     })
   };
 
-
   return (
     <>
       <div>

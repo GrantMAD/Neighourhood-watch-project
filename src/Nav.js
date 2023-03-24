@@ -2,20 +2,36 @@ import "./index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useEffect, useState } from "react";
-import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
 import { Toaster, toast } from 'sonner';
 
 const Nav = () => {
     const [user, setUser] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
+    const [userRole, setUserRole] = useState("user");
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
+    const usersCollectionRef = collection(db, "users");
 
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
     }, [checkedIn]);
+
+    useEffect(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const userEmail = currentUser.email;
+          const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+          onSnapshot(userRef, (snapshot) => {
+            snapshot.forEach((doc) => {
+              const userData = doc.data();
+              setUserRole(userData.role);
+            });
+          });
+        }
+      }, [usersCollectionRef]);
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
@@ -107,6 +123,7 @@ const Nav = () => {
                                     {user &&
                                         <div className="mr-5">
                                             <Toaster richColors />
+                                            {userRole === "admin" && (
                                             <button
                                                 className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
                                                 onClick={() => {
@@ -120,6 +137,7 @@ const Nav = () => {
                                             >
                                                 {checkedIn ? 'Check out' : 'Check in'}
                                             </button>
+                                            )}
                                         </div>
                                     }
                                     {user &&

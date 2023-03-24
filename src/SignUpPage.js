@@ -6,7 +6,6 @@ import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-
 const SignUpPage = (props) => {
     const [newName, setNewName] = useState();
     const [newCpfSector, setNewCpfSector] = useState();
@@ -33,6 +32,7 @@ const SignUpPage = (props) => {
                 email: registerEmail,
                 CPFSector: newCpfSector,
                 checkedIn: false,
+                role: "user"
             });
 
             navigate("/SignInPage");
@@ -111,7 +111,7 @@ const SignUpPage = (props) => {
                         Already have an account? &nbsp;
                         <a className="no-underline border-b border-blue text-blue" href="../components/SignInPage">
                             Log in
-                        </a>.
+                        </a>
                     </div>
                 </div>
             </div>
