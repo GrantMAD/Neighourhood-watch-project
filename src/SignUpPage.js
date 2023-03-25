@@ -32,7 +32,7 @@ const SignUpPage = (props) => {
                 email: registerEmail,
                 CPFSector: newCpfSector,
                 checkedIn: false,
-                role: "user"
+                role: "pendingUser"
             });
 
             navigate("/SignInPage");

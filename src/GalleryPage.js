@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [userRole, setUserRole] = useState("user");
+    const [userRole, setUserRole] = useState("");
     const [selectedImages, setSelectedImages] = useState([]);
     const pageSize = 12;
     const [currentPage, setCurrentPage] = useState(1);

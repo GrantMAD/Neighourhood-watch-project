@@ -9,7 +9,7 @@ const Nav = () => {
     const [user, setUser] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
-    const [userRole, setUserRole] = useState("user");
+    const [userRole, setUserRole] = useState("");
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
@@ -22,16 +22,16 @@ const Nav = () => {
     useEffect(() => {
         const currentUser = auth.currentUser;
         if (currentUser) {
-          const userEmail = currentUser.email;
-          const userRef = query(usersCollectionRef, where("email", "==", userEmail));
-          onSnapshot(userRef, (snapshot) => {
-            snapshot.forEach((doc) => {
-              const userData = doc.data();
-              setUserRole(userData.role);
+            const userEmail = currentUser.email;
+            const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+            onSnapshot(userRef, (snapshot) => {
+                snapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    setUserRole(userData.role);
+                });
             });
-          });
         }
-      }, [usersCollectionRef]);
+    }, [usersCollectionRef]);
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
@@ -82,14 +82,14 @@ const Nav = () => {
                                     <div className="ml-10 flex items-baseline">
                                         <a href="/LandingPage"
                                             className="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
-                                        {user &&
+                                        {user && userRole !== 'pendingUser' &&
                                             <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-white px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Incident
                                                 Report's</a>
                                         }
                                         <a href="/AboutUs"
                                             className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">About
                                             Us</a>
-                                        {user &&
+                                        {user && userRole !== 'pendingUser' &&
                                             <a href="/Members"
                                                 className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
                                         }
@@ -124,19 +124,19 @@ const Nav = () => {
                                         <div className="mr-5">
                                             <Toaster richColors />
                                             {userRole === "admin" && (
-                                            <button
-                                                className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
-                                                onClick={() => {
-                                                    if (checkedIn) {
-                                                        toast.error('You have checked out');
-                                                    } else {
-                                                        toast.success('You have checked in');
-                                                    }
-                                                    handleCheckIn();
-                                                }}
-                                            >
-                                                {checkedIn ? 'Check out' : 'Check in'}
-                                            </button>
+                                                <button
+                                                    className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
+                                                    onClick={() => {
+                                                        if (checkedIn) {
+                                                            toast.error('You have checked out');
+                                                        } else {
+                                                            toast.success('You have checked in');
+                                                        }
+                                                        handleCheckIn();
+                                                    }}
+                                                >
+                                                    {checkedIn ? 'Check out' : 'Check in'}
+                                                </button>
                                             )}
                                         </div>
                                     }
@@ -155,9 +155,11 @@ const Nav = () => {
                                                     <a href="/Profile"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">Profile</a>
-                                                    <a href="/DashBoard"
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        role="menuitem">DashBoard</a>
+                                                    {user && userRole !== 'pendingUser' &&
+                                                        <a href="/DashBoard"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                            role="menuitem">DashBoard</a>
+                                                    }
                                                     <a href="/#"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                                         role="menuitem" onClick={logout}>Sign Out</a>
@@ -194,15 +196,19 @@ const Nav = () => {
                                         <li>
                                             <a href="/" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                         </li>
+                                        {user && userRole !== 'pendingUser' &&
                                         <li>
                                             <a href="/incidentReportPage" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Incident Report's</a>
                                         </li>
+}
                                         <li>
                                             <a href="/AboutUs" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">About Us</a>
                                         </li>
+                                        {user && userRole !== 'pendingUser' &&
                                         <li>
                                             <a href="/Members" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Member's</a>
                                         </li>
+}
                                         <li>
                                             <a href="/GalleryPage" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Gallery</a>
                                         </li>
@@ -212,9 +218,11 @@ const Nav = () => {
                                         <li>
                                             <a href="/Profile" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Profile</a>
                                         </li>
+                                        {user && userRole !== 'pendingUser' &&
                                         <li>
                                             <a href="/DashBoard" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">DashBoard</a>
                                         </li>
+}
                                         <li>
                                             <a href="/#" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"
                                                 onClick={logout}

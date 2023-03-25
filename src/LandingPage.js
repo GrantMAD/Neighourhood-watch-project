@@ -10,7 +10,7 @@ const LandingPage = () => {
   const [storys, setStorys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleted, setIsDeleted] = useState(false);
-  const [userRole, setUserRole] = useState("user");
+  const [userRole, setUserRole] = useState("");
   const usersCollectionRef = collection(db, "users");
   const navigate = useNavigate();
 
