@@ -1,13 +1,31 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
-import { useState } from "react";
+import { auth, db } from "./firebase";
+import { useState, useEffect } from "react";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const Footer = () => {
     const [user, setUser] = useState({});
+     const [userRole, setUserRole] = useState("");
+     const usersCollectionRef = collection(db, "users");
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
     })
+
+    useEffect(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const userEmail = currentUser.email;
+            const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+            onSnapshot(userRef, (snapshot) => {
+                snapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    setUserRole(userData.role);
+                });
+            });
+        }
+    }, [usersCollectionRef]);
+
 
     return (
         <section className="bg-gray-800 border-t-2 border-white mt-auto">
@@ -18,7 +36,7 @@ const Footer = () => {
                             Home
                         </a>
                     </div>
-                    {user &&
+                    {user && userRole !== 'pendingUser' &&
                         <div className="px-5 py-2">
                             <a href="/IncidentReportPage" className="text-base leading-6 text-white hover:text-lg">
                                 Incident Report's
@@ -30,7 +48,7 @@ const Footer = () => {
                             About Us
                         </a>
                     </div>
-                    {user &&
+                    {user && userRole !== 'pendingUser' &&
                         <div className="px-5 py-2">
                             <a href="/Members" className="text-base leading-6 text-white hover:text-lg">
                                 Members

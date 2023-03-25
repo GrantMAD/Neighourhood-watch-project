@@ -14,7 +14,7 @@ const SignInPage = (props) => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       console.log(user);
-      navigate('/IncidentReportPage');
+      navigate('/LandingPage');
     } catch (error) {
       setShowAlert(true)
     }
