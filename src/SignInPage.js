@@ -14,6 +14,9 @@ const SignInPage = (props) => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       console.log(user);
+      if (props.funcNav) {
+        props.funcNav(true)
+      }
       navigate('/LandingPage');
     } catch (error) {
       setShowAlert(true)
@@ -25,7 +28,7 @@ const SignInPage = (props) => {
       props.funcNav(false)
     }
   })
-  
+
   return (
     <main className="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
       <section className="flex w-[30rem] flex-col space-y-10">

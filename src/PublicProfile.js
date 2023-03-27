@@ -26,11 +26,12 @@ const PublicProfile = () => {
 
                         </div>
                         <div className="relative">
-                            <div
+                            <img
                                 className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
-                            >
-                                {selectedUser.profileImage}
-                            </div>
+                                alt=""
+                                src={selectedUser.profileImage}
+                            >                               
+                            </img>
                         </div>
 
                         <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">

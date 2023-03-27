@@ -81,7 +81,7 @@ const Nav = () => {
                                 <div className="hidden md:block">
                                     <div className="ml-10 flex items-baseline">
                                         <a href="/LandingPage"
-                                            className="mr-6 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
+                                            className="mr-3 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-white px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Incident
                                                 Report's</a>

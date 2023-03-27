@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "./firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, updateDoc, getDocs } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -33,19 +33,41 @@ const ProfileForm = () => {
       fetchUserData();
   }, []);
 
+  useEffect(() => {
+    if (userData !== undefined && userData !== null) {
+      setNewName(userData.name)
+      setEmail(userData.email)
+      setNewAddress(userData.address)
+      setNewAbout(userData.about)
+      setNewNumber(userData.number)
+      setProfileImageUpload(userData.image)
+    }
+  }, [userData])
+
   const UpdateUser = async (e) => {
     e.preventDefault();
     const profileURL = await uploadProfileImage();
-    const userDocRef = await usersCollectionRef.doc(userData.id);
-  
-    await userDocRef.update({
+
+    const userQuery = query(usersCollectionRef, where("email", "==", userData.email));
+    const data = await getDocs(userQuery)
+    const userDocRef = data.docs[0].ref
+
+    let updatedUser = {
       name: newName,
       email: email,
       address: newAddress,
       number: newNumber,
-      about: newAbout,
-      profileImage: profileURL,
-    });
+      about: newAbout
+    }
+
+    if (profileURL !== undefined) {
+      updatedUser = {
+        profileImage : profileURL,
+        ...updatedUser
+      }
+    }
+
+    await updateDoc(userDocRef, updatedUser);
     navigate('/Profile');
   };
 
@@ -93,7 +115,7 @@ const ProfileForm = () => {
                         onChange={(event) => {
                           setNewAbout(event.target.value);
                         }}
-                        
+
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
@@ -116,7 +138,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewName(event.target.value);
                           }}
-                          
+
                         />
                       </div>
                       <div className="col-span-6 sm:col-span-4">
@@ -133,7 +155,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewNumber(event.target.value);
                           }}
-                          
+
                         />
                       </div>
 
@@ -151,7 +173,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setEmail(event.target.value);
                           }}
-                          
+
                         />
                       </div>
 
@@ -169,7 +191,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setNewAddress(event.target.value);
                           }}
-                          
+
                         />
                       </div>
                     </div>
@@ -207,7 +229,7 @@ const ProfileForm = () => {
                           onChange={(event) => {
                             setProfileImageUpload(event.target.value);
                           }}
-                          
+
                         />
                       </div>
                       {/*
