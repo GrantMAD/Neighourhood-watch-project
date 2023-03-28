@@ -26,7 +26,7 @@ const IncidentReportPage = (props) => {
     };
 
     const handleEdit = (docId) => {
-        navigate.push(`../EditReport/${docId}`);
+        navigate('../EditReport');
     }
 
     const addReport = () => {

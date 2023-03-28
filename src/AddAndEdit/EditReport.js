@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../index.css";
 import { Toaster, toast } from 'sonner';
 
-const EditReport = ({docId}) => {
+const EditReport = () => {
     const [editTitle, setEditTitle] = useState();
     const [editPatrollerName, setEditPatrollerName] = useState();
     const [editTime, setEditTime] = useState();
@@ -17,20 +17,6 @@ const EditReport = ({docId}) => {
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
     const usersCollecctionRef = collection(db, "reports");
-    
-    useEffect(() => {
-        const fetchReportData = async () => {
-          const reportRef = doc(db, "reports", docId);
-          const reportDoc = await getDoc(reportRef);
-          if (!reportDoc.exists()) {
-            console.log("No matching document.");
-            return;
-          }
-          setReportData(reportDoc.data());
-        };
-      
-        fetchReportData();
-      }, [docId]);
 
     const EditReport = () => {
         navigate('./IncidentReportPage')
@@ -75,7 +61,6 @@ const EditReport = ({docId}) => {
                                                 onChange={(event) => {
                                                     setEditTitle(event.target.value);
                                                 }}
-                                                value={reportData.title}
                                             />
                                         </div>
 
@@ -108,7 +93,6 @@ const EditReport = ({docId}) => {
                                                         onChange={(event) => {
                                                             setEditPatrollerName(event.target.value);
                                                         }}
-                                                        value={reportData.patrollerName}
                                                     />
                                                 </div>
                                             </div>
@@ -143,7 +127,6 @@ const EditReport = ({docId}) => {
                                                         onChange={(event) => {
                                                             setEditTime(event.target.value);
                                                         }}
-                                                        value={reportData.time}
                                                     />
                                                 </div>
                                             </div>
@@ -176,7 +159,6 @@ const EditReport = ({docId}) => {
                                                         onChange={(event) => {
                                                             setEditDate(event.target.value);
                                                         }}
-                                                        value={reportData.date}
                                                     />
                                                 </div>
                                             </div>
@@ -209,7 +191,6 @@ const EditReport = ({docId}) => {
                                                         onChange={(event) => {
                                                             setEditDateReport(event.target.value);
                                                         }}
-                                                        value={reportData.dateReport}
                                                     />
                                                 </div>
                                             </div>
@@ -229,7 +210,6 @@ const EditReport = ({docId}) => {
                                                 onChange={(event) => {
                                                     setEditLocation(event.target.value);
                                                 }}
-                                                value={reportData.location}
                                             />
                                         </div>
                                         <div className="col-span-6 sm:col-span-4">
@@ -262,7 +242,6 @@ const EditReport = ({docId}) => {
                                                         onChange={(event) => {
                                                             setEditDescription(event.target.value);
                                                         }}
-                                                        value={reportData.description}
                                                     ></textarea>
                                                     <h1 className="text-xs">To make the window larger click and drag the bottom right corner</h1>
                                                 </div>
