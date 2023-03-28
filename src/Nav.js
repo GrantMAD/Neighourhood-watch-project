@@ -155,11 +155,6 @@ const Nav = () => {
                                                     <a href="/Profile"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">Profile</a>
-                                                    {user && userRole !== 'pendingUser' &&
-                                                        <a href="/DashBoard"
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                            role="menuitem">DashBoard</a>
-                                                    }
                                                     <a href="/#"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                                         role="menuitem" onClick={logout}>Sign Out</a>
@@ -218,11 +213,6 @@ const Nav = () => {
                                         <li>
                                             <a href="/Profile" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Profile</a>
                                         </li>
-                                        {user && userRole !== 'pendingUser' &&
-                                        <li>
-                                            <a href="/DashBoard" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">DashBoard</a>
-                                        </li>
-}
                                         <li>
                                             <a href="/#" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"
                                                 onClick={logout}
