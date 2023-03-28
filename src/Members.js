@@ -26,8 +26,11 @@ const Members = (user) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const userPublicProfile = () => {
-        navigate(`/PublicProfile/${user.id}`, { state: { selectedUser: user } })
+    const userPublicProfile = (user) => {
+        // console.log(`Member to be viewed:`, user)
+        navigate(`/PublicProfile/${user.id}`, {
+            state: { selectedUser: user }
+        })
     }
 
     return (
@@ -95,7 +98,9 @@ const Members = (user) => {
                                 }).map((user, index) => {
                                     return <tr className="flex w-screen pt-[.3%] bg-white border-b" key={user.id}>
                                         <td className="pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
-                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id} onClick={userPublicProfile}>
+                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id}
+                                            onClick={() => userPublicProfile(user) }
+                                        >
                                             {user.name}
                                         </td>
                                         <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
