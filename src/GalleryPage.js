@@ -48,7 +48,7 @@ const GalleryPage = () => {
     }, [usersCollectionRef]);
 
     const addImage = () => {
-        navigate('/Dashboard')
+        navigate('../AddImage')
     }
 
     const handleDelete = () => {

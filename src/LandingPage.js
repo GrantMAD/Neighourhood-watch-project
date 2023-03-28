@@ -46,11 +46,11 @@ const LandingPage = () => {
   };
 
   const updateReport = async (id) => {
-    navigate('/Dashboard')
+    navigate('../EditStory')
   }
 
   const addStory = () => {
-    navigate('/Dashboard')
+    navigate('../AddStory')
   }
 
   const handleStoryClick = (story) => {
