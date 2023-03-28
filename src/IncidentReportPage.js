@@ -25,12 +25,12 @@ const IncidentReportPage = (props) => {
         }
     };
 
-    const updateReport = () => {
-        navigate('/Dashboard')
+    const handleEdit = (docId) => {
+        navigate.push(`../EditReport/${docId}`);
     }
 
     const addReport = () => {
-        navigate('/Dashboard')
+        navigate('../AddReport')
     }
 
     useEffect(() => {
@@ -127,7 +127,7 @@ const IncidentReportPage = (props) => {
                                                 </div>
                                             </div>
                                             <div class="flex items-end">
-                                                <button class="bg-blue-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125" onClick={() => updateReport()}>
+                                                <button class="bg-blue-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125" onClick={() => handleEdit(report.docId)}>
                                                     Edit
                                                 </button>
                                                 <Toaster richColors />

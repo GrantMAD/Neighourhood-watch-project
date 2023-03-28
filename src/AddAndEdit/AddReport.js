@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import "./index.css";
+import "../index.css";
 import { Toaster, toast } from 'sonner';
 
 const AddReport = () => {
@@ -13,6 +13,7 @@ const AddReport = () => {
     const [newDateReport, setNewDateReport] = useState();
     const [newLocation, setNewLocation] = useState();
     const [newDescription, setNewDescription] = useState();
+    const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
     const usersCollecctionRef = collection(db, "reports");
 
@@ -20,11 +21,13 @@ const AddReport = () => {
     const addReport = async (e) => {
         e.preventDefault();
         await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
+        setIsAdded(!isAdded)
         navigate('/IncidentReportPage')
     }
 
     return (
-        <main>
+        <main className="p-10 bg-zinc-200">
+            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Report</h1>
             <div className="hidden sm:block" aria-hidden="true">
                 <div className="py-5">
                     <div className="border-t border-gray-200" />
@@ -272,7 +275,6 @@ const AddReport = () => {
                     <div className="border-t border-gray-200" />
                 </div>
             </div>
-
         </main>
     )
 }

@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import DashBoard from './DashBoard';
 import Members from './Members';
 import ContactPage from './ContactPage';
 import Nav from './Nav';
@@ -19,6 +18,10 @@ import PasswordResetPage from './PasswordResetPage';
 import StoryPage from './StoryPage';
 import PublicProfile from './PublicProfile';
 import AddReport from './AddAndEdit/AddReport';
+import AddStory from './AddAndEdit/AddStory';
+import AddImage from './AddAndEdit/AddImage';
+import EditReport from './AddAndEdit/EditReport';
+import EditStory from './AddAndEdit/EditStory';
 
 function App() {
 
@@ -44,8 +47,11 @@ function App() {
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
         <Route path="/Profile" element={ <Profile/>} />
         <Route path="/PublicProfile/:id" element={ <PublicProfile/>} />
-        <Route path="/DashBoard" element={ <DashBoard/>} />
         <Route path="/AddReport" element={ <AddReport/>} />
+        <Route path="/AddStory" element={ <AddStory/>} />
+        <Route path="/AddImage" element={ <AddImage/>} />
+        <Route path="/EditStory" element={ <EditStory/>} />
+        <Route path="/EditReport" element={ <EditReport/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         </Routes>
