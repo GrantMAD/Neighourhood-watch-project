@@ -18,6 +18,7 @@ import PasswordResetEmail from './PasswordResetEmail';
 import PasswordResetPage from './PasswordResetPage';
 import StoryPage from './StoryPage';
 import PublicProfile from './PublicProfile';
+import AddReport from './AddAndEdit/AddReport';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/Profile" element={ <Profile/>} />
         <Route path="/PublicProfile/:id" element={ <PublicProfile/>} />
         <Route path="/DashBoard" element={ <DashBoard/>} />
+        <Route path="/AddReport" element={ <AddReport/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         </Routes>
