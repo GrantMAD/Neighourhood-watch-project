@@ -45,10 +45,6 @@ const LandingPage = () => {
     setIsDeleted(!isDeleted);
   };
 
-  const updateReport = async (id) => {
-    navigate('../EditStory')
-  }
-
   const addStory = () => {
     navigate('../AddStory')
   }
@@ -112,14 +108,17 @@ const LandingPage = () => {
                 <div className="flex flex-col md:flex-row mb-5">
                   <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
                     <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                    
                     {userRole === "admin" && (
                       <div className="flex mt-10">
+                        {/*
                         <button
                           className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
                           onClick={updateReport}
                         >
                           Edit
                         </button>
+                    */}
                         <Toaster richColors />
                         <button
                           className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
