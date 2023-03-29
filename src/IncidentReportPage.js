@@ -25,9 +25,7 @@ const IncidentReportPage = (props) => {
         }
     };
 
-    const handleEdit = (docId) => {
-        navigate('../EditReport');
-    }
+    
 
     const addReport = () => {
         navigate('../AddReport')
@@ -57,25 +55,25 @@ const IncidentReportPage = (props) => {
             </div>
             <div className="mx-auto max-w-screen-lg mb-5 lg:w-full lg:pl-16 lg:pr-16">
                 <div className="flex flex-col md:flex-row justify-between lg:pl-3 lg:pr-3">
-                <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md mb-3 md:mb-0 md:mr-3">
-                    <button className="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
-                        Search
+                    <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md mb-3 md:mb-0 md:mr-3">
+                        <button className="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
+                            Search
+                        </button>
+                        <input
+                            type="search"
+                            placeholder="Report Name"
+                            className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none "
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <button
+                        className="bg-gray-800 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded hover:scale-125 ..."
+                        onClick={addReport}
+                    >
+                        Add Report
                     </button>
-                    <input
-                        type="search"
-                        placeholder="Report Name"
-                        className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none "
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                        }}
-                    />
-                </div>
-                <button
-                    className="bg-gray-800 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded hover:scale-125 ..."
-                    onClick={addReport}
-                >
-                    Add Report
-                </button>
                 </div>
             </div>
             <div className="lg:ml-[27%] lg:mr-[27%] ml-[10%] mr-[10%] mb-5">
@@ -127,9 +125,11 @@ const IncidentReportPage = (props) => {
                                                 </div>
                                             </div>
                                             <div class="flex items-end">
+                                                {/*
                                                 <button class="bg-blue-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125" onClick={() => handleEdit(report.docId)}>
                                                     Edit
                                                 </button>
+                            */}
                                                 <Toaster richColors />
                                                 <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125" onClick={() => { deleteReport(report.id); toast.error('Story has been deleted'); }}>
                                                     Delete
