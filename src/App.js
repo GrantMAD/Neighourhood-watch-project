@@ -20,8 +20,6 @@ import PublicProfile from './PublicProfile';
 import AddReport from './AddAndEdit/AddReport';
 import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
-import EditReport from './AddAndEdit/EditReport';
-import EditStory from './AddAndEdit/EditStory';
 
 function App() {
 
@@ -50,8 +48,6 @@ function App() {
         <Route path="/AddReport" element={ <AddReport/>} />
         <Route path="/AddStory" element={ <AddStory/>} />
         <Route path="/AddImage" element={ <AddImage/>} />
-        <Route path="/EditStory" element={ <EditStory/>} />
-        <Route path="/EditReport" element={ <EditReport/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         </Routes>

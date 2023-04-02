@@ -28,6 +28,7 @@ const Nav = () => {
                 snapshot.forEach((doc) => {
                     const userData = doc.data();
                     setUserRole(userData.role);
+                    setUser(userData);
                 });
             });
         }
@@ -123,7 +124,7 @@ const Nav = () => {
                                     {user &&
                                         <div className="mr-5">
                                             <Toaster richColors />
-                                            {userRole === "admin" && (
+                                            {(userRole === "user" || userRole === "admin") && (
                                                 <button
                                                     className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
                                                     onClick={() => {
@@ -144,9 +145,15 @@ const Nav = () => {
                                         <div className="flex ml-3 relative">
                                             <button
                                                 className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid"
-                                                id="user-menu" aria-label="User menu" aria-haspopup="true">
-                                                <img className="h-8 w-8 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
-                                                    src="/images/profileimage.jpg" alt="" />
+                                                id="user-menu"
+                                                aria-label="User menu"
+                                                aria-haspopup="true"
+                                            >
+                                                <img
+                                                    className="h-8 w-8 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
+                                                    src={user.profileImage ? user.profileImage : "/images/profileAvatar.png"}
+                                                    alt=""
+                                                />
                                             </button>
                                             <div id="user-menu-dropdown"
                                                 className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
@@ -192,18 +199,18 @@ const Nav = () => {
                                             <a href="/" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                         </li>
                                         {user && userRole !== 'pendingUser' &&
-                                        <li>
-                                            <a href="/incidentReportPage" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Incident Report's</a>
-                                        </li>
-}
+                                            <li>
+                                                <a href="/incidentReportPage" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Incident Report's</a>
+                                            </li>
+                                        }
                                         <li>
                                             <a href="/AboutUs" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">About Us</a>
                                         </li>
                                         {user && userRole !== 'pendingUser' &&
-                                        <li>
-                                            <a href="/Members" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Member's</a>
-                                        </li>
-}
+                                            <li>
+                                                <a href="/Members" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Member's</a>
+                                            </li>
+                                        }
                                         <li>
                                             <a href="/GalleryPage" class="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Gallery</a>
                                         </li>
