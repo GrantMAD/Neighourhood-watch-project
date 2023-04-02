@@ -71,18 +71,17 @@ const ProfileForm = () => {
     navigate('/Profile');
   };
 
-  const uploadProfileImage = async (e) => {
+  const uploadProfileImage = async () => {
     if (profileImageUpload == null) return;
     const ProfileRef = ref(storage, `profileImages/${profileImageUpload.name + v4()}`);
-    return uploadBytes(ProfileRef, profileImageUpload).then((uploadResult) => {
-      return getDownloadURL(uploadResult.ref).then((downloadURL) => {
-        return downloadURL
-      })
+    return uploadBytes(ProfileRef, profileImageUpload).then(async (uploadResult) => {
+      const downloadURL = await getDownloadURL(uploadResult.ref);
+      return downloadURL;
     })
   };
 
   return (
-    <>
+    <main>
       <div>
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
@@ -227,7 +226,8 @@ const ProfileForm = () => {
                           id="formFileMultiple"
                           multiple
                           onChange={(event) => {
-                            setProfileImageUpload(event.target.value);
+                            const file = event.target.files[0];
+                            setProfileImageUpload(file);
                           }}
 
                         />
@@ -258,7 +258,7 @@ const ProfileForm = () => {
         </div>
       </div>
 
-    </>
+    </main>
   )
 }
 

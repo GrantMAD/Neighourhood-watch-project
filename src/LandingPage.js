@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
-import { db } from "./firebase";
+import { db, auth } from "./firebase";
 import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "./Skeletons/SkeletonStory";
 import { Toaster, toast } from 'sonner';
-import { auth } from "./firebase";
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);

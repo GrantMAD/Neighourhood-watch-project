@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { db } from "./firebase";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db, auth } from "./firebase";
+import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "./Skeletons/SkeletonReport";
 import "./index.css";
@@ -13,6 +13,7 @@ const IncidentReportPage = (props) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDeleted, setIsDeleted] = useState(false);
     const [selectedReport, setSelectedReport] = useState(null);
+    const [userRole, setUserRole] = useState("");
     const navigate = useNavigate();
 
     const deleteReport = async (id) => {
@@ -25,7 +26,19 @@ const IncidentReportPage = (props) => {
         }
     };
 
-    
+    useEffect(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const userEmail = currentUser.email;
+            const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+            onSnapshot(userRef, (snapshot) => {
+                snapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    setUserRole(userData.role);
+                });
+            });
+        }
+    }, [usersCollectionRef]);
 
     const addReport = () => {
         navigate('../AddReport')
@@ -131,9 +144,11 @@ const IncidentReportPage = (props) => {
                                                 </button>
                             */}
                                                 <Toaster richColors />
+                                                {userRole === "admin" && (
                                                 <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125" onClick={() => { deleteReport(report.id); toast.error('Story has been deleted'); }}>
                                                     Delete
                                                 </button>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
