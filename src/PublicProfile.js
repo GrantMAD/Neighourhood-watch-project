@@ -15,7 +15,7 @@ const PublicProfile = () => {
         console.log(selectedUser.name);
 
     return (
-        <main className="p-10 bg-zinc-200">
+        <main className="h-screen p-10 bg-zinc-200">
             <div className="p-16">
                 <div
                     className="p-8 bg-white shadow mt-24"

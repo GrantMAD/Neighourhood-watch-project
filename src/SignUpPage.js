@@ -5,6 +5,7 @@ import { auth } from "./firebase";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner';
 
 const SignUpPage = (props) => {
     const [newName, setNewName] = useState();
@@ -12,6 +13,7 @@ const SignUpPage = (props) => {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
     const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ const SignUpPage = (props) => {
                 role: "pendingUser"
             });
 
+            setIsAdded(!isAdded)
             navigate("/SignInPage");
         } catch (error) {
             setShowAlert(true)
@@ -97,11 +100,13 @@ const SignUpPage = (props) => {
                                 }}
                             />
                         </div>
+                        <Toaster richColors />
                         <button
                             type="submit"
                             className="w-full bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
                             onClick={() => {
-                                register()
+                                register();
+                                toast.success('Accounnt successfully created')
                             }}
 
                         >Create Account</button>
