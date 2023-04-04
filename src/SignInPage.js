@@ -3,10 +3,12 @@ import { useState } from "react";
 import { auth } from "./firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner';
 
 const SignInPage = (props) => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false)
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
@@ -17,6 +19,8 @@ const SignInPage = (props) => {
       if (props.funcNav) {
         props.funcNav(true)
       }
+
+      setLoggedIn(!loggedIn)
       navigate('/LandingPage');
     } catch (error) {
       setShowAlert(true)
@@ -55,9 +59,13 @@ const SignInPage = (props) => {
           />
         </div>
 
+        <Toaster richColors />
         <button
           className="transform rounded-lg bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-700"
-          onClick={login}
+          onClick={() =>{
+            login();
+            toast.success('Login successfull')
+          }}
         >
           LOG IN
         </button>
