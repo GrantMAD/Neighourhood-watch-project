@@ -58,28 +58,28 @@ const Members = (user) => {
                     </div>
                 </div>
                 <div className="pt-4 overflow-hidden">
-                    <table className="flex flex-col text-center">
+                    <table className="text-center">
                         <thead className="pl-[1%] border-b bg-gray-800">
                             <tr>
-                                <th scope="col" className="text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="hidden text-sm font-medium text-white px-6 py-4 lg:table-cell">
 
                                 </th>
                                 <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
                                     Name
                                 </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white md:table-cell">
                                     Street
                                 </th>
-                                <th scope="col" className="pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 pl-[2%] text-sm font-medium text-white lg:table-cell">
                                     CPF Sector
                                 </th>
                                 <th scope="col" className="pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
                                     Contact-Number
                                 </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell">
                                     Email
                                 </th>
-                                <th scope="col" className="pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4">
                                     Checked  in
                                 </th>
                             </tr>
@@ -96,17 +96,17 @@ const Members = (user) => {
                                         return value
                                     }
                                 }).map((user, index) => {
-                                    return <tr className="flex w-screen pt-[.3%] bg-white border-b" key={user.id}>
-                                        <td className="pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
+                                    return <tr className=" w-screen pt-[.3%] bg-white border-b" key={user.id}>
+                                        <td className="hidden pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:table-cell">{index + 1}</td>
                                         <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id}
                                             onClick={() => userPublicProfile(user) }
                                         >
                                             {user.name}
                                         </td>
-                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="text-md  hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
                                             {user.address}
                                         </td>
-                                        <td className="flex justify-center w-1/6 items-center text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
                                             {user.CPFSector}
                                         </td>
                                         <td
@@ -114,7 +114,7 @@ const Members = (user) => {
                                             className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
                                             0{user.number}
                                         </td>
-                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
                                             {user.email}
                                         </td>
                                         <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
