@@ -62,7 +62,7 @@ const Nav = () => {
         await signOut(auth);
     }
 
-    function toggleMenu() {
+    const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         setIsClicked(!isClicked);
     }
@@ -84,11 +84,11 @@ const Nav = () => {
                                         <a href="/LandingPage"
                                             className="mr-3 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         {user && userRole !== 'pendingUser' &&
-                                            <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-white px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Incident
+                                            <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-white px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Incident
                                                 Report's</a>
                                         }
                                         <a href="/AboutUs"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">About
+                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">About
                                             Us</a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/Members"
@@ -97,7 +97,7 @@ const Nav = () => {
                                         <a href="/GalleryPage"
                                             className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
                                         <a href="/ContactPage"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Contact
+                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Contact
                                             Us</a>
                                     </div>
                                 </div>
