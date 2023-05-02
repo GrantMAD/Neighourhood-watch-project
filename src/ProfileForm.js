@@ -5,6 +5,7 @@ import { storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner';
 
 const ProfileForm = () => {
   const [userData, setUserData] = useState(null);
@@ -14,6 +15,7 @@ const ProfileForm = () => {
   const [newAbout, setNewAbout] = useState();
   const [newNumber, setNewNumber] = useState(0);
   const [profileImageUpload, setProfileImageUpload] = useState();
+  const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
 
@@ -68,6 +70,7 @@ const ProfileForm = () => {
     }
 
     await updateDoc(userDocRef, updatedUser);
+    setProfileUpdated(!profileUpdated);
     navigate('/Profile');
   };
 
@@ -236,9 +239,13 @@ const ProfileForm = () => {
                 </div>
                 )}
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                <Toaster richColors />
                   <button
                     className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:scale-125 ..."
-                    onClick={UpdateUser}
+                    onClick={() => {
+                      UpdateUser();
+                      toast.error('Profile Updated');
+                    }}
                   >
                     Save
                   </button>
