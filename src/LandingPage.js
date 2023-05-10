@@ -106,7 +106,7 @@ const LandingPage = () => {
                 <hr className="w-1/4"></hr>
                 <div className="flex flex-col md:flex-row mb-5">
                   <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
-                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-500 hover:text-blue-400 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-indigo-500 hover:text-indigo-500 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                     
                     {userRole === "admin" && (
                       <div className="flex mt-10">
