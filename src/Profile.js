@@ -48,7 +48,7 @@ const Profile = () => {
               </div>
               <div className="relative">
                 <div
-                  className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
+                  className="w-48 h-48 bg-indigo-100 mx-auto rounded-full drop-shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
                 >
                   <img
                     src={user.profileImage}
@@ -60,7 +60,7 @@ const Profile = () => {
 
               <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center lg:justify-end lg:mr-5">
                 <button
-                  className="text-white py-2 px-4 uppercase rounded bg-blue-500 shadow hover:shadow-lg font-medium hover:scale-125 ml-[60px] lg:ml-0"
+                  className="text-white py-2 px-4 uppercase rounded bg-indigo-600 shadow hover:shadow-lg font-medium hover:scale-125 ml-[60px] lg:ml-0"
                   onClick={editProfile}
                 >
                   Edit Profile

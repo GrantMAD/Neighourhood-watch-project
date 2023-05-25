@@ -105,16 +105,16 @@ const Nav = () => {
                             <div className="hidden md:block">
                                 <div className="ml-4 flex items-center md:ml-6">
                                     {!user &&
-                                        <div className="ml-3 relative">
+                                        <div className="ml-3 relative hover:scale-125">
                                             <a href="/SignInPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 border border-white">Sign
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white  focus:outline-none focus:text-indigo-400 focus:bg-gray-700 border border-indigo-500">Sign
                                                 In</a>
                                         </div>
                                     }
                                     {!user &&
-                                        <div className="ml-3 relative">
+                                        <div className="ml-3 relative hover:scale-125">
                                             <a href="/SignUpPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 border border-white">Sign
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white focus:outline-none focus:text-indigo-400 focus:bg-gray-700 border border-indigo-500">Sign
                                                 Up</a>
                                         </div>
                                     }
