@@ -36,17 +36,17 @@ const SignInPage = (props) => {
 
   return (
     <div className="p-16 bg-gray-800">
-      <div className="flex flex-row bg-zinc-200">
+      <div className="flex flex-row bg-zinc-200 rounded-lg">
         <div className="bg-grey-lighter min-h-screen flex flex-col items-center justify-center text-white w-full sm:w-1/2">
-          <div className="flex w-[20rem] flex-col space-y-10">
+          <div className="flex w-[20rem] flex-col">
             <img src="/images/nwLogo.png" alt="" className="scale-75" />
-            <h1 className="text-3xl text-center text-gray-800 font-semibold">Sign In</h1>
+            <h1 className="text-3xl text-center text-gray-800 font-semibold mb-5">Sign In</h1>
             <div className="md:px-3">
               <div className="flex items-center justify-center mb-5">
                 <input
                   type="text"
                   placeholder="Email or Username"
-                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg"
+                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
                   onChange={(event) => {
                     setLoginEmail(event.target.value);
                   }}
@@ -56,7 +56,7 @@ const SignInPage = (props) => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg"
+                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
                   onChange={(event) => {
                     setLoginPassword(event.target.value);
                   }}
@@ -88,12 +88,12 @@ const SignInPage = (props) => {
 
             <a
               href="/PasswordResetEmail"
-              className="transform text-center font-semibold text-gray-800 duration-300 hover:text-gray-900"
+              className="transform text-center font-semibold text-gray-800 duration-300 hover:text-gray-900 mt-5"
             >FORGOT PASSWORD?</a
             >
           </div>
         </div>
-        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-500">
+        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-900 rounded-r-lg">
           <div className="flex flex-col items-center">
             <h1 className="text-zinc-200 text-xl mb-3">Nice to see you again</h1>
             <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8 md:text-center">WELCOME BACK</h1>

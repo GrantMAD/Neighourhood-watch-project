@@ -45,8 +45,8 @@ const SignUpPage = (props) => {
 
     return (
         <div className="p-16 bg-gray-800">
-            <div className="flex flex-col sm:flex-row bg-zinc-200">
-                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-500">
+            <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-lg">
+                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-900 rounded-l-lg">
                     <div className="flex flex-col items-center">
                         <h1 className="text-zinc-200 text-xl mb-3">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
