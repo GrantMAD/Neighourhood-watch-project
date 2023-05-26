@@ -87,7 +87,7 @@ const LandingPage = () => {
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           {userRole === "admin" && (
             <button
-              className="bg-gray-800 hover:bg-green-500 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-green-500 h-1/4 mt-2 lg:mt-1 border-2 border-green-500 hover:scale-125"
+              className="bg-gray-800 hover:bg-blue-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-blue-600 h-1/4 mt-2 lg:mt-1 border-2 border-blue-600 hover:scale-125"
               onClick={addStory}
             >
               Add Story
@@ -106,7 +106,7 @@ const LandingPage = () => {
                 <hr className="w-1/4"></hr>
                 <div className="flex flex-col md:flex-row mb-5">
                   <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
-                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-indigo-500 hover:text-indigo-500 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                     
                     {userRole === "admin" && (
                       <div className="flex mt-10">

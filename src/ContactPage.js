@@ -54,7 +54,7 @@ const ContactPage = () => {
             </div>
           </div>
           <h1 className='text-gray-500 text-sm'>Click and drag bottom right cornner to make larger</h1>
-          <button type="submit" className="mt-3 rounded-md bg-indigo-700 px-10 py-2 text-white shadow-xl hover:bg-gray-600">Send Message</button>
+          <button type="submit" className="mt-3 rounded-md bg-indigo-700 px-10 py-2 text-white shadow-xl hover:bg-indigo-600">Send Message</button>
         </form>
         </div>
       </div>

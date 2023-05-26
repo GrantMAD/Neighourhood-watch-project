@@ -14,7 +14,7 @@ const StoryPage = (props) => {
   }
 
   return (
-    <main className="h-window pt-10 pb-10 lg:pr-60 lg:pl-60 md:pr-20 md:pl-20 sm:pr-10 sm:pl-10 bg-zinc-200">
+    <main className="h-screen pt-10 pb-10 lg:pr-60 lg:pl-60 md:pr-20 md:pl-20 sm:pr-10 sm:pl-10 bg-zinc-200">
       <div className="flex flex-col mt-10 mb-10 p-10 text-zinc-200 rounded-md shadow-lg shadow-gray-500 bg-gray-800">
         <div className="flex justify-center">
           <h1 className="text-5xl mb-5 font-semibold text-zinc-200 underline underline-offset-8">{story.storyTitle}</h1>
@@ -32,7 +32,7 @@ const StoryPage = (props) => {
         </div>
         <div className="pt-5 pb-2">
           <button
-            className="bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 float-right hover:scale-125"
+            className="bg-blue-600 text-zinc-200 font-bold py-2 px-4 rounded mr-2 float-right hover:scale-125"
             onClick={returnToLanding}
           >
             Return 
