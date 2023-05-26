@@ -80,24 +80,24 @@ const Nav = () => {
                                     </a>
                                 </div>
                                 <div className="hidden md:block">
-                                    <div className="ml-10 flex items-baseline">
+                                    <div className="lg:ml-10 flex items-baseline">
                                         <a href="/LandingPage"
-                                            className="mr-3 px-3 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
+                                            className="mr-3 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Incident
                                                 Report's</a>
                                         }
                                         <a href="/AboutUs"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">About
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">About
                                             Us</a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/Members"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
+                                                className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
                                         }
                                         <a href="/GalleryPage"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
                                         <a href="/ContactPage"
-                                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Contact
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Contact
                                             Us</a>
                                     </div>
                                 </div>
@@ -241,20 +241,6 @@ const Nav = () => {
                     </div>
                     <div className="hidden md:hidden">
                         <div className="pt-4 pb-3 border-t border-gray-700">
-                            <div className="flex items-center px-5">
-                                <div className="flex-shrink-0">
-                                    <img className="h-10 w-10 rounded-full"
-                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="ml-3">
-                                    <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                                    <div
-                                        className="mt-1 text-sm font-medium leading-none text-gray-400">tom@example.com
-                                    </div>
-                                </div>
-                            </div>
                             <div className="mt-3 px-2">
                                 <a href="/ProfilePage"
                                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Your
