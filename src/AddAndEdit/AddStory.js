@@ -35,6 +35,13 @@ const AddStory = () => {
         })
     };
 
+    const handleContentChange = (event) => {
+        const content = event.target.value;
+        if (content.length <= 475) {
+            setNewStoryContent(content);
+        }
+    };
+
     return (
         <main className="p-10 bg-zinc-200">
             <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Story</h1>
@@ -75,8 +82,9 @@ const AddStory = () => {
                                                 <div className="xl:w-96">
                                                     <label for="storyDesciption" className="form-label inline-block mb-2 font-medium text-gray-700">Story Description</label>
                                                     <textarea
-                                                        type="text"
-                                                        className="
+                            maxLength={475}
+                            type="text"
+                            className="
                                   form-control
                                   block
                                   w-full
@@ -95,13 +103,17 @@ const AddStory = () => {
                                   resize 
                                   whitespace-pre-wrap
                               "
-                                                        id="storyDesciption"
-                                                        rows="10"
-                                                        placeholder="Story Contents"
-                                                        onChange={(event) => {
-                                                            setNewStoryContent(event.target.value);
-                                                        }}
-                                                    ></textarea>
+                            id="storyDescription"
+                            rows="10"
+                            placeholder="Story Contents"
+                            value={newStoryContent}
+                            onChange={handleContentChange}
+                          ></textarea>
+                                                    {newStoryContent && newStoryContent.length >= 475 && (
+                                                        <p className="text-red-500 text-xs mt-1">
+                                                            Maximum length (475 characters) reached.
+                                                        </p>
+                                                    )}
                                                     <h1 className="text-xs">To make the window larger click and drag the bottem right corner</h1>
                                                 </div>
                                             </div>

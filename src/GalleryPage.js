@@ -81,7 +81,7 @@ const GalleryPage = () => {
                 <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
                     {userRole === "admin" && (
                         <div className="flex flex-wrap justify-center md:justify-end mb-5">
-                            <button className="h-full bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
+                            <button className="h-full bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
                                 Add new image
                             </button>
                             <button className="h-full bg-red-500 text-white font-bold py-2 px-4 rounded ml-2 mr-2 md:mr-0 shadow-xl hover:scale-125" onClick={handleDelete} disabled={!selectedImages.length}>
