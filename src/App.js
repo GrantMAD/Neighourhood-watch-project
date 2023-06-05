@@ -20,6 +20,7 @@ import PublicProfile from './PublicProfile';
 import AddReport from './AddAndEdit/AddReport';
 import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
+import HomePage from './Components/HomePage';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
       }
         <Routes>
         <Route path="/" element={ <LandingPage/>} />
+        <Route path="HomePage" element={ <HomePage funcNav={setShowNav}/>} />
         <Route path="LandingPage" element={ <LandingPage/>} />
         <Route path="StoryPage" element={ <StoryPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />

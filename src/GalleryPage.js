@@ -73,7 +73,7 @@ const GalleryPage = () => {
 
     return (
         <main className="bg-zinc-200">
-            <div className="grid pt-20 md:pt-24 place-content-center mb-5">
+            <div className="grid pt-20 md:pt-24 place-content-center mb-3">
                 <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">Gallery</h1>
             </div>
 
@@ -90,7 +90,10 @@ const GalleryPage = () => {
                         </div>
                     )}
 
-                    <p className="mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.</p>
+                    <p className="mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{userRole === "admin" && (
+                        <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
+                    )}</p>
+                    
                     <div className="flex flex-wrap -m-1 md:-m-2">
                         {isLoading ? (
                             <SkeletonImage />
@@ -121,14 +124,14 @@ const GalleryPage = () => {
                     <div className="max-w-screen-lg mx-auto mt-5">
                         <div className="flex justify-center">
                             <button
-                                className="w-full md:w-auto h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                className="w-full md:w-auto h-full bg-blue-700 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
                                 onClick={() => setCurrentPage(currentPage - 1)}
                                 disabled={startIndex === 0}
                             >
                                 <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
                             </button>
                             <button
-                                className="w-full md:w-auto h-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                className="w-full md:w-auto h-full bg-blue-700 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
                                 onClick={() => setCurrentPage(currentPage + 1)}
                                 disabled={endIndex >= imageUrls.length}
                             >

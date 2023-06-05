@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 import { db } from "./firebase";
@@ -15,6 +14,7 @@ const SignUpPage = (props) => {
     const [showAlert, setShowAlert] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
+    const loginButtonRef = useRef(null);
     const navigate = useNavigate();
 
 
@@ -32,8 +32,13 @@ const SignUpPage = (props) => {
             await addDoc(usersCollectionRef, {
                 name: newName,
                 email: registerEmail,
+                address: '',
+                number: '',
+                about: '',
                 checkedIn: false,
-                role: "pendingUser"
+                role: "pendingUser",
+                profileImage: '',
+                CPFSector:''
             });
 
             setIsAdded(!isAdded)
@@ -67,6 +72,11 @@ const SignUpPage = (props) => {
                                     onChange={(event) => {
                                         setNewName(event.target.value);
                                     }}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") {
+                                            loginButtonRef.current.click();
+                                        }
+                                    }}
                                 />
 
 
@@ -77,6 +87,11 @@ const SignUpPage = (props) => {
                                     placeholder="Email"
                                     onChange={(event) => {
                                         setRegisterEmail(event.target.value);
+                                    }}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") {
+                                            loginButtonRef.current.click();
+                                        }
                                     }}
                                 />
                                 {showAlert &&
@@ -98,6 +113,11 @@ const SignUpPage = (props) => {
                                     onChange={(event) => {
                                         setRegisterPassword(event.target.value);
                                     }}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") {
+                                            loginButtonRef.current.click();
+                                        }
+                                    }}
                                 />
                             </div>
                             <Toaster richColors />
@@ -106,13 +126,17 @@ const SignUpPage = (props) => {
                                 className="w-full bg-indigo-600 text-center py-3 rounded-lg text-white hover:scale-105 focus:outline-none my-1 font-semibold"
                                 onClick={() => {
                                     register();
-                                    toast.success('Accounnt successfully created')
+                                    toast.success('Account successfully created')
                                 }}
+                                ref={loginButtonRef}
 
                             >Create Account</button>
                             <div className="text-gray-800 font-semibold text-center mt-3">
                                 Already have an account? &nbsp;
-                                <a className="no-underline text-indigo-500" href="/SignInPage">
+                                <a
+                                    className="no-underline text-indigo-500"
+                                    href="/SignInPage"
+                                >
                                     Log in
                                 </a>
                             </div>

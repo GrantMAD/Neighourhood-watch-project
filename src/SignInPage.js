@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { auth } from "./firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +8,9 @@ import "./index.css";
 const SignInPage = (props) => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const loginButtonRef = useRef(null);
   const navigate = useNavigate();
 
   const login = async () => {
@@ -50,6 +50,11 @@ const SignInPage = (props) => {
                   onChange={(event) => {
                     setLoginEmail(event.target.value);
                   }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      loginButtonRef.current.click();
+                    }
+                  }}
                 />
               </div>
               <div className="flex items-center justify-center">
@@ -59,6 +64,11 @@ const SignInPage = (props) => {
                   className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
                   onChange={(event) => {
                     setLoginPassword(event.target.value);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      loginButtonRef.current.click();
+                    }
                   }}
                 />
               </div>
@@ -70,6 +80,7 @@ const SignInPage = (props) => {
                     login();
                     toast.success('Login successfull')
                   }}
+                  ref={loginButtonRef}
                 >
                   LOG IN
                 </button>

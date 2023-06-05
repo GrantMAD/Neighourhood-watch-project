@@ -37,7 +37,7 @@ const Nav = () => {
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
         try {
-            if (user && user.uid) {
+            if (user && user.email) {
                 const usersCollectionRef = collection(db, 'users')
                 const userQuery = query(usersCollectionRef, where("email", "==", user.email))
                 const data = await getDocs(userQuery)
