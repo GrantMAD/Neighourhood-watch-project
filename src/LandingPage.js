@@ -131,9 +131,9 @@ const LandingPage = () => {
                       </div>
                     )}
                   </div>
-                  <div className="flex justify-end md:w-1/2">
+                  <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
                     <img
-                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md border border-zinc-200 rounded-md"
+                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md "
                       alt=""
                       src={story.image}
                     />

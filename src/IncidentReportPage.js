@@ -8,7 +8,8 @@ import { Toaster, toast } from 'sonner';
 
 const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
-    const usersCollectionRef = collection(db, 'reports');
+    const usersCollectionRef = collection(db, 'users');
+    const reportsCollectionRef = collection(db, 'reports');
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isDeleted, setIsDeleted] = useState(false);
@@ -46,7 +47,7 @@ const IncidentReportPage = (props) => {
 
     useEffect(() => {
         const getReports = async () => {
-            const reportData = await getDocs(usersCollectionRef);
+            const reportData = await getDocs(reportsCollectionRef);
             setReports(reportData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
             setIsLoading(false);
         };
@@ -153,7 +154,6 @@ const IncidentReportPage = (props) => {
                                         </div>
                                     </div>
                                 </div>
-
                             )}
                         </div>
                     </div>

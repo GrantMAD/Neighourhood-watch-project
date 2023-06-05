@@ -69,15 +69,26 @@ const Profile = () => {
             </div>
 
             <div className="lg:mt-20 text-center border-b pb-12">
-              <h1 className="text-4xl font-medium text-gray-800">{user.name}</h1>
-              <p className="font-light text-gray-600 mt-3">{user.address}</p>
-
-              <p className="mt-8 text-gray-500">{user.number}</p>
-              <p className="mt-2 text-gray-500">{user.email}</p>
+            <h1 className="text-4xl font-medium text-gray-800">{user.name}</h1>
+              <div>
+                <h1 className="text-blue-700 font-semibold mt-5 underline">Address:</h1>
+                <p className="text-gray-800">{user.address}</p>
+              </div>
+              <div>
+                <h1 className="text-blue-700 font-semibold mt-3 underline">Sector:</h1>
+                <p className="text-gray-800">{user.CPFSector}</p>
+              </div>
+              <div>
+              <h1 className="text-blue-700 font-semibold mt-3 underline">Cell Number:</h1>
+              <p className="text-gray-800">{user.number}</p>
+              </div>
+              <div>
+              <h1 className="text-blue-700 font-semibold mt-3 underline">Email:</h1>
+              <p className="text-gray-800">{user.email}</p>
+              </div>          
             </div>
-
             <div className="mt-12 flex flex-col justify-center">
-              <p className="text-gray-600 text-center font-light lg:px-16">{user.about}</p>
+              <p className="text-gray-800 text-center lg:px-16">{user.about}</p>
             </div>
 
           </div>

@@ -9,7 +9,7 @@ const StoryPage = (props) => {
     return null;
   }
 
-  const returnToLanding = async (id) => {
+  const returnToLanding = async () => {
     navigate('/LandingPage')
   }
 
