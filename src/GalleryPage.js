@@ -12,6 +12,8 @@ const GalleryPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [userRole, setUserRole] = useState("");
     const [selectedImages, setSelectedImages] = useState([]);
+    const [isImageFullscreen, setIsImageFullscreen] = useState(false); 
+    const [fullscreenImageUrl, setFullscreenImageUrl] = useState("");
     const pageSize = 12;
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * pageSize;
@@ -71,6 +73,16 @@ const GalleryPage = () => {
         });
     };
 
+    const handleImageClick = (url) => {
+        setIsImageFullscreen(true);
+        setFullscreenImageUrl(url);
+    };
+
+    const closeFullscreenImage = () => {
+        setIsImageFullscreen(false);
+        setFullscreenImageUrl("");
+    };
+
     return (
         <main className="bg-zinc-200">
             <div className="grid pt-20 md:pt-24 place-content-center mb-3">
@@ -81,7 +93,7 @@ const GalleryPage = () => {
                 <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
                     {userRole === "admin" && (
                         <div className="flex flex-wrap justify-center md:justify-end mb-5">
-                            <button className="h-full bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
+                            <button className="h-full bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
                                 Add new image
                             </button>
                             <button className="h-full bg-red-500 text-white font-bold py-2 px-4 rounded ml-2 mr-2 md:mr-0 shadow-xl hover:scale-125" onClick={handleDelete} disabled={!selectedImages.length}>
@@ -113,9 +125,19 @@ const GalleryPage = () => {
                                                     } else {
                                                         setSelectedImages([...selectedImages, url]);
                                                     }
+                                                    handleImageClick(url);
                                                 }}
                                             />
                                         </div>
+                                        {isImageFullscreen && fullscreenImageUrl === url && ( // Show fullscreen image
+                                            <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-80" onClick={closeFullscreenImage}>
+                                                <img
+                                                    alt="fullscreen"
+                                                    src={url}
+                                                    className="max-h-full max-w-full"
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 );
                             })
@@ -124,14 +146,14 @@ const GalleryPage = () => {
                     <div className="max-w-screen-lg mx-auto mt-5">
                         <div className="flex justify-center">
                             <button
-                                className="w-full md:w-auto h-full bg-blue-700 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                className="w-full md:w-auto h-full bg-blue-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
                                 onClick={() => setCurrentPage(currentPage - 1)}
                                 disabled={startIndex === 0}
                             >
                                 <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
                             </button>
                             <button
-                                className="w-full md:w-auto h-full bg-blue-700 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
+                                className="w-full md:w-auto h-full bg-blue-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-2 shadow-xl hover:scale-125"
                                 onClick={() => setCurrentPage(currentPage + 1)}
                                 disabled={endIndex >= imageUrls.length}
                             >

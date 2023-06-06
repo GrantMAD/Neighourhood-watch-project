@@ -13,6 +13,7 @@ const AddReport = () => {
     const [newDateReport, setNewDateReport] = useState();
     const [newLocation, setNewLocation] = useState();
     const [newDescription, setNewDescription] = useState();
+    const [showWarning, setShowWarning] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
     const usersCollecctionRef = collection(db, "reports");
@@ -20,9 +21,15 @@ const AddReport = () => {
 
     const addReport = async (e) => {
         e.preventDefault();
+        if (!newTitle || !newPatrollerName || !newTime || !newDate || !newDateReport || !newLocation || !newDescription) {
+            setShowWarning(true);
+            return;
+        }
+
         await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
-        setIsAdded(!isAdded)
-        navigate('/IncidentReportPage')
+        setIsAdded(!isAdded);
+        toast.success('Report saved successfully!');
+        navigate('/IncidentReportPage');
     }
 
     return (
@@ -247,6 +254,9 @@ const AddReport = () => {
                                                         }}
                                                     ></textarea>
                                                     <h1 className="text-xs">To make the window larger click and drag the bottom right corner</h1>
+                                                    {showWarning && (
+                                                        <p className="text-red-500 text-sm mt-2">Please fill in all the input fields.</p>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -258,7 +268,6 @@ const AddReport = () => {
                                         className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gray-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:scale-125 ..."
                                         onClick={(e) => {
                                             addReport(e);
-                                            toast.success('Report has been added')
                                         }}
                                     >
                                         Save

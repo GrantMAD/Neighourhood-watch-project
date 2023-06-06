@@ -96,7 +96,9 @@ const LandingPage = () => {
         </div>
         {isLoading ? (
           <SkeletonStory />
-        ) :
+        ) : storys.length === 0 ? ( 
+        <p className="text-zinc-200 text-2xl">No Stories currently</p>
+      ) :
           storys.map((story) => {
             return <div key={story.id}>
               {" "}
