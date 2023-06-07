@@ -33,6 +33,20 @@ const Members = () => {
         })
     }
 
+    const filterUsers = (user) => {
+        if (searchTerm === "") {
+          return true;
+        } else {
+          const nameMatch = user.name.toLowerCase().includes(searchTerm.toLowerCase());
+          const CPFSectorMatch = user.CPFSector?.toLowerCase().includes(searchTerm.toLowerCase());
+          return nameMatch || CPFSectorMatch;
+        }
+      };
+
+      const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+      };
+
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
@@ -48,13 +62,13 @@ const Members = () => {
                         </button>
                         <input
                             type="search"
-                            placeholder="Member's Name"
+                            placeholder="Name/CPF Sector"
                             class="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
-                            onChange={e => { setSearchTerm(e.target.value) }}
+                            onChange={handleSearch}
                         />
                     </div>
                     <div className="mt-3 pb-3">
-                        <p>All Member's are displayed here. Registered patroller's have access to all Member's information that are currently displayed. To search for a member input the member's name above. To view a member's profile click on their name.</p>
+                        <p>All Member's are displayed here. Registered patroller's have access to all Member's information that are currently displayed. To search for a member input either the member's name or CPF Sector above. To view a member's profile click on their name.</p>
                     </div>
                 </div>
                 <div className="pt-4 overflow-hidden">
@@ -89,39 +103,34 @@ const Members = () => {
                                 <SkeletonMember />
                             ) :
                                 // eslint-disable-next-line array-callback-return
-                                users.filter((value) => {
-                                    if (searchTerm === "") {
-                                        return value
-                                    } else if (value.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                        return value
-                                    }
-                                }).map((user, index) => {
-                                    return <tr className=" w-screen pt-[.3%] bg-white border-b" key={user.id}>
-                                        <td className="hidden pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:table-cell">{index + 1}</td>
-                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125 ..." key={user.id}
-                                            onClick={() => userPublicProfile(user) }
-                                        >
-                                            {user.name}
-                                        </td>
-                                        <td className="text-md  hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
-                                            {user.address}
-                                        </td>
-                                        <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                            {user.CPFSector}
-                                        </td>
-                                        <td
-                                            type="number"
-                                            className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
-                                            0{user.number}
-                                        </td>
-                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
-                                            {user.email}
-                                        </td>
-                                        <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            <li className={user.checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
-                                        </td>
-                                    </tr>
-                                })}
+                                users.filter(filterUsers)
+                                    .map((user, index) => {
+                                        return <tr className=" w-screen pt-[.3%] bg-white border-b" key={user.id}>
+                                            <td className="hidden pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:table-cell">{index + 1}</td>
+                                            <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125" key={user.id}
+                                                onClick={() => userPublicProfile(user)}
+                                            >
+                                                {user.name}
+                                            </td>
+                                            <td className="text-md  hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
+                                                {user.address}
+                                            </td>
+                                            <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
+                                                {user.CPFSector}
+                                            </td>
+                                            <td
+                                                type="number"
+                                                className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
+                                                0{user.number}
+                                            </td>
+                                            <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
+                                                {user.email}
+                                            </td>
+                                            <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <li className={user.checkedIn ? 'text-xl ml-4 text-lime-400' : 'text-xl ml-4 text-gray-900'} ></li>
+                                            </td>
+                                        </tr>
+                                    })}
                         </tbody>
                     </table>
                 </div>

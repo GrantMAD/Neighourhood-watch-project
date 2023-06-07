@@ -61,7 +61,7 @@ const ProfileForm = () => {
       address: newAddress,
       number: newNumber,
       about: newAbout,
-      CPFSector: cpfSector
+      cpfSector: cpfSector
     }
 
     if (profileURL !== undefined) {
@@ -150,7 +150,7 @@ const ProfileForm = () => {
                           Sector
                         </label>
                         <input
-                          defaultValue={userData.CPFSector}
+                          defaultValue={userData.cpfSector}
                           type="text"
                           name="CpfSector"
                           id="CpfSector"
@@ -266,7 +266,7 @@ const ProfileForm = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       UpdateUser();
-                      toast.success('Profile Updated');
+                      toast.success('Profile Updating, Please wait.');
                     }}
                   >
                     Save

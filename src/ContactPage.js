@@ -44,7 +44,7 @@ const ContactPage = () => {
         <div className="ml-3 lg:ml-0">
           <h1 className="text-gray-800 text-4xl font-medium sm:mt-20">Contact us</h1>
           <p className="mt-3">
-            <a className="font-bold text-blue-700" href="mailto:Charlies.Coedmore@gmail.com">
+            <a className="font-bold text-blue-600" href="mailto:Charlies.Coedmore@gmail.com">
               Email us
             </a>{' '}
             or message us here:
@@ -82,7 +82,7 @@ const ContactPage = () => {
             <h1 className="text-gray-500 text-sm">Click and drag bottom right corner to make larger</h1>
             <button
               type="submit"
-              className="mt-3 rounded-md bg-blue-700 px-10 py-2 text-white shadow-xl hover:bg-blue-600"
+              className="mt-3 rounded-md bg-blue-600 px-10 py-2 text-white shadow-xl hover:bg-blue-600"
             >
               Send Message
             </button>
