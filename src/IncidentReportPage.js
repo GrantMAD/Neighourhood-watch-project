@@ -91,7 +91,7 @@ const IncidentReportPage = (props) => {
                 </div>
             </div>
             <div className="lg:ml-[27%] lg:mr-[27%] ml-[10%] mr-[10%] mb-5">
-                <p>All incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input the name of the report above. To add a new report click on the add report button.</p>
+                <p>All incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input either the name of the report, the patrollers who created the report or the full date above, exp. (2023-03-24). To add a new report click on the add report button.</p>
             </div>
             {isLoading ? (
                 <SkeletonReport />
@@ -101,11 +101,15 @@ const IncidentReportPage = (props) => {
                 // eslint-disable-next-line array-callback-return
                 reports.filter((value) => {
                     if (searchTerm === "") {
-                        return value
-                    } else if (value.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                        return value
+                      return value;
+                    } else if (
+                      value.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      value.dateReport.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      value.patrollerName.toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                      return value;
                     }
-                }).map((report, index) => {
+                  }).map((report, index) => {
                     return <div class="flex flex-col items-center mb-3">
                         <div class="w-full md:w-1/2 pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />

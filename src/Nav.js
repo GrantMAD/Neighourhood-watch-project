@@ -3,6 +3,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 
 const Nav = () => {
@@ -10,6 +11,7 @@ const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
     const [userRole, setUserRole] = useState("");
+    const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
@@ -29,6 +31,10 @@ const Nav = () => {
                     const userData = doc.data();
                     setUserRole(userData.role);
                     setUser(userData);
+                    localStorage.setItem('profileImage', userData.profileImage);
+                    if (!userData.profileUpdated) {
+                        setShowNotification(true);
+                    }
                 });
             });
         }
@@ -66,6 +72,23 @@ const Nav = () => {
         setIsMenuOpen(!isMenuOpen);
         setIsClicked(!isClicked);
     }
+
+    const handleProfileUpdate = async () => {
+        try {
+            if (user && user.email) {
+                const usersCollectionRef = collection(db, 'users')
+                const userQuery = query(usersCollectionRef, where("email", "==", user.email))
+                const data = await getDocs(userQuery)
+                const userDocRef = data.docs[0].ref
+                await updateDoc(userDocRef, {
+                    profileUpdated: true
+                });
+                setShowNotification(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <nav>
@@ -143,6 +166,26 @@ const Nav = () => {
                                     }
                                     {user &&
                                         <div className="flex ml-3 relative">
+                                            {showNotification && (
+                                                <div className="fixed top-16 right-56 z-50 bg-blue-500 text-white p-2 rounded-md shadow">
+                                                    <p className="text-sm">
+                                                        Please update your Profile.
+                                                        <Link
+                                                            to="/Profile"
+                                                            className="ml-2 underline"
+                                                            onClick={handleProfileUpdate}
+                                                        >
+                                                            Update Now
+                                                        </Link>
+                                                        <button
+                                                            className="ml-2 underline"
+                                                            onClick={handleProfileUpdate}
+                                                        >
+                                                            Close
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                            )}
                                             <button
                                                 className="max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid"
                                                 id="user-menu"
@@ -151,7 +194,7 @@ const Nav = () => {
                                             >
                                                 <img
                                                     className="h-8 w-8 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
-                                                    src={user.profileImage ? user.profileImage : "/images/profileAvatar.png"}
+                                                    src={localStorage.getItem('profileImage') || "/images/profileAvatar.png"}
                                                     alt=""
                                                 />
                                             </button>
