@@ -35,7 +35,7 @@ const Profile = () => {
   }
 
   return (
-    <main className="h-screen p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
+    <main className=" p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
       <div className="p-4 md:p-8 lg:p-16">
         {users.map((user) => {
           return <div
@@ -68,7 +68,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="lg:mt-20 text-center border-b pb-10">
+            <div className="lg:mt-20 text-center border-b pb-10 md:mt-16">
               <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-3">{user.name}</h1>
               <div>
                 <h1 className="text-blue-600 font-bold mt-5 underline">Address:</h1>

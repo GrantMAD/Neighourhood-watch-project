@@ -3,10 +3,10 @@ const AboutUs = () => {
 
     return (
         <div className="bg-zinc-200 md:p-10 lg:p-24">
-           <div className="grid pt-20 md:pt-5 place-content-center">
+           <div className="grid pt-20 md:pt-10s place-content-center">
                 <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">About us</h1>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="grid lg:grid-cols-2 md:grid-rows-2">
                 <div className="pr-[25%] pl-[25%] w-full">
                     <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-10  text-gray-800">Our Vision</h1>
                     <p className="text-center mb-10">Our vision is a society where neighbours come together to help create a safer, stronger and active community.</p>
@@ -26,8 +26,8 @@ const AboutUs = () => {
                     </div>
     */}
                 </div>
-                <div className="md:mt-10">
-                    <img className="pl-4 md:mt-28 drop-shadow-2xl" src="/images/ALPHAS-LOGO.png" alt=""></img>
+                <div>
+                    <img className="pl-4 md:mt-20 drop-shadow-2xl" src="/images/ALPHAS-LOGO.png" alt=""></img>
                 </div>
             </div>
         </div>
