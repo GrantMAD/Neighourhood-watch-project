@@ -84,10 +84,10 @@ const Members = () => {
                                 <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white md:table-cell">
                                     Street
                                 </th>
-                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 pl-[2%] text-sm font-medium text-white lg:table-cell">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell">
                                     CPF Sector
                                 </th>
-                                <th scope="col" className="pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="lg:pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
                                     Contact-Number
                                 </th>
                                 <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell">

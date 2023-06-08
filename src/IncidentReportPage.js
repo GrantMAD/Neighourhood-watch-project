@@ -110,8 +110,8 @@ const IncidentReportPage = (props) => {
                       return value;
                     }
                   }).map((report, index) => {
-                    return <div class="flex flex-col items-center mb-3">
-                        <div class="w-full md:w-1/2 pr-10 pl-10">
+                    return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
+                        <div class="w-full pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
                             <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700" onClick={() => setSelectedReport(report)}>{report.title}</label>
                             {selectedReport?.id === report.id && (

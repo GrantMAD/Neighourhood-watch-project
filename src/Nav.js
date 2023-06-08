@@ -10,7 +10,7 @@ const Nav = () => {
     const [user, setUser] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
-    const [userRole, setUserRole] = useState("");
+    const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
@@ -20,6 +20,10 @@ const Nav = () => {
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
     }, [checkedIn]);
+
+    useEffect(() => {
+        localStorage.setItem('userRole', userRole);
+      }, [userRole]);
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -103,7 +107,7 @@ const Nav = () => {
                                     </a>
                                 </div>
                                 <div className="hidden md:block">
-                                    <div className="lg:ml-10 flex items-baseline">
+                                    <div className="lg:ml-10 flex items-center">
                                         <a href="/LandingPage"
                                             className="mr-3 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         {user && userRole !== 'pendingUser' &&
@@ -149,7 +153,7 @@ const Nav = () => {
                                             <Toaster richColors />
                                             {(userRole === "user" || userRole === "admin") && (
                                                 <button
-                                                    className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
+                                                    className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
                                                     onClick={() => {
                                                         if (checkedIn) {
                                                             toast.error('You have checked out');
@@ -193,7 +197,7 @@ const Nav = () => {
                                                 aria-haspopup="true"
                                             >
                                                 <img
-                                                    className="h-8 w-8 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
+                                                    className="lg:h-8 lg:w-8 md:h-8 md:w-10 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
                                                     src={localStorage.getItem('profileImage') || "/images/profileAvatar.png"}
                                                     alt=""
                                                 />
