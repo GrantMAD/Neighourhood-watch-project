@@ -123,7 +123,7 @@ const HomePage = (props) => {
                                         <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
                                             <ul class="flex flex-col p-2 mt-4 divide-y divide-gray-500 border border-gray-800 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                                                 <li>
-                                                    <a href="/" className="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
+                                                    <a href="/HomePage" className="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                                 </li>
                                                 {user && userRole !== 'pendingUser' &&
                                                     <li>
@@ -183,34 +183,141 @@ const HomePage = (props) => {
                         </nav>
                     </div>
                 </nav>
-                <div className="flex flex-row bg-gray-800 pt-32 pb-20 px-[20%]">
-                    <div className="flex flex-col justify-center items-start w-3/5">
-                        <div className="font-semibold text-5xl">
+                <div className="flex flex-col md:flex-row bg-gray-800 pt-32 pb-20 px-6 md:px-[20%]">
+                    <div className="flex flex-col justify-center items-start md:w-3/5">
+                        <div className="font-semibold text-3xl md:text-5xl">
                             <h1 className="text-zinc-200">Welcome to the</h1>
                             <h1 className="text-blue-600">Neighbourhood Watch App.</h1>
                         </div>
-                        <div className="text-lg text-zinc-200 mt-3 font-semibold">
-                            <p>We are here to help you keep your neighbourhood safe. A central place for</p>
-                            <p>all your CPF neighbourhood security needs.</p>
+                        <div className="text-base md:text-lg text-zinc-200 mt-3 font-semibold">
+                            <p>We are here to help you keep your neighbourhood safe. A central place</p>
+                            <p>for all your CPF neighbourhood security needs.</p>
                             <div className="mt-7 hover:scale-105">
                                 <button
-                                    className="px-3 py-2 h-14 w-1/2 rounded-md text-md font-semibold text-gray-800 focus:outline-none focus:text-indigo-400 border-2 border-indigo-500 bg-zinc-200"
+                                    className="px-3 py-2 h-12 md:h-14 w-full md:w-1/2 rounded-md text-sm md:text-md font-semibold text-gray-800 focus:outline-none focus:text-indigo-400 bg-zinc-200"
                                     onClick={signUpPage}
-                                >Sign Up</button>
+                                >
+                                    Sign Up
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div className="w-2/5">
-
+                    <div className="w-full md:w-2/5"></div>
+                </div>
+                <div className="bg-zinc-200">
+                    <div className="px-6 md:px-[20%] pb-10">
+                        <h1 className="text-center text-3xl md:text-5xl font-bold pt-20 font-sans mb-3">Sector Snippet's</h1>
+                        <div className="px-8 md:px-[30%]">
+                            <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500" />
+                        </div>
+                        <p className="text-center font-semibold pt-10 font-sans">Here we have snippets from each of the main 5 pages. Once you have either created your sector for your local neighbourhood watch or joined a sector that has already been created, you will get access to these pages within your chosen sector.</p>
+                    </div>
+                    <div>
+                        <div className="pt-20 pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">Welcome section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/WelcomeScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/SectorNewsScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">News section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">Incident Report section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/incidentReportScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/MembersScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">Members section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">About us section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/AboutUsScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="pb-20 px-6 md:px-[20%]">
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/2 p-3">
+                                    <img src="/images/HomePage/GalleryScreenshot.PNG" alt="" className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md" />
+                                </div>
+                                <div className="lg:w-1/2 ml-0 p-3 text-center lg:text-start">
+                                    <h1 className="text-3xl font-bold mb-3">Gallery section</h1>
+                                    <hr className="border border-blue-600 cursor-pointer hover:border-red-500 duration-500 mb-3 lg:w-4/5 md:w-3/5 md:mx-auto lg:mx-0" />
+                                    <p className="text-base md:text-lg font-semibold font-sans">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in massa nec sem rutrum pellentesque. Cras venenatis ex ornare libero dignissim efficitur. Maecenas sed tristique.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="pt-20 px-[20%]">
-                    <div className="flex">
-                        <div className="w-1/2 p-3 mr-[5%]">
-                            <img src="/images/Capture.PNG" alt="" className="rounded-md shadow-2xl" />
-                        </div>
-                        <div className="w-1/2 ml-[5%] p-3">
-                            <p></p>
+                <div className="bg-gray-800 border-t-2 border-white mt-auto ">
+                    <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+                        <nav className="flex flex-wrap justify-center -mx-5 -my-2">
+                            <div className="px-5 py-2">
+                                <a href="/" className="text-base leading-6 text-white hover:text-lg font-medium">
+                                    Home
+                                </a>
+                            </div>
+                            <div className="px-5 py-2">
+                                <a href="/#" className="text-base leading-6 text-white hover:text-lg font-medium">
+                                    About Us
+                                </a>
+                            </div>
+                            <div className="px-5 py-2">
+                                <a href="/#" className="text-base leading-6 text-white hover:text-lg font-medium">
+                                    Contact Us
+                                </a>
+                            </div>
+                        </nav>
+                        <div>
+                            <div className="flex justify-center space-x-6">
+                                <a href="/#" className="hover:text-gray-500">
+                                    <span className="sr-only">Facebook</span>
+                                    <svg className="w-6 h-6 fill-blue-500 hover:scale-125" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <p className="mt-5 text-base leading-6 text-center text-white">
+                                © 2023 The Neighbourhood Watch App. All rights reserved.
+                            </p>
                         </div>
                     </div>
                 </div>
