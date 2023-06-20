@@ -209,6 +209,11 @@ const Nav = () => {
                                                     <a href="/Profile"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">Profile</a>
+                                                        {userRole === "admin" && (
+                                                    <a href="/ArchivedReports"
+                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        role="menuitem">Archived Reports</a>
+                                                        )}
                                                     <a href="/#"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                                         role="menuitem" onClick={logout}>Sign Out</a>

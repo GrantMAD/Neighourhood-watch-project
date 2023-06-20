@@ -50,7 +50,7 @@ const Members = () => {
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
-                <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Members List</h1>
+                <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-10">Members List</h1>
             </div>
             <div>
                 <div className="ml-5 mr-5">

@@ -77,7 +77,7 @@ const LandingPage = () => {
           <img
             className="h-1/4 w-1/4 md:w-1/4 md:h-1/4"
             alt=""
-            src="/images/ALPHAS-LOGO.png"
+            src="/images/CodemoreLOGO.png"
           />
         </div>
       </div>
