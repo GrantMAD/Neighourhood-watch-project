@@ -3,19 +3,19 @@ const AboutUs = () => {
 
     return (
         <div className="bg-zinc-200 md:p-10 lg:p-24">
-           <div className="grid pt-20 md:pt-10s place-content-center">
-                <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-1">About us</h1>
+           <div className="grid pt-20 md:pt-10 place-content-center">
+                <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-blue-700">About us</h1>
             </div>
-            <div className="grid lg:grid-cols-2 md:grid-rows-2">
+            <div className="grid lg:grid-cols-2 md:grid-rows-2 lg:grid-rows-none">
                 <div className="pr-[25%] pl-[25%] w-full">
-                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-10  text-gray-800">Our Vision</h1>
+                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-6 mt-10  text-gray-800">Our Vision</h1>
                     <p className="text-center mb-10">Our vision is a society where neighbours come together to help create a safer, stronger and active community.</p>
-                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10  text-gray-800">Our Mission</h1>
+                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-6  text-gray-800">Our Mission</h1>
                     <p className="text-center mb-10">Our mission is to support and enable individuals and communities to be connected, active and safe, which increases wellbeing and minimises crime.</p>
-                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10  text-gray-800">Our Values</h1>
+                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-6  text-gray-800">Our Values</h1>
                     <p className="text-center mb-10">In all our work and relationships, we will be relevant, accountable and inclusive. We aspire to be: Neighbourly, We aspire to be good neighbours, Community focused, We bring people together, Inclusive, Proactive when possable, We are active within communities and we are relevant in today’s world, Trusted, We are dependable, caring, respectable, approachable and supportive, Collaborative, We work as a team, in partnerships with others and within our communities.</p>
-                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-10  text-gray-800">Objectives</h1>
-                    <p className="text-center mb-10">Minimise the incidence of preventable crime, Deter criminal activity by increasing the probability of apprehension, Reduce the fear of crime, Increase the reporting of crime and suspicious behaviour, Improve the degree of personal and household security through education, Expand the program’s involvement in wider community safety and crime prevention initiatives,.</p>
+                    <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-6 mt-10  text-gray-800">Objectives</h1>
+                    <p className="text-center mb-10">Minimise the incidence of preventable crime, Deter criminal activity by increasing the probability of apprehension, Reduce the fear of crime, Increase the reporting of crime and suspicious behaviour, Improve the degree of personal and household security through education, Expand the program’s involvement in wider community safety and crime prevention initiatives.</p>
                     {/*
                     <hr className="border-1.5 border-black" />
                     <div class="flex justify-around mt-10">
@@ -26,8 +26,8 @@ const AboutUs = () => {
                     </div>
     */}
                 </div>
-                <div>
-                    <img className="pl-4 md:mt-20 drop-shadow-2xl" src="/images/ALPHAS-LOGO.png" alt=""></img>
+                <div className="flex justify-center items-center">
+                    <img className="pl-4 md:mt-20 drop-shadow-2xl" src="/images/CodemoreLOGO.png" alt=""></img>
                 </div>
             </div>
         </div>

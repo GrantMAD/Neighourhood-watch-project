@@ -11,6 +11,7 @@ import SignUpPage from './SignUpPage';
 import SignInPage from './SignInPage';
 import { useState } from 'react';
 import IncidentReportPage from './IncidentReportPage';
+import ArchivedReports from './ArchivedReports'
 import LandingPage from './LandingPage';
 import Profile from './Profile';
 import PasswordResetEmail from './PasswordResetEmail';
@@ -40,6 +41,7 @@ function App() {
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
+        <Route path="/ArchivedReports" element={ <ArchivedReports funcNav={setShowNav}/>} />
         <Route path="/Members" element={ <Members/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />

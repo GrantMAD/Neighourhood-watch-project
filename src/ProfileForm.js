@@ -114,7 +114,7 @@ const ProfileForm = () => {
                         id="about"
                         name="about"
                         rows={3}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                         placeholder="About yourself"
                         onChange={(event) => {
                           setNewAbout(event.target.value);
@@ -138,7 +138,7 @@ const ProfileForm = () => {
                           name="first-name"
                           id="first-name"
                           autoComplete="given-name"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
                             setNewName(event.target.value);
                           }}
@@ -156,7 +156,7 @@ const ProfileForm = () => {
                           id="CpfSector"
                           autoComplete="CpfSector"
                           placeholder="Codemore/Hillside"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
                             setCpfSector(event.target.value);
                           }}
@@ -173,7 +173,7 @@ const ProfileForm = () => {
                           name="number"
                           id="number"
                           autoComplete="number"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
                             setNewNumber(event.target.value);
                           }}
@@ -192,7 +192,7 @@ const ProfileForm = () => {
                           name="email-address"
                           id="email-address"
                           autoComplete="email"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
                             setEmail(event.target.value);
                           }}
@@ -210,7 +210,7 @@ const ProfileForm = () => {
                           name="street-address"
                           id="street-address"
                           autoComplete="street-address"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
                           onChange={(event) => {
                             setNewAddress(event.target.value);
                           }}
