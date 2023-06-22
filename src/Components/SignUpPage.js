@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
-import { db } from "./firebase";
+import { auth } from "../firebase";
+import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
-import "./index.css";
+import "../index.css";
 
 const SignUpPage = (props) => {
     const [newName, setNewName] = useState();

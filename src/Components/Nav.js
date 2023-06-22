@@ -1,6 +1,6 @@
-import "./index.css";
+import "../index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, db } from "./firebase";
+import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
