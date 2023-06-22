@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
-import "./index.css";
+import "../index.css";
 
 const SignInPage = (props) => {
   const [loginEmail, setLoginEmail] = useState('');

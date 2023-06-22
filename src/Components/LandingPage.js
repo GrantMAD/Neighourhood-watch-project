@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
-import { db, auth } from "./firebase";
+import { db, auth } from "../firebase";
 import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot } from "firebase/firestore";
+import { getStorage, deleteObject, ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import SkeletonStory from "./Skeletons/SkeletonStory";
+import SkeletonStory from "../Skeletons/SkeletonStory";
 import { Toaster, toast } from 'sonner';
 
 const LandingPage = () => {
@@ -11,6 +12,7 @@ const LandingPage = () => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [userRole, setUserRole] = useState("");
   const usersCollectionRef = collection(db, "users");
+  const storage = getStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,9 +39,14 @@ const LandingPage = () => {
     }
   }, [usersCollectionRef]);
 
-  const deleteReport = async (id) => {
+  const deleteReport = async (id, imageRef) => {
     const storyDoc = doc(db, "storys", id);
     await deleteDoc(storyDoc);
+
+    // Delete the story's image from storage
+    const storageRef = ref(storage, imageRef);
+    await deleteObject(storageRef);
+
     setStorys(storys.filter((story) => story.id !== id));
     setIsDeleted(!isDeleted);
   };
@@ -62,7 +69,7 @@ const LandingPage = () => {
       <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500 w-full">
         <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">WELCOME</h1>
         <hr></hr>
-        <div className="flex flex-col items center md:flex-row">
+        <div className="flex flex-col items-center md:flex-row">
           <div className="sm:w-1/2 md:w-3/4">
             <p className="mt-3 mb-3 text-zinc-200">Alpha's - Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
               Our neighbourhood Watch is about people getting together with their neighbours to take action to reduce crime.
@@ -96,9 +103,9 @@ const LandingPage = () => {
         </div>
         {isLoading ? (
           <SkeletonStory />
-        ) : storys.length === 0 ? ( 
-        <p className="text-zinc-200 text-2xl">No Stories currently</p>
-      ) :
+        ) : storys.length === 0 ? (
+          <p className="text-zinc-200 text-2xl">No Stories currently Avaliable</p>
+        ) :
           storys.map((story) => {
             return <div key={story.id}>
               {" "}
@@ -109,7 +116,7 @@ const LandingPage = () => {
                 <div className="flex flex-col md:flex-row mb-5">
                   <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
                     <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-                    
+
                     {userRole === "admin" && (
                       <div className="flex mt-10">
                         {/*
@@ -124,18 +131,19 @@ const LandingPage = () => {
                         <button
                           className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
                           onClick={() => {
-                            deleteReport(story.id);
+                            deleteReport(story.id, story.image);
                             toast.error('Story has been deleted');
                           }}
                         >
                           Delete
                         </button>
+
                       </div>
                     )}
                   </div>
                   <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
                     <img
-                      className="w-full h-full object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md "
+                      className="w-full max-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md "
                       alt=""
                       src={story.image}
                     />

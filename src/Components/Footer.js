@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./firebase";
+import { auth, db } from "../firebase";
 import { useState, useEffect } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 
@@ -29,7 +29,7 @@ const Footer = () => {
 
     return (
         <div className="bg-gray-800 border-t-2 border-white mt-auto ">
-            <div className="max-w-screen-xl px-4 py-8 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+            <div className="max-w-screen-xl px-4 py-8 mx-auto overflow-hidden sm:px-6 lg:px-8">
                 <nav className="flex flex-wrap justify-center -mx-5 -my-2">
                     <div className="px-5 py-2">
                         <a href="/" className="text-base leading-6 text-white hover:text-lg font-medium">
@@ -66,7 +66,7 @@ const Footer = () => {
                         </a>
                     </div>
                 </nav>
-                <div>
+                <div className="mt-5">
                     <div className="flex justify-center space-x-6">
                         <a href="/#" className="hover:text-gray-500">
                             <span className="sr-only">Facebook</span>

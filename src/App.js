@@ -1,23 +1,23 @@
 import './App.css';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import Members from './Members';
-import ContactPage from './ContactPage';
-import Nav from './Nav';
-import AboutUs from './AboutUs';
-import GalleryPage from './GalleryPage';
-import Footer from './Footer';
-import ProfilePage from './ProfilePage';
-import SignUpPage from './SignUpPage';
-import SignInPage from './SignInPage';
+import Members from './Components/Members';
+import ContactPage from './Components/ContactPage';
+import Nav from './Components/Nav';
+import AboutUs from './Components/AboutUs';
+import GalleryPage from './Components/GalleryPage';
+import Footer from './Components/Footer';
+import ProfilePage from './Components/ProfilePage';
+import SignUpPage from './Components/SignUpPage';
+import SignInPage from './Components/SignInPage';
 import { useState } from 'react';
-import IncidentReportPage from './IncidentReportPage';
-import ArchivedReports from './ArchivedReports'
-import LandingPage from './LandingPage';
-import Profile from './Profile';
-import PasswordResetEmail from './PasswordResetEmail';
-import PasswordResetPage from './PasswordResetPage';
-import StoryPage from './StoryPage';
-import PublicProfile from './PublicProfile';
+import IncidentReportPage from './Components/IncidentReportPage';
+import ArchivedReports from './Components/ArchivedReports'
+import LandingPage from './Components/LandingPage';
+import Profile from './Components/Profile';
+import PasswordResetEmail from './Components/PasswordResetEmail';
+import PasswordResetPage from './Components/PasswordResetPage';
+import StoryPage from './Components/StoryPage';
+import PublicProfile from './Components/PublicProfile';
 import AddReport from './AddAndEdit/AddReport';
 import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
@@ -35,9 +35,9 @@ function App() {
       }
         <Routes>
         <Route path="/" element={ <LandingPage/>} />
-        <Route path="HomePage" element={ <HomePage funcNav={setShowNav}/>} />
-        <Route path="LandingPage" element={ <LandingPage/>} />
-        <Route path="StoryPage" element={ <StoryPage/>} />
+        <Route path="/HomePage" element={ <HomePage funcNav={setShowNav}/>} />
+        <Route path="/LandingPage" element={ <LandingPage/>} />
+        <Route path="/StoryPage" element={ <StoryPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />

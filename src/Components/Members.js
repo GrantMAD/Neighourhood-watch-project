@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { db } from "./firebase";
+import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import SkeletonMember from "./Skeletons/SkeletonMember";
+import SkeletonMember from "../Skeletons/SkeletonMember";
 
 const Members = () => {
     const [users, setUsers] = useState([]);
