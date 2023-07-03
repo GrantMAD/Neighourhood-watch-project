@@ -11,6 +11,7 @@ const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
+    const [pendingUser, setPendingUser] = useState(false);
     const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
@@ -23,7 +24,7 @@ const Nav = () => {
 
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
-      }, [userRole]);
+    }, [userRole]);
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -35,14 +36,20 @@ const Nav = () => {
                     const userData = doc.data();
                     setUserRole(userData.role);
                     setUser(userData);
-                    localStorage.setItem('profileImage', userData.profileImage);
+                    localStorage.setItem("profileImage", userData.profileImage);
                     if (!userData.profileUpdated) {
                         setShowNotification(true);
+                    }
+                    if (userData.role === "pendingUser") {
+                        setPendingUser(true);
+                    } else {
+                        setPendingUser(false);
                     }
                 });
             });
         }
     }, [usersCollectionRef]);
+
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
@@ -171,18 +178,18 @@ const Nav = () => {
                                     {user &&
                                         <div className="flex ml-3 relative">
                                             {showNotification && (
-                                                <div className="fixed top-16 right-56 z-50 bg-blue-500 text-white p-2 rounded-md shadow">
+                                                <div className="fixed top-16 right-56 z-50 bg-zinc-200 p-2 rounded-md shadow border-2 border-blue-700 mt-1 font-semibold">
                                                     <p className="text-sm">
                                                         Please update your Profile.
                                                         <Link
                                                             to="/Profile"
-                                                            className="ml-2 underline"
+                                                            className="ml-2 underline hover:text-blue-700"
                                                             onClick={handleProfileUpdate}
                                                         >
                                                             Update Now
                                                         </Link>
                                                         <button
-                                                            className="ml-2 underline"
+                                                            className="ml-2 underline hover:text-blue-700"
                                                             onClick={handleProfileUpdate}
                                                         >
                                                             Close
@@ -203,17 +210,17 @@ const Nav = () => {
                                                 />
                                             </button>
                                             <div id="user-menu-dropdown"
-                                                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                                                className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                                                 <div className="py-1 rounded-md bg-white shadow-xs" role="menu"
                                                     aria-orientation="vertical" aria-labelledby="user-menu">
                                                     <a href="/Profile"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         role="menuitem">Profile</a>
-                                                        {userRole === "admin" && (
-                                                    <a href="/ArchivedReports"
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        role="menuitem">Archived Reports</a>
-                                                        )}
+                                                    {userRole === "admin" && (
+                                                        <a href="/ArchivedReports"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                            role="menuitem">Archived Reports</a>
+                                                    )}
                                                     <a href="/#"
                                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                                         role="menuitem" onClick={logout}>Sign Out</a>
@@ -306,6 +313,21 @@ const Nav = () => {
                         </div>
                     </div>
                 </nav>
+                {pendingUser && (
+                    <div className="fixed top-16 left-44 z-50 bg-zinc-200 p-2 shadow rounded-md text-center border-2 border-blue-700 mt-1 font-semibold">
+                        <p className="text-sm">
+                            To get approved and get full access to this sector, please click the link and download the form
+                            <Link
+                                to="/downloadLink"
+                                className="ml-1 underline hover:text-blue-700"
+                            >
+                                here
+                            </Link>
+                            .
+                        </p>
+                    </div>
+                )}
+
             </div>
         </nav>
     )

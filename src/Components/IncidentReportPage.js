@@ -110,7 +110,7 @@ const IncidentReportPage = (props) => {
                     return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                         <div class="w-full pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700" onClick={() => setSelectedReport(report)}>{report.title}</label>
+                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}>{report.title}</label>
                             {selectedReport?.id === report.id && (
                                 <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
                                     <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-gray-800">
@@ -121,7 +121,7 @@ const IncidentReportPage = (props) => {
                                                 <h1>{report.dateReport}</h1>
                                             </div>
                                         </div>
-                                        <p class="mb-5 md:mb-10 whitespace-pre-line ...">{report.description}</p>
+                                        <p class="mb-5 md:mb-10 whitespace-pre-line">{report.description}</p>
                                         <div class="flex flex-col md:flex-row justify-between">
                                             <div class="mb-5 md:mb-0 md:mr-5">
                                                 <div class="flex mb-2">
