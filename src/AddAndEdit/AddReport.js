@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,11 @@ const AddReport = () => {
         toast.success('Report saved successfully!');
         navigate('/IncidentReportPage');
     }
+
+    useEffect(() => {
+        const currentDate = new Date().toISOString().split("T")[0];
+        setNewDateReport(currentDate);
+      }, []);
 
     return (
         <main className="p-10 bg-zinc-200">
@@ -198,6 +203,7 @@ const AddReport = () => {
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
                                                         id="DateOfReport"
+                                                        value={newDateReport}
                                                         onChange={(event) => {
                                                             setNewDateReport(event.target.value);
                                                         }}

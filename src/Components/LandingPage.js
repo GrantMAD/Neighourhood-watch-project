@@ -60,7 +60,7 @@ const LandingPage = () => {
   }
 
   return (
-    <main className="pt-10 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200">
+    <main className="pt-20 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200">
       <img
         alt=""
         src="/images/Seaview.PNG"
@@ -69,7 +69,7 @@ const LandingPage = () => {
       <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500 w-full">
         <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">WELCOME</h1>
         <hr></hr>
-        <div className="flex flex-col items-center md:flex-row">
+        <div className="flex flex-col md:flex-row">
           <div className="sm:w-1/2 md:w-3/4">
             <p className="mt-3 mb-3 text-zinc-200">Alpha's - Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
               Our neighbourhood Watch is about people getting together with their neighbours to take action to reduce crime.
