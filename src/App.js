@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import Members from './Components/Members';
+import MembersPanel from './Components/MembersPanel'
 import ContactPage from './Components/ContactPage';
 import Nav from './Components/Nav';
 import AboutUs from './Components/AboutUs';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
         <Route path="/ArchivedReports" element={ <ArchivedReports funcNav={setShowNav}/>} />
         <Route path="/Members" element={ <Members/>} />
+        <Route path="/MembersPanel" element={ <MembersPanel/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
