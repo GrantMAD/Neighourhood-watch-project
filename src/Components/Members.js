@@ -121,7 +121,7 @@ const Members = () => {
                                             <td
                                                 type="number"
                                                 className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none">
-                                                0{user.number}
+                                                {user.number}
                                             </td>
                                             <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
                                                 {user.email}

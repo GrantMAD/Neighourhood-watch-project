@@ -1,7 +1,7 @@
 import "../index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
@@ -11,12 +11,14 @@ const Nav = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
+    const [showAdminOptions, setShowAdminOptions] = useState(false);
     const [pendingUser, setPendingUser] = useState(false);
     const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
     const usersCollectionRef = collection(db, "users");
+    const adminPanelRef = useRef(null);
 
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
@@ -25,6 +27,22 @@ const Nav = () => {
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
     }, [userRole]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (adminPanelRef.current && !adminPanelRef.current.contains(event.target)) {
+            setShowAdminOptions(false);
+          }
+        };
+    
+        // Add event listener to detect clicks outside the Admin Panel dropdown
+        window.addEventListener("click", handleClickOutside);
+    
+        return () => {
+          // Cleanup the event listener when the component unmounts
+          window.removeEventListener("click", handleClickOutside);
+        };
+      }, []);
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -209,21 +227,27 @@ const Nav = () => {
                                                     alt=""
                                                 />
                                             </button>
-                                            <div id="user-menu-dropdown"
-                                                className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                                                <div className="py-1 rounded-md bg-white shadow-xs" role="menu"
-                                                    aria-orientation="vertical" aria-labelledby="user-menu">
-                                                    <a href="/Profile"
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        role="menuitem">Profile</a>
+                                            <div id="user-menu-dropdown" className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+                                                <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                                                    <a href="/Profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
                                                     {userRole === "admin" && (
-                                                        <a href="/ArchivedReports"
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                            role="menuitem">Archived Reports</a>
+                                                        <div>
+                                                            <button
+                                                                className="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full focus:bg-zinc-200"
+                                                                onClick={() => setShowAdminOptions(!showAdminOptions)}
+                                                                ref={adminPanelRef}
+                                                            >
+                                                                Admin Panel
+                                                            </button>
+                                                            {showAdminOptions && (
+                                                                <div className="bg-zinc-100 pl-5">
+                                                                    <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Archived Report's</a>
+                                                                    <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Member's Panel</a>
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     )}
-                                                    <a href="/#"
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                                                        role="menuitem" onClick={logout}>Sign Out</a>
+                                                    <a href="/#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={logout}>Sign Out</a>
                                                 </div>
                                             </div>
                                         </div>
