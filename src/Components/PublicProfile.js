@@ -45,15 +45,27 @@ const PublicProfile = () => {
                     </div>
 
                     <div className="mt-20 text-center border-b pb-12">
-                        <h1 className="text-4xl font-medium text-gray-800">{selectedUser.name}</h1>
-                        <p className="font-light text-gray-600 mt-3">{selectedUser.address}</p>
-
-                        <p className="mt-8 text-gray-500">{selectedUser.number}</p>
-                        <p className="mt-2 text-gray-500">{selectedUser.email}</p>
+                        <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-3">{selectedUser.name}</h1>
+                        <div>
+                            <h1 className="text-blue-600 font-bold underline mt-5">Address:</h1>
+                            <p className=" text-gray-800">{selectedUser.address}</p>
+                        </div>
+                        <div>
+                        <h1 className="text-blue-600 font-bold underline mt-2">CPFSector:</h1>
+                        <p className=" text-gray-800">{selectedUser.cpfSector}</p>
+                        </div>
+                        <div>
+                        <h1 className="text-blue-600 font-bold underline mt-2">Cell Number:</h1>
+                        <p className=" text-gray-800">{selectedUser.number}</p>
+                        </div>
+                        <div>
+                        <h1 className="text-blue-600 font-bold underline mt-2">Email:</h1>
+                        <p className=" text-gray-800">{selectedUser.email}</p>
+                        </div>
                     </div>
-
-                    <div className="mt-12 flex flex-col justify-center">
-                        <p className="text-gray-600 text-center font-light lg:px-16">{selectedUser.about}</p>
+                    <div className="mt-3 flex flex-col justify-center">
+                    <h1 className="text-2xl text-blue-600 font-bold mt-2 underline text-center mb-5">About</h1>
+                        <p className="text-gray-800 text-center font-light lg:px-16">{selectedUser.about}</p>
                     </div>
 
                 </div>

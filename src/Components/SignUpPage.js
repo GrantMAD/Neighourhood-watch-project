@@ -38,7 +38,7 @@ const SignUpPage = (props) => {
                 checkedIn: false,
                 role: "pendingUser",
                 profileImage: '',
-                CPFSector:'',
+                cpfSector:'',
                 profileUpdated:''
             });
 
