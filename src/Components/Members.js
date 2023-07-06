@@ -35,17 +35,17 @@ const Members = () => {
 
     const filterUsers = (user) => {
         if (searchTerm === "") {
-          return true;
+            return true;
         } else {
-          const nameMatch = user.name.toLowerCase().includes(searchTerm.toLowerCase());
-          const CPFSectorMatch = user.CPFSector?.toLowerCase().includes(searchTerm.toLowerCase());
-          return nameMatch || CPFSectorMatch;
+            const nameMatch = user.name.toLowerCase().includes(searchTerm.toLowerCase());
+            const CPFSectorMatch = user.CPFSector?.toLowerCase().includes(searchTerm.toLowerCase());
+            return nameMatch || CPFSectorMatch;
         }
-      };
+    };
 
-      const handleSearch = (e) => {
+    const handleSearch = (e) => {
         setSearchTerm(e.target.value);
-      };
+    };
 
     return (
         <main className="min-h-screen bg-zinc-200">
@@ -116,7 +116,7 @@ const Members = () => {
                                                 {user.address}
                                             </td>
                                             <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                                {user.CPFSector}
+                                                {user.cpfSector}
                                             </td>
                                             <td
                                                 type="number"

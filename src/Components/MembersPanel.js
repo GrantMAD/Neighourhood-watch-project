@@ -109,6 +109,12 @@ const MembersPanel = () => {
                                 </th>
                                 <th
                                     scope="col"
+                                    className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell"
+                                >
+                                    User's role
+                                </th>
+                                <th
+                                    scope="col"
                                     className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white md:table-cell"
                                 >
                                     Street
@@ -124,12 +130,6 @@ const MembersPanel = () => {
                                     className="lg:pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4"
                                 >
                                     Contact-Number
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell"
-                                >
-                                    User's role
                                 </th>
                                 <th
                                     scope="col"
@@ -162,18 +162,6 @@ const MembersPanel = () => {
                                                 >
                                                     {user.name}
                                                 </td>
-                                                <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
-                                                    {user.address}
-                                                </td>
-                                                <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                                    {user.CPFSector}
-                                                </td>
-                                                <td
-                                                    type="number"
-                                                    className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none"
-                                                >
-                                                    {user.number}
-                                                </td>
                                                 <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
                                                     {user.role === "admin" ? (
                                                         <span>Admin</span>
@@ -189,6 +177,18 @@ const MembersPanel = () => {
                                                             <option value="pendingUser">Pending User</option>
                                                         </select>
                                                     )}
+                                                </td>
+                                                <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
+                                                    {user.address}
+                                                </td>
+                                                <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
+                                                    {user.cpfSector}
+                                                </td>
+                                                <td
+                                                    type="number"
+                                                    className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none"
+                                                >
+                                                    {user.number}
                                                 </td>
                                                 <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                     <li

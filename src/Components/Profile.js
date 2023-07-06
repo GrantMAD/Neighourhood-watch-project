@@ -87,7 +87,7 @@ const Profile = () => {
                 <p className="text-gray-800">{user.email}</p>
               </div>
             </div>
-            <div className="mt-5 flex flex-col justify-center">
+            <div className="mt-3 flex flex-col justify-center">
               <h1 className="text-2xl text-blue-600 font-bold mt-2 underline text-center mb-5">About Me</h1>
               <p className="text-gray-800 text-center lg:px-16">{user.about}</p>
             </div>
