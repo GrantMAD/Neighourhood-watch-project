@@ -12,6 +12,7 @@ const Nav = () => {
     const [isClicked, setIsClicked] = useState(false);
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     const [showAdminOptions, setShowAdminOptions] = useState(false);
+    const [isPanelClicked, setIsPanelClicked] = useState(false);
     const [pendingUser, setPendingUser] = useState(false);
     const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
@@ -27,22 +28,6 @@ const Nav = () => {
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
     }, [userRole]);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-          if (adminPanelRef.current && !adminPanelRef.current.contains(event.target)) {
-            setShowAdminOptions(false);
-          }
-        };
-    
-        // Add event listener to detect clicks outside the Admin Panel dropdown
-        window.addEventListener("click", handleClickOutside);
-    
-        return () => {
-          // Cleanup the event listener when the component unmounts
-          window.removeEventListener("click", handleClickOutside);
-        };
-      }, []);
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -68,6 +53,20 @@ const Nav = () => {
         }
     }, [usersCollectionRef]);
 
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (adminPanelRef.current && !adminPanelRef.current.contains(event.target)) {
+                setShowAdminOptions(false);
+                setIsPanelClicked(false);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
@@ -117,6 +116,11 @@ const Nav = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleClick = () => {
+        setShowAdminOptions(!showAdminOptions);
+        setIsPanelClicked(!showAdminOptions);
     };
 
     return (
@@ -229,20 +233,22 @@ const Nav = () => {
                                             </button>
                                             <div id="user-menu-dropdown" className="origin-top-right z-50 absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                                                 <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                                    <a href="/Profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+                                                    <a href="/Profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
                                                     {userRole === "admin" && (
-                                                        <div>
+                                                        <div
+                                                            className={`${isPanelClicked ? " border-2 border-blue-700 bg-zinc-300 rounded-sm" : ""}`}
+                                                        >
                                                             <button
-                                                                className="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full focus:bg-zinc-200"
-                                                                onClick={() => setShowAdminOptions(!showAdminOptions)}
+                                                                className="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 w-full"
+                                                                onClick={handleClick}
                                                                 ref={adminPanelRef}
                                                             >
                                                                 Admin Panel
                                                             </button>
                                                             {showAdminOptions && (
-                                                                <div className="bg-zinc-100 pl-5">
-                                                                    <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Archived Report's</a>
-                                                                    <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Member's Panel</a>
+                                                                <div className="bg-zinc-100">
+                                                                    <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
+                                                                    <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
                                                                 </div>
                                                             )}
                                                         </div>
@@ -341,16 +347,19 @@ const Nav = () => {
                     <div className="fixed top-16 left-44 z-50 bg-zinc-200 p-2 shadow rounded-md text-center border-2 border-blue-700 mt-1 font-semibold">
                         <p className="text-sm">
                             To get approved and get full access to this sector, please click the link and download the form
-                            <Link
-                                to="/downloadLink"
+                            <a
+                                href="https://github.com/GrantMAD/Neighourhood-watch-project"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="ml-1 underline hover:text-blue-700"
                             >
                                 here
-                            </Link>
+                            </a>
                             .
                         </p>
                     </div>
                 )}
+
 
             </div>
         </nav>

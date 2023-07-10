@@ -44,7 +44,7 @@ const ContactPage = () => {
         <div className='ml-3 md:ml-0 lg:ml-0'>
           <h1 className="text-gray-800 text-4xl font-medium sm:mt-20">Contact us</h1>
           <p className="mt-3">
-            <a className="font-bold text-blue-600" href="mailto:Charlies.Coedmore@gmail.com">
+            <a className="font-bold text-blue-800" href="mailto:Charlies.Coedmore@gmail.com">
               Email us
             </a>{' '}
             or message us here:
@@ -58,7 +58,7 @@ const ContactPage = () => {
                 <input
                   type="text"
                   name="name"
-                  className="block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-800 focus:outline-none focus:ring-0"
                   placeholder="Your name"
                 />
               </div>
@@ -66,7 +66,7 @@ const ContactPage = () => {
                 <input
                   type="text"
                   name="email"
-                  className="block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-800 focus:outline-none focus:ring-0"
                   placeholder="Your email"
                 />
               </div>
@@ -74,7 +74,7 @@ const ContactPage = () => {
                 <textarea
                   name="message"
                   rows="5"
-                  className="resize block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="resize block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-800 focus:outline-none focus:ring-0"
                   placeholder="Your message"
                 ></textarea>
               </div>
@@ -82,7 +82,7 @@ const ContactPage = () => {
             <h1 className="text-gray-500 text-sm">Click and drag bottom right corner to make larger</h1>
             <button
               type="submit"
-              className="mt-3 rounded-md bg-blue-600 px-10 py-2 text-white shadow-xl hover:bg-blue-600"
+              className="mt-3 rounded-md bg-blue-800 px-10 py-2 text-white shadow-xl hover:bg-blue-600"
             >
               Send Message
             </button>

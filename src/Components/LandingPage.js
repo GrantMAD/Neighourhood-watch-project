@@ -16,16 +16,13 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getStorys = async () => {
-      const usersCollectionRef = collection(db, 'storys');
-      const storyData = await getDocs(usersCollectionRef);
+    const fetchStorys = async () => {
+      const storyCollectionRef = collection(db, 'storys');
+      const storyData = await getDocs(storyCollectionRef);
       setStorys(storyData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setIsLoading(false);
     };
-    getStorys();
-  }, [])
-
-  useEffect(() => {
+  
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userEmail = currentUser.email;
@@ -37,7 +34,10 @@ const LandingPage = () => {
         });
       });
     }
+  
+    fetchStorys();
   }, [usersCollectionRef]);
+  
 
   const deleteReport = async (id, imageRef) => {
     const storyDoc = doc(db, "storys", id);
@@ -94,7 +94,7 @@ const LandingPage = () => {
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           {userRole === "admin" && (
             <button
-              className="bg-gray-800 hover:bg-blue-600 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-blue-600 h-1/4 mt-2 lg:mt-1 border-2 border-blue-600 hover:scale-125"
+              className="bg-gray-800 hover:bg-blue-600 hover:border-blue-800 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-blue-600 h-1/4 mt-2 lg:mt-1 border-2 border-blue-600 hover:scale-125"
               onClick={addStory}
             >
               Add Story
@@ -104,7 +104,7 @@ const LandingPage = () => {
         {isLoading ? (
           <SkeletonStory />
         ) : storys.length === 0 ? (
-          <p className="text-zinc-200 text-2xl">No Stories currently Avaliable</p>
+          <p className="text-zinc-200 text-2xl">No Stories currently</p>
         ) :
           storys.map((story) => {
             return <div key={story.id}>
@@ -129,7 +129,7 @@ const LandingPage = () => {
                     */}
                         <Toaster richColors />
                         <button
-                          className="bg-gray-800 hover:bg-red-500 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
+                          className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
                           onClick={() => {
                             deleteReport(story.id, story.image);
                             toast.error('Story has been deleted');
