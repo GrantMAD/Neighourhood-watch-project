@@ -52,7 +52,7 @@ const SignUpPage = (props) => {
     return (
         <div className="p-16 bg-gray-800">
             <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-lg">
-                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-900 rounded-l-lg">
+                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-blue-800 to-purple-900 rounded-l-lg">
                     <div className="flex flex-col items-center">
                         <h1 className="text-zinc-200 text-xl mb-3">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
@@ -67,7 +67,7 @@ const SignUpPage = (props) => {
                             <div>
                                 <input
                                     type="text"
-                                    className="border-2 border-indigo-500 placeholder-black w-full mb-4 text-black rounded-lg"
+                                    className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
                                     name="fullname"
                                     placeholder="Full Name"
                                     onChange={(event) => {
@@ -83,7 +83,7 @@ const SignUpPage = (props) => {
 
                                 <input
                                     type="email"
-                                    className="border-2 border-indigo-500 placeholder-black w-full mb-4 text-black rounded-lg"
+                                    className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
                                     name="email"
                                     placeholder="Email"
                                     onChange={(event) => {
@@ -108,7 +108,7 @@ const SignUpPage = (props) => {
 
                                 <input
                                     type="password"
-                                    className="border-2 border-indigo-500 placeholder-black w-full mb-4 text-black rounded-lg"
+                                    className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
                                     name="password"
                                     placeholder="Password"
                                     onChange={(event) => {
@@ -124,7 +124,7 @@ const SignUpPage = (props) => {
                             <Toaster richColors />
                             <button
                                 type="submit"
-                                className="w-full bg-indigo-600 text-center py-3 rounded-lg text-white hover:scale-105 focus:outline-none my-1 font-semibold"
+                                className="w-full bg-blue-800 text-center py-3 rounded-lg text-white hover:scale-105 focus:outline-none my-1 font-semibold"
                                 onClick={() => {
                                     register();
                                     toast.success('Account successfully created')
@@ -135,7 +135,7 @@ const SignUpPage = (props) => {
                             <div className="text-gray-800 font-semibold text-center mt-3">
                                 Already have an account? &nbsp;
                                 <a
-                                    className="no-underline text-indigo-500"
+                                    className="no-underline text-blue-800"
                                     href="/SignInPage"
                                 >
                                     Log in

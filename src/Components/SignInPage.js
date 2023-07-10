@@ -46,7 +46,7 @@ const SignInPage = (props) => {
                 <input
                   type="text"
                   placeholder="Email or Username"
-                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
+                  className="lg:w-full border-2 border-blue-800 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
                   onChange={(event) => {
                     setLoginEmail(event.target.value);
                   }}
@@ -61,7 +61,7 @@ const SignInPage = (props) => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="lg:w-full border-2 border-indigo-500 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
+                  className="lg:w-full border-2 border-blue-800 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
                   onChange={(event) => {
                     setLoginPassword(event.target.value);
                   }}
@@ -75,7 +75,7 @@ const SignInPage = (props) => {
               <Toaster richColors />
               <div className="flex items-center justify-center md:px-10">
                 <button
-                  className="transform rounded-lg bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-700 lg:w-full md:w-full w-3/5 mt-5"
+                  className="transform rounded-lg bg-blue-800 py-2 font-bold duration-300 hover:bg-blue-800 lg:w-full md:w-full w-3/5 mt-5"
                   onClick={() => {
                     login();
                     toast.success('Login successfull')
@@ -104,7 +104,7 @@ const SignInPage = (props) => {
             >
           </div>
         </div>
-        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-indigo-500 to-purple-900 rounded-r-lg">
+        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-blue-800 to-purple-900 rounded-r-lg">
           <div className="flex flex-col items-center">
             <h1 className="text-zinc-200 text-xl mb-3">Nice to see you again</h1>
             <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8 md:text-center">WELCOME BACK</h1>

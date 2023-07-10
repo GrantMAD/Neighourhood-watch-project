@@ -61,7 +61,7 @@ const ArchivedReports = (props) => {
             <div className="pt-24">
                 <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 text-gray-800">Archived Incident Report's</h1>
             </div>
-            <div className="mx-auto max-w-screen-lg mb-5 lg:w-full lg:pl-32 lg:pr-32">
+            <div className="mx-auto max-w-screen-lg mb-3 lg:w-full lg:pl-16">
                 <div className="flex flex-col md:flex-row justify-between lg:pl-3 lg:pr-3">
                     <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md mb-3 md:mb-0 md:mr-3">
                         <button className="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
@@ -140,7 +140,7 @@ const ArchivedReports = (props) => {
                             */}
                                                 <Toaster richColors />
                                                 {userRole === "admin" && (
-                                                <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125" onClick={() => { deleteReport(ArchivedReport.id); toast.error('Story has been deleted'); }}>
+                                                <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700" onClick={() => { deleteReport(ArchivedReport.id); toast.error('Story has been deleted'); }}>
                                                     Delete
                                                 </button>
                                                 )}

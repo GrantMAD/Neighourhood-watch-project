@@ -64,7 +64,7 @@ const IncidentReportPage = (props) => {
             <div className="pt-24">
                 <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-10 text-gray-800">Incident Report's</h1>
             </div>
-            <div className="mx-auto max-w-screen-lg mb-5 lg:w-full lg:pl-32 lg:pr-32">
+            <div className="mx-auto max-w-screen-lg mb-5 lg:w-full lg:pl-16 lg:pr-16">
                 <div className="flex flex-col md:flex-row justify-between lg:pl-3 lg:pr-3">
                     <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md mb-3 md:mb-0 md:mr-3">
                         <button className="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
@@ -88,7 +88,7 @@ const IncidentReportPage = (props) => {
                 </div>
             </div>
             <div className="lg:ml-[27.5%] lg:mr-[27.5%] ml-[10%] mr-[10%] mb-5">
-                <p>All incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input either the name of the report, the patrollers who created the report or the full date above, exp. (2023-03-24). Reports automatically get moved to archived reports after 1 month, to get access contact a sector admin.</p>
+                <p>All Incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input either the name of the report, the patroller who created the report or the full date of when the report was created above, exp. (2023-03-24). Reports automatically get moved to archived reports after 1 month.</p>
             </div>
             {isLoading ? (
                 <SkeletonReport />
@@ -110,10 +110,10 @@ const IncidentReportPage = (props) => {
                     return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                         <div class="w-full pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800 text-zinc-200 p-4 shadow accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}>{report.title}</label>
+                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}>{report.title}</label>
                             {selectedReport?.id === report.id && (
                                 <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
-                                    <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-gray-800">
+                                    <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-blue-800">
                                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                                             <h1 class="text-xl md:text-2xl mb-3 md:mb-6 font-semibold underline underline-offset-8 decoration-1 text-black text-center">{report.title}</h1>
                                             <div class="flex items-end pb-4 md:pb-0">

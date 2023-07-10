@@ -94,7 +94,7 @@ const GalleryPage = () => {
                 <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
                     {userRole === "admin" && (
                         <div className="flex flex-wrap justify-center md:justify-end mb-5">
-                            <button className="h-full bg-blue-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
+                            <button className="h-full bg-blue-700 border border-blue-900 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl hover:scale-125" onClick={addImage}>
                                 Add new image
                             </button>
                             
@@ -136,12 +136,13 @@ const GalleryPage = () => {
                                             />
                                         </div>
                                         {isImageFullscreen && fullscreenImageUrl === url && ( // Show fullscreen image
-                                            <div className="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-80" onClick={closeFullscreenImage}>
+                                            <div className="fixed z-50 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80" onClick={closeFullscreenImage}>
                                                 <img
                                                     alt="fullscreen"
                                                     src={url}
-                                                    className="max-h-full max-w-full"
+                                                    className="max-h-full max-w-full border-2 border-white"
                                                 />
+                                                <h1 className="text-white mt-1">Click anywhere outside of image to minimise</h1>
                                             </div>
                                         )}
                                     </div>

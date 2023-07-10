@@ -129,13 +129,13 @@ const MembersPanel = () => {
                                     scope="col"
                                     className="lg:pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4"
                                 >
-                                    Contact-Number
+                                    Checked in
                                 </th>
                                 <th
                                     scope="col"
                                     className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4"
                                 >
-                                    Checked in
+                                    
                                 </th>
                             </tr>
                         </thead>
@@ -181,9 +181,6 @@ const MembersPanel = () => {
                                                 <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 md:table-cell">
                                                     {user.address}
                                                 </td>
-                                                <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                                    {user.cpfSector}
-                                                </td>
                                                 <td
                                                     type="number"
                                                     className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none"
@@ -198,6 +195,11 @@ const MembersPanel = () => {
                                                                 : "text-xl ml-4 text-gray-900"
                                                         }
                                                     ></li>
+                                                </td>
+                                                <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
+                                                    <button className="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700">
+                                                        Delete user
+                                                    </button>
                                                 </td>
                                             </tr>
                                         );
