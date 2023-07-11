@@ -60,7 +60,7 @@ const Profile = () => {
 
               <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center lg:justify-end lg:mr-5">
                 <button
-                  className="text-white py-2 px-4 uppercase rounded bg-blue-600 shadow hover:shadow-lg font-medium hover:scale-125 ml-[60px] lg:ml-0"
+                  className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r shadow hover:shadow-lg font-medium ml-[60px] lg:ml-0"
                   onClick={editProfile}
                 >
                   Edit Profile

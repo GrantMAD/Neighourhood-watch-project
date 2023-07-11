@@ -39,7 +39,7 @@ const LandingPage = () => {
   }, [usersCollectionRef]);
   
 
-  const deleteReport = async (id, imageRef) => {
+  const deleteStory = async (id, imageRef) => {
     const storyDoc = doc(db, "storys", id);
     await deleteDoc(storyDoc);
 
@@ -131,7 +131,7 @@ const LandingPage = () => {
                         <button
                           className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
                           onClick={() => {
-                            deleteReport(story.id, story.image);
+                            deleteStory(story.id, story.image);
                             toast.error('Story has been deleted');
                           }}
                         >

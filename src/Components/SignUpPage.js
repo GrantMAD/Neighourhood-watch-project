@@ -51,8 +51,8 @@ const SignUpPage = (props) => {
 
     return (
         <div className="p-16 bg-gray-800">
-            <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-lg">
-                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-blue-800 to-purple-900 rounded-l-lg">
+            <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-2xl">
+                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-l from-blue-800 to-violet-600 rounded-l-lg">
                     <div className="flex flex-col items-center">
                         <h1 className="text-zinc-200 text-xl mb-3">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
@@ -124,7 +124,7 @@ const SignUpPage = (props) => {
                             <Toaster richColors />
                             <button
                                 type="submit"
-                                className="w-full bg-blue-800 text-center py-3 rounded-lg text-white hover:scale-105 focus:outline-none my-1 font-semibold"
+                                className="w-full bg-gradient-to-l from-blue-800 to-violet-600 text-center py-3 rounded-lg text-white focus:outline-none my-1 font-semibold hover:bg-gradient-to-r"
                                 onClick={() => {
                                     register();
                                     toast.success('Account successfully created')

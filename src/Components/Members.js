@@ -57,7 +57,7 @@ const Members = () => {
                     <div
                         class="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-2/12">
                         <button
-                            class="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
+                            class="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
                             Search
                         </button>
                         <input

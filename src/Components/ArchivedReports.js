@@ -64,7 +64,7 @@ const ArchivedReports = (props) => {
             <div className="mx-auto max-w-screen-lg mb-3 lg:w-full lg:pl-16">
                 <div className="flex flex-col md:flex-row justify-between lg:pl-3 lg:pr-3">
                     <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md mb-3 md:mb-0 md:mr-3">
-                        <button className="py-2 px-4 bg-gray-800 text-zinc-200 rounded-l border-r border-gray-200 hover:bg-gray-700 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
+                        <button className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l border-r border-gray-200 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none ">
                             Search
                         </button>
                         <input
