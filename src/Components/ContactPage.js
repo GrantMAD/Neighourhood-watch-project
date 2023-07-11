@@ -51,7 +51,7 @@ const ContactPage = () => {
           </p>
         </div>
         <div className="p-4 sm:p-0">
-          <form onSubmit={sendEmail} className="mt-10">
+          <form onSubmit={sendEmail} className="mt-6">
             <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
             <div className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="relative z-0">
@@ -82,7 +82,7 @@ const ContactPage = () => {
             <h1 className="text-gray-500 text-sm">Click and drag bottom right corner to make larger</h1>
             <button
               type="submit"
-              className="mt-3 rounded-md bg-blue-800 px-10 py-2 text-white shadow-xl hover:bg-blue-600"
+              className="mt-3 rounded-md bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r px-10 py-2 text-white shadow-xl"
             >
               Send Message
             </button>

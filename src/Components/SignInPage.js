@@ -36,7 +36,7 @@ const SignInPage = (props) => {
 
   return (
     <div className="p-16 bg-gray-800">
-      <div className="flex flex-row bg-zinc-200 rounded-lg">
+      <div className="flex flex-row bg-zinc-200 rounded-2xl">
         <div className="bg-grey-lighter min-h-screen flex flex-col items-center justify-center text-white w-full sm:w-1/2">
           <div className="flex w-[20rem] flex-col">
             <img src="/images/nwLogo.png" alt="" className="scale-75" />
@@ -75,7 +75,7 @@ const SignInPage = (props) => {
               <Toaster richColors />
               <div className="flex items-center justify-center md:px-10">
                 <button
-                  className="transform rounded-lg bg-blue-800 py-2 font-bold duration-300 hover:bg-blue-800 lg:w-full md:w-full w-3/5 mt-5"
+                  className="transform rounded-lg bg-gradient-to-l from-blue-800 to-violet-600 py-2 font-bold duration-300 hover:bg-gradient-to-r lg:w-full md:w-full w-3/5 mt-5"
                   onClick={() => {
                     login();
                     toast.success('Login successfull')
@@ -104,7 +104,7 @@ const SignInPage = (props) => {
             >
           </div>
         </div>
-        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-b from-blue-800 to-purple-900 rounded-r-lg">
+        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-r from-blue-800 to-violet-600 rounded-r-lg">
           <div className="flex flex-col items-center">
             <h1 className="text-zinc-200 text-xl mb-3">Nice to see you again</h1>
             <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8 md:text-center">WELCOME BACK</h1>

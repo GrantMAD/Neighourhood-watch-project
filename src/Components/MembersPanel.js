@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonMember from "../Skeletons/SkeletonMember";
 
@@ -12,7 +12,12 @@ const MembersPanel = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const getUsers = async () => {
+        getUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const getUsers = async () => {
+        try {
             const data = await getDocs(usersCollectionRef);
             const sortedUsers = data.docs
                 .map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -23,10 +28,10 @@ const MembersPanel = () => {
                 });
             setUsers(sortedUsers);
             setIsLoading(false);
-        };
-        getUsers();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
 
     const userPublicProfile = (user) => {
         navigate(`/PublicProfile/${user.id}`, {
@@ -63,6 +68,23 @@ const MembersPanel = () => {
         } catch (error) {
             console.error("Error updating user role:", error);
         }
+    };
+
+    const deleteUser = async (userId) => {
+        try {
+            // Delete the user's Firestore document
+            await deleteDoc(doc(db, "users", userId));
+
+            // Update the users state by removing the deleted user
+            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
+
+    const reloadUsers = async () => {
+        setIsLoading(true);
+        await getUsers();
     };
 
     return (
@@ -135,7 +157,7 @@ const MembersPanel = () => {
                                     scope="col"
                                     className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4"
                                 >
-                                    
+
                                 </th>
                             </tr>
                         </thead>
@@ -191,13 +213,19 @@ const MembersPanel = () => {
                                                     <li
                                                         className={
                                                             user.checkedIn
-                                                                ? "text-xl ml-4 text-lime-400"
-                                                                : "text-xl ml-4 text-gray-900"
+                                                                ? "text-xl ml-8 text-lime-400"
+                                                                : "text-xl ml-8 text-gray-900"
                                                         }
                                                     ></li>
                                                 </td>
                                                 <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                                    <button className="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700">
+                                                    <button
+                                                        className="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700"
+                                                        onClick={async () => {
+                                                            await deleteUser(user.id);
+                                                            await reloadUsers();
+                                                        }}
+                                                    >
                                                         Delete user
                                                     </button>
                                                 </td>
