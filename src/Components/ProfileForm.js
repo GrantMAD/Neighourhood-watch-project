@@ -220,7 +220,7 @@ const ProfileForm = () => {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Photo</label>
+                    <label className="block text-sm font-medium text-gray-700">Profile Image</label>
                     <div className="mt-1 flex items-center">
                       <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100 mt-5">
                         <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -228,7 +228,7 @@ const ProfileForm = () => {
                         </svg>
                       </span>
                       <div className="mb-3 ml-5 w-96 text-center">
-                        <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700">Input files here</label>
+                        <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700 underline underline-offset-2">Input Image here</label>
                         <input
                           className="form-control
                                 block

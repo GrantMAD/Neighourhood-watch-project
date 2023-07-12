@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonMember from "../Skeletons/SkeletonMember";
 
@@ -70,23 +70,6 @@ const MembersPanel = () => {
         }
     };
 
-    const deleteUser = async (userId) => {
-        try {
-            // Delete the user's Firestore document
-            await deleteDoc(doc(db, "users", userId));
-
-            // Update the users state by removing the deleted user
-            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
-        } catch (error) {
-            console.error("Error deleting user:", error);
-        }
-    };
-
-    const reloadUsers = async () => {
-        setIsLoading(true);
-        await getUsers();
-    };
-
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
@@ -143,21 +126,21 @@ const MembersPanel = () => {
                                 </th>
                                 <th
                                     scope="col"
-                                    className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell"
+                                    className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell md:table-cell"
                                 >
                                     CPF Sector
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell md:table-cell"
+                                >
+                                    Number
                                 </th>
                                 <th
                                     scope="col"
                                     className="lg:pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4"
                                 >
                                     Checked in
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4"
-                                >
-
                                 </th>
                             </tr>
                         </thead>
@@ -205,7 +188,13 @@ const MembersPanel = () => {
                                                 </td>
                                                 <td
                                                     type="number"
-                                                    className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none"
+                                                    className="w-1/6 hidden text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none md:table-cell lg:table-cell"
+                                                >
+                                                    {user.cpfSector}
+                                                </td>
+                                                <td
+                                                    type="number"
+                                                    className="w-1/6 hidden text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap border-none md:table-cell lg:table-cell"
                                                 >
                                                     {user.number}
                                                 </td>
@@ -217,17 +206,6 @@ const MembersPanel = () => {
                                                                 : "text-xl ml-8 text-gray-900"
                                                         }
                                                     ></li>
-                                                </td>
-                                                <td className="lg:text-md hidden items-center justify-center whitespace-nowrap px-6 py-4 font-light text-gray-900 sm:w-1/3 md:w-1/4 md:text-sm lg:table-cell lg:w-1/6">
-                                                    <button
-                                                        className="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700"
-                                                        onClick={async () => {
-                                                            await deleteUser(user.id);
-                                                            await reloadUsers();
-                                                        }}
-                                                    >
-                                                        Delete user
-                                                    </button>
                                                 </td>
                                             </tr>
                                         );

@@ -18,7 +18,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-zinc-200 flex min-h-screen items-center justify-start sm:pb-20 sm:px-5">
+    <div className="bg-zinc-200 flex min-h-screen items-center justify-start md:px-10 sm:pb-20 sm:px-5">
       <div className="mx-4 sm:mx-auto w-full max-w-screen-md">
         {showAlert && (
           <div>
