@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
+import { deleteUser } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState()
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -34,6 +36,16 @@ const Profile = () => {
     navigate('/ProfilePage');
   }
 
+  const deleteAccount = async (userId) => {
+    try {
+      await deleteDoc(doc(db, "users", userId));
+      await deleteUser(auth.currentUser);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <main className="h-screen p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
       <div className="p-4 md:p-8 lg:p-16">
@@ -58,13 +70,32 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center lg:justify-end lg:mr-5">
+              <div className="space-x-8 lg:space-x-8 md:space-x-2 flex justify-center mt-32 mr-14 md:mt-0 md:justify-center lg:justify-end lg:mr-5">
                 <button
                   className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r shadow hover:shadow-lg font-medium ml-[60px] lg:ml-0"
                   onClick={editProfile}
                 >
                   Edit Profile
                 </button>
+                <div
+                  className="relative inline-block" 
+                  onMouseEnter={() => setShowTooltip(true)}
+                  onMouseLeave={() => setShowTooltip(false)}
+                >
+                  <button
+                    className="bg-gradient-to-l from-red-500 to-red-600 hover:bg-gradient-to-r hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded-md shadow-xl"
+                    onClick={async () => {
+                      deleteAccount(user.id);
+                    }}
+                  >
+                    Remove Account
+                  </button>
+                  {showTooltip && (
+                    <div className="absolute bg-gray-800 rounded-md px-2 py-1 text-zinc-200 mt-2 whitespace-nowrap mr-32 -right-32 font-semibold">
+                      By clicking Remove Account you will be deleting your account from our database.
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

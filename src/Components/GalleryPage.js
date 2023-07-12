@@ -115,7 +115,7 @@ const GalleryPage = () => {
                         ) : (
                             currentImages.map((url, index) => {
                                 return (
-                                    <div className="w-full p-2 md:p-2 lg:w-1/2 xl:w-1/3" key={url + index}>
+                                    <div className="w-full py-2 md:px-10 lg:px-2 lg:w-1/2 xl:w-1/3" key={url + index}>
                                         <div className="h-72 rounded-xl shadow-lg shadow-gray-500 hover:scale-150 border-2 overflow-hidden">
                                             <img
                                                 alt="gallery"
