@@ -19,6 +19,7 @@ const ProfileForm = () => {
   const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
+  const cpfSectorOptions = ["Codemore", "Hillside", "Unit Avenue"];
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,7 +34,7 @@ const ProfileForm = () => {
         setUserData(doc.data());
       });
     };
-      fetchUserData();
+    fetchUserData();
   }, []);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const ProfileForm = () => {
 
     if (profileURL !== undefined) {
       updatedUser = {
-        profileImage : profileURL,
+        profileImage: profileURL,
         ...updatedUser
       }
     }
@@ -100,137 +101,139 @@ const ProfileForm = () => {
           <div className="mt-5 md:col-span-2 md:mt-0">
             <form action="#">
               <div className="shadow sm:overflow-hidden sm:rounded-md">
-              {userData && (
-                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                  <div>
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                      About
-                    </label>
-                    <div className="mt-1">
-                      <textarea
-                        defaultValue={userData.about}
-                        key="{about}"
-                        type="text"
-                        id="about"
-                        name="about"
-                        rows={3}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                        placeholder="About yourself"
-                        onChange={(event) => {
-                          setNewAbout(event.target.value);
-                        }}
+                {userData && (
+                  <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                    <div>
+                      <label htmlFor="about" className="block text-sm font-medium text-gray-700 after:content-none">
+                        About
+                      </label>
+                      <div className="mt-1">
+                        <textarea
+                          defaultValue={userData.about}
+                          type="text"
+                          id="about"
+                          name="about"
+                          rows={3}
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                          placeholder="About yourself"
+                          onChange={(event) => {
+                            setNewAbout(event.target.value);
+                          }}
 
-                      />
+                        />
+                      </div>
+                      <p className="mt-2 text-sm text-gray-500">
+                        Brief description for your profile.
+                      </p>
                     </div>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Brief description for your profile.
-                    </p>
-                  </div>
-                  <div className="bg-white ">
-                    <div className="grid grid-cols-6 gap-6">
-                      <div className="col-span-6 sm:col-span-3">
-                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                          Name
-                        </label>
-                        <input
-                          defaultValue={userData.name}
-                          type="text"
-                          name="first-name"
-                          id="first-name"
-                          autoComplete="given-name"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                          onChange={(event) => {
-                            setNewName(event.target.value);
-                          }}
+                    <div className="bg-white ">
+                      <div className="grid grid-cols-6 gap-6">
+                        <div className="col-span-6 sm:col-span-3">
+                          <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Name
+                          </label>
+                          <input
+                            defaultValue={userData.name}
+                            type="text"
+                            name="first-name"
+                            id="first-name"
+                            autoComplete="given-name"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setNewName(event.target.value);
+                            }}
 
-                        />
-                      </div>
-                      <div className="col-span-5 sm:col-span-3">
-                        <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700">
-                          Sector
-                        </label>
-                        <input
-                          defaultValue={userData.cpfSector}
-                          type="text"
-                          name="CpfSector"
-                          id="CpfSector"
-                          autoComplete="CpfSector"
-                          placeholder="Codemore/Hillside"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                          onChange={(event) => {
-                            setCpfSector(event.target.value);
-                          }}
+                          />
+                        </div>
+                        <div className="col-span-5 sm:col-span-3">
+                          <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
+                            District
+                          </label>
+                          <select
+                            value={cpfSector}
+                            name="CpfSector"
+                            id="CpfSector"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setCpfSector(event.target.value);
+                            }}
+                          >
+                            <option value="">Select district</option>
+                            {cpfSectorOptions.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="col-span-6 sm:col-span-4">
+                          <label htmlFor="number" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Contact Number
+                          </label>
+                          <input
+                            defaultValue={userData.number}
+                            type="number"
+                            name="number"
+                            id="number"
+                            autoComplete="number"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setNewNumber(event.target.value);
+                            }}
 
-                        />
-                      </div>
-                      <div className="col-span-6 sm:col-span-4">
-                        <label htmlFor="number" className="block text-sm font-medium text-gray-700">
-                          Contact Number
-                        </label>
-                        <input
-                          defaultValue={userData.number}
-                          type="number"
-                          name="number"
-                          id="number"
-                          autoComplete="number"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                          onChange={(event) => {
-                            setNewNumber(event.target.value);
-                          }}
+                          />
+                        </div>
 
-                        />
-                      </div>
-                      
 
-                      <div className="col-span-6 sm:col-span-4">
-                        <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                          Email address
-                        </label>
-                        <input
-                          defaultValue={userData.email}
-                          type="text"
-                          name="email-address"
-                          id="email-address"
-                          autoComplete="email"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                          onChange={(event) => {
-                            setEmail(event.target.value);
-                          }}
+                        <div className="col-span-6 sm:col-span-4">
+                          <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Email address
+                          </label>
+                          <input
+                            defaultValue={userData.email}
+                            type="text"
+                            name="email-address"
+                            id="email-address"
+                            autoComplete="email"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setEmail(event.target.value);
+                            }}
 
-                        />
-                      </div>
+                          />
+                        </div>
 
-                      <div className="col-span-6">
-                        <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
-                          Street address
-                        </label>
-                        <input
-                          defaultValue={userData.address}
-                          type="text"
-                          name="street-address"
-                          id="street-address"
-                          autoComplete="street-address"
-                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                          onChange={(event) => {
-                            setNewAddress(event.target.value);
-                          }}
+                        <div className="col-span-6">
+                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Street address
+                          </label>
+                          <input
+                            defaultValue={userData.address}
+                            type="text"
+                            name="street-address"
+                            id="street-address"
+                            autoComplete="street-address"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setNewAddress(event.target.value);
+                            }}
 
-                        />
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Profile Image</label>
-                    <div className="mt-1 flex items-center">
-                      <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100 mt-5">
-                        <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                      </span>
-                      <div className="mb-3 ml-5 w-96 text-center">
-                        <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700 underline underline-offset-2">Input Image here</label>
-                        <input
-                          className="form-control
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 after:content-none">Profile Image</label>
+                      <div className="mt-1 flex items-center">
+                        <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100 mt-5">
+                          <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                          </svg>
+                        </span>
+                        <div className="mb-3 ml-5 w-96 text-center">
+                          <label for="formFileMultiple" class="form-label inline-block mb-2 text-gray-700 underline underline-offset-2 after:content-none">Input Image here</label>
+                          <input
+                            className="form-control
                                 block
                                 w-full
                                 px-3
@@ -245,22 +248,22 @@ const ProfileForm = () => {
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                          type="file"
-                          id="formFileMultiple"
-                          multiple
-                          onChange={(event) => {
-                            const file = event.target.files[0];
-                            setProfileImageUpload(file);
-                          }}
+                            type="file"
+                            id="formFileMultiple"
+                            multiple
+                            onChange={(event) => {
+                              const file = event.target.files[0];
+                              setProfileImageUpload(file);
+                            }}
 
-                        />
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 )}
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                <Toaster richColors />
+                  <Toaster richColors />
                   <button
                     className="inline-flex justify-center rounded-md border border-transparent bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={(e) => {

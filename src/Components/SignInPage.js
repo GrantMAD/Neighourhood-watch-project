@@ -78,7 +78,7 @@ const SignInPage = (props) => {
                   className="transform rounded-lg bg-gradient-to-l from-blue-800 to-violet-600 py-2 font-bold duration-300 hover:bg-gradient-to-r lg:w-full md:w-full w-3/5 mt-5"
                   onClick={() => {
                     login();
-                    toast.success('Login successfull')
+                    toast.success('Logining in, Please wait')
                   }}
                   ref={loginButtonRef}
                 >
