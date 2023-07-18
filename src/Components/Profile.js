@@ -88,11 +88,11 @@ const Profile = () => {
                       deleteAccount(user.id);
                     }}
                   >
-                    Remove Account
+                    Delete Account
                   </button>
                   {showTooltip && (
-                    <div className="absolute bg-gray-800 rounded-md px-2 py-1 text-zinc-200 mt-2 whitespace-nowrap mr-32 -right-32 font-semibold">
-                      By clicking Remove Account you will be deleting your account from our database.
+                    <div className="absolute bg-red-500 rounded-md px-2 py-1 text-zinc-200 mt-2 whitespace-nowrap mr-32 -right-32 font-semibold">
+                      By clicking Delete Account you will be deleting your account from our database.
                     </div>
                   )}
                 </div>

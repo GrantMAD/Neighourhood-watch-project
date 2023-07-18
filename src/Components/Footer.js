@@ -76,7 +76,7 @@ const Footer = () => {
                         </a>
                     </div>
                     <p className="mt-5 text-base leading-6 text-center text-white">
-                        © 2023 The Neighbourhood Watch App. All rights reserved.
+                        © 2023 The Neighbourhood Watch App Beta. All rights reserved.
                     </p>
                 </div>
             </div>
