@@ -79,7 +79,7 @@ const ArchivedReports = (props) => {
                 </div>
             </div>
             <div className="lg:ml-[27.5%] lg:mr-[27.5%] ml-[10%] mr-[10%] mb-5">
-                <p>These reports are a month or more old and are automatically moved here to archived reports.</p>
+                <p>These reports are a month or more old and are automatically moved here to archived reports. You may search for report's in the search bar using the title, the date it was posted (2023-03-24) or the patroller's name who posted it.</p>
             </div>
             {isLoading ? (
                 <SkeletonReport />
