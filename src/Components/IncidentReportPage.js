@@ -12,7 +12,7 @@ const IncidentReportPage = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedReport, setSelectedReport] = useState(null);
-    
+
     const navigate = useNavigate();
 
     const addReport = () => {
@@ -22,23 +22,29 @@ const IncidentReportPage = (props) => {
     const moveReportsToArchived = async (reports) => {
         const oneMonthAgo = new Date();
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-      
+
         const reportsToMove = reports.filter((report) => {
-          const reportDate = new Date(report.dateReport);
-          return reportDate < oneMonthAgo;
+            const reportDate = new Date(report.dateReport);
+            return reportDate < oneMonthAgo;
         });
-      
+
         for (const report of reportsToMove) {
-          const { id, ...reportData } = report;
-          try {
-            await addDoc(archivedReportsCollectionRef, reportData);
-            const reportDocRef = doc(db, 'reports', id);
-            await deleteDoc(reportDocRef);
-          } catch (error) {
-            console.error("Error moving report:", error);
-          }
+            const { id, ...reportData } = report;
+            try {
+                await addDoc(archivedReportsCollectionRef, reportData);
+                const reportDocRef = doc(db, 'reports', id);
+                await deleteDoc(reportDocRef);
+            } catch (error) {
+                console.error("Error moving report:", error);
+            }
         }
-      };      
+    };
+
+    const compareReportsByDate = (a, b) => {
+        const dateA = new Date(a.dateReport);
+        const dateB = new Date(b.dateReport);
+        return dateB - dateA; // Sort in descending order (newest first)
+    };
 
     useEffect(() => {
         const getReports = async () => {
@@ -106,7 +112,9 @@ const IncidentReportPage = (props) => {
                     ) {
                         return value;
                     }
-                }).map((report, index) => {
+                })
+                .sort(compareReportsByDate)
+                .map((report, index) => {
                     return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                         <div class="w-full pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
@@ -135,6 +143,10 @@ const IncidentReportPage = (props) => {
                                                 <div class="flex mb-2">
                                                     <h1 class="font-semibold mr-2 text-black">Date of incident:</h1>
                                                     <h1>{report.date}</h1>
+                                                </div>
+                                                <div class="flex mb-2">
+                                                    <h1 class="font-semibold mr-2 text-black">Referance number:</h1>
+                                                    <h1>{report.policeNumber}</h1>
                                                 </div>
                                                 <div class="flex">
                                                     <h1 class="font-semibold mr-2 text-black">Time of incident:</h1>

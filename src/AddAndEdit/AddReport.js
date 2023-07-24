@@ -10,6 +10,7 @@ const AddReport = () => {
     const [newPatrollerName, setNewPatrollerName] = useState();
     const [newTime, setNewTime] = useState();
     const [newDate, setNewDate] = useState();
+    const [newPoliceNumber, setNewPoliceNumber] = useState();
     const [newDateReport, setNewDateReport] = useState();
     const [newLocation, setNewLocation] = useState();
     const [newDescription, setNewDescription] = useState();
@@ -21,12 +22,12 @@ const AddReport = () => {
 
     const addReport = async (e) => {
         e.preventDefault();
-        if (!newTitle || !newPatrollerName || !newTime || !newDate || !newDateReport || !newLocation || !newDescription) {
+        if (!newTitle || !newPatrollerName || !newTime || !newDate || !newDateReport || !newLocation || !newDescription || !newPoliceNumber) {
             setShowWarning(true);
             return;
         }
 
-        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription });
+        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber });
         setIsAdded(!isAdded);
         toast.success('Report saved successfully!');
         navigate('/IncidentReportPage');
@@ -35,7 +36,22 @@ const AddReport = () => {
     useEffect(() => {
         const currentDate = new Date().toISOString().split("T")[0];
         setNewDateReport(currentDate);
-      }, []);
+    }, []);
+
+    const handleTimeChange = (event) => {
+        let value = event.target.value;
+
+        // Remove all non-numeric characters
+        value = value.replace(/\D/g, "");
+
+        // Add a ":" after the second character if the length is 2
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + ":" + value.substring(2);
+        }
+
+        // Update the state with the modified value
+        setNewTime(value);
+    };
 
     return (
         <main className="p-10 bg-zinc-200">
@@ -112,12 +128,11 @@ const AddReport = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div className="col-span-6 sm:col-span-4">
-                                            <div className="flex">
-                                                <div className="mb-3 xl:w-96">
-                                                    <label for="Time" className="form-label inline-block mb-2 font-medium text-gray-700"
-                                                    >Time of Incident</label>
+                                            <div class="flex">
+                                                <div class="mb-3 xl:w-96">
+                                                    <label for="name" className="form-label inline-block mb-2 font-medium text-gray-700"
+                                                    >Referance number</label>
                                                     <input
                                                         type="number"
                                                         className="
@@ -137,11 +152,44 @@ const AddReport = () => {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                                 "
+                                                        id="PatrollersName"
+                                                        placeholder="Name"
+                                                        onChange={(event) => {
+                                                            setNewPoliceNumber(event.target.value);
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-6 sm:col-span-4">
+                                            <div className="flex">
+                                                <div className="mb-3 xl:w-96">
+                                                    <label for="Time" className="form-label inline-block mb-2 font-medium text-gray-700"
+                                                    >Time of Incident</label>
+                                                    <input
+                                                        type="text"
+                                                        className="
+                                    form-control
+                                    block
+                                    w-full
+                                    px-3
+                                    py-1.5
+                                    text-base
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out
+                                    m-0
+                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                "
                                                         id="time"
                                                         placeholder="Time"
-                                                        onChange={(event) => {
-                                                            setNewTime(event.target.value);
-                                                        }}
+                                                        value={newTime}
+                                                        onChange={handleTimeChange}
                                                     />
                                                 </div>
                                             </div>

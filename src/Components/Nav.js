@@ -348,7 +348,7 @@ const Nav = () => {
                         <p className="text-sm">
                             To get approved and get full access to this sector, please click the link and download the form
                             <a
-                                href="https://github.com/GrantMAD/Neighourhood-watch-project"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSenLvVNes7YRk2cxcUXW4q1I8bm4h-djs-Ew_BMRpaalJd-Rg/viewform?pli=1"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="ml-1 underline hover:text-blue-700"

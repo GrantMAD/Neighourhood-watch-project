@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "../firebase";
-import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot } from "firebase/firestore";
-import { getStorage, deleteObject, ref } from "firebase/storage";
+import { collection, getDocs, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "../Skeletons/SkeletonStory";
-import { Toaster, toast } from 'sonner';
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDeleted, setIsDeleted] = useState(false);
   const [userRole, setUserRole] = useState("");
   const usersCollectionRef = collection(db, "users");
-  const storage = getStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStorys = async () => {
       const storyCollectionRef = collection(db, 'storys');
-      const storyData = await getDocs(storyCollectionRef);
+      const storyQuery = query(storyCollectionRef, orderBy("timestamp", "desc"));
+      const storyData = await getDocs(storyQuery);
       setStorys(storyData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setIsLoading(false);
     };
-  
+
     const currentUser = auth.currentUser;
     if (currentUser) {
       const userEmail = currentUser.email;
@@ -34,22 +31,9 @@ const LandingPage = () => {
         });
       });
     }
-  
+
     fetchStorys();
   }, [usersCollectionRef]);
-  
-
-  const deleteStory = async (id, imageRef) => {
-    const storyDoc = doc(db, "storys", id);
-    await deleteDoc(storyDoc);
-
-    // Delete the story's image from storage
-    const storageRef = ref(storage, imageRef);
-    await deleteObject(storageRef);
-
-    setStorys(storys.filter((story) => story.id !== id));
-    setIsDeleted(!isDeleted);
-  };
 
   const addStory = () => {
     navigate('../AddStory')
@@ -82,19 +66,18 @@ const LandingPage = () => {
             </p>
           </div>
           <img
-            className="h-1/4 w-1/4 md:w-1/4 md:h-1/4"
+            className="h-1/4 w-1/4 md:w-1/4 md:h-1/4 py-2 px-3"
             alt=""
-            src="/images/CodemoreLOGO.png"
+            src="/images/Sector-2-logo.png"
           />
         </div>
       </div>
-      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500"
-      >
+      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
         <div className="flex justify-between">
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           {userRole === "admin" && (
             <button
-              className="bg-gray-800 hover:bg-blue-600 hover:border-blue-800 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-blue-600 h-1/4 mt-2 lg:mt-1 border-2 border-blue-600 hover:scale-125"
+              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
               onClick={addStory}
             >
               Add Story
@@ -105,57 +88,55 @@ const LandingPage = () => {
           <SkeletonStory />
         ) : storys.length === 0 ? (
           <p className="text-zinc-200 text-2xl">No Stories currently</p>
-        ) :
-          storys.map((story) => {
-            return <div key={story.id}>
-              {" "}
-              <hr></hr>
-              <div className="w-full mt-5">
-                <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
-                <hr className="w-1/4"></hr>
-                <div className="flex flex-col md:flex-row mb-5">
-                  <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
-                    <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-
-                    {userRole === "admin" && (
-                      <div className="flex mt-10">
-                        {/*
-                        <button
-                          className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
-                          onClick={updateReport}
-                        >
-                          Edit
-                        </button>
-                    */}
-                        <Toaster richColors />
-                        <button
-                          className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
-                          onClick={() => {
-                            deleteStory(story.id, story.image);
-                            toast.error('Story has been deleted');
-                          }}
-                        >
-                          Delete
-                        </button>
-
+        ) : (
+          <>
+            {storys.slice(0, 3).map((story) => {
+              return (
+                <div key={story.id}>
+                  {" "}
+                  <hr></hr>
+                  <div className="w-full mt-5">
+                    <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
+                    <hr className="w-1/4"></hr>
+                    <div className="flex flex-col md:flex-row mb-5">
+                      <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
+                        <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
+                          <div className="flex mt-10">
+                            {/*
+                              <button
+                                className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
+                                onClick={updateReport}
+                              >
+                                Edit
+                              </button>
+                            */}
+                          </div>
                       </div>
-                    )}
-                  </div>
-                  <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
-                    <img
-                      className="w-full max-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md "
-                      alt=""
-                      src={story.image}
-                    />
+                      <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
+                        <img
+                          className="w-full max-h-[250px] min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md "
+                          alt=""
+                          src={story.image}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              );
+            })}
+            <div className="flex justify-center">
+              <button
+                className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+                onClick={() => navigate('/MainStoryPage')}
+              >
+                View All Stories
+              </button>
             </div>
-          })}
+          </>
+        )}
       </div>
-
     </main>
-  )
+  );
 }
 
 export default LandingPage;
