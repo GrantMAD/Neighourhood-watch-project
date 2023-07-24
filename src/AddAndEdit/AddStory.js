@@ -20,7 +20,8 @@ const AddStory = () => {
     const addStory = async (e) => {
         e.preventDefault();
         const URL = await uploadStoryImage();
-        await addDoc(usersCollecctionRef2, { storyTitle: newStoryTitle, contents: newStoryContent, image: URL });
+        const timestamp = new Date();
+        await addDoc(usersCollecctionRef2, { storyTitle: newStoryTitle, contents: newStoryContent, image: URL, timestamp: timestamp.toISOString(), });
         setIsAdded(!isAdded)
         navigate('/LandingPage')
     }

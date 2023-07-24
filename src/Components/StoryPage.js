@@ -22,7 +22,7 @@ const StoryPage = (props) => {
         </div>
         <div>
         <img
-            className="lg:h-2/5 lg:w-2/5 mt-2 mb-5 rounded-md ml-5 hover:scale-150 border-2 border-zinc-200 float-right"
+            className="lg:h-2/5 lg:w-2/5 mt-2 mb-5 rounded-md ml-5 border-2 border-zinc-200 float-right"
             alt=""
             src={story.image}
           />

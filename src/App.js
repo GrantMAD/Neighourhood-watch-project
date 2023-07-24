@@ -23,6 +23,7 @@ import AddReport from './AddAndEdit/AddReport';
 import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
 import HomePage from './Components/HomePage';
+import MainStoryPage from './Components/MainStoryPage';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/HomePage" element={ <HomePage funcNav={setShowNav}/>} />
         <Route path="/LandingPage" element={ <LandingPage/>} />
         <Route path="/StoryPage" element={ <StoryPage/>} />
+        <Route path="/MainStoryPage" element={ <MainStoryPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
         <Route path="/IncidentReportPage" element={ <IncidentReportPage funcNav={setShowNav}/>} />
