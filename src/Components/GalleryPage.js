@@ -94,7 +94,7 @@ const GalleryPage = () => {
                 <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
                     {userRole === "admin" && (
                         <div className="flex flex-wrap justify-center md:justify-end mb-5">
-                            <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
+                            <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
                                 Add new image
                             </button>
                             

@@ -77,7 +77,7 @@ const LandingPage = () => {
           <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">NEWS</h1>
           {userRole === "admin" && (
             <button
-              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
               onClick={addStory}
             >
               Add Story
@@ -126,7 +126,7 @@ const LandingPage = () => {
             })}
             <div className="flex justify-center">
               <button
-                className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+                className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
                 onClick={() => navigate('/MainStoryPage')}
               >
                 View All Stories
