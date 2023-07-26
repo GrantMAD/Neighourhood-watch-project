@@ -140,7 +140,7 @@ const ArchivedReports = (props) => {
                             */}
                                                 <Toaster richColors />
                                                 {userRole === "admin" && (
-                                                <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-125 border border-red-700" onClick={() => { deleteReport(ArchivedReport.id); toast.error('Story has been deleted'); }}>
+                                                <button class="bg-red-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl hover:scale-105 border border-red-700" onClick={() => { deleteReport(ArchivedReport.id); toast.error('Story has been deleted'); }}>
                                                     Delete
                                                 </button>
                                                 )}

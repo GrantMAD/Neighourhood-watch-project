@@ -86,7 +86,7 @@ const IncidentReportPage = (props) => {
                         />
                     </div>
                     <button
-                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded"
+                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded"
                         onClick={addReport}
                     >
                         Add Report

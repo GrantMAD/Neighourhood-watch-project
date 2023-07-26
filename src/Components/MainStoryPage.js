@@ -14,6 +14,7 @@ const MainStoryPage = () => {
     const [userRole, setUserRole] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [hoveredDeleteButtonId, setHoveredDeleteButtonId] = useState(null);
     const usersCollectionRef = collection(db, "users");
 
     useEffect(() => {
@@ -68,6 +69,14 @@ const MainStoryPage = () => {
         navigate('../AddStory')
     }
 
+    const handleMouseEnter = (storyId) => {
+        setHoveredDeleteButtonId(storyId);
+      };
+
+    const handleMouseLeave = () => {
+        setHoveredDeleteButtonId(null);
+      };
+
     return (
         <main className="pt-20 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200"
             ref={mainContainerRef}>
@@ -76,7 +85,7 @@ const MainStoryPage = () => {
                     <h1 className="text-4xl font-semibold mb-5">Stories</h1>
                     {userRole === "admin" && (
                         <button
-                            className="bg-gray-800 hover:bg-blue-600 hover:border-blue-800 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 shadow-sm shadow-blue-600 h-1/4 mt-2 lg:mt-1 border-2 border-blue-600 hover:scale-125"
+                            className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1 hover:scale-105"
                             onClick={addStory}
                         >
                             Add Story
@@ -110,8 +119,11 @@ const MainStoryPage = () => {
                         </button>
                     */}
                                                 <Toaster richColors />
+                                                <div>
                                                 <button
-                                                    className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-125"
+                                                    className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-105"
+                                                    onMouseEnter={() => handleMouseEnter(story.id)}
+                              onMouseLeave={handleMouseLeave}
                                                     onClick={() => {
                                                         deleteStory(story.id, story.image);
                                                         toast.error('Story has been deleted');
@@ -119,8 +131,13 @@ const MainStoryPage = () => {
                                                 >
                                                     Delete
                                                 </button>
-
+                                                {hoveredDeleteButtonId === story.id && (
+                                                    <div className="absolute bg-zinc-200 rounded-md px-2 py-1 mt-3 text-gray-800 border border-gray-800 whitespace-nowrap left-56 font-semibold">
+                                                        By clicking Delete you will be deleting the selected story from our database.
+                                                    </div>
+                                                )}
                                             </div>
+                                                </div>
                                         )}
                                     </div>
                                     <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">

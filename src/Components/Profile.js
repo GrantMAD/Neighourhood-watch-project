@@ -72,7 +72,7 @@ const Profile = () => {
 
               <div className="space-x-8 lg:space-x-8 md:space-x-2 flex justify-center mt-32 mr-14 md:mt-0 md:justify-center lg:justify-end lg:mr-5">
                 <button
-                  className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r shadow hover:shadow-lg font-medium ml-[60px] lg:ml-0"
+                  className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 shadow hover:shadow-lg font-medium ml-[60px] lg:ml-0"
                   onClick={editProfile}
                 >
                   Edit Profile
@@ -83,7 +83,7 @@ const Profile = () => {
                   onMouseLeave={() => setShowTooltip(false)}
                 >
                   <button
-                    className="bg-gradient-to-l from-red-500 to-red-600 hover:bg-gradient-to-r hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded-md shadow-xl"
+                    className="bg-gradient-to-l from-red-500 to-red-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded-md shadow-xl"
                     onClick={async () => {
                       deleteAccount(user.id);
                     }}
@@ -91,7 +91,7 @@ const Profile = () => {
                     Delete Account
                   </button>
                   {showTooltip && (
-                    <div className="absolute bg-red-500 rounded-md px-2 py-1 text-zinc-200 mt-2 whitespace-nowrap mr-32 -right-32 font-semibold">
+                    <div className="absolute bg-zinc-200 rounded-md px-2 py-1 text-gray-800 border border-gray-800 mt-2 whitespace-nowrap mr-32 -right-32 font-semibold">
                       By clicking Delete Account you will be deleting your account from our database.
                     </div>
                   )}
