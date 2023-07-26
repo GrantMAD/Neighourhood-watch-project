@@ -82,7 +82,7 @@ const ContactPage = () => {
             <h1 className="text-gray-500 text-sm">Click and drag bottom right corner to make larger</h1>
             <button
               type="submit"
-              className="mt-3 rounded-md bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r px-10 py-2 text-white shadow-xl"
+              className="mt-3 rounded-md bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 px-10 py-2 text-white shadow-xl"
             >
               Send Message
             </button>

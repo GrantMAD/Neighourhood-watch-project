@@ -64,7 +64,7 @@ const MembersPanel = () => {
         const templateParams = {
             to_email: recipientEmail,
             subject: 'Account Approval',
-            message: 'Your account has been approved. You can now access all the features of our app.'
+            message: 'Your account has been approved. You now have full access to Sector 2'
         };
 
         try {
