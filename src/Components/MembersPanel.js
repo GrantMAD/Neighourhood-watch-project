@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonMember from "../Skeletons/SkeletonMember";
+import emailjs from 'emailjs-com';
 
 const MembersPanel = () => {
     const [users, setUsers] = useState([]);
@@ -57,18 +58,54 @@ const MembersPanel = () => {
         setSearchTerm(e.target.value);
     };
 
-    const updateUserRole = async (userId, newRole) => {
+    const sendApprovalEmail = async (recipientEmail) => {
+        console.log('Recipient Email:', recipientEmail);
+
+        const templateParams = {
+            to_email: recipientEmail,
+            subject: 'Account Approval',
+            message: 'Your account has been approved. You can now access all the features of our app.'
+        };
+
         try {
-            await updateDoc(doc(db, "users", userId), { role: newRole });
-            setUsers((prevUsers) =>
-                prevUsers.map((user) =>
-                    user.id === userId ? { ...user, role: newRole } : user
-                )
-            );
+            const response = await emailjs.send('service_eclqt7c', 'template_dvj9a18', templateParams, 'soAbfXEvIO-hm50JH');
+            console.log('Approval email sent successfully', response);
         } catch (error) {
-            console.error("Error updating user role:", error);
+            console.error('Error sending approval email:', error);
         }
     };
+
+    const updateUserRole = async (userId, newRole) => {
+        try {
+          const userDocRef = doc(db, 'users', userId);
+          const userDocSnapshot = await getDoc(userDocRef);
+      
+          if (userDocSnapshot.exists()) {
+            const userToUpdate = userDocSnapshot.data();
+      
+            // Update the role in the Firestore document
+            await updateDoc(userDocRef, { role: newRole });
+      
+            // Check if the new role is "user" and if the user has an email
+            if (newRole === 'user' && userToUpdate.email) {
+              await sendApprovalEmail(userToUpdate.email);
+            }
+      
+            // Update the local state if needed
+            setUsers((prevUsers) =>
+              prevUsers.map((user) =>
+                user.id === userId ? { ...user, role: newRole } : user
+              )
+            );
+          } else {
+            console.log(`User with ID ${userId} not found.`);
+          }
+        } catch (error) {
+          console.error('Error updating user role:', error);
+        }
+      };
+      
+
 
     return (
         <main className="min-h-screen bg-zinc-200">
