@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "../firebase";
 import { collection, getDocs, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "../Skeletons/SkeletonStory";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 const LandingPage = () => {
   const [storys, setStorys] = useState([]);
@@ -42,6 +45,10 @@ const LandingPage = () => {
   const handleStoryClick = (story) => {
     navigate('/StoryPage', { state: { story: story } });
   }
+
+  const timeAgo = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
 
   return (
     <main className="pt-20 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200">
@@ -99,10 +106,11 @@ const LandingPage = () => {
                     <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
                     <hr className="w-1/4"></hr>
                     <div className="flex flex-col md:flex-row mb-5">
-                      <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
+                      <div className="flex flex-col md:w-1/2 md:pr-5">
                         <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-                          <div className="flex mt-10">
-                            {/*
+                        <p className="text-gray-500 text-sm mt-2"><FontAwesomeIcon icon={faClock} className="mr-1" /> {timeAgo(story.timestamp)} </p>
+                        <div className="flex mt-10">
+                          {/*
                               <button
                                 className="bg-gray-800 hover:bg-blue-500 text-zinc-200 font-bold py-2 px-4 rounded mr-2 shadow-sm shadow-blue-500 border-2 border-blue-500 hover:scale-125"
                                 onClick={updateReport}
@@ -110,7 +118,7 @@ const LandingPage = () => {
                                 Edit
                               </button>
                             */}
-                          </div>
+                        </div>
                       </div>
                       <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
                         <img

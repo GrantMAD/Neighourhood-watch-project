@@ -73,27 +73,27 @@ const Members = () => {
                 </div>
                 <div className="pt-4 overflow-hidden">
                     <table className="text-center">
-                        <thead className="pl-[1%] border-b bg-gray-800">
+                        <thead className="pl-[1%] border-b bg-gray-800 text-white">
                             <tr>
-                                <th scope="col" className="hidden text-sm font-medium text-white px-6 py-4 lg:table-cell">
+                                <th scope="col" className="hidden text-sm font-medium px-6 py-4 lg:table-cell">
 
                                 </th>
-                                <th scope="col" className="w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="w-1/6 text-sm font-medium px-6 py-4">
                                     Name
                                 </th>
-                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white md:table-cell">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium md:table-cell">
                                     Street
                                 </th>
-                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium lg:table-cell">
                                     CPF Sector
                                 </th>
-                                <th scope="col" className="lg:pl-[2%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="lg:pl-[2%] w-1/6 text-sm font-medium px-6 py-4">
                                     Contact-Number
                                 </th>
-                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell">
+                                <th scope="col" className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium lg:table-cell">
                                     Email
                                 </th>
-                                <th scope="col" className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium text-white px-6 py-4">
+                                <th scope="col" className="lg:pl-5 pl-[3%] w-1/6 text-sm font-medium px-6 py-4">
                                     Checked  in
                                 </th>
                             </tr>

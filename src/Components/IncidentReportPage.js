@@ -3,6 +3,8 @@ import { db } from "../firebase";
 import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
+import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "../index.css";
 
 const IncidentReportPage = (props) => {
@@ -118,7 +120,7 @@ const IncidentReportPage = (props) => {
                     return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                         <div class="w-full pr-10 pl-10">
                             <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}>{report.title}</label>
+                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}> <FontAwesomeIcon icon={faFileAlt} className="mr-4" />{report.title}</label>
                             {selectedReport?.id === report.id && (
                                 <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
                                     <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-blue-800">

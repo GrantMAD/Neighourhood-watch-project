@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 
@@ -9,9 +11,14 @@ const SignInPage = (props) => {
   const [loginPassword, setLoginPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const loginButtonRef = useRef(null);
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const login = async () => {
     try {
@@ -27,7 +34,7 @@ const SignInPage = (props) => {
     } catch (error) {
       setShowAlert(true)
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   }
 
@@ -61,36 +68,47 @@ const SignInPage = (props) => {
                 />
               </div>
               <div className="flex items-center justify-center">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="lg:w-full border-2 border-blue-800 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
-                  onChange={(event) => {
-                    setLoginPassword(event.target.value);
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      loginButtonRef.current.click();
-                    }
-                  }}
-                />
+                <div className="relative w-full">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    className="lg:w-full border-2 border-blue-800 bg-transparent outline-none placeholder:italic focus:outline-none rounded-lg text-black"
+                    onChange={(event) => {
+                      setLoginPassword(event.target.value);
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        loginButtonRef.current.click();
+                      }
+                    }}
+                  />
+                  <span
+                    className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+                    onClick={togglePasswordVisibility}
+                  >
+                    <FontAwesomeIcon
+                      icon={showPassword ? faEye : faEyeSlash}
+                      style={{ color: "#666" }}
+                    />
+                  </span>
+                </div>
               </div>
               <div className="flex items-center justify-center md:px-10">
-              {isLoading ? (
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid mt-3 border-blue-800 align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-              <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-            </div>
-            ) : (
-              <button
-                className="transform rounded-lg bg-gradient-to-l from-blue-800 to-violet-600 py-2 font-bold duration-300 hover:bg-gradient-to-r lg:w-full md:w-full w-3/5 mt-5"
-                onClick={() => {
-                  login();
-                }}
-                ref={loginButtonRef}
-              >
-                LOG IN
-              </button>
-            )}
+                {isLoading ? (
+                  <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid mt-3 border-blue-800 align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                  </div>
+                ) : (
+                  <button
+                    className="transform rounded-lg bg-gradient-to-l from-blue-800 to-violet-600 py-2 font-bold duration-300 hover:bg-gradient-to-r lg:w-full md:w-full w-3/5 mt-5"
+                    onClick={() => {
+                      login();
+                    }}
+                    ref={loginButtonRef}
+                  >
+                    LOG IN
+                  </button>
+                )}
               </div>
             </div>
             {showAlert &&
