@@ -209,7 +209,7 @@ const MembersPanel = () => {
                                                         <span>Admin</span>
                                                     ) : (
                                                         <select
-                                                            className="rounded-md text-center"
+                                                            className="rounded-md text-center ring-4 ring-gradient-to-l from-blue-800 to-violet-600"
                                                             value={user.role}
                                                             onChange={(e) =>
                                                                 updateUserRole(user.id, e.target.value)
