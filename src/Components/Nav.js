@@ -163,14 +163,14 @@ const Nav = () => {
                                     {!user &&
                                         <div className="ml-3 relative hover:scale-125">
                                             <a href="/SignInPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white  hover:bg-gray-700 border-2 border-indigo-500">Sign
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105">Sign
                                                 In</a>
                                         </div>
                                     }
                                     {!user &&
                                         <div className="ml-3 relative hover:scale-125">
                                             <a href="/SignUpPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-700 border-2 border-indigo-500">Sign
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105">Sign
                                                 Up</a>
                                         </div>
                                     }

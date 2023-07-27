@@ -1,8 +1,9 @@
+import { db, auth } from "../firebase";
 import { useState, useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 
@@ -11,8 +12,10 @@ const SignUpPage = (props) => {
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [showAlertFail, setShowAlertFail] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
+    const [showPassword, setShowPassword] = useState(false);
     const loginButtonRef = useRef(null);
     const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ const SignUpPage = (props) => {
 
     const register = async () => {
         try {
+            setIsLoading(true);
             const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             console.log(user);
 
@@ -45,8 +49,14 @@ const SignUpPage = (props) => {
             navigate('/SignInPage');
         } catch (error) {
             setShowAlertFail(true)
+        } finally {
+            setIsLoading(false);
         }
     }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <div className="p-16 bg-gray-800">
@@ -104,30 +114,49 @@ const SignUpPage = (props) => {
                                         </div>
                                     </div>
                                 }
-                                <input
-                                    type="password"
-                                    className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
-                                    name="password"
-                                    placeholder="Password"
-                                    onChange={(event) => {
-                                        setRegisterPassword(event.target.value);
-                                    }}
-                                    onKeyDown={(event) => {
-                                        if (event.key === "Enter") {
-                                            loginButtonRef.current.click();
-                                        }
-                                    }}
-                                />
+                                <div className="relative w-full">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
+                                        name="password"
+                                        placeholder="Password"
+                                        onChange={(event) => {
+                                            setRegisterPassword(event.target.value);
+                                        }}
+                                        onKeyDown={(event) => {
+                                            if (event.key === "Enter") {
+                                                loginButtonRef.current.click();
+                                            }
+                                        }}
+                                    />
+                                    <span
+                                        className="absolute mt-[22px] right-4 transform -translate-y-1/2 cursor-pointer"
+                                        onClick={togglePasswordVisibility}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={showPassword ? faEye : faEyeSlash}
+                                            style={{ color: "#666" }}
+                                        />
+                                    </span>
+                                </div>
                             </div>
-                            <button
-                                type="submit"
-                                className="w-full bg-gradient-to-l from-blue-800 to-violet-600 text-center py-3 rounded-lg text-white focus:outline-none my-1 font-semibold hover:bg-gradient-to-r"
-                                onClick={() => {
-                                    register();
-                                }}
-                                ref={loginButtonRef}
+                            <div className="flex items-center justify-center md:px-10">
+                                {isLoading ? (
+                                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid mt-3 border-blue-800 align-[-0.125em] text-primary motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                                    </div>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-gradient-to-l from-blue-800 to-violet-600 text-center py-3 rounded-lg text-white focus:outline-none my-1 font-semibold hover:bg-gradient-to-r"
+                                        onClick={() => {
+                                            register();
+                                        }}
+                                        ref={loginButtonRef}
 
-                            >Create Account</button>
+                                    >Create Account</button>
+                                )}
+                            </div>
                             <div className="text-gray-800 font-semibold text-center mt-3">
                                 Already have an account? &nbsp;
                                 <a

@@ -4,7 +4,10 @@ import { collection, getDocs, deleteDoc, doc, query, where, onSnapshot, orderBy 
 import { getStorage, deleteObject, ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import SkeletonStory from "../Skeletons/SkeletonStory";
+import { formatDistanceToNow } from 'date-fns';
 import { Toaster, toast } from 'sonner';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 const MainStoryPage = () => {
     const storage = getStorage();
@@ -77,6 +80,10 @@ const MainStoryPage = () => {
         setHoveredDeleteButtonId(null);
       };
 
+      const timeAgo = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
+
     return (
         <main className="pt-20 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200"
             ref={mainContainerRef}>
@@ -105,9 +112,9 @@ const MainStoryPage = () => {
                                 <h1 className="text-3xl text-zinc-200 mb-2 decoration-1 font-semibold">{story.storyTitle}</h1>
                                 <hr className="w-1/4"></hr>
                                 <div className="flex flex-col md:flex-row mb-5">
-                                    <div className="flex flex-col justify-between md:w-1/2 md:pr-5">
+                                    <div className="flex flex-col md:w-1/2 md:pr-5">
                                         <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
-
+                                        <p className="text-gray-500 text-sm mt-2"><FontAwesomeIcon icon={faClock} className="mr-1" /> {timeAgo(story.timestamp)} </p>
                                         {userRole === "admin" && (
                                             <div className="flex mt-10">
                                                 {/*
@@ -133,7 +140,7 @@ const MainStoryPage = () => {
                                                 </button>
                                                 {hoveredDeleteButtonId === story.id && (
                                                     <div className="absolute bg-zinc-200 rounded-md px-2 py-1 mt-3 text-gray-800 border border-gray-800 whitespace-nowrap left-56 font-semibold">
-                                                        By clicking Delete you will be deleting the selected story from our database.
+                                                        By clicking Delete you will be deleting the selected story from the database.
                                                     </div>
                                                 )}
                                             </div>
