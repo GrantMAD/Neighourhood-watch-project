@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { storage } from "../firebase";
@@ -9,13 +9,21 @@ import "../index.css";
 import { Toaster, toast } from 'sonner';
 
 const AddStory = () => {
+    const mainContainerRef = useRef(null);
     const [newStoryTitle, setNewStoryTitle] = useState();
     const [newStoryContent, setNewStoryContent] = useState();
     const [storyImageUpload, setStoryImageUpload] = useState();
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
-
     const usersCollecctionRef2 = collection(db, "storys");
+
+    useEffect(() => {
+        // Scroll to the top of the component when it mounts
+        window.scrollTo(0, 0);
+
+        // Scroll the main container element into view
+        mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+    }, []);
 
     const addStory = async (e) => {
         e.preventDefault();
@@ -37,7 +45,9 @@ const AddStory = () => {
     };
 
     return (
-        <main className="h-screen p-10 bg-zinc-200">
+        <main className="h-screen p-10 bg-zinc-200"
+        ref={mainContainerRef}
+        >
             <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Story</h1>
             <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
