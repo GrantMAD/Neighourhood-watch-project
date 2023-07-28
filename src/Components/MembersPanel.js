@@ -239,8 +239,8 @@ const MembersPanel = () => {
                                                     <li
                                                         className={
                                                             user.checkedIn
-                                                                ? "text-xl ml-8 text-lime-400"
-                                                                : "text-xl ml-8 text-gray-900"
+                                                                ? "text-xl lg:ml-8 md:ml-5 ml-3 text-lime-400"
+                                                                : "text-xl lg:ml-8 md:ml-5 ml-5 text-gray-900"
                                                         }
                                                     ></li>
                                                 </td>

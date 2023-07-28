@@ -1,9 +1,22 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { formatDistanceToNow } from 'date-fns';
+import { useEffect, useRef } from "react";
 
 const StoryPage = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const mainContainerRef = useRef(null);
   const story = state.story;
+
+  useEffect(() => {
+    // Scroll to the top of the component when it mounts
+    window.scrollTo(0, 0);
+
+    // Scroll the main container element into view
+    mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   if (!story) {
     return null;
@@ -13,8 +26,14 @@ const StoryPage = (props) => {
     navigate('/MainStoryPage')
   }
 
+  const timeAgo = (timestamp) => {
+    return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
+
   return (
-    <div className="flex-container flex flex-col min-h-screen">
+    <div className="flex-container flex flex-col min-h-screen"
+      ref={mainContainerRef}
+    >
       <div className="flex-grow pt-10 pb-10 lg:pr-60 lg:pl-60 md:pr-20 md:pl-20 sm:pr-10 sm:pl-10 bg-zinc-200">
         <div className="flex flex-col mt-10 mb-10 p-10 text-zinc-200 rounded-md shadow-lg shadow-gray-500 bg-gray-800">
           <div className="flex justify-center mb-5">
@@ -27,6 +46,7 @@ const StoryPage = (props) => {
               src={story.image}
             />
             <p className="text-zinc-200 whitespace-pre-line">{story.contents}</p>
+            <p className="text-gray-500 text-sm mt-2"><FontAwesomeIcon icon={faClock} className="mr-1" /> {timeAgo(story.timestamp)} </p>
           </div>
           <div className="pt-5 pb-2">
             <button
@@ -35,7 +55,7 @@ const StoryPage = (props) => {
             >
               Return
             </button>
-            
+
           </div>
         </div>
       </div>
