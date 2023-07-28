@@ -68,7 +68,7 @@ const Members = () => {
                         />
                     </div>
                     <div className="mt-3 pb-3">
-                        <p>All Member's are displayed here. Registered patroller's have access to all Member's information that are currently displayed. To search for a member input either the member's name or CPF Sector above. To view a member's profile click on their name.</p>
+                        <p>All Member's are displayed here. Registered patroller's have access to all Member's information that is currently displayed. To search for a member input either the member's name or CPF Sector above. To view a member's profile click on their name.</p>
                     </div>
                 </div>
                 <div className="pt-4 overflow-hidden">
