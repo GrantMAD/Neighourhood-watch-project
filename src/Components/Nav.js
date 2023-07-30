@@ -60,9 +60,7 @@ const Nav = () => {
                 setIsPanelClicked(false);
             }
         };
-
         document.addEventListener("click", handleOutsideClick);
-
         return () => {
             document.removeEventListener("click", handleOutsideClick);
         };

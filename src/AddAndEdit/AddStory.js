@@ -18,10 +18,7 @@ const AddStory = () => {
     const usersCollecctionRef2 = collection(db, "storys");
 
     useEffect(() => {
-        // Scroll to the top of the component when it mounts
         window.scrollTo(0, 0);
-
-        // Scroll the main container element into view
         mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }, []);
 
