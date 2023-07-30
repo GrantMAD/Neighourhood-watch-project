@@ -15,28 +15,33 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchStorys = async () => {
-      const storyCollectionRef = collection(db, 'storys');
-      const storyQuery = query(storyCollectionRef, orderBy("timestamp", "desc"));
-      const storyData = await getDocs(storyQuery);
-      setStorys(storyData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      setIsLoading(false);
-    };
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const userEmail = currentUser.email;
+          const userRef = query(usersCollectionRef, where('email', '==', userEmail));
+          const unsubscribe = onSnapshot(userRef, (snapshot) => {
+            snapshot.forEach((doc) => {
+              const userData = doc.data();
+              setUserRole(userData.role);
+            });
+          });
+    
+          // Cleanup the listener when the component unmounts
+          return () => unsubscribe();
+        }
+      }, [usersCollectionRef]);
 
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      const userEmail = currentUser.email;
-      const userRef = query(usersCollectionRef, where("email", "==", userEmail));
-      onSnapshot(userRef, (snapshot) => {
-        snapshot.forEach((doc) => {
-          const userData = doc.data();
-          setUserRole(userData.role);
-        });
-      });
-    }
-
-    fetchStorys();
-  }, [usersCollectionRef]);
+      useEffect(() => {
+        const fetchStorys = async () => {
+          const storyCollectionRef = collection(db, 'storys');
+          const storyQuery = query(storyCollectionRef, orderBy('timestamp', 'desc'));
+          const storyData = await getDocs(storyQuery);
+          setStorys(storyData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+          setIsLoading(false);
+        };
+    
+        fetchStorys();
+      }, []);
 
   const addStory = () => {
     navigate('../AddStory')
