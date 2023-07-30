@@ -11,10 +11,7 @@ const StoryPage = (props) => {
   const story = state.story;
 
   useEffect(() => {
-    // Scroll to the top of the component when it mounts
     window.scrollTo(0, 0);
-
-    // Scroll the main container element into view
     mainContainerRef.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
