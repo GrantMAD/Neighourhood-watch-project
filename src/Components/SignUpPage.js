@@ -65,7 +65,12 @@ const SignUpPage = (props) => {
                     <div className="flex flex-col items-center">
                         <h1 className="text-zinc-200 text-xl mb-3">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
-                        <p className="text-center mr-[25%] ml-[25%] mt-10 text-zinc-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus ante, pharetra id semper a, pulvinar id nulla. Sed elementum volutpat felis, sed faucibus orci auctor at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed eget nisl tristique, efficitur tellus vel, elementum dui. Morbi elementum libero in felis faucibus, ac ullamcorper massa dapibus. Fusce.</p>
+                        <p className="text-center mr-[25%] ml-[25%] mt-10 text-zinc-200">Welcome to the Neighbourhood Watch family!
+                            We're excited to have you on board, ensuring safety with glee.
+                            Join our community to protect and care, hand in hand.
+                            Together, we'll create a secure neighbourhood, oh so grand.
+                            Sign up now, and let's make a difference, strong and true.
+                            Thank you for being a proactive neighbour, welcome anew!</p>
                     </div>
                 </div>
                 <div className="bg-grey-lighter min-h-screen flex flex-col items-center justify-center text-white w-full sm:w-1/2">

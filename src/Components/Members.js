@@ -107,7 +107,7 @@ const Members = () => {
                                     .map((user, index) => {
                                         return <tr className=" w-screen pt-[.3%] bg-white border-b" key={user.id}>
                                             <td className="hidden pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:table-cell">{index + 1}</td>
-                                            <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-125" key={user.id}
+                                            <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap cursor-pointer hover:scale-105 hover:text-blue-600 hover:font-semibold" key={user.id}
                                                 onClick={() => userPublicProfile(user)}
                                             >
                                                 {user.name}

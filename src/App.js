@@ -24,6 +24,7 @@ import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
 import HomePage from './Components/HomePage';
 import MainStoryPage from './Components/MainStoryPage';
+import WelcomeStory from './Components/WelcomeStory';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/HomePage" element={ <HomePage funcNav={setShowNav}/>} />
         <Route path="/LandingPage" element={ <LandingPage/>} />
         <Route path="/StoryPage" element={ <StoryPage/>} />
+        <Route path="/WelcomeStory" element={ <WelcomeStory/>} />
         <Route path="/MainStoryPage" element={ <MainStoryPage/>} />
         <Route path="/SignUpPage" element={ <SignUpPage funcNav={setShowNav}/>} />
         <Route path="/SignInPage" element={ <SignInPage funcNav={setShowNav}/>} />
