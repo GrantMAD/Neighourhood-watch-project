@@ -133,7 +133,12 @@ const SignInPage = (props) => {
           <div className="flex flex-col items-center">
             <h1 className="text-zinc-200 text-xl mb-3">Nice to see you again</h1>
             <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8 md:text-center">WELCOME BACK</h1>
-            <p className="text-center mr-[25%] ml-[25%] mt-10 text-zinc-200">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus ante, pharetra id semper a, pulvinar id nulla. Sed elementum volutpat felis, sed faucibus orci auctor at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed eget nisl tristique, efficitur tellus vel, elementum dui. Morbi elementum libero in felis faucibus, ac ullamcorper massa dapibus. Fusce.</p>
+            <p className="text-center mr-[25%] ml-[25%] mt-10 text-zinc-200">Welcome back to the Neighbourhood Watch!
+              Safety starts with you, and we're thrilled to have you back.
+              Together, let's keep our community secure and vigilant.
+              Sign in to stay connected and informed, side by side.
+              Join hands, report concerns, and spread positivity wide.
+              Thank you for being a watchful neighbour once again!</p>
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ const PublicProfile = () => {
 
                         <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                             <button
-                                className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                                className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                                 onClick={returnMembersPage}
                             >
                                 Return
