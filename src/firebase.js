@@ -6,11 +6,11 @@ import { getStorage } from 'firebase/storage'
 const firebaseConfig = {
   apiKey: "AIzaSyCcEwM1nvju0HIPSQCBqWKHtdhxwaVbe5c",
   authDomain: "neighbourhood-watch-project.firebaseapp.com",
-  projectId: "https://neighbourhood-watch-project-default-rtdb.firebaseio.com",
-  storageBucket: "neighbourhood-watch-project",
-  messagingSenderId: "neighbourhood-watch-project.appspot.com",
-  appId: "612131927235",
-  databaseURL: "1:612131927235:web:58b0e7b9dc5bd1a4595e76",
+  databaseURL: "https://neighbourhood-watch-project-default-rtdb.firebaseio.com",
+  projectId: "neighbourhood-watch-project",
+  storageBucket: "neighbourhood-watch-project.appspot.com",
+  messagingSenderId: "612131927235",
+  appId: "1:612131927235:web:58b0e7b9dc5bd1a4595e76"
 };
 
 const app = initializeApp(firebaseConfig);
