@@ -68,7 +68,7 @@ const SignInPage = (props) => {
                 />
               </div>
               <div className="flex items-center justify-center">
-                <div className="relative w-full">
+                <div className="relative w-full flex justify-center items-center">
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -83,7 +83,7 @@ const SignInPage = (props) => {
                     }}
                   />
                   <span
-                    className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+                    className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer mr-14 lg:mr-0 md:mr-10"
                     onClick={togglePasswordVisibility}
                   >
                     <FontAwesomeIcon
