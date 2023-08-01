@@ -156,22 +156,29 @@ const Nav = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="hidden md:block">
-                                <div className="ml-4 flex items-center md:ml-6">
-                                    {!user &&
-                                        <div className="ml-3 relative hover:scale-125">
-                                            <a href="/SignInPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105">Sign
-                                                In</a>
+                            <div>
+                                <div className="lg:ml-4 flex items-center md:ml-6">
+                                    {!user && (
+                                        <div className="lg:ml-3 relative hover:scale-125 flex-shrink-0">
+                                            <a
+                                                href="/SignInPage"
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 md:text-base"
+                                            >
+                                                Sign In
+                                            </a>
                                         </div>
-                                    }
-                                    {!user &&
-                                        <div className="ml-3 relative hover:scale-125">
-                                            <a href="/SignUpPage"
-                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105">Sign
-                                                Up</a>
+                                    )}
+
+                                    {!user && (
+                                        <div className="lg:ml-3 relative hover:scale-125 flex-shrink-0">
+                                            <a
+                                                href="/SignUpPage"
+                                                className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 md:text-base"
+                                            >
+                                                Sign Up
+                                            </a>
                                         </div>
-                                    }
+                                    )}
                                     <div id="popup" className="hidden p-5 rounded-md text-lime-300 max-h-min">
                                         You have checked in
                                     </div>
