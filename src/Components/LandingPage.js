@@ -80,7 +80,7 @@ const LandingPage = () => {
         <hr></hr>
         <div className="flex flex-col md:flex-row">
           <div className="sm:w-1/2 md:w-3/4">
-            <p className="mt-3 mb-3 text-zinc-200">Alpha's - Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
+            <p className="mt-3 mb-3 text-zinc-200">Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
               Our neighbourhood Watch is about people getting together with their neighbours to take action to reduce crime.
               The community initiatives are owned and run by our members which are supported by the police.
               We work by developing a close relationship between community members and the local police.
