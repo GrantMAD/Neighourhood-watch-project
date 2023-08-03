@@ -156,7 +156,7 @@ const Nav = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="hidden md:block">
+                            <div>
                                 <div className="lg:ml-4 flex items-center md:ml-6">
                                     {!user && (
                                         <div className="lg:ml-3 relative hover:scale-125 flex-shrink-0">
@@ -231,7 +231,7 @@ const Nav = () => {
                                                 aria-haspopup="true"
                                             >
                                                 <img
-                                                    className="lg:h-8 lg:w-8 md:h-8 md:w-10 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
+                                                    className="lg:h-8 lg:w-8 md:h-8 md:w-10 w-8 h-8 rounded-full bg-gray-100 hover:opacity-75 hover:scale-125"
                                                     src={localStorage.getItem('profileImage') || "/images/profileAvatar.png"}
                                                     alt=""
                                                 />
@@ -266,27 +266,6 @@ const Nav = () => {
                                 </div>
                             </div>
                             <div className="-mr-2 flex md:hidden menu-wrapper">
-                                <div id="popup" className="hidden p-5 rounded-md text-lime-300 max-h-min">
-                                    You have checked in
-                                </div>
-                                {user &&
-                                    <div className="mr-5">
-                                        <Toaster richColors />
-                                        <button
-                                            className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 ...'}
-                                            onClick={() => {
-                                                if (checkedIn) {
-                                                    toast.error('You have checked out');
-                                                } else {
-                                                    toast.success('You have checked in');
-                                                }
-                                                handleCheckIn();
-                                            }}
-                                        >
-                                            {checkedIn ? 'Check out' : 'Check in'}
-                                        </button>
-                                    </div>
-                                }
                                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 z-50 ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
                                     <ul class="flex flex-col p-2 mt-4 divide-y divide-gray-500 border border-gray-800 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                                         <li>
