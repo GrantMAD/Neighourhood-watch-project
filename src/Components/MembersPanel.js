@@ -64,7 +64,7 @@ const MembersPanel = () => {
         const templateParams = {
             to_email: recipientEmail,
             subject: 'Account Approval',
-            message: 'Your account has been approved. You now have full access to Sector 2'
+            message: 'Your account has been approved. You now have full access to Sector 2 https://neighbourhoodwatchapp.com/'
         };
 
         try {
