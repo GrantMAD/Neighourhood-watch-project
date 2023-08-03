@@ -27,7 +27,7 @@ const AboutUs = () => {
     */}
                 </div>
                 <div className="flex justify-center items-center">
-                    <img className="pl-4 drop-shadow-2xl" src="/images/CodemoreLOGO.png" alt=""></img>
+                    <img className="pl-4 drop-shadow-2xl" src="/images/Sector-2-logo.png" alt=""></img>
                 </div>
             </div>
         </div>
