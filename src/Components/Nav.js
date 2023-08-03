@@ -183,7 +183,7 @@ const Nav = () => {
                                         You have checked in
                                     </div>
                                     {user &&
-                                        <div className="mr-5">
+                                        <div className="mr-5 lg:block md:block hidden">
                                             <Toaster richColors />
                                             {(userRole === "user" || userRole === "admin") && (
                                                 <button
@@ -203,7 +203,7 @@ const Nav = () => {
                                         </div>
                                     }
                                     {user &&
-                                        <div className="flex ml-3 relative">
+                                        <div className="lg:flex md:flex hidden ml-3 relative">
                                             {showNotification && (
                                                 <div className="fixed top-16 right-56 z-50 bg-zinc-200 p-2 rounded-md shadow border-2 border-blue-700 mt-1 font-semibold">
                                                     <p className="text-sm">
@@ -265,9 +265,48 @@ const Nav = () => {
                                     }
                                 </div>
                             </div>
+                            {user &&
+                                <div className="lg:hidden md:hidden">
+                                    <Toaster richColors />
+                                    {(userRole === "user" || userRole === "admin") && (
+                                        <button
+                                            className={checkedIn ? 'px-3 py-1 text-xs border border-lime-300 max-w-xs flex items-center font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500' : 'px-3 py-1 text-xs border border-lime-300 max-w-xs flex items-center font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125'}
+                                            onClick={() => {
+                                                if (checkedIn) {
+                                                    toast.error('You have checked out');
+                                                } else {
+                                                    toast.success('You have checked in');
+                                                }
+                                                handleCheckIn();
+                                            }}
+                                        >
+                                            {checkedIn ? 'Check out' : 'Check in'}
+                                        </button>
+                                    )}
+                                </div>
+                            }
                             <div className="-mr-2 flex md:hidden menu-wrapper">
                                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 z-50 ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
                                     <ul class="flex flex-col p-2 mt-4 divide-y divide-gray-500 border border-gray-800 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                                    {userRole === "admin" && (
+                                            <div
+                                                className={`${isPanelClicked ? "bg-zinc-300 rounded-sm" : ""}`}
+                                            >
+                                                <button
+                                                    className="flex justify-start px-4 py-2 text-sm text-gray-700 w-full"
+                                                    onClick={handleClick}
+                                                    ref={adminPanelRef}
+                                                >
+                                                    Admin Panel
+                                                </button>
+                                                {showAdminOptions && (
+                                                    <div className="bg-zinc-200">
+                                                        <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
+                                                        <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
                                         <li>
                                             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                         </li>
@@ -289,6 +328,12 @@ const Nav = () => {
                                         </li>
                                         <li>
                                             <a href="/ContactPage" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Contact Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="/#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0" onClick={logout}>Sign Out</a>
                                         </li>
                                     </ul>
                                 </div>
