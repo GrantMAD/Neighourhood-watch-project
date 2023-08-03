@@ -156,7 +156,7 @@ const Nav = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="hidden md:block">
                                 <div className="lg:ml-4 flex items-center md:ml-6">
                                     {!user && (
                                         <div className="lg:ml-3 relative hover:scale-125 flex-shrink-0">
