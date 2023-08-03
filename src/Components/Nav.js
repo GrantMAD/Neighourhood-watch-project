@@ -290,18 +290,6 @@ const Nav = () => {
                                         <li>
                                             <a href="/ContactPage" className="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Contact Us</a>
                                         </li>
-                                        {user &&
-                                            <li>
-                                                <a href="/Profile" className="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Profile</a>
-                                            </li>
-                                        }
-                                        {user &&
-                                            <li>
-                                                <a href="/#" className="block py-2 pl-3 pr-4 text-gray-700 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"
-                                                    onClick={logout}
-                                                >SignOut</a>
-                                            </li>
-                                        }
                                     </ul>
                                 </div>
                                 <button
