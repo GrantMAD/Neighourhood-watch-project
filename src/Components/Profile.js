@@ -47,7 +47,7 @@ const Profile = () => {
   }
 
   return (
-    <main className="h-screen p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
+    <main className="min-h-screen p-4 md:p-8 lg:p-10  mx-auto bg-zinc-200">
       <div className="p-4 md:p-8 lg:p-16">
         {users.map((user) => {
           return <div
