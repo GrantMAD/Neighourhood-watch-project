@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [userRole, setUserRole] = useState("");
+    const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     // const [selectedImages, setSelectedImages] = useState([]);
-    const [isImageFullscreen, setIsImageFullscreen] = useState(false); 
+    const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [fullscreenImageUrl, setFullscreenImageUrl] = useState("");
     const pageSize = 12;
     const [currentPage, setCurrentPage] = useState(1);
@@ -98,18 +98,18 @@ const GalleryPage = () => {
                             </button>
                     */}
                     <div className="flex justify-between">
-                    <p className="mt-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
+                        <p className="mt-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
                         <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
                     )}*/}</p>
-                    {userRole === "admin" && (
-                        <div className="flex flex-wrap justify-center md:justify-end mb-5">
-                            <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
-                                Add new image
-                            </button>
-                            
-                        </div>
-                    )}              
-                    </div>     
+                        {userRole === "admin" && (
+                            <div className="flex flex-wrap justify-center md:justify-end mb-5">
+                                <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
+                                    Add new image
+                                </button>
+
+                            </div>
+                        )}
+                    </div>
                     <div className="flex flex-wrap -m-1 md:-m-2">
                         {isLoading ? (
                             <SkeletonImage />
@@ -123,7 +123,7 @@ const GalleryPage = () => {
                                                 src={url}
                                                 className={`w-full h-full object-cover md:mr-[5%] md:ml-[5%]"
                                                     }`}
-                                                    // ${selectedImages.includes(url) ? "opacity-25 border-red-500" : "border-gray-800
+                                                // ${selectedImages.includes(url) ? "opacity-25 border-red-500" : "border-gray-800
                                                 onClick={() => {
                                                     /*
                                                     if (selectedImages.includes(url)) {
