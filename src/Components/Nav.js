@@ -288,25 +288,6 @@ const Nav = () => {
                             <div className="-mr-2 flex md:hidden menu-wrapper">
                                 <div className={`items-center justify-between w-full md:flex md:w-auto md:order-1 z-50 ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu-2">
                                     <ul class="flex flex-col p-2 mt-4 divide-y divide-gray-500 border border-gray-800 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                                    {userRole === "admin" && (
-                                            <div
-                                                className={`${isPanelClicked ? "bg-zinc-300 rounded-sm" : ""}`}
-                                            >
-                                                <button
-                                                    className="flex justify-start px-4 py-2 text-sm text-gray-700 w-full"
-                                                    onClick={handleClick}
-                                                    ref={adminPanelRef}
-                                                >
-                                                    Admin Panel
-                                                </button>
-                                                {showAdminOptions && (
-                                                    <div className="bg-zinc-200">
-                                                        <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
-                                                        <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
                                         <li>
                                             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                         </li>
