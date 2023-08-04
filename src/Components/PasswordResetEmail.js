@@ -15,7 +15,7 @@ const PasswordResetEmail = (props) => {
 
     const forgotPassword = (email) => {
     return sendPasswordResetEmail(auth, email, 
-        {url: 'https://neighbourhoodwatchapp.com//SignInPage'})
+        {url: 'https://neighbourhoodwatchapp.com/SignInPage'})
         
     }
 
