@@ -3,6 +3,8 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonMember from "../Skeletons/SkeletonMember";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 const Members = () => {
     const [users, setUsers] = useState([]);
@@ -116,7 +118,8 @@ const Members = () => {
                                             <td className="text-lg font-semibold px-6 py-4 text-left bg-gray-800 text-white border-b-2 border-zinc-200"
                                                 colSpan="7"
                                                 onClick={() => toggleGroupVisibility(cpfSector)}>
-                                                <div className="flex items-center space-x-2"> 
+                                                <div className="flex items-center space-x-2">
+                                                <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" /> 
                                                     <span>{cpfSector}</span>
                                                     <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Members)</span>
                                                 </div>
