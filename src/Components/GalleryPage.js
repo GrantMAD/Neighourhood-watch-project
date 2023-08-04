@@ -92,6 +92,15 @@ const GalleryPage = () => {
 
             <div className="overflow-hidden text-gray-700">
                 <div className="container px-4 py-2 mx-auto md:px-6 lg:px-12 xl:px-32 mb-10">
+                    {/*
+                    <button className="h-full bg-red-500 text-white font-bold py-2 px-4 rounded ml-2 mr-2 md:mr-0 shadow-xl hover:scale-125" onClick={handleDelete} disabled={!selectedImages.length}>
+                                Delete
+                            </button>
+                    */}
+                    <div className="flex justify-between">
+                    <p className="mt-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
+                        <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
+                    )}*/}</p>
                     {userRole === "admin" && (
                         <div className="flex flex-wrap justify-center md:justify-end mb-5">
                             <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
@@ -99,16 +108,8 @@ const GalleryPage = () => {
                             </button>
                             
                         </div>
-                    )}
-                    {/*
-                    <button className="h-full bg-red-500 text-white font-bold py-2 px-4 rounded ml-2 mr-2 md:mr-0 shadow-xl hover:scale-125" onClick={handleDelete} disabled={!selectedImages.length}>
-                                Delete
-                            </button>
-                    */}
-                    <p className="mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
-                        <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
-                    )}*/}</p>
-                    
+                    )}              
+                    </div>     
                     <div className="flex flex-wrap -m-1 md:-m-2">
                         {isLoading ? (
                             <SkeletonImage />
