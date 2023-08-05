@@ -87,7 +87,7 @@ const ProfileForm = () => {
   };
 
   return (
-    <main>
+    <main className="min-h-screen">
       <div>
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
@@ -196,6 +196,7 @@ const ProfileForm = () => {
                             id="email-address"
                             autoComplete="email"
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            disabled={true}
                             onChange={(event) => {
                               setEmail(event.target.value);
                             }}
