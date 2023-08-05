@@ -87,7 +87,7 @@ const ProfileForm = () => {
   };
 
   return (
-    <main className="min-h-screen">
+    <main>
       <div>
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
