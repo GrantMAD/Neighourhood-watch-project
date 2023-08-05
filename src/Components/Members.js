@@ -14,20 +14,21 @@ const Members = () => {
     const [groupVisibility, setGroupVisibility] = useState({});
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const data = await getDocs(usersCollectionRef);
-            const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort((a, b) => {
-                if (a.name < b.name) return -1;
-                if (a.name > b.name) return 1;
-                return 0;
-            });
-            setUsers(sortedUsers);
-            setIsLoading(false);
-        };
-        
+    useEffect(() => {      
         getUsers();
-    }, [usersCollectionRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const sortedUsers = data.docs.map((doc) => ({ ...doc.data(), id: doc.id })).sort((a, b) => {
+            if (a.name < b.name) return -1;
+            if (a.name > b.name) return 1;
+            return 0;
+        });
+        setUsers(sortedUsers);
+        setIsLoading(false);
+    };
 
     const toggleGroupVisibility = (cpfSector) => {
         setGroupVisibility(prevState => ({
