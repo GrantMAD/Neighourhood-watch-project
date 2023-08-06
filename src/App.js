@@ -25,6 +25,7 @@ import AddImage from './AddAndEdit/AddImage';
 import HomePage from './Components/HomePage';
 import MainStoryPage from './Components/MainStoryPage';
 import WelcomeStory from './Components/WelcomeStory';
+import VerifiedAccount from './Components/VerifiedAccount';
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
         <Route path="/AddImage" element={ <AddImage/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
+        <Route path="/VerifiedAccount" element={ <VerifiedAccount funcNav={setShowNav}/>} />
         </Routes>
       { showNav &&
         <Footer/>
