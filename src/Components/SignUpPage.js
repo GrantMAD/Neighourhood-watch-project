@@ -71,17 +71,6 @@ const SignUpPage = (props) => {
 
     useEffect(() => {
         let timeout;
-        if (showVerificationAlert) {
-            timeout = setTimeout(() => {
-                setShowVerificationAlert(false);
-            }, 5000);
-        }
-
-        return () => clearTimeout(timeout);
-    }, [showVerificationAlert]);
-
-    useEffect(() => {
-        let timeout;
         if (showAlertForThreeSeconds) {
             timeout = setTimeout(() => {
                 setShowAlertForThreeSeconds(false);
