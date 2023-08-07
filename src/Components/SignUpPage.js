@@ -13,6 +13,7 @@ const SignUpPage = (props) => {
     const [showAlertFail, setShowAlertFail] = useState(false);
     const [showAlertForThreeSeconds, setShowAlertForThreeSeconds] = useState(false);
     const [showVerificationAlert, setShowVerificationAlert] = useState(false);
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
@@ -65,6 +66,10 @@ const SignUpPage = (props) => {
         }
     }
 
+    const handleCheckboxChange = (event) => {
+        setIsCheckboxChecked(event.target.checked);
+    };
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -86,7 +91,7 @@ const SignUpPage = (props) => {
             <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-2xl">
                 <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-l from-blue-800 to-violet-600 rounded-l-lg">
                     <div className="flex flex-col items-center">
-                        <h1 className="text-zinc-200 text-xl mb-3">Nice to see you</h1>
+                        <h1 className="text-zinc-200 text-xl mb-1">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
                         <p className="text-center mr-[25%] ml-[25%] mt-10 text-zinc-200">Welcome to the Neighbourhood Watch family!
                             We're excited to have you on board, ensuring safety with glee.
@@ -188,16 +193,36 @@ const SignUpPage = (props) => {
                                 ) : (
                                     <button
                                         type="submit"
-                                        className="w-full bg-gradient-to-l from-blue-800 to-violet-600 text-center py-3 rounded-lg text-white focus:outline-none my-1 font-semibold hover:bg-gradient-to-r"
-                                        onClick={() => {
-                                            register();
-                                        }}
+                                        className={`w-full bg-gradient-to-l from-blue-800 to-violet-600 text-center py-3 rounded-lg text-white focus:outline-none my-1 font-semibold ${isCheckboxChecked ? 'hover:bg-gradient-to-r' : 'disabled-btn'
+                                            }`}
+                                        onClick={register}
                                         ref={loginButtonRef}
-
-                                    >Create Account</button>
+                                        disabled={!isCheckboxChecked}
+                                    >
+                                        Create Account
+                                    </button>
                                 )}
                             </div>
-                            <div className="text-gray-800 font-semibold text-center mt-3">
+                            <div className="flex items-center justify-center mt-2">
+                                <input
+                                    type="checkbox"
+                                    className="mr-2"
+                                    checked={isCheckboxChecked}
+                                    onChange={handleCheckboxChange}
+
+                                />
+                                <span className="text-sm text-gray-800">
+                                    I agree to the{" "}
+                                    <a
+                                        href="/TermsAndConditions"
+                                        className="text-blue-800 font-semibold"
+                                    >
+                                        Terms and Conditions
+                                    </a>
+                                </span>
+                            </div>
+                            <p className="text-gray-800 text-sm text-center">Please accept the terms and conditions before signing up</p>
+                            <div className="text-gray-800 font-semibold text-center mt-2">
                                 Already have an account? &nbsp;
                                 <a
                                     className="no-underline text-blue-800"
