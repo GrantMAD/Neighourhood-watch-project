@@ -26,6 +26,7 @@ import HomePage from './Components/HomePage';
 import MainStoryPage from './Components/MainStoryPage';
 import WelcomeStory from './Components/WelcomeStory';
 import VerifiedAccount from './Components/VerifiedAccount';
+import TermsAndConditions from './Components/TermsAndConditions';
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         <Route path="/VerifiedAccount" element={ <VerifiedAccount funcNav={setShowNav}/>} />
+        <Route path="/TermsAndConditions" element={ <TermsAndConditions funcNav={setShowNav}/>} />
         </Routes>
       { showNav &&
         <Footer/>

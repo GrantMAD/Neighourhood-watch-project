@@ -33,7 +33,11 @@ const GalleryPage = () => {
             })
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('userRole', userRole);
+    }, [userRole]);
 
     useEffect(() => {
         const currentUser = auth.currentUser;
