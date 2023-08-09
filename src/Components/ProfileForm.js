@@ -15,6 +15,7 @@ const ProfileForm = () => {
   const [newAbout, setNewAbout] = useState();
   const [newNumber, setNewNumber] = useState(0);
   const [cpfSector, setCpfSector] = useState();
+  const [district, setDistrict] = useState();
   const [profileImageUpload, setProfileImageUpload] = useState();
   const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
@@ -46,12 +47,12 @@ const ProfileForm = () => {
       setNewAbout(userData.about)
       setNewNumber(userData.number)
       setProfileImageUpload(userData.image)
+      setDistrict(userData.district)
     }
   }, [userData])
 
   const UpdateUser = async (e) => {
     const profileURL = await uploadProfileImage();
-
     const userQuery = query(usersCollectionRef, where("email", "==", userData.email));
     const data = await getDocs(userQuery)
     const userDocRef = data.docs[0].ref
@@ -62,7 +63,8 @@ const ProfileForm = () => {
       address: newAddress,
       number: newNumber,
       about: newAbout,
-      cpfSector: cpfSector
+      cpfSector: cpfSector,
+      district: district
     }
 
     if (profileURL !== undefined) {
@@ -147,7 +149,7 @@ const ProfileForm = () => {
                         </div>
                         <div className="col-span-5 sm:col-span-3">
                           <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
-                            District
+                            Neighbourhood
                           </label>
                           <select
                             value={cpfSector}
@@ -166,6 +168,40 @@ const ProfileForm = () => {
                             ))}
                           </select>
                         </div>
+                        <div className="col-span-6 sm:col-span-3">
+                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Street address
+                          </label>
+                          <input
+                            defaultValue={userData.address}
+                            type="text"
+                            name="street-address"
+                            id="street-address"
+                            autoComplete="street-address"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setNewAddress(event.target.value);
+                            }}
+
+                          />
+                        </div>
+                        <div className="col-span-5 sm:col-span-3">
+                          <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
+                            District
+                          </label>
+                          <input
+                            defaultValue={userData.district}
+                            placeholder="Sea View/Hillary"
+                            type="text"
+                            name="district"
+                            id="district"
+                            autoComplete="district"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setDistrict(event.target.value);
+                            }}
+                          />
+                        </div>
                         <div className="col-span-6 sm:col-span-4">
                           <label htmlFor="number" className="block text-sm font-medium text-gray-700 after:content-none">
                             Contact Number
@@ -183,8 +219,6 @@ const ProfileForm = () => {
 
                           />
                         </div>
-
-
                         <div className="col-span-6 sm:col-span-4">
                           <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 after:content-none">
                             Email address
@@ -199,24 +233,6 @@ const ProfileForm = () => {
                             disabled={true}
                             onChange={(event) => {
                               setEmail(event.target.value);
-                            }}
-
-                          />
-                        </div>
-
-                        <div className="col-span-6">
-                          <label htmlFor="street-address" className="block text-sm font-medium text-gray-700 after:content-none">
-                            Street address
-                          </label>
-                          <input
-                            defaultValue={userData.address}
-                            type="text"
-                            name="street-address"
-                            id="street-address"
-                            autoComplete="street-address"
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
-                            onChange={(event) => {
-                              setNewAddress(event.target.value);
                             }}
 
                           />
