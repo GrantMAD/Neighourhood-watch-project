@@ -2,9 +2,10 @@ import "../index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useEffect, useState, useRef } from "react";
-import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 
@@ -138,6 +139,29 @@ const Nav = () => {
         setIsPanelClicked(!showAdminOptions);
     };
 
+    const handleDeleteNotification = async (index) => {
+        try {
+            const notificationToDelete = notifications[index];
+            const notificationsRef = collection(db, "notifications");
+            const queryNotifications = query(notificationsRef, where("title", "==", notificationToDelete.title));
+    
+            const snapshot = await getDocs(queryNotifications);
+            snapshot.forEach((doc) => {
+                deleteDoc(doc.ref);
+            });
+    
+            // Update state to remove the deleted notification
+            const updatedNotifications = notifications.filter((_, i) => i !== index);
+            setNotifications(updatedNotifications);
+    
+            toast.success('Notification deleted successfully.');
+        } catch (error) {
+            console.error(error);
+            toast.error('An error occurred while deleting the notification.');
+        }
+    };
+    
+
     return (
         <nav>
             <div>
@@ -220,35 +244,45 @@ const Nav = () => {
                                         </div>
                                     }
                                     {user &&
-                                    <div className="relative">
-                                        <FontAwesomeIcon
-                                            icon={faBell}
-                                            className="text-zinc-200"
-                                            onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
-                                        />
-                                        {notifications.length > 0 && (
-                                            <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs">
-                                                {notifications.length}
-                                            </div>
-                                        )}
-                                        {showNotificationDropdown && (
-                                            <div className="absolute top-10 right-0 z-50 w-72 rounded-md shadow-lg bg-white border-2 border-blue-600">
-                                                <div className="p-4">
-                                                    <div className="font-bold">Notifications</div>
-                                                    <hr className="border-t-2 border-blue-600 mb-2"></hr>
-                                                    {notifications.length > 0 ? (
-                                                        notifications.map((notification, index) => (
-                                                            <div key={index} className="text-sm mb-2">
-                                                                {notification.message}
-                                                            </div>
-                                                        ))
-                                                    ) : (
-                                                        <div className="text-sm text-gray-500">No notifications currently.</div>
-                                                    )}
+                                        <div className="relative">
+                                            <FontAwesomeIcon
+                                                icon={faBell}
+                                                className="text-zinc-200"
+                                                onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
+                                            />
+                                            {notifications.length > 0 && (
+                                                <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs">
+                                                    {notifications.length}
                                                 </div>
-                                            </div>
-                                        )}
-                                    </div>
+                                            )}
+                                            {showNotificationDropdown && (
+                                                <div className="absolute top-10 right-0 z-50 w-72 rounded-md shadow-lg bg-white border-2 border-blue-600">
+                                                    <div className="p-4">
+                                                        <div className="font-bold text-lg">Notifications</div>
+                                                        <hr className="border-t-2 border-blue-600 mb-2"></hr>
+                                                        {notifications.length > 0 ? (
+                                                            notifications.map((notification, index) => (
+                                                                <div key={index} className="flex flex-col text-sm mb-2 shadow-md p-3">
+                                                                    <div className="font-bold underline">
+                                                                        {notification.title}
+                                                                    </div>
+                                                                    <div className="mb-3">
+                                                                        {notification.message}
+                                                                    </div>
+                                                                    <FontAwesomeIcon
+                                                                        icon={faTrashAlt}
+                                                                        className="ml-2 text-red-500 cursor-pointer"
+                                                                        onClick={() => handleDeleteNotification(index)}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <div className="text-sm text-gray-500">No notifications currently.</div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
                                     }
                                     {user &&
                                         <div className="lg:flex md:flex hidden ml-3 relative">
