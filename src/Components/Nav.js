@@ -3,6 +3,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useEffect, useState, useRef } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 
@@ -10,6 +12,8 @@ const Nav = () => {
     const [user, setUser] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
+    const [notifications, setNotifications] = useState([]);
+    const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     const [showAdminOptions, setShowAdminOptions] = useState(false);
     const [isPanelClicked, setIsPanelClicked] = useState(false);
@@ -40,9 +44,7 @@ const Nav = () => {
                     setUserRole(userData.role);
                     setUser(userData);
                     localStorage.setItem("profileImage", userData.profileImage);
-                    if (!userData.profileUpdated) {
-                        setShowNotification(true);
-                    }
+                    setShowNotification(!userData.profileUpdated);
                     if (userData.role === "pendingUser") {
                         setPendingUser(true);
                     } else {
@@ -52,6 +54,21 @@ const Nav = () => {
             });
         }
     }, [usersCollectionRef]);
+
+    useEffect(() => {
+        // Fetch notifications here and update the state
+        const notificationsRef = collection(db, "notifications");
+        const queryNotifications = query(notificationsRef);
+
+        onSnapshot(queryNotifications, (snapshot) => {
+            const notificationData = [];
+            snapshot.forEach((doc) => {
+                notificationData.push(doc.data());
+            });
+            setNotifications(notificationData);
+        });
+    }, []);
+
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -202,6 +219,35 @@ const Nav = () => {
                                             )}
                                         </div>
                                     }
+                                    <div className="relative">
+                                        <FontAwesomeIcon
+                                            icon={faBell}
+                                            className="text-zinc-200"
+                                            onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
+                                        />
+                                        {notifications.length > 0 && (
+                                            <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs">
+                                                {notifications.length}
+                                            </div>
+                                        )}
+                                        {showNotificationDropdown && (
+                                            <div className="absolute top-10 right-0 z-50 w-72 rounded-md shadow-lg bg-white border-2 border-blue-600">
+                                                <div className="p-4">
+                                                    <div className="font-bold">Notifications</div>
+                                                    <hr className="border-t-2 border-blue-600 mb-2"></hr>
+                                                    {notifications.length > 0 ? (
+                                                        notifications.map((notification, index) => (
+                                                            <div key={index} className="text-sm mb-2">
+                                                                {notification.message}
+                                                            </div>
+                                                        ))
+                                                    ) : (
+                                                        <div className="text-sm text-gray-500">No notifications currently.</div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                     {user &&
                                         <div className="lg:flex md:flex hidden ml-3 relative">
                                             {showNotification && (
