@@ -18,15 +18,23 @@ const SignUpPage = (props) => {
     const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
     const [showPassword, setShowPassword] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const loginButtonRef = useRef(null);
     const [error, setError] = useState('');
     const auth = getAuth();
 
     useEffect(() => {
         if (props.funcNav) {
-            props.funcNav(false)
+            props.funcNav(false);
         }
-    },)
+
+        const popupTimeout = setTimeout(() => {
+            setShowPopup(true);
+        }, 2000);
+
+        return () => clearTimeout(popupTimeout);
+    }, [props]);
+
 
     const register = async () => {
         try {
@@ -237,6 +245,29 @@ const SignUpPage = (props) => {
                     </div>
                 </div>
             </div>
+            {showPopup && (
+                <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+                    <div className="flex flex-col bg-white p-8 rounded-lg max-w-md">
+                        <h2 className="text-2xl font-semibold mb-4 text-center underline">Welcome to Neighbourhood Watch App Beta!</h2>
+                        <p className="text-gray-700 mb-6 text-center">
+                            Thank you for joining our community! We're excited to have you as a proactive neighbour.
+                            Neighbourhood Watch App is currently in its beta phase, designed to enhance safety and security within the community.
+                            At the moment, access is available exclusively to residents of Sector 2 in Durban, Kwazulu Natal.
+                            We're actively working to refine our platform and plan to extend it to all other sectors in the near future.
+                            Your participation and feedback are crucial in making our community safer and stronger. We'll create a secure and thriving neighbourhood for everyone.
+                        </p>
+                        <button
+                            className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
+                            onClick={() => {
+                                setShowPopup(false); 
+                            }}
+                        >
+                            Continue
+                        </button>
+
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
