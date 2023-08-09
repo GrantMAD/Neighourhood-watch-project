@@ -219,6 +219,7 @@ const Nav = () => {
                                             )}
                                         </div>
                                     }
+                                    {user &&
                                     <div className="relative">
                                         <FontAwesomeIcon
                                             icon={faBell}
@@ -248,6 +249,7 @@ const Nav = () => {
                                             </div>
                                         )}
                                     </div>
+                                    }
                                     {user &&
                                         <div className="lg:flex md:flex hidden ml-3 relative">
                                             {showNotification && (
