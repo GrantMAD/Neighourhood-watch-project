@@ -103,10 +103,10 @@ const Profile = () => {
               <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-3">{user.name}</h1>
               <div>
                 <h1 className="text-blue-600 font-bold mt-5 underline">Address:</h1>
-                <p className="text-gray-800">{user.address}</p>
+                <p className="text-gray-800">{user.address} {user.district}</p>
               </div>
               <div>
-                <h1 className="text-blue-600 font-bold mt-2 underline">Sector:</h1>
+                <h1 className="text-blue-600 font-bold mt-2 underline">Neighbourhood:</h1>
                 <p className="text-gray-800">{user.cpfSector}</p>
               </div>
               <div>

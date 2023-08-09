@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
+    const [userRole, setUserRole] = useState('userRole');
     // const [selectedImages, setSelectedImages] = useState([]);
     const [isImageFullscreen, setIsImageFullscreen] = useState(false);
     const [fullscreenImageUrl, setFullscreenImageUrl] = useState("");
@@ -89,7 +89,7 @@ const GalleryPage = () => {
     };
 
     return (
-        <main className="bg-zinc-200">
+        <main className="min-h-screen bg-zinc-200">
             <div className="grid pt-20 md:pt-24 place-content-center mb-3">
                 <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-blue-700">Gallery</h1>
             </div>
@@ -102,7 +102,7 @@ const GalleryPage = () => {
                             </button>
                     */}
                     <div className="flex justify-between">
-                        <p className="mt-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
+                        <p className="mt-5 mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
                         <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
                     )}*/}</p>
                         {userRole === "admin" && (
@@ -141,13 +141,13 @@ const GalleryPage = () => {
                                             />
                                         </div>
                                         {isImageFullscreen && fullscreenImageUrl === url && ( // Show fullscreen image
-                                            <div className="fixed z-50 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80" onClick={closeFullscreenImage}>
+                                            <div className="fixed z-50 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 py-8" onClick={closeFullscreenImage}>
                                                 <img
                                                     alt="fullscreen"
                                                     src={url}
                                                     className="max-h-full max-w-full border-2 border-white"
                                                 />
-                                                <h1 className="text-white mt-1">Click anywhere outside of image to minimise</h1>
+                                                <h1 className="text-white mt-1 font-semibold">Click anywhere outside of image to minimise</h1>
                                             </div>
                                         )}
                                     </div>
@@ -157,20 +157,22 @@ const GalleryPage = () => {
                     </div>
                     <div className="max-w-screen-lg mx-auto mt-5">
                         <div className="flex justify-center">
-                            <button
-                                className="w-full md:w-auto h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
-                                onClick={() => setCurrentPage(currentPage - 1)}
-                                disabled={startIndex === 0}
-                            >
-                                <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
-                            </button>
-                            <button
-                                className="w-full md:w-auto h-full bg-gradient-to-r from-blue-800 to-violet-600 hover:bg-gradient-to-l text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
-                                onClick={() => setCurrentPage(currentPage + 1)}
-                                disabled={endIndex >= imageUrls.length}
-                            >
-                                Next <FontAwesomeIcon icon={faArrowCircleRight} />
-                            </button>
+                            {currentPage > 1 && ( 
+                                <button
+                                    className="w-full md:w-auto h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
+                                    onClick={() => setCurrentPage(currentPage - 1)}
+                                >
+                                    <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
+                                </button>
+                            )}
+                            {endIndex < imageUrls.length && ( 
+                                <button
+                                    className="w-full md:w-auto h-full bg-gradient-to-r from-blue-800 to-violet-600 hover:bg-gradient-to-l text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
+                                    onClick={() => setCurrentPage(currentPage + 1)}
+                                >
+                                    Next <FontAwesomeIcon icon={faArrowCircleRight} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
