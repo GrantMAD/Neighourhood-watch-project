@@ -8,20 +8,34 @@ import "../index.css";
 import { Toaster, toast } from 'sonner';
 
 const AddImage = () => {
-    const [imageUpload, setImageUpload] = useState();
+    const [imageUploads, setImageUploads] = useState();
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
 
 
+    const uploadImages = () => {
+        const promises = [];
+        imageUploads.forEach((imageUpload) => {
+            const imageRef = ref(storage, `galleryImages/${imageUpload.name + v4()}`);
+            promises.push(uploadBytes(imageRef, imageUpload));
+        });
+
+        Promise.all(promises)
+            .then(() => {
+                setIsAdded(!isAdded);
+                navigate('/GalleryPage');
+            })
+            .catch((error) => {
+                console.error("Error uploading images: ", error);
+            });
+    };
+
     const uploadImage = (e) => {
         e.preventDefault();
-        if (imageUpload == null) return;
-        const imageRef = ref(storage, `galleryImages/${imageUpload.name + v4()}`);
-        setIsAdded(!isAdded)
-        uploadBytes(imageRef, imageUpload).then(() => {
-            navigate('/GalleryPage')
-        })
+        if (imageUploads.length === 0) return;
+        uploadImages();
     };
+
 
     return (
         <main className="h-screen p-10 bg-zinc-200">
@@ -32,7 +46,7 @@ const AddImage = () => {
                         <div className="px-4 sm:px-0">
                             <h3 className="text-lg font-medium leading-6 text-gray-900">Add Images to Gallery</h3>
                             <p className="mt-1 text-sm text-gray-600">
-                                To add images to gallery page, add file's to input
+                                To upload multiple image's at once ctrl + click on the images you want to upload.
                             </p>
                         </div>
                     </div>
@@ -67,7 +81,12 @@ const AddImage = () => {
                                                     id="formFileMultiple"
                                                     multiple
                                                     onChange={(event) => {
-                                                        setImageUpload(event.target.files[0]);
+                                                        const files = event.target.files;
+                                                        const newImageUploads = [];
+                                                        for (let i = 0; i < files.length; i++) {
+                                                            newImageUploads.push(files[i]);
+                                                        }
+                                                        setImageUploads(newImageUploads);
                                                     }}
                                                 />
                                             </div>
@@ -80,7 +99,7 @@ const AddImage = () => {
                                         className="inline-flex justify-center rounded-md border border-transparent bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={(e) => {
                                             uploadImage(e);
-                                            toast.success('Image has been added')
+                                            toast.success('Images has been added, Please wait.')
                                         }}
                                     >
                                         Save

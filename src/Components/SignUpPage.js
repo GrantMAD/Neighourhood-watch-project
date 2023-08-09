@@ -47,6 +47,7 @@ const SignUpPage = (props) => {
                 profileImage: '',
                 cpfSector: '',
                 profileUpdated: '',
+                district: ''
             });
 
             setShowVerificationAlert(true);
