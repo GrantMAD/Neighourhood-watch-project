@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 
@@ -25,6 +25,8 @@ const Nav = () => {
     );
     const usersCollectionRef = collection(db, "users");
     const adminPanelRef = useRef(null);
+    const isAdmin = userRole === 'admin';
+
 
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
@@ -57,7 +59,6 @@ const Nav = () => {
     }, [usersCollectionRef]);
 
     useEffect(() => {
-        // Fetch notifications here and update the state
         const notificationsRef = collection(db, "notifications");
         const queryNotifications = query(notificationsRef);
 
@@ -144,29 +145,29 @@ const Nav = () => {
             const notificationToDelete = notifications[index];
             const notificationsRef = collection(db, "notifications");
             const queryNotifications = query(notificationsRef, where("title", "==", notificationToDelete.title));
-    
+
             const snapshot = await getDocs(queryNotifications);
             snapshot.forEach((doc) => {
                 deleteDoc(doc.ref);
             });
-    
+
             // Update state to remove the deleted notification
             const updatedNotifications = notifications.filter((_, i) => i !== index);
             setNotifications(updatedNotifications);
-    
+
             toast.success('Notification deleted successfully.');
         } catch (error) {
             console.error(error);
             toast.error('An error occurred while deleting the notification.');
         }
     };
-    
+
 
     return (
         <nav>
             <div>
                 <nav className="fixed top-0 w-full bg-gray-800 z-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto pr-4 lg:px-8">
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
@@ -243,35 +244,37 @@ const Nav = () => {
                                             )}
                                         </div>
                                     }
-                                    {user &&
+                                    {user && isAdmin && (
                                         <div className="relative">
                                             <FontAwesomeIcon
                                                 icon={faBell}
-                                                className="text-zinc-200"
+                                                className="text-zinc-200 hidden sm:block cursor-pointer"
                                                 onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
                                             />
                                             {notifications.length > 0 && (
-                                                <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white text-xs">
+                                                <div className="absolute hidden sm:block animate-pulse top-0 right-0 transform translate-x-1/2 -translate-y-1/2 lg:flex items-center justify-center lg:h-4 lg:w-4 h-3 w-3 rounded-full bg-red-500 text-white text-xs">
                                                     {notifications.length}
                                                 </div>
                                             )}
                                             {showNotificationDropdown && (
-                                                <div className="absolute top-10 right-0 z-50 w-72 rounded-md shadow-lg bg-white border-2 border-blue-600">
-                                                    <div className="p-4">
+                                                <div className="absolute top-10 right-0 z-50 w-72 sm:w-96 rounded-md shadow-md shadow-blue-600 bg-white">
+                                                    <div className="p-4 pt-2">
                                                         <div className="font-bold text-lg">Notifications</div>
                                                         <hr className="border-t-2 border-blue-600 mb-2"></hr>
                                                         {notifications.length > 0 ? (
                                                             notifications.map((notification, index) => (
                                                                 <div key={index} className="flex flex-col text-sm mb-2 shadow-md p-3">
-                                                                    <div className="font-bold underline">
-                                                                        {notification.title}
+                                                                    <div>
+                                                                        <div className="font-bold underline">
+                                                                            {notification.title}
+                                                                        </div>
                                                                     </div>
                                                                     <div className="mb-3">
                                                                         {notification.message}
                                                                     </div>
                                                                     <FontAwesomeIcon
-                                                                        icon={faTrashAlt}
-                                                                        className="ml-2 text-red-500 cursor-pointer"
+                                                                        icon={faArrowRight}
+                                                                        className="ml-2 text-red-500"
                                                                         onClick={() => handleDeleteNotification(index)}
                                                                     />
                                                                 </div>
@@ -283,7 +286,8 @@ const Nav = () => {
                                                 </div>
                                             )}
                                         </div>
-                                    }
+
+                                    )}
                                     {user &&
                                         <div className="lg:flex md:flex hidden ml-3 relative">
                                             {showNotification && (
