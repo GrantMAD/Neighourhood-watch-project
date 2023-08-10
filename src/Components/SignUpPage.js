@@ -58,6 +58,16 @@ const SignUpPage = (props) => {
                 district: ''
             });
 
+            if (user && user.uid) {
+                const notificationsCollectionRef = collection(db, "notifications");
+                await addDoc(notificationsCollectionRef, {
+                    title: "New User",
+                    message: `${newName} is waiting to get approved.`,
+                    createdAt: new Date(),
+                    createdBy: user.uid,
+                });
+            }
+
             setShowVerificationAlert(true);
             setIsAdded(!isAdded);
             setShowAlertForThreeSeconds(true);
