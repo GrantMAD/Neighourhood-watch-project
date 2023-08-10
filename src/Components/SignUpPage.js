@@ -65,6 +65,7 @@ const SignUpPage = (props) => {
                     message: `${newName} is waiting to get approved.`,
                     createdAt: new Date(),
                     createdBy: user.uid,
+                    role: "admin",
                 });
             }
 
