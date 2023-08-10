@@ -62,7 +62,7 @@ const SignUpPage = (props) => {
                 const notificationsCollectionRef = collection(db, "notifications");
                 await addDoc(notificationsCollectionRef, {
                     title: "New User",
-                    message: `${newName} is waiting to get approved.`,
+                    message: `${newName} has signed up and is waiting for approval.`,
                     createdAt: new Date(),
                     createdBy: user.uid,
                     role: "admin",

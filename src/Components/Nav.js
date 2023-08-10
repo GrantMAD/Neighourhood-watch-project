@@ -6,6 +6,7 @@ import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc } f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 
@@ -24,6 +25,7 @@ const Nav = () => {
         localStorage.getItem('checkedIn') === 'true'
     );
     const usersCollectionRef = collection(db, "users");
+    const navigate = useNavigate();
     const adminPanelRef = useRef(null);
     const ADMIN_ROLE = "admin";
 
@@ -143,28 +145,26 @@ const Nav = () => {
         setIsPanelClicked(!showAdminOptions);
     };
 
-    const handleDeleteNotification = async (index) => {
+    const handleDeleteNotification = async (notification) => {
         try {
-            const notificationToDelete = notifications[index];
             const notificationsRef = collection(db, "notifications");
-            const queryNotifications = query(notificationsRef, where("title", "==", notificationToDelete.title));
-
+            const queryNotifications = query(notificationsRef, where("title", "==", notification.title));
+    
             const snapshot = await getDocs(queryNotifications);
             snapshot.forEach((doc) => {
                 deleteDoc(doc.ref);
             });
-
+    
             // Update state to remove the deleted notification
-            const updatedNotifications = notifications.filter((_, i) => i !== index);
+            const updatedNotifications = notifications.filter((item) => item.title !== notification.title);
             setNotifications(updatedNotifications);
-
             toast.success('Notification deleted successfully.');
+            navigate('/MembersPanel');
         } catch (error) {
             console.error(error);
             toast.error('An error occurred while deleting the notification.');
         }
-    };
-
+    };    
 
     return (
         <nav>
@@ -260,13 +260,12 @@ const Nav = () => {
                                                 </div>
                                             )}
                                             {showNotificationDropdown && (
-                                                <div className="absolute top-10 right-0 z-50 w-72 sm:w-96 rounded-md shadow-md shadow-blue-600 bg-white">
+                                                <div className="absolute top-10 right-0 z-50 w-72 sm:w-80 ">
                                                     <div className="p-4 pt-2">
-                                                        <div className="font-bold text-lg">Notifications</div>
-                                                        <hr className="border-t-2 border-blue-600 mb-2"></hr>
+                                                        <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-zinc-200 mb-3 underline">Notifications</div>
                                                         {filteredNotifications.length > 0 ? (
                                                             filteredNotifications.map((notification, index) => (
-                                                                <div key={index} className="flex flex-col text-sm mb-2 shadow-md p-3">
+                                                                <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 p-3 rounded-md text-zinc-200">
                                                                     <div>
                                                                         <div className="font-bold underline">
                                                                             {notification.title}
@@ -275,11 +274,13 @@ const Nav = () => {
                                                                     <div className="mb-3">
                                                                         {notification.message}
                                                                     </div>
+                                                                    <div className="flex justify-center">
                                                                     <FontAwesomeIcon
                                                                         icon={faArrowRight}
-                                                                        className="ml-2 text-red-500"
-                                                                        onClick={() => handleDeleteNotification(index)}
+                                                                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1"
+                                                                        onClick={() => handleDeleteNotification(notification)}
                                                                     />
+                                                                    </div>
                                                                 </div>
                                                             ))
                                                         ) : (
