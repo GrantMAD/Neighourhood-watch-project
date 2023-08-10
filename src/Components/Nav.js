@@ -262,7 +262,7 @@ const Nav = () => {
                                             {showNotificationDropdown && (
                                                 <div className="absolute top-10 right-0 z-50 w-72 sm:w-80 ">
                                                     <div className="p-4 pt-2">
-                                                        <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-zinc-200 mb-3 underline">Notifications</div>
+                                                        <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-zinc-200 mb-1 underline">Notifications</div>
                                                         {filteredNotifications.length > 0 ? (
                                                             filteredNotifications.map((notification, index) => (
                                                                 <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 p-3 rounded-md text-zinc-200">
@@ -284,7 +284,7 @@ const Nav = () => {
                                                                 </div>
                                                             ))
                                                         ) : (
-                                                            <div className="text-sm text-gray-500">No notifications currently.</div>
+                                                            <div className="text-sm bg-gray-800 p-3 rounded-md text-zinc-200">No notifications currently.</div>
                                                         )}
                                                     </div>
                                                 </div>
