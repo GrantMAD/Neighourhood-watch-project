@@ -25,8 +25,7 @@ const Nav = () => {
     );
     const usersCollectionRef = collection(db, "users");
     const adminPanelRef = useRef(null);
-    const isAdmin = userRole === 'admin';
-
+    const ADMIN_ROLE = "admin";
 
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
@@ -84,6 +83,10 @@ const Nav = () => {
             document.removeEventListener("click", handleOutsideClick);
         };
     }, []);
+
+    const filteredNotifications = userRole === ADMIN_ROLE ? notifications : notifications.filter(notification => {
+        return notification.role === userRole;
+    });
 
     const handleCheckIn = async () => {
         setCheckedIn(!checkedIn)
@@ -244,16 +247,16 @@ const Nav = () => {
                                             )}
                                         </div>
                                     }
-                                    {user && isAdmin && (
+                                    {user && (
                                         <div className="relative">
                                             <FontAwesomeIcon
                                                 icon={faBell}
                                                 className="text-zinc-200 hidden sm:block cursor-pointer"
                                                 onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
                                             />
-                                            {notifications.length > 0 && (
+                                            {(userRole === 'admin' || filteredNotifications.length > 0) && notifications.length > 0 && (
                                                 <div className="absolute hidden sm:block animate-pulse top-0 right-0 transform translate-x-1/2 -translate-y-1/2 lg:flex items-center justify-center lg:h-4 lg:w-4 h-3 w-3 rounded-full bg-red-500 text-white text-xs">
-                                                    {notifications.length}
+                                                    {userRole === 'admin' ? notifications.length : filteredNotifications.length}
                                                 </div>
                                             )}
                                             {showNotificationDropdown && (
@@ -261,8 +264,8 @@ const Nav = () => {
                                                     <div className="p-4 pt-2">
                                                         <div className="font-bold text-lg">Notifications</div>
                                                         <hr className="border-t-2 border-blue-600 mb-2"></hr>
-                                                        {notifications.length > 0 ? (
-                                                            notifications.map((notification, index) => (
+                                                        {filteredNotifications.length > 0 ? (
+                                                            filteredNotifications.map((notification, index) => (
                                                                 <div key={index} className="flex flex-col text-sm mb-2 shadow-md p-3">
                                                                     <div>
                                                                         <div className="font-bold underline">
@@ -286,7 +289,6 @@ const Nav = () => {
                                                 </div>
                                             )}
                                         </div>
-
                                     )}
                                     {user &&
                                         <div className="lg:flex md:flex hidden ml-3 relative">
