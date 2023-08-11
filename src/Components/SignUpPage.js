@@ -1,7 +1,7 @@
 import { db } from "../firebase";
 import { useState, useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../index.css";
@@ -60,13 +60,17 @@ const SignUpPage = (props) => {
 
             if (user && user.uid) {
                 const notificationsCollectionRef = collection(db, "notifications");
-                await addDoc(notificationsCollectionRef, {
+                const notificationDocRef = await addDoc(notificationsCollectionRef, {
                     title: "New User",
                     message: `${newName} has signed up and is waiting for approval.`,
                     createdAt: new Date(),
                     createdBy: user.uid,
                     role: "admin",
                 });
+                const notificationId = notificationDocRef.id;
+                console.log("New notification ID:", notificationId);
+
+                await updateDoc(notificationDocRef, { notificationId });
             }
 
             setShowVerificationAlert(true);
@@ -270,7 +274,7 @@ const SignUpPage = (props) => {
                         <button
                             className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
                             onClick={() => {
-                                setShowPopup(false); 
+                                setShowPopup(false);
                             }}
                         >
                             Continue
