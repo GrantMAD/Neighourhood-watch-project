@@ -2,7 +2,7 @@ import "../index.css";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useEffect, useState, useRef } from "react";
-import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -145,26 +145,23 @@ const Nav = () => {
         setIsPanelClicked(!showAdminOptions);
     };
 
-    const handleDeleteNotification = async (notification) => {
+    const handleDeleteNotification = async (notificationId) => {
         try {
             const notificationsRef = collection(db, "notifications");
-            const queryNotifications = query(notificationsRef, where("title", "==", notification.title));
+            const notificationDocRef = doc(notificationsRef, notificationId); 
     
-            const snapshot = await getDocs(queryNotifications);
-            snapshot.forEach((doc) => {
-                deleteDoc(doc.ref);
-            });
+            await deleteDoc(notificationDocRef);
     
-            // Update state to remove the deleted notification
-            const updatedNotifications = notifications.filter((item) => item.title !== notification.title);
+            const updatedNotifications = notifications.filter((item) => item.notificationId !== notificationId);
             setNotifications(updatedNotifications);
+    
             toast.success('Notification deleted successfully.');
             navigate('/MembersPanel');
         } catch (error) {
             console.error(error);
             toast.error('An error occurred while deleting the notification.');
         }
-    };    
+    };   
 
     return (
         <nav>
@@ -262,23 +259,23 @@ const Nav = () => {
                                             {showNotificationDropdown && (
                                                 <div className="absolute top-10 right-0 z-50 w-72 sm:w-80 ">
                                                     <div className="p-4 pt-2">
-                                                        <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-zinc-200 mb-1 underline">Notifications</div>
+                                                        <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-white mb-1 underline">Notifications</div>
                                                         {filteredNotifications.length > 0 ? (
                                                             filteredNotifications.map((notification, index) => (
-                                                                <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 p-3 rounded-md text-zinc-200">
+                                                                <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 rounded-md text-white">
                                                                     <div>
-                                                                        <div className="font-bold underline">
+                                                                        <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
                                                                             {notification.title}
                                                                         </div>
                                                                     </div>
-                                                                    <div className="mb-3">
+                                                                    <div className="mb-3 mt-1 px-3">
                                                                         {notification.message}
                                                                     </div>
                                                                     <div className="flex justify-center">
                                                                     <FontAwesomeIcon
                                                                         icon={faArrowRight}
-                                                                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1"
-                                                                        onClick={() => handleDeleteNotification(notification)}
+                                                                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
+                                                                        onClick={() => handleDeleteNotification(notification.notificationId)}
                                                                     />
                                                                     </div>
                                                                 </div>
