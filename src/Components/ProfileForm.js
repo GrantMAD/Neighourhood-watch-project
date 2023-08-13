@@ -20,7 +20,9 @@ const ProfileForm = () => {
   const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
-  const cpfSectorOptions = ["Codemore", "Hillside", "Unit Avenue"];
+  const cpfSectorOptions = ["Codemore Neighbourhood Watch", "Hillside Community Watch", "Hillside Neighbourhood Watch", "Ballarat Neighbourhood Watch", "Roberts Grove Neighbourhood Watch",
+    "Armadale Neighbourhood Watch", "Kenmare Neighbourhood Watch", "Bridge Road Neighbourhood Watch", "Pioneer/Sunnyside Neighbourhood Watch", "Blairmont Neighbourhood Watch"];
+  const districts = ["Seaview", "Bellair", "Rossburgh"]
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -189,7 +191,7 @@ const ProfileForm = () => {
                           <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
                             District
                           </label>
-                          <input
+                          <select
                             defaultValue={userData.district}
                             placeholder="Sea View/Hillary"
                             type="text"
@@ -200,7 +202,14 @@ const ProfileForm = () => {
                             onChange={(event) => {
                               setDistrict(event.target.value);
                             }}
-                          />
+                          >
+                            <option value="">Select district</option>
+                            {districts.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="col-span-6 sm:col-span-4">
                           <label htmlFor="number" className="block text-sm font-medium text-gray-700 after:content-none">
