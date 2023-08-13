@@ -82,7 +82,7 @@ const Members = () => {
                         />
                     </div>
                     <div className="mt-3 pb-3">
-                        <p>All Member's are displayed here. Registered patroller's have access to all Member's information that is currently displayed. To search for a member click on the Neighbourhood heading they are in within Sector 2 and input the user's name to the input. To view a member's profile click on their name.</p>
+                        <p>All Signed up Member's are displayed below. Registered patroller's will have access to all Member's information that is currently displayed. To search for a member open the neighbourhood tab that they are from and enter their name into the search bar. To view a member's profile click on the Neighbourhood Watch group Icon, then click on their name to view their details.</p>
                     </div>
                 </div>
                 <div className="pt-4 overflow-hidden">

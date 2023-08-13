@@ -80,14 +80,15 @@ const LandingPage = () => {
         <hr></hr>
         <div className="flex flex-col md:flex-row">
           <div className="sm:w-1/2 md:w-3/4">
-            <p className="mt-3 mb-3 text-zinc-200">Coedmore Sector 2 CPF Neighbourhood Watch is voluntary group of men & woman who work in conjunction with the SAPS in the eradication of crime.
-              Our neighbourhood Watch is about people getting together with their neighbours to take action to reduce crime.
+            <p className="mt-3 mb-3 text-zinc-200">Sector 2 is an area that starts from Ballair down through Seaview and into Rossburgh.
+              It has what we call neighbourhood Watch groups of which are a voluntary group of men & woman who work in conjunction with SAPS
+              and security companies in the eradication of crime. The neighbourhood Watch groups are about people getting together with their
+              neighbours to take action to help reduce crime and form Neighbourhood Watch groups from with in the Sector 2 Area
               The community initiatives are owned and run by our members which are supported by the police.
-              We work by developing a close relationship between community members and the local police.
+              The Sector 2 Exco Member's work together by developing a close relationship between community members, Neighbourhood Watch groups, Security Companies and the local police.
             </p>
             <h1 className="text-lg font-semibold underline underline-offset-8 mb-3 text-zinc-200">How to join a Watch scheme</h1>
-            <p className="text-zinc-200">Go to the contact us tab and send us a message, for more information on how these schemes work the benefits of the schemes advice on running a scheme in your local
-              area.
+            <p className="text-zinc-200">To find out more information on how these groups work and the benefits of creating a group in your road or your local sector go to the contact tab and send us a message.
             </p>
           </div>
           <img
