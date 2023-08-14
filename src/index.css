@@ -55,35 +55,3 @@
 .shadow-white {
   filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 1));
 }
-
-/* Slide in animation */
-.slide-in {
-  animation: slide-in 0.3s ease-in-out forwards;
-}
-
-/* Slide out animation */
-.slide-out {
-  animation: slide-out 0.3s ease-in-out forwards;
-}
-
-@keyframes slide-in {
-  0% {
-      transform: translateX(100%);
-      opacity: 0;
-  }
-  100% {
-      transform: translateX(0);
-      opacity: 1;
-  }
-}
-
-@keyframes slide-out {
-  0% {
-      transform: translateX(0);
-      opacity: 1;
-  }
-  100% {
-      transform: translateX(100%);
-      opacity: 0;
-  }
-}
