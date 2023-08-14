@@ -27,6 +27,7 @@ import MainStoryPage from './Components/MainStoryPage';
 import WelcomeStory from './Components/WelcomeStory';
 import VerifiedAccount from './Components/VerifiedAccount';
 import TermsAndConditions from './Components/TermsAndConditions';
+import SectorContent from './Components/SectorContent';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         <Route path="/VerifiedAccount" element={ <VerifiedAccount funcNav={setShowNav}/>} />
         <Route path="/TermsAndConditions" element={ <TermsAndConditions funcNav={setShowNav}/>} />
+        <Route path="/SectorContent" element={ <SectorContent />} />
         </Routes>
       { showNav &&
         <Footer/>
