@@ -3,7 +3,7 @@ const AboutUs = () => {
 
     return (
         <div className="bg-zinc-200 md:p-10 lg:p-24">
-           <div className="grid pt-20 md:pt-10 place-content-center">
+            <div className="grid pt-20 md:pt-10 place-content-center">
                 <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-blue-700">About us</h1>
             </div>
             <div className="grid lg:grid-cols-2 md:grid-rows-2 lg:grid-rows-none">
@@ -28,6 +28,45 @@ const AboutUs = () => {
                 </div>
                 <div className="flex justify-center items-center">
                     <img className="pl-4 drop-shadow-2xl h-96 w-96" src="/images/Sector-2-logo.png" alt=""></img>
+                </div>
+            </div>
+            <div className="lg:block md:block hidden">
+                <hr className="mx-auto border border-gray-800  mb-5 mt-5 w-3/4"></hr>
+                <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 text-gray-800">Sector 2 Admin's</h1>
+                <div className="flex justify-center">
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full"
+                            src="/images/grant.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="text-center text-gray-500">Chairman</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full"
+                            src="/images/grant.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="text-center text-gray-500">Vice Chairman</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full"
+                            src="/images/grant.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full"
+                            src="/images/grant.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                    </span>
+
                 </div>
             </div>
         </div>
