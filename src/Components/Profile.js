@@ -102,24 +102,24 @@ const Profile = () => {
             <div className="lg:mt-20 text-center border-b pb-10 md:mt-16">
               <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-3">{user.name}</h1>
               <div>
-                <h1 className="text-blue-600 font-bold mt-5 underline">Address:</h1>
+                <h1 className="text-blue-600 font-bold mt-5 underline underline-offset-4 decoration-2 decoration-gray-800">Address:</h1>
                 <p className="text-gray-800">{user.address} {user.district}</p>
               </div>
               <div>
-                <h1 className="text-blue-600 font-bold mt-2 underline">Neighbourhood:</h1>
+                <h1 className="text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800">Neighbourhood:</h1>
                 <p className="text-gray-800">{user.cpfSector}</p>
               </div>
               <div>
-                <h1 className="text-blue-600 font-bold mt-2 underline">Cell Number:</h1>
+                <h1 className="text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800">Cell Number:</h1>
                 <p className="text-gray-800">{user.number}</p>
               </div>
               <div>
-                <h1 className="text-blue-600 font-bold mt-2 underline">Email:</h1>
+                <h1 className="text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800">Email:</h1>
                 <p className="text-gray-800">{user.email}</p>
               </div>
             </div>
             <div className="mt-3 flex flex-col justify-center">
-              <h1 className="text-2xl text-blue-600 font-bold mt-2 underline text-center mb-5">About Me</h1>
+              <h1 className="text-2xl text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800 text-center mb-5">About Me</h1>
               <p className="text-gray-800 text-center lg:px-16">{user.about}</p>
             </div>
 

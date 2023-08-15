@@ -91,7 +91,7 @@ const GalleryPage = () => {
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="grid pt-20 md:pt-24 place-content-center mb-3">
-                <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-blue-700">Gallery</h1>
+                <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">Gallery</h1>
             </div>
 
             <div className="overflow-hidden text-gray-700">

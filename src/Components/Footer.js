@@ -5,8 +5,8 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const Footer = () => {
     const [user, setUser] = useState({});
-     const [userRole, setUserRole] = useState("");
-     const usersCollectionRef = collection(db, "users");
+    const [userRole, setUserRole] = useState("");
+    const usersCollectionRef = collection(db, "users");
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
