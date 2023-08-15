@@ -116,7 +116,7 @@ const LandingPage = () => {
           <div>
             <hr></hr>
             <div className="w-full mt-5">
-              <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-blue-600">Neighbourhood Watch App</h1>
+              <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-zinc-200">Neighbourhood Watch App</h1>
               <div className="flex flex-col md:flex-row mb-5">
                 <div className="flex flex-col md:w-1/2 md:pr-5">
                   <p className="text-base mt-5 text-zinc-200">{limitedContent}<button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleWelcomeStoryClick()}>...Read More</button></p>
@@ -133,7 +133,7 @@ const LandingPage = () => {
                 </div>
                 <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
                   <img
-                    className="w-full lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-zinc-200 rounded-md p-10"
+                    className="w-full bg-zinc-200 lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-blue-600 rounded-md p-10"
                     alt=""
                     src="/images/nwLogo.png"
                   />

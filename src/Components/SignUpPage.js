@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "
 import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 const SignUpPage = (props) => {
@@ -19,8 +20,11 @@ const SignUpPage = (props) => {
     const usersCollectionRef = collection(db, "users");
     const [showPassword, setShowPassword] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [accessCodeError, setAccessCodeError] = useState('');
+    const [accessCode, setAccessCode] = useState('');
     const loginButtonRef = useRef(null);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
     const auth = getAuth();
 
     useEffect(() => {
@@ -97,6 +101,11 @@ const SignUpPage = (props) => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    const returnToHome = () => {
+        props.funcNav(true);
+        navigate('/LandingPage');
+    }
 
     useEffect(() => {
         let timeout;
@@ -264,22 +273,42 @@ const SignUpPage = (props) => {
                 <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
                     <div className="flex flex-col bg-white p-8 rounded-lg max-w-md">
                         <h2 className="text-2xl font-semibold mb-4 text-center underline">Welcome to Neighbourhood Watch App Beta!</h2>
-                        <p className="text-gray-700 mb-6 text-center">
+                        <p className="text-gray-800 mb-6 text-center">
                             Thank you for joining our community! We're excited to have you as a proactive neighbour.
                             Neighbourhood Watch App is currently in its beta phase, designed to enhance safety and security within the community.
                             At the moment, access is available exclusively to residents of Sector 2 in Durban, Kwazulu Natal.
                             We're actively working to refine our platform and plan to extend it to all other sectors in the near future.
                             Your participation and feedback are crucial in making our community safer and stronger. We'll create a secure and thriving neighbourhood for everyone.
                         </p>
+                        <h1 className="mb-3 text-gray-800 font-semibold">Please enter access code to gain access to the Sector 2 sign up page.</h1>
+                        <input
+                            type="text"
+                            className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
+                            placeholder="Enter Access Code"
+                            value={accessCode}
+                            onChange={(event) => setAccessCode(event.target.value)}
+                        />
+                        {accessCodeError && (
+                            <p className="text-red-600 text-center mb-2">{accessCodeError}</p>
+                        )}
                         <button
-                            className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
+                            className="font-semibold bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
                             onClick={() => {
-                                setShowPopup(false);
+                                if (accessCode === 'Sector2NeighbourhoodWatchApp') {
+                                    setShowPopup(false);
+                                } else {
+                                    setAccessCodeError('Incorrect access code. Please try again.');
+                                }
                             }}
                         >
                             Continue
                         </button>
-
+                        <button
+                            className="font-semibold mt-3 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
+                            onClick={returnToHome}
+                            >
+                            Return to Home page
+                        </button>
                     </div>
                 </div>
             )}
