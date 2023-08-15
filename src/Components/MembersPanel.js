@@ -110,7 +110,7 @@ const MembersPanel = () => {
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
-                <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-10">
+                <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 mb-10">
                     Members Panel
                 </h1>
             </div>

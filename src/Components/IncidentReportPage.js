@@ -70,7 +70,7 @@ const IncidentReportPage = (props) => {
     return (
         <main className="flex flex-col bg-zinc-200 min-h-screen">
             <div className="pt-24">
-                <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-blue-700 mb-10 text-gray-800">Incident Report's</h1>
+                <h1 className="grid text-4xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 mb-10 text-gray-800">Incident Report's</h1>
             </div>
             <div className="mx-auto max-w-screen-lg mb-5 lg:w-full lg:pl-16 lg:pr-16">
                 <div className="flex flex-col md:flex-row justify-between lg:pl-3 lg:pr-3">
