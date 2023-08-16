@@ -3,11 +3,11 @@ const AboutUs = () => {
 
     return (
         <div className="bg-zinc-200 md:p-10 lg:p-24">
-            <div className="grid pt-20 md:pt-10 place-content-center">
+            <div className="flex justify-center pt-20 md:pt-10">
                 <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">About us</h1>
             </div>
-            <div className="grid lg:grid-cols-2 md:grid-rows-2 lg:grid-rows-none">
-                <div className="pr-[25%] pl-[25%] w-full">
+            <div className="flex lg:flex-row md:flex-col flex-col px-[15%]">
+                <div className="lg:w-1/2 md:w-full">
                     <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 mb-6 mt-10  text-gray-800">Our Vision</h1>
                     <p className="text-center mb-10">Our vision is a society where neighbours come together to help create a safer, stronger and active community.</p>
                     <h1 className="grid text-2xl place-content-center font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 mb-6  text-gray-800">Our Mission</h1>
@@ -26,8 +26,8 @@ const AboutUs = () => {
                     </div>
     */}
                 </div>
-                <div className="flex justify-center items-center">
-                    <img className="pl-4 drop-shadow-2xl h-96 w-96" src="/images/Sector-2-logo.png" alt=""></img>
+                <div className="flex justify-center items-center lg:w-1/2">
+                    <img className="pl-4 drop-shadow-2xl h-96 w-96 object-contain" src="/images/Sector-2-logo.png" alt=""></img>
                 </div>
             </div>
             <div className="lg:block md:block hidden">

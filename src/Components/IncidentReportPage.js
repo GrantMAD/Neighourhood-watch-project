@@ -101,7 +101,7 @@ const IncidentReportPage = (props) => {
             {isLoading ? (
                 <SkeletonReport />
             ) : reports.length === 0 ? (
-                <p className="text-center text-2xl font-semibold">No Reports Currently Displayed</p>
+                <p className="text-center lg:text-2xl md:text-2xl text-lg font-semibold">No Reports Currently Displayed</p>
             ) :
                 // eslint-disable-next-line array-callback-return
                 reports.filter((value) => {

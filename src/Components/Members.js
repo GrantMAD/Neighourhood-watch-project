@@ -121,7 +121,7 @@ const Members = () => {
                                                 onClick={() => toggleGroupVisibility(cpfSector)}>
                                                 <div className="flex items-center space-x-2">
                                                 <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" /> 
-                                                    <span>{cpfSector}</span>
+                                                    <span className="text-xs md:text-lg">{cpfSector}</span>
                                                     <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Members)</span>
                                                 </div>
                                             </td>
