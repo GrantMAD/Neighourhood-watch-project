@@ -270,10 +270,10 @@ const SignUpPage = (props) => {
                 </div>
             </div>
             {showPopup && (
-                <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+                <div className="fixed p-8 inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
                     <div className="flex flex-col bg-white p-8 rounded-lg max-w-md">
-                        <h2 className="text-2xl font-semibold mb-4 text-center underline">Welcome to Neighbourhood Watch App Beta!</h2>
-                        <p className="text-gray-800 mb-6 text-center">
+                        <h2 className="lg:text-2xl md:text-2xl font-semibold mb-4 text-center underline">Welcome to Neighbourhood Watch App Beta!</h2>
+                        <p className="text-gray-800 mb-6 text-center md:text-lg text-xs">
                             Thank you for joining our community! We're excited to have you as a proactive neighbour.
                             Neighbourhood Watch App is currently in its beta phase, designed to enhance safety and security within the community.
                             At the moment, access is available exclusively to residents of Sector 2 in Durban, Kwazulu Natal.
