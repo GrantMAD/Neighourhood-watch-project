@@ -80,7 +80,7 @@ const LandingPage = () => {
         <hr></hr>
         <div className="flex flex-col md:flex-row">
           <div className="sm:w-1/2 md:w-3/4">
-            <p className="mt-3 mb-3 text-zinc-200">Sector 2 is an area that starts from Ballair down through Seaview and into Rossburgh.
+            <p className="mt-3 mb-3 text-zinc-200">Sector 2 is an area that starts from Bellair down through Seaview and into Rossburgh.
               It has what we call neighbourhood Watch groups of which are a voluntary group of men & woman who work in conjunction with SAPS
               and security companies in the eradication of crime. The neighbourhood Watch groups are about people getting together with their
               neighbours to take action to help reduce crime and form Neighbourhood Watch groups from with in the Sector 2 Area
