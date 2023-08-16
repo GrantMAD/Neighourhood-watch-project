@@ -79,7 +79,7 @@ const LandingPage = () => {
         <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">WELCOME</h1>
         <hr></hr>
         <div className="flex flex-col md:flex-row">
-          <div className="sm:w-1/2 md:w-3/4">
+          <div className="sm:w-1/2 md:w-full">
             <p className="mt-3 mb-3 text-zinc-200">Sector 2 is an area that starts from Bellair down through Seaview and into Rossburgh.
               It has what we call neighbourhood Watch groups of which are a voluntary group of men & woman who work in conjunction with SAPS
               and security companies in the eradication of crime. The neighbourhood Watch groups are about people getting together with their
@@ -92,7 +92,7 @@ const LandingPage = () => {
             </p>
           </div>
           <img
-            className="h-1/4 w-1/4 md:w-1/4 md:h-1/4 py-2 px-3"
+            className="h-1/4 w-1/4 md:w-1/4 md:h-1/4 py-2 px-3 lg:flex hidden"
             alt=""
             src="/images/Sector-2-logo.png"
           />
@@ -117,8 +117,8 @@ const LandingPage = () => {
             <hr></hr>
             <div className="w-full mt-5">
               <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-zinc-200">Neighbourhood Watch App</h1>
-              <div className="flex flex-col md:flex-row mb-5">
-                <div className="flex flex-col md:w-1/2 md:pr-5">
+              <div className="flex lg:flex-row md:flex-col flex-col mb-5">
+                <div className="flex flex-col lg:w-1/2 md:pr-5">
                   <p className="text-base mt-5 text-zinc-200">{limitedContent}<button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleWelcomeStoryClick()}>...Read More</button></p>
                   <div className="flex mt-10">
                     {/*
@@ -131,9 +131,9 @@ const LandingPage = () => {
                             */}
                   </div>
                 </div>
-                <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
+                <div className="flex lg:justify-end md:justify-center lg:w-1/2 mt-5 sm:ml-5">
                   <img
-                    className="w-full bg-zinc-200 lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-blue-600 rounded-md p-10"
+                    className="lg:w-full md:w-3/4 bg-zinc-200 lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-blue-600 rounded-md p-10"
                     alt=""
                     src="/images/nwLogo.png"
                   />
@@ -150,8 +150,8 @@ const LandingPage = () => {
                   <hr></hr>
                   <div className="w-full mt-5">
                     <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-blue-600">{story.storyTitle}</h1>
-                    <div className="flex flex-col md:flex-row mb-5">
-                      <div className="flex flex-col md:w-1/2 md:pr-5">
+                    <div className="flex lg:flex-row md:flex-col flex-col mb-5">
+                      <div className="flex flex-col lg:w-1/2 md:pr-5">
                         <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
                         <p className="text-gray-500 text-sm mt-2"><FontAwesomeIcon icon={faClock} className="mr-1" /> {timeAgo(story.timestamp)} </p>
                         <div className="flex mt-10">
@@ -165,9 +165,9 @@ const LandingPage = () => {
                             */}
                         </div>
                       </div>
-                      <div className="flex justify-end md:w-1/2 mt-5 sm:ml-5">
+                      <div className="flex lg:justify-end md:justify-center lg:w-1/2 mt-5 sm:ml-5">
                         <img
-                          className="w-full lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-zinc-200 rounded-md "
+                          className="lg:w-full md:w-3/4 lg:max-h-[250px] lg:min-h-[250px] md:max-h-[250px] lg:object-cover md:mr-5 lg:max-h-md lg:max-w-md lg:border-2 lg:border-zinc-200 rounded-md "
                           alt=""
                           src={story.image}
                         />
