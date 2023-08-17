@@ -24,16 +24,20 @@ const GalleryPage = () => {
 
     useEffect(() => {
         const imageRef = ref(storage, 'galleryImages/');
-        listAll(imageRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageUrls((prev) => [...prev, url])
-                    setIsLoading(false);
-                })
+        setIsLoading(true); 
+        listAll(imageRef)
+            .then((response) => Promise.all(response.items.map(getDownloadURL))) 
+            .then((urls) => {
+                setImageUrls(urls);
+                setIsLoading(false); 
             })
-        })
+            .catch((error) => {
+                console.error("Error fetching image URLs:", error);
+                setIsLoading(false); 
+            });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
 
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
@@ -101,11 +105,12 @@ const GalleryPage = () => {
                                 Delete
                             </button>
                     */}
-                    <div className="flex lg:justify-between lg:px-0 md:px-8 flex-col">
+                    <div className="flex lg:justify-between lg:flex-row lg:px-0 md:px-8 flex-col">
+                    
                         <p className="mt-5 mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
                         <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
                     )}*/}</p>
-                        {userRole === "admin" && (
+                    {userRole === "admin" && (
                             <div className="flex flex-wrap justify-center lg:justify-end mb-5">
                                 <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
                                     Add new image
@@ -115,8 +120,10 @@ const GalleryPage = () => {
                         )}
                     </div>
                     <div className="flex flex-wrap">
-                        {isLoading ? (
+                    {isLoading ? (
                             <SkeletonImage />
+                        ) : imageUrls.length === 0 ? ( 
+                            <p className="w-full text-center lg:text-2xl md:text-2xl text-lg font-semibold">No Image's Currently Displayed</p>
                         ) : (
                             currentImages.map((url, index) => {
                                 return (

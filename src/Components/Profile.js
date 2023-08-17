@@ -51,7 +51,7 @@ const Profile = () => {
       <div className="p-4 md:p-8 lg:p-16">
         {users.map((user) => {
           return <div
-            className="p-8 bg-white shadow mt-24"
+            className="p-8 bg-white shadow mt-24 border border-blue-600 rounded-lg"
             key={user.id}
           >
             <div className="grid grid-cols-1 md:grid-cols-3">
@@ -65,7 +65,7 @@ const Profile = () => {
                   <img
                     src={user.profileImage}
                     alt=""
-                    className="w-48 h-48 rounded-full"
+                    className="w-48 h-48 rounded-full border border-blue-600"
                   />
                 </div>
               </div>
