@@ -18,7 +18,7 @@ const PublicProfile = () => {
         <main className="h-screen p-10 bg-zinc-200">
             <div className="p-16">
                 <div
-                    className="p-8 bg-white shadow mt-24"
+                    className="p-8 bg-white shadow mt-24 border border-blue-600 rounded-lg"
                     key={selectedUser.id}
                 >
                     <div className="grid grid-cols-1 md:grid-cols-3">
@@ -27,7 +27,7 @@ const PublicProfile = () => {
                         </div>
                         <div className="relative">
                             <img
-                                className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
+                                className="w-48 h-48 border border-blue-600 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500"
                                 alt=""
                                 src={selectedUser.profileImage}
                             >                               
@@ -36,7 +36,7 @@ const PublicProfile = () => {
 
                         <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                             <button
-                                className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                                className="text-white py-2 px-4 uppercase rounded bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 shadow hover:shadow-lg font-medium transition transform"
                                 onClick={returnMembersPage}
                             >
                                 Return
@@ -48,10 +48,10 @@ const PublicProfile = () => {
                         <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-4">{selectedUser.name}</h1>
                         <div>
                             <h1 className="text-blue-600 font-bold underline underline-offset-2 decoration-2 decoration-gray-800 mt-5">Address:</h1>
-                            <p className=" text-gray-800">{selectedUser.address}</p>
+                            <p className=" text-gray-800">{selectedUser.address} {selectedUser.district}</p>
                         </div>
                         <div>
-                        <h1 className="text-blue-600 font-bold underline underline-offset-2 decoration-2 decoration-gray-800 mt-2">CPFSector:</h1>
+                        <h1 className="text-blue-600 font-bold underline underline-offset-2 decoration-2 decoration-gray-800 mt-2">Neighbourhood:</h1>
                         <p className=" text-gray-800">{selectedUser.cpfSector}</p>
                         </div>
                         <div>
