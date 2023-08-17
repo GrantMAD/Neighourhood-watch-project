@@ -19,10 +19,12 @@ const SignUpPage = (props) => {
     const [isAdded, setIsAdded] = useState(false);
     const usersCollectionRef = collection(db, "users");
     const [showPassword, setShowPassword] = useState(false);
+    const [showCode, setShowCode] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [accessCodeError, setAccessCodeError] = useState('');
     const [accessCode, setAccessCode] = useState('');
     const loginButtonRef = useRef(null);
+    const accessCodeRef = useRef(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
@@ -102,6 +104,10 @@ const SignUpPage = (props) => {
         setShowPassword(!showPassword);
     };
 
+    const toggleCodeVisibility = () => {
+        setShowCode(!showCode);
+    };
+
     const returnToHome = () => {
         props.funcNav(true);
         navigate('/LandingPage');
@@ -122,7 +128,7 @@ const SignUpPage = (props) => {
     return (
         <div className="p-16 bg-gray-800">
             <div className="flex flex-col sm:flex-row bg-zinc-200 rounded-2xl">
-                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-l from-blue-800 to-violet-600 rounded-l-lg">
+                <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-l from-blue-800 to-violet-600 rounded-l-2xl">
                     <div className="flex flex-col items-center">
                         <h1 className="text-zinc-200 text-xl mb-1">Nice to see you</h1>
                         <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8">WELCOME</h1>
@@ -198,7 +204,7 @@ const SignUpPage = (props) => {
                                         }}
                                     />
                                     <span
-                                        className="absolute mt-[22px] right-4 transform -translate-y-1/2 cursor-pointer"
+                                        className="absolute mt-[22px] right-4 -translate-y-1/2 cursor-pointer"
                                         onClick={togglePasswordVisibility}
                                     >
                                         <FontAwesomeIcon
@@ -280,19 +286,39 @@ const SignUpPage = (props) => {
                             We're actively working to refine our platform and plan to extend it to all other sectors in the near future.
                             Your participation and feedback are crucial in making our community safer and stronger. We'll create a secure and thriving neighbourhood for everyone.
                         </p>
-                        <h1 className="mb-3 text-gray-800 font-semibold">Please enter access code to gain access to the Sector 2 sign up page.</h1>
-                        <input
-                            type="text"
-                            className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
-                            placeholder="Enter Access Code"
-                            value={accessCode}
-                            onChange={(event) => setAccessCode(event.target.value)}
-                        />
+                        <div className="text-center">
+                            <h1 className="mb-3 text-gray-800 font-semibold">Please enter access code to gain access to the Sector 2 sign up page.</h1>
+                        </div>
+                        <div className="relative">
+                            <input
+
+                                type={showCode ? "text" : "password"}
+                                className="border-2 border-blue-800 placeholder-black w-full mb-4 text-black rounded-lg"
+                                placeholder="Enter Access Code"
+                                value={accessCode}
+                                onChange={(event) => setAccessCode(event.target.value)}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") {
+                                        accessCodeRef.current.click();
+                                    }
+                                }}
+                            />
+                            <span
+                                className="absolute mt-[22px] right-4 -translate-y-1/2 cursor-pointer"
+                                onClick={toggleCodeVisibility}
+                            >
+                                <FontAwesomeIcon
+                                    icon={showCode ? faEye : faEyeSlash}
+                                    style={{ color: "#666" }}
+                                />
+                            </span>
+                        </div>
                         {accessCodeError && (
                             <p className="text-red-600 text-center mb-2">{accessCodeError}</p>
                         )}
                         <button
                             className="font-semibold bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
+                            ref={accessCodeRef}
                             onClick={() => {
                                 if (accessCode === 'Sector2NeighbourhoodWatchApp') {
                                     setShowPopup(false);
@@ -306,7 +332,7 @@ const SignUpPage = (props) => {
                         <button
                             className="font-semibold mt-3 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white px-4 py-2 rounded-md"
                             onClick={returnToHome}
-                            >
+                        >
                             Return to Home page
                         </button>
                     </div>

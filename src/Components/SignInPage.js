@@ -97,7 +97,7 @@ const SignInPage = (props) => {
                     }}
                   />
                   <span
-                    className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer mr-14 lg:mr-0 md:mr-10"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer mr-14 lg:mr-0 md:mr-10"
                     onClick={togglePasswordVisibility}
                   >
                     <FontAwesomeIcon
@@ -143,7 +143,7 @@ const SignInPage = (props) => {
             >
           </div>
         </div>
-        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-r from-blue-800 to-violet-600 rounded-r-lg">
+        <div className="hidden sm:flex flex-col justify-center items-center w-1/2 bg-gradient-to-r from-blue-800 to-violet-600 rounded-r-2xl">
           <div className="flex flex-col items-center">
             <h1 className="text-zinc-200 text-xl mb-3">Nice to see you again</h1>
             <h1 className="text-zinc-200 text-5xl font-medium underline underline-offset-8 md:text-center">WELCOME BACK</h1>

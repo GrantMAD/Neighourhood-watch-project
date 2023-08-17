@@ -14,9 +14,9 @@ const Members = () => {
     const [groupVisibility, setGroupVisibility] = useState({});
     const navigate = useNavigate();
 
-    useEffect(() => {      
+    useEffect(() => {
         getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getUsers = async () => {
@@ -86,29 +86,7 @@ const Members = () => {
                     </div>
                 </div>
                 <div className="pt-4 overflow-hidden">
-                    <table className="text-center">
-                        <thead className="pl-[1%] border-b bg-gray-800 text-white">
-                            <tr>
-                                <th scope="col" className="hidden text-sm font-medium px-8 py-4 lg:table-cell">
-
-                                </th>
-                                <th scope="col" className="w-1/5 text-sm font-medium px-6 py-4">
-                                    Name
-                                </th>
-                                <th scope="col" className="hidden lg:w-1/5 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium md:table-cell">
-                                    Street
-                                </th>
-                                <th scope="col" className="lg:pl-[2%] w-1/5 text-sm font-medium px-6 py-4">
-                                    Contact-Number
-                                </th>
-                                <th scope="col" className="hidden lg:w-1/5 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium lg:table-cell">
-                                    Email
-                                </th>
-                                <th scope="col" className="lg:pl-5 pl-[3%] w-1/5 text-sm font-medium px-6 py-4">
-                                    Checked  in
-                                </th>
-                            </tr>
-                        </thead>
+                    <table className="w-full text-center">
                         <tbody>
                             {isLoading ? (
                                 <SkeletonMember />
@@ -120,12 +98,34 @@ const Members = () => {
                                                 colSpan="7"
                                                 onClick={() => toggleGroupVisibility(cpfSector)}>
                                                 <div className="flex items-center space-x-2">
-                                                <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" /> 
+                                                    <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" />
                                                     <span className="text-xs md:text-lg">{cpfSector}</span>
                                                     <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Members)</span>
                                                 </div>
                                             </td>
                                         </tr>
+                                        {groupVisibility[cpfSector] && (
+                                        <tr className="bg-gray-800 text-zinc-200">
+                                            <th scope="col" className="hidden text-sm font-medium px-8 py-4 lg:table-cell">
+
+                                            </th>
+                                            <th scope="col" className="w-1/5 text-sm font-medium px-6 py-4">
+                                                Name
+                                            </th>
+                                            <th scope="col" className="hidden lg:w-1/5 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium md:table-cell">
+                                                Street
+                                            </th>
+                                            <th scope="col" className="lg:pl-[2%] w-1/5 text-sm font-medium px-6 py-4">
+                                                Contact-Number
+                                            </th>
+                                            <th scope="col" className="hidden lg:w-1/5 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium lg:table-cell">
+                                                Email
+                                            </th>
+                                            <th scope="col" className="lg:pl-5 pl-[3%] w-1/5 text-sm font-medium px-6 py-4">
+                                                Checked  in
+                                            </th>
+                                        </tr>
+                                        )}
                                         {usersInGroup.filter(filterUsers).map((user, index) => (
                                             <tr className={`w-screen pt-[.3%] bg-white border-b ${groupVisibility[cpfSector] ? '' : 'hidden'}`} key={user.id}>
                                                 <td className="hidden pl-8 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:table-cell">{index + 1}</td>
