@@ -21,7 +21,7 @@ const PasswordResetEmail = (props) => {
 
     return (
         <main className="mx-auto flex flex-col min-h-screen w-full items-center justify-center bg-gray-900 text-white">
-            <h1 className="grid text-zinc-200 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10">Password Reset</h1>
+            <h1 className="grid text-zinc-200 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-5">Password Reset</h1>
             <div>
                 <input
                     value={email}
@@ -44,7 +44,7 @@ const PasswordResetEmail = (props) => {
         }
             <button
                 type="submit"
-                className="w-64 bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
+                className="w-64 bg-blue-700 text-center py-3 rounded text-white hover:bg-blue-600 focus:outline-none my-1"
                 onClick={() => {
                     forgotPassword(email)
                     .then(response => {
@@ -56,6 +56,7 @@ const PasswordResetEmail = (props) => {
                         )
                 }}
             >Send Email</button>
+            <h1 className="mt-1">Password already reset? Go to <a href="/SignInPage" className="font-semibold text-blue-600 hover:text-blue-500">Sign In</a></h1>
         </main>
     )
 }
