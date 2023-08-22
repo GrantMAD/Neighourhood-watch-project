@@ -48,7 +48,12 @@ const SignUpPage = (props) => {
             const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             const user = userCredential.user;
 
-            await sendEmailVerification(user);
+            const actionCodeSettings = {
+                url: `${window.location.origin}/VerifiedAccount`,
+                handleCodeInApp: true,
+            };
+
+            await sendEmailVerification(user, actionCodeSettings);
 
             await addDoc(usersCollectionRef, {
                 name: newName,
@@ -269,6 +274,7 @@ const SignUpPage = (props) => {
                                 >
                                     Log in
                                 </a>
+                                <h1 className="text-gray-800 font-semibold text-center">Back to the <a className="text-blue-600" href="/LandingPage">Landing Page</a></h1>
                             </div>
                         </div>
 
