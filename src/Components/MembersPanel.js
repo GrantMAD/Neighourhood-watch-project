@@ -165,7 +165,7 @@ const MembersPanel = () => {
                                     scope="col"
                                     className="hidden lg:w-1/6 md:w-1/4 sm:w-1/3 px-6 py-4 text-sm font-medium text-white lg:table-cell md:table-cell"
                                 >
-                                    CPF Sector
+                                    Neighbourhood Watch
                                 </th>
                                 <th
                                     scope="col"

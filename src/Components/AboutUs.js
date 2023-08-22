@@ -37,49 +37,49 @@ const AboutUs = () => {
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/grant.jpg"
+                            src="/images/Rohan.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Grant Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
 
