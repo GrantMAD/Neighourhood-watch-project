@@ -136,6 +136,7 @@ const SignInPage = (props) => {
               </div>
             )}
             <h1 className="text-gray-800 mt-3 font-semibold text-center">Don't have an account? Go <a className="text-blue-600" href="/SignUpPage">Sign up</a></h1>
+            <h1 className="text-gray-800 font-semibold text-center">Back to the <a className="text-blue-600" href="/LandingPage">Landing Page</a></h1>
             <a
               href="/PasswordResetEmail"
               className="transform text-center font-semibold text-gray-800 duration-300 hover:text-gray-900 mt-3"
