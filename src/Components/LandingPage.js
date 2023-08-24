@@ -55,6 +55,10 @@ const LandingPage = () => {
     navigate('/WelcomeStory');
   }
 
+  const handleContactPage = () => {
+    navigate('/ContactPage');
+  }
+
   const timeAgo = (timestamp) => {
     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
   };
@@ -87,9 +91,19 @@ const LandingPage = () => {
               The community initiatives are owned and run by our members which are supported by the police.
               The Sector 2 Exco Member's work together by developing a close relationship between community members, Neighbourhood Watch groups, Security Companies and the local police.
             </p>
-            <h1 className="text-lg font-semibold underline underline-offset-8 mb-3 text-zinc-200">How to join a Watch scheme</h1>
-            <p className="text-zinc-200">To find out more information on how these groups work and the benefits of creating a group in your road or your local sector go to the contact tab and send us a message.
-            </p>
+            <div className="pt-5">
+              <h1 className="text-3xl font-semibold underline underline-offset-8 mb-3 decoration-1 decoration-zinc-200 text-zinc-200">Contact Us</h1>
+              <p className="text-zinc-200 mb-3">To find out more information on how these groups work and the benefits of creating a group in your road or your local sector click on the contact us button and send us a message.
+              </p>
+              <div>
+                <button 
+                  className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+                  onClick={handleContactPage}
+                  >
+                  Contact Us
+                </button>
+              </div>
+            </div>
           </div>
           <img
             className="h-1/4 w-1/4 md:w-1/4 md:h-1/4 py-2 px-3 lg:flex hidden"
@@ -116,7 +130,7 @@ const LandingPage = () => {
           <div>
             <hr></hr>
             <div className="w-full mt-5">
-              <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-zinc-200">Neighbourhood Watch App</h1>
+              <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-1 decoration-zinc-200">Neighbourhood Watch App</h1>
               <div className="flex lg:flex-row md:flex-col flex-col mb-5">
                 <div className="flex flex-col lg:w-1/2 md:pr-5">
                   <p className="text-base mt-5 text-zinc-200">{limitedContent}<button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleWelcomeStoryClick()}>...Read More</button></p>
@@ -149,7 +163,7 @@ const LandingPage = () => {
                   {" "}
                   <hr></hr>
                   <div className="w-full mt-5">
-                    <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-3 decoration-blue-600">{story.storyTitle}</h1>
+                    <h1 className="text-3xl text-zinc-200 mb-1 font-semibold underline underline-offset-4 decoration-1 decoration-blue-600">{story.storyTitle}</h1>
                     <div className="flex lg:flex-row md:flex-col flex-col mb-5">
                       <div className="flex flex-col lg:w-1/2 md:pr-5">
                         <p className="text-base mt-5 text-zinc-200">{story.contents.slice(0, 500) + "..."} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleStoryClick(story)}>...Read More</button></p>
