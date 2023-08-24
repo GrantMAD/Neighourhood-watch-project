@@ -83,7 +83,7 @@ const Profile = () => {
                   onMouseLeave={() => setShowTooltip(false)}
                 >
                   <button
-                    className="bg-gradient-to-l from-red-500 to-red-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded-md shadow-xl"
+                    className="bg-gradient-to-l from-red-500 to-red-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded shadow-xl"
                     onClick={async () => {
                       deleteAccount(user.id);
                     }}

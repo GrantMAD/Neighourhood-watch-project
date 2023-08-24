@@ -1,5 +1,6 @@
 import emailjs from 'emailjs-com';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 const ContactPage = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -16,6 +17,10 @@ const ContactPage = () => {
       });
     e.target.reset();
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="bg-zinc-200 flex min-h-screen items-center justify-start md:px-10 sm:pb-20 sm:px-5">
