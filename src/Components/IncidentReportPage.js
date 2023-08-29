@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
-import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faComment, faComments } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "../index.css";
 
@@ -14,8 +14,47 @@ const IncidentReportPage = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedReport, setSelectedReport] = useState(null);
-
+    const [selectedReportComments, setSelectedReportComments] = useState([]);
+    const [commentText, setCommentText] = useState("");
+    const [isCommentSectionExpanded, setIsCommentSectionExpanded] = useState(false);
     const navigate = useNavigate();
+
+    const addComment = async () => {
+        if (commentText.trim() === "") {
+            return; // Do not add empty comments
+        }
+
+        try {
+            const commentData = {
+                text: commentText,
+                timestamp: new Date(),
+            };
+
+            const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
+            await addDoc(commentRef, commentData);
+
+            // Clear the comment input field after posting
+            setCommentText("");
+        } catch (error) {
+            console.error("Error posting comment:", error);
+        }
+    };
+
+    const getCommentCountText = (count) => {
+        if (count === 1) {
+            return `${count} Comment`;
+        } else {
+            return `${count} Comments`;
+        }
+    };
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
     const addReport = () => {
         navigate('../AddReport')
@@ -47,6 +86,26 @@ const IncidentReportPage = (props) => {
         const dateB = new Date(b.dateReport);
         return dateB - dateA; // Sort in descending order (newest first)
     };
+
+    useEffect(() => {
+        if (selectedReport) {
+            const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
+            const q = query(commentRef, orderBy("timestamp"));
+
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                const comments = snapshot.docs.map((doc) => {
+                    const commentData = doc.data();
+                    commentData.timestamp = commentData.timestamp.toDate();
+                    return commentData;
+                });
+
+                // Update the selectedReportComments state
+                setSelectedReportComments(comments);
+            });
+
+            return () => unsubscribe();
+        }
+    }, [selectedReport]);
 
     useEffect(() => {
         const getReports = async () => {
@@ -115,61 +174,118 @@ const IncidentReportPage = (props) => {
                         return value;
                     }
                 })
-                .sort(compareReportsByDate)
-                .map((report, index) => {
-                    return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
-                        <div class="w-full pr-10 pl-10">
-                            <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                            <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}> <FontAwesomeIcon icon={faFileAlt} className="mr-4" />{report.title}</label>
-                            {selectedReport?.id === report.id && (
-                                <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
-                                    <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-blue-800">
-                                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                                            <h1 class="text-xl md:text-2xl mb-3 md:mb-6 font-semibold underline underline-offset-8 decoration-1 text-black text-center">{report.title}</h1>
-                                            <div class="flex items-end pb-4 md:pb-0">
-                                                <h1 class="font-semibold mr-2 text-black">Date of report:</h1>
-                                                <h1>{report.dateReport}</h1>
-                                            </div>
-                                        </div>
-                                        <p class="mb-5 md:mb-10 whitespace-pre-line">{report.description}</p>
-                                        <div class="flex flex-col md:flex-row justify-between">
-                                            <div class="mb-5 md:mb-0 md:mr-5">
-                                                <div class="flex mb-2">
-                                                    <h1 class="font-semibold mr-2 text-black">Patroller's name:</h1>
-                                                    <h1>{report.patrollerName}</h1>
-                                                </div>
-                                                <div class="flex mb-2">
-                                                    <h1 class="font-semibold mr-2 text-black">Location:</h1>
-                                                    <h1>{report.location}</h1>
-                                                </div>
-                                                <div class="flex mb-2">
-                                                    <h1 class="font-semibold mr-2 text-black">Date of incident:</h1>
-                                                    <h1>{report.date}</h1>
-                                                </div>
-                                                <div class="flex mb-2">
-                                                    <h1 class="font-semibold mr-2 text-black">Referance number:</h1>
-                                                    <h1>{report.policeNumber}</h1>
-                                                </div>
-                                                <div class="flex">
-                                                    <h1 class="font-semibold mr-2 text-black">Time of incident:</h1>
-                                                    <h1>{report.time}</h1>
+                    .sort(compareReportsByDate)
+                    .map((report, index) => {
+                        const commentCount = selectedReportComments.length;
+                        const commentCountText = getCommentCountText(commentCount);
+                        return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
+                            <div class="w-full pr-10 pl-10">
+                                <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
+                                <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}> <FontAwesomeIcon icon={faFileAlt} className="mr-4" />{report.title}</label>
+                                {selectedReport?.id === report.id && (
+                                    <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
+                                        <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-blue-800">
+                                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                                                <h1 class="text-xl md:text-2xl mb-3 md:mb-6 font-semibold underline underline-offset-4 decoration-1 text-black text-center">{report.title}</h1>
+                                                <div class="flex items-end pb-4 md:pb-0">
+                                                    <h1 class="font-semibold mr-2 text-black">Date of report:</h1>
+                                                    <h1>{report.dateReport}</h1>
                                                 </div>
                                             </div>
-                                            <div class="flex items-end">
-                                                {/*
+                                            <p class="mb-5 md:mb-10 whitespace-pre-line">{report.description}</p>
+                                            <div class="flex flex-col md:flex-row justify-between mb-5">
+                                                <div class="mb-5 md:mb-0 md:mr-5">
+                                                    <div class="flex mb-2">
+                                                        <h1 class="font-semibold mr-2 text-black">Patroller's name:</h1>
+                                                        <h1>{report.patrollerName}</h1>
+                                                    </div>
+                                                    <div class="flex mb-2">
+                                                        <h1 class="font-semibold mr-2 text-black">Location:</h1>
+                                                        <h1>{report.location}</h1>
+                                                    </div>
+                                                    <div class="flex mb-2">
+                                                        <h1 class="font-semibold mr-2 text-black">Date of incident:</h1>
+                                                        <h1>{report.date}</h1>
+                                                    </div>
+                                                    <div class="flex mb-2">
+                                                        <h1 class="font-semibold mr-2 text-black">Referance number:</h1>
+                                                        <h1>{report.policeNumber}</h1>
+                                                    </div>
+                                                    <div class="flex">
+                                                        <h1 class="font-semibold mr-2 text-black">Time of incident:</h1>
+                                                        <h1>{report.time}</h1>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-end">
+                                                    {/*
                                                 <button class="bg-blue-500 hover:drop-shadow-2xl text-white font-bold py-2 px-4 rounded mr-2 shadow-xl hover:scale-125" onClick={() => handleEdit(report.docId)}>
                                                     Edit
                                                 </button>
                             */}
 
+                                                </div>
                                             </div>
+                                            <hr className="border-blue-800"></hr>
+                                            <div className="text-gray-400 mt-3">
+                                                <button
+                                                    onClick={() => setIsCommentSectionExpanded(!isCommentSectionExpanded)}
+                                                    className="cursor-pointer text-blue-600 font-semibold hover:scale-105 hover:text-blue-700"
+                                                >
+                                                    <FontAwesomeIcon icon={faComments} className="mr-2" />
+                                                    {selectedReportComments.length === 0
+                                                        ? "Currently no comments, click here to post a new comment"
+                                                        : commentCountText}
+                                                </button>
+                                            </div>
+                                            {isCommentSectionExpanded && (
+                                                <div
+                                                    className={`mt-4 transition-max-height ease-in-out duration-300 overflow-hidden ${isCommentSectionExpanded ? "max-h-auto" : "max-h-0"
+                                                        }`}
+                                                >
+                                                    <div className="pb-4 pl-4 pr-4"> 
+                                                        {selectedReportComments.length > 0 && (
+                                                            <div>
+                                                                <ul>
+                                                                    {selectedReportComments.slice().reverse().map((comment, index) => (
+                                                                        <li key={index} className="flex flex-col mb-5">
+                                                                            <div className="flex flex-row">
+                                                                            <FontAwesomeIcon icon={faComment} className="mr-2 text-blue-500" />
+                                                                            <div>{comment.text}</div>
+                                                                            </div>
+                                                                            <div>
+                                                                                <span className="font-semibold text-sm ml-6">Posted on:</span>
+                                                                                <span className="text-gray-500 text-sm"> {formatDate(comment.timestamp)}</span>
+                                                                            </div>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                        <div className="mt-4">
+                                                            <textarea
+                                                                placeholder="Add a comment..."
+                                                                rows="4"
+                                                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                value={commentText}
+                                                                onChange={(e) => setCommentText(e.target.value)}
+                                                            />
+                                                            <button
+                                                                className="mt-2 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white py-2 px-4 rounded-md"
+                                                                onClick={addComment}
+                                                            >
+                                                                Submit
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
-                })}
+                    })}
         </main>
     )
 }
