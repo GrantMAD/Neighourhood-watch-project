@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, onSnapshot } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
-import { faFileAlt, faComment, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faComments } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "../index.css";
 
@@ -17,23 +17,37 @@ const IncidentReportPage = (props) => {
     const [selectedReportComments, setSelectedReportComments] = useState([]);
     const [commentText, setCommentText] = useState("");
     const [isCommentSectionExpanded, setIsCommentSectionExpanded] = useState(false);
+    const defaultProfileAvatar = "/images/profileAvatar.png";
     const navigate = useNavigate();
 
     const addComment = async () => {
         if (commentText.trim() === "") {
-            return; // Do not add empty comments
+            return; 
         }
 
         try {
             const commentData = {
                 text: commentText,
                 timestamp: new Date(),
+                uid: auth.currentUser.uid,
             };
+
+            
+            const userUID = auth.currentUser.uid;
+            const userQuery = query(collection(db, 'users'), where('uid', '==', userUID));
+            const userQuerySnapshot = await getDocs(userQuery);
+
+            if (!userQuerySnapshot.empty) {
+                const userData = userQuerySnapshot.docs[0].data();
+                const userName = userData.name;
+                const userProfileImage = userData.profileImage || defaultProfileAvatar; 
+                commentData.userName = userName;
+                commentData.userProfileImage = userProfileImage;
+            }
 
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
             await addDoc(commentRef, commentData);
 
-            // Clear the comment input field after posting
             setCommentText("");
         } catch (error) {
             console.error("Error posting comment:", error);
@@ -48,13 +62,28 @@ const IncidentReportPage = (props) => {
         }
     };
 
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
+    const formatTimeDifference = (timestamp) => {
+        const now = new Date();
+        const commentTime = new Date(timestamp);
+        const timeDifference = now - commentTime;
+
+        // Calculate the time difference in seconds, minutes, hours, and days
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        // Create a human-readable string based on the time difference
+        if (days > 0) {
+            return `${days} day${days > 1 ? 's' : ''} ago`;
+        } else if (hours > 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        } else if (minutes > 0) {
+            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else {
+            return 'Just now';
+        }
+    };
 
     const addReport = () => {
         navigate('../AddReport')
@@ -85,7 +114,7 @@ const IncidentReportPage = (props) => {
         const dateA = new Date(a.dateReport);
         const dateB = new Date(b.dateReport);
         return dateB - dateA; // Sort in descending order (newest first)
-    };
+    };   
 
     useEffect(() => {
         if (selectedReport) {
@@ -242,19 +271,28 @@ const IncidentReportPage = (props) => {
                                                     className={`mt-4 transition-max-height ease-in-out duration-300 overflow-hidden ${isCommentSectionExpanded ? "max-h-auto" : "max-h-0"
                                                         }`}
                                                 >
-                                                    <div className="pb-4 pl-4 pr-4"> 
+                                                    <div className="pb-4 pl-4 pr-4">
                                                         {selectedReportComments.length > 0 && (
                                                             <div>
                                                                 <ul>
                                                                     {selectedReportComments.slice().reverse().map((comment, index) => (
                                                                         <li key={index} className="flex flex-col mb-5">
-                                                                            <div className="flex flex-row">
-                                                                            <FontAwesomeIcon icon={faComment} className="mr-2 text-blue-500" />
-                                                                            <div>{comment.text}</div>
+                                                                            <div>
+                                                                                <div className="flex">
+                                                                                    <img
+                                                                                        src={comment.userProfileImage} 
+                                                                                        alt="User Profile"
+                                                                                        className="w-8 h-8 rounded-full mr-2"
+                                                                                    />
+                                                                                    <div className="flex flex-col mt-auto">
+                                                                                    <div className="font-semibold"> {comment.userName}</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="ml-10">{comment.text}</div>
                                                                             </div>
                                                                             <div>
-                                                                                <span className="font-semibold text-sm ml-6">Posted on:</span>
-                                                                                <span className="text-gray-500 text-sm"> {formatDate(comment.timestamp)}</span>
+                                                                                <span className="font-semibold text-sm ml-10">Posted:</span>
+                                                                                <span className="text-gray-500 text-sm"> {formatTimeDifference(comment.timestamp)}</span>
                                                                             </div>
                                                                         </li>
                                                                     ))}

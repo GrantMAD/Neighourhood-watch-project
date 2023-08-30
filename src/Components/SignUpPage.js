@@ -57,6 +57,7 @@ const SignUpPage = (props) => {
 
             await addDoc(usersCollectionRef, {
                 name: newName,
+                uid: user.uid,
                 email: registerEmail,
                 address: '',
                 number: '',
