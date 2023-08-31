@@ -3,7 +3,7 @@ import { db, auth } from "../firebase";
 import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
-import { faFileAlt, faComments } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faComments, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "../index.css";
 
@@ -22,7 +22,7 @@ const IncidentReportPage = (props) => {
 
     const addComment = async () => {
         if (commentText.trim() === "") {
-            return; 
+            return;
         }
 
         try {
@@ -32,7 +32,6 @@ const IncidentReportPage = (props) => {
                 uid: auth.currentUser.uid,
             };
 
-            
             const userUID = auth.currentUser.uid;
             const userQuery = query(collection(db, 'users'), where('uid', '==', userUID));
             const userQuerySnapshot = await getDocs(userQuery);
@@ -40,7 +39,7 @@ const IncidentReportPage = (props) => {
             if (!userQuerySnapshot.empty) {
                 const userData = userQuerySnapshot.docs[0].data();
                 const userName = userData.name;
-                const userProfileImage = userData.profileImage || defaultProfileAvatar; 
+                const userProfileImage = userData.profileImage || defaultProfileAvatar;
                 commentData.userName = userName;
                 commentData.userProfileImage = userProfileImage;
             }
@@ -114,7 +113,7 @@ const IncidentReportPage = (props) => {
         const dateA = new Date(a.dateReport);
         const dateB = new Date(b.dateReport);
         return dateB - dateA; // Sort in descending order (newest first)
-    };   
+    };
 
     useEffect(() => {
         if (selectedReport) {
@@ -253,8 +252,7 @@ const IncidentReportPage = (props) => {
                             */}
 
                                                 </div>
-                                            </div>
-                                            <hr className="border-blue-800"></hr>
+                                            </div>                   
                                             <div className="text-gray-400 mt-3">
                                                 <button
                                                     onClick={() => setIsCommentSectionExpanded(!isCommentSectionExpanded)}
@@ -278,15 +276,20 @@ const IncidentReportPage = (props) => {
                                                                     {selectedReportComments.slice().reverse().map((comment, index) => (
                                                                         <li key={index} className="flex flex-col mb-5">
                                                                             <div>
-                                                                                <div className="flex">
-                                                                                    <img
-                                                                                        src={comment.userProfileImage} 
-                                                                                        alt="User Profile"
-                                                                                        className="w-8 h-8 rounded-full mr-2"
-                                                                                    />
-                                                                                    <div className="flex flex-col mt-auto">
-                                                                                    <div className="font-semibold"> {comment.userName}</div>
+                                                                                <div className="flex justify-between">
+                                                                                    <div className="flex">
+                                                                                        <img
+                                                                                            src={comment.userProfileImage}
+                                                                                            alt="User Profile"
+                                                                                            className="w-8 h-8 rounded-full mr-2"
+                                                                                        />
+                                                                                        <div className="flex flex-col mt-auto">
+                                                                                            <div className="font-semibold"> {comment.userName}</div>
+                                                                                        </div>
                                                                                     </div>
+                                                                                    <button>
+                                                                                        <FontAwesomeIcon icon={faTrash} className="text-red-600"/>
+                                                                                    </button>
                                                                                 </div>
                                                                                 <div className="ml-10">{comment.text}</div>
                                                                             </div>

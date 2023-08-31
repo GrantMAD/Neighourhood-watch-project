@@ -30,17 +30,17 @@ const AboutUs = () => {
                     <img className="pl-4 drop-shadow-2xl h-96 w-96 object-contain" src="/images/Sector-2-logo.png" alt=""></img>
                 </div>
             </div>
-            <div className="lg:block md:block hidden">
+            <div className="lg:block md:hidden hidden">
                 <hr className="mx-auto border border-gray-800  mb-5 mt-5 w-2/4"></hr>
                 <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 text-gray-800">Sector 2 Admin's</h1>
                 <div className="flex justify-center">
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
+                            src="/images/profileAvatar.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Unknown</h1>
+                        <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
                     <span className="mr-10">
                         <img
@@ -48,41 +48,64 @@ const AboutUs = () => {
                             src="/images/Rohan.png"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
+                        <h1 className="text-center text-gray-500">Vice Chairman</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            src="/images/Brian-TREASURY.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Brain</h1>
+                        <h1 className="text-center text-gray-500">Treasurer</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            src="/images/Carey-DEPUTY SECRETARY.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Carey</h1>
+                        <h1 className="text-center text-gray-500">Deputy Treasurer</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            src="/images/Kyara-SECRETARY.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Kyara</h1>
+                        <h1 className="text-center text-gray-500">Secretary</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            src="/images/Johann.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Johan</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
+                            src="/images/Trish.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Trish</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
+                            src="/images/Wendy.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Wendy</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
+                            src="/images/BERYL-GOLDSTONE.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Beryl Goldstone</h1>
                         <h1 className="text-center text-gray-500">Sector Admin</h1>
                     </span>
-                    <span className="mr-10">
-                        <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
-                            alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
-                    </span>
-
                 </div>
             </div>
         </div>
