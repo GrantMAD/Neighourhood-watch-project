@@ -39,7 +39,7 @@ const AboutUs = () => {
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/profileAvatar.png"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Unknown</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Petros Mtambo</h1>
                         <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
                     <span className="mr-10">
@@ -55,7 +55,7 @@ const AboutUs = () => {
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Brian-TREASURY.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Brain</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Brain Cousins</h1>
                         <h1 className="text-center text-gray-500">Treasurer</h1>
                     </span>
                     <span className="mr-10">
@@ -63,7 +63,7 @@ const AboutUs = () => {
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Carey-DEPUTY SECRETARY.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Carey</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
                         <h1 className="text-center text-gray-500">Deputy Treasurer</h1>
                     </span>
                     <span className="mr-10">
@@ -71,7 +71,7 @@ const AboutUs = () => {
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Kyara-SECRETARY.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Kyara</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
                         <h1 className="text-center text-gray-500">Secretary</h1>
                     </span>
                     <span className="mr-10">
@@ -79,24 +79,24 @@ const AboutUs = () => {
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Johann.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Johan</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
+                        <h1 className="text-center text-gray-500">Executive</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Trish.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Trish</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
+                        <h1 className="text-center text-gray-500">Executive</h1>
                     </span>
                     <span className="mr-10">
                         <img
                             className="max-h-44 max-w-44 rounded-full border border-blue-600"
                             src="/images/Wendy.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Wendy</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Wendy Govender</h1>
+                        <h1 className="text-center text-gray-500">PRO</h1>
                     </span>
                     <span className="mr-10">
                         <img
@@ -104,7 +104,7 @@ const AboutUs = () => {
                             src="/images/BERYL-GOLDSTONE.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Beryl Goldstone</h1>
-                        <h1 className="text-center text-gray-500">Sector Admin</h1>
+                        <h1 className="text-center text-gray-500">Executive</h1>
                     </span>
                 </div>
             </div>
