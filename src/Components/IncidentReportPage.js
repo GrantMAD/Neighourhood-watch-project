@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
-import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, where } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, setDoc, query, orderBy, onSnapshot, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
 import { faFileAlt, faComments, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -45,11 +45,23 @@ const IncidentReportPage = (props) => {
             }
 
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
-            await addDoc(commentRef, commentData);
+            const commentDocRef = await addDoc(commentRef, commentData);
+            commentData.commentId = commentDocRef.id;
+            await setDoc(doc(db, 'reports', selectedReport.id, 'comments', commentDocRef.id), commentData);
 
             setCommentText("");
         } catch (error) {
             console.error("Error posting comment:", error);
+        }
+    };
+
+    const deleteComment = async (commentId) => {
+        try {
+            const commentDocRef = doc(db, 'reports', selectedReport.id, 'comments', commentId);
+            await deleteDoc(commentDocRef);
+            // After successfully deleting the comment, you can update the UI as needed.
+        } catch (error) {
+            console.error("Error deleting comment:", error);
         }
     };
 
@@ -252,7 +264,7 @@ const IncidentReportPage = (props) => {
                             */}
 
                                                 </div>
-                                            </div>                   
+                                            </div>
                                             <div className="text-gray-400 mt-3">
                                                 <button
                                                     onClick={() => setIsCommentSectionExpanded(!isCommentSectionExpanded)}
@@ -287,9 +299,14 @@ const IncidentReportPage = (props) => {
                                                                                             <div className="font-semibold"> {comment.userName}</div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <button>
-                                                                                        <FontAwesomeIcon icon={faTrash} className="text-red-600"/>
+                                                                                    {auth.currentUser && comment.uid === auth.currentUser.uid && (
+                                                                                    <button
+                                                                                        onClick={() => deleteComment(comment.commentId)} 
+                                                                                        className="cursor-pointer text-red-600"
+                                                                                    >
+                                                                                        <FontAwesomeIcon icon={faTrash} className="text-red-600" />
                                                                                     </button>
+                                                                                    )}
                                                                                 </div>
                                                                                 <div className="ml-10">{comment.text}</div>
                                                                             </div>

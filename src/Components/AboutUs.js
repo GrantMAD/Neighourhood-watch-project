@@ -36,7 +36,7 @@ const AboutUs = () => {
                 <div className="flex justify-center">
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/profileAvatar.png"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Petros Mtambo</h1>
@@ -44,7 +44,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Rohan.png"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
@@ -52,7 +52,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Brian-TREASURY.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Brain Cousins</h1>
@@ -60,7 +60,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Carey-DEPUTY SECRETARY.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
@@ -68,7 +68,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Kyara-SECRETARY.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
@@ -76,7 +76,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Johann.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
@@ -84,7 +84,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Trish.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
@@ -92,7 +92,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Wendy.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Wendy Govender</h1>
@@ -100,7 +100,7 @@ const AboutUs = () => {
                     </span>
                     <span className="mr-10">
                         <img
-                            className="max-h-44 max-w-44 rounded-full border border-blue-600"
+                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/BERYL-GOLDSTONE.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Beryl Goldstone</h1>
