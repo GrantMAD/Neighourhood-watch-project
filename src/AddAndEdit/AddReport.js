@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
@@ -27,7 +27,10 @@ const AddReport = () => {
             return;
         }
 
-        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber });
+        const user = auth.currentUser;
+        const userUID = user.uid;
+
+        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber, uid: userUID, });
         setIsAdded(!isAdded);
         toast.success('Report saved successfully!');
         navigate('/IncidentReportPage');
@@ -40,16 +43,12 @@ const AddReport = () => {
 
     const handleTimeChange = (event) => {
         let value = event.target.value;
-
-        // Remove all non-numeric characters
         value = value.replace(/\D/g, "");
 
-        // Add a ":" after the second character if the length is 2
         if (value.length >= 2) {
             value = value.substring(0, 2) + ":" + value.substring(2);
         }
 
-        // Update the state with the modified value
         setNewTime(value);
     };
 
