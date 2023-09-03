@@ -30,11 +30,11 @@ const AboutUs = () => {
                     <img className="pl-4 drop-shadow-2xl h-96 w-96 object-contain" src="/images/Sector-2-logo.png" alt=""></img>
                 </div>
             </div>
-            <div className="lg:block md:hidden hidden">
+            <div className="lg:block md:block hidden">
                 <hr className="mx-auto border border-gray-800  mb-5 mt-5 w-2/4"></hr>
                 <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 text-gray-800">Sector 2 Executive's</h1>
                 <div className="flex flex-wrap justify-center">
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -44,7 +44,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Petros Mtambo</h1>
                         <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -54,7 +54,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Vice Chairman</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -64,7 +64,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Brain Cousins</h1>
                         <h1 className="text-center text-gray-500">Treasurer</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -74,7 +74,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
                         <h1 className="text-center text-gray-500">Secretary</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -84,7 +84,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
                         <h1 className="text-center text-gray-500">Deputy Secretary</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -94,7 +94,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Wendy Govender</h1>
                         <h1 className="text-center text-gray-500">Public Relations Officer</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -104,7 +104,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
                         <h1 className="text-center text-gray-500">Patrollers Coordinator</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
@@ -114,7 +114,7 @@ const AboutUs = () => {
                         <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
                         <h1 className="text-center text-gray-500">Victim Support</h1>
                     </span>
-                    <span className="mr-10">
+                    <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
