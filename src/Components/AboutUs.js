@@ -32,7 +32,7 @@ const AboutUs = () => {
             </div>
             <div className="lg:block md:hidden hidden">
                 <hr className="mx-auto border border-gray-800  mb-5 mt-5 w-2/4"></hr>
-                <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 text-gray-800">Sector 2 Admin's</h1>
+                <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 text-gray-800">Sector 2 Executive's</h1>
                 <div className="flex justify-center">
                     <span className="mr-10">
                         <img
@@ -61,14 +61,6 @@ const AboutUs = () => {
                     <span className="mr-10">
                         <img
                             className="h-44 w-44 rounded-full border border-blue-600"
-                            src="/images/Carey-DEPUTY SECRETARY.jpg"
-                            alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
-                        <h1 className="text-center text-gray-500">Deputy Treasurer</h1>
-                    </span>
-                    <span className="mr-10">
-                        <img
-                            className="h-44 w-44 rounded-full border border-blue-600"
                             src="/images/Kyara-SECRETARY.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
@@ -77,18 +69,10 @@ const AboutUs = () => {
                     <span className="mr-10">
                         <img
                             className="h-44 w-44 rounded-full border border-blue-600"
-                            src="/images/Johann.jpg"
+                            src="/images/Carey-DEPUTY SECRETARY.jpg"
                             alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
-                        <h1 className="text-center text-gray-500">Executive</h1>
-                    </span>
-                    <span className="mr-10">
-                        <img
-                            className="h-44 w-44 rounded-full border border-blue-600"
-                            src="/images/Trish.jpg"
-                            alt="" />
-                        <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
-                        <h1 className="text-center text-gray-500">Executive</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
+                        <h1 className="text-center text-gray-500">Deputy Secretary</h1>
                     </span>
                     <span className="mr-10">
                         <img
@@ -96,7 +80,23 @@ const AboutUs = () => {
                             src="/images/Wendy.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Wendy Govender</h1>
-                        <h1 className="text-center text-gray-500">PRO</h1>
+                        <h1 className="text-center text-gray-500">Public Relations Officer</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="h-44 w-44 rounded-full border border-blue-600"
+                            src="/images/Johann.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
+                        <h1 className="text-center text-gray-500">Patrollers Coordinator</h1>
+                    </span>
+                    <span className="mr-10">
+                        <img
+                            className="h-44 w-44 rounded-full border border-blue-600"
+                            src="/images/Trish.jpg"
+                            alt="" />
+                        <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
+                        <h1 className="text-center text-gray-500">Victim Support</h1>
                     </span>
                     <span className="mr-10">
                         <img
@@ -104,7 +104,7 @@ const AboutUs = () => {
                             src="/images/BERYL-GOLDSTONE.jpg"
                             alt="" />
                         <h1 className="mt-3 text-center text-lg font-semibold">Beryl Goldstone</h1>
-                        <h1 className="text-center text-gray-500">Executive</h1>
+                        <h1 className="text-center text-gray-500">Religions Coordinator</h1>
                     </span>
                 </div>
             </div>
