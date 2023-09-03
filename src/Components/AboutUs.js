@@ -2,7 +2,7 @@
 const AboutUs = () => {
 
     return (
-        <div className="bg-zinc-200 md:p-10 lg:p-24">
+        <div className="bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
             <div className="flex justify-center pt-20 md:pt-10">
                 <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">About us</h1>
             </div>
@@ -33,82 +33,100 @@ const AboutUs = () => {
             <div className="lg:block md:hidden hidden">
                 <hr className="mx-auto border border-gray-800  mb-5 mt-5 w-2/4"></hr>
                 <h1 className="text-center mb-8 text-3xl font-semibold underline underline-offset-8 decoration-2 decoration-gray-800 text-gray-800">Sector 2 Executive's</h1>
-                <div className="flex justify-center">
+                <div className="flex flex-wrap justify-center">
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/profileAvatar.png"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/profileAvatar.png"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Petros Mtambo</h1>
                         <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Rohan.png"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Rohan.png"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Vice Chairman</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Brian-TREASURY.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Brian-TREASURY.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Brain Cousins</h1>
                         <h1 className="text-center text-gray-500">Treasurer</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Kyara-SECRETARY.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Kyara-SECRETARY.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
                         <h1 className="text-center text-gray-500">Secretary</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Carey-DEPUTY SECRETARY.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Carey-DEPUTY SECRETARY.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Carey-Ann Potgieter</h1>
                         <h1 className="text-center text-gray-500">Deputy Secretary</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Wendy.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Wendy.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Wendy Govender</h1>
                         <h1 className="text-center text-gray-500">Public Relations Officer</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Johann.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Johann.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
                         <h1 className="text-center text-gray-500">Patrollers Coordinator</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/Trish.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/Trish.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Trish Du Plessis</h1>
                         <h1 className="text-center text-gray-500">Victim Support</h1>
                     </span>
                     <span className="mr-10">
-                        <img
-                            className="h-40 w-40 rounded-full border border-blue-600"
-                            src="/images/BERYL-GOLDSTONE.jpg"
-                            alt="" />
+                        <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
+                            <img
+                                className="object-cover w-full h-full"
+                                src="/images/BERYL-GOLDSTONE.jpg"
+                                alt="" />
+                        </div>
                         <h1 className="mt-3 text-center text-lg font-semibold">Beryl Goldstone</h1>
                         <h1 className="text-center text-gray-500">Religions Coordinator</h1>
                     </span>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
