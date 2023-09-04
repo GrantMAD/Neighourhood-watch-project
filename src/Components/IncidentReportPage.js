@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
-import { collection, getDocs, addDoc, deleteDoc, doc, setDoc, query, orderBy, onSnapshot, where } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, setDoc, query, orderBy, onSnapshot, where, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
 import { faFileAlt, faComments, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ const IncidentReportPage = (props) => {
     const [reports, setReports] = useState([]);
     const reportsCollectionRef = collection(db, 'reports');
     const archivedReportsCollectionRef = collection(db, 'ArchivedReports');
+    const [openedReports, setOpenedReports] = useState(new Set());
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedReport, setSelectedReport] = useState(null);
@@ -127,6 +128,36 @@ const IncidentReportPage = (props) => {
         return dateB - dateA; // Sort in descending order (newest first)
     };
 
+    const incrementViewCount = async (reportId) => {
+        const reportRef = doc(db, 'reports', reportId);
+        const reportDoc = await getDoc(reportRef);
+
+        if (reportDoc.exists()) {
+            const currentViewCount = reportDoc.data().viewCount || 0;
+            const updatedViewCount = currentViewCount + 1;
+
+            // Update the viewCount in the database
+            await updateDoc(reportRef, { viewCount: updatedViewCount });
+        }
+    };
+
+    const handleReportClick = async (report) => {
+        
+        if (!openedReports.has(report.id)) {
+            await incrementViewCount(report.id);
+            setOpenedReports(new Set([...openedReports, report.id]));
+        }
+    
+        setSelectedReport(report);
+    };
+
+    useEffect(() => {
+        return () => {
+            setOpenedReports(new Set());
+        };
+    }, []);
+    
+    
     useEffect(() => {
         if (selectedReport) {
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
@@ -221,7 +252,17 @@ const IncidentReportPage = (props) => {
                         return <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                             <div class="w-full pr-10 pl-10">
                                 <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
-                                <label for={`panel-${index + 1}`} class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold" onClick={() => setSelectedReport(report)}> <FontAwesomeIcon icon={faFileAlt} className="mr-4" />{report.title}</label>
+                                <label
+                                    for={`panel-${index + 1}`}
+                                    class="relative block bg-gray-800  text-zinc-200 p-4 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold"
+                                    onClick={() => {
+                                        setSelectedReport(report);
+                                        handleReportClick(report);
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faFileAlt} className="mr-4" />
+                                    {report.title}
+                                </label>
                                 {selectedReport?.id === report.id && (
                                     <div class="accordion__content overflow-hidden bg-gray-100 transition duration-500 ease-in-out">
                                         <div class="bg-white p-5 md:p-10 rounded-br-lg rounded-bl-lg shadow-xl shadow-gray-500 border border-blue-800">
@@ -233,7 +274,7 @@ const IncidentReportPage = (props) => {
                                                 </div>
                                             </div>
                                             <p class="mb-5 md:mb-10 whitespace-pre-line">{report.description}</p>
-                                            <div class="flex flex-col md:flex-row justify-between mb-5">
+                                            <div class="flex flex-col md:flex-row justify-between">
                                                 <div class="mb-5 md:mb-0 md:mr-5">
                                                     <div class="flex mb-2">
                                                         <h1 class="font-semibold mr-2 text-black">Patroller's name:</h1>
@@ -264,6 +305,10 @@ const IncidentReportPage = (props) => {
                             */}
 
                                                 </div>
+                                            </div>
+                                            <div className="flex items-center mt-2">
+                                                <h1 className="mr-2">{report.viewCount || 0}</h1>
+                                                <h1 className="font-semibold text-gray-500 text-sm">Views</h1>
                                             </div>
                                             <div className="text-gray-400 mt-3">
                                                 <button
@@ -300,12 +345,12 @@ const IncidentReportPage = (props) => {
                                                                                         </div>
                                                                                     </div>
                                                                                     {auth.currentUser && comment.uid === auth.currentUser.uid && (
-                                                                                    <button
-                                                                                        onClick={() => deleteComment(comment.commentId)} 
-                                                                                        className="cursor-pointer text-red-600"
-                                                                                    >
-                                                                                        <FontAwesomeIcon icon={faTrash} className="text-red-600" />
-                                                                                    </button>
+                                                                                        <button
+                                                                                            onClick={() => deleteComment(comment.commentId)}
+                                                                                            className="cursor-pointer text-red-600"
+                                                                                        >
+                                                                                            <FontAwesomeIcon icon={faTrash} className="text-red-600" />
+                                                                                        </button>
                                                                                     )}
                                                                                 </div>
                                                                                 <div className="ml-10">{comment.text}</div>
