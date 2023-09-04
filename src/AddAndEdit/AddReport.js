@@ -30,7 +30,7 @@ const AddReport = () => {
         const user = auth.currentUser;
         const userUID = user.uid;
 
-        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber, uid: userUID, });
+        await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber, uid: userUID, viewCount: 0, });
         setIsAdded(!isAdded);
         toast.success('Report saved successfully!');
         navigate('/IncidentReportPage');
