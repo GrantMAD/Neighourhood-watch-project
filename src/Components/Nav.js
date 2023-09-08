@@ -27,7 +27,7 @@ const Nav = () => {
     const usersCollectionRef = collection(db, "users");
     const navigate = useNavigate();
     const adminPanelRef = useRef(null);
-    const ADMIN_ROLE = "admin";
+    const isAdmin = userRole === 'admin';
 
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
@@ -72,7 +72,6 @@ const Nav = () => {
         });
     }, []);
 
-
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (adminPanelRef.current && !adminPanelRef.current.contains(event.target)) {
@@ -86,8 +85,11 @@ const Nav = () => {
         };
     }, []);
 
-    const filteredNotifications = userRole === ADMIN_ROLE ? notifications : notifications.filter(notification => {
-        return notification.role === userRole;
+    const visibleNotifications = notifications.filter(notification => {
+        if (notification.type === 'newUserSignup' && !isAdmin) {
+            return false; 
+        }
+        return true; 
     });
 
     const handleCheckIn = async () => {
@@ -108,6 +110,7 @@ const Nav = () => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -251,74 +254,45 @@ const Nav = () => {
                                                 className="text-zinc-200 hidden sm:block cursor-pointer"
                                                 onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
                                             />
-                                            {(userRole === 'admin' || filteredNotifications.length > 0) && notifications.length > 0 && (
+                                            {(userRole === 'admin' || visibleNotifications.length > 0) && notifications.length > 0 && (
                                                 <div className="absolute hidden sm:block animate-pulse top-0 right-0 transform translate-x-1/2 -translate-y-1/2 lg:flex items-center justify-center lg:h-4 lg:w-4 h-3 w-3 rounded-full bg-red-500 text-white text-xs">
-                                                    {userRole === 'admin' ? notifications.length : filteredNotifications.length}
+                                                    {userRole === 'admin' ? notifications.length : visibleNotifications.length}
                                                 </div>
                                             )}
                                             {showNotificationDropdown && (
                                                 <div className="absolute top-10 right-0 z-50 w-72 sm:w-80 ">
                                                     <div className="p-4 pt-2">
                                                         <div className="font-bold text-lg bg-gray-800 p-1 pl-2 rounded-md text-white mb-1 underline">Notifications</div>
-                                                        {filteredNotifications.length > 0 ? (
-                                                            filteredNotifications.map((notification, index) => (
+                                                        {visibleNotifications.length > 0 ? (
+                                                            visibleNotifications.map((notification, index) => (
                                                                 <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 rounded-md text-white">
-                                                                    {notification.type === 'newUserSignup' && (
+                                                                    {notification.type === 'newUserSignup' && userRole === 'admin' && (
                                                                         <>
                                                                             <div>
                                                                                 <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
                                                                                     {notification.title}
                                                                                 </div>
-                                                                            </div><div className="mb-3 mt-1 px-3">
+                                                                            </div>
+                                                                            <div className="mb-3 mt-1 px-3">
                                                                                 {notification.message}
                                                                             </div>
                                                                             <div className="flex justify-center">
                                                                                 <FontAwesomeIcon
                                                                                     icon={faArrowRight}
                                                                                     className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
-                                                                                    onClick={() => handleDeleteNotification(notification.notificationId)} />
-                                                                            </div>
-                                                                        </>
-                                                                    )}
-                                                                    {notification.type === 'userAccountApproval' && (
-                                                                        <>
-                                                                            <div>
-                                                                                <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
-                                                                                    {notification.title}
-                                                                                </div>
-                                                                            </div><div className="mb-3 mt-1 px-3">
-                                                                                {notification.message}
-                                                                            </div>
-                                                                            <div className="flex justify-center">
-                                                                                <FontAwesomeIcon
-                                                                                    icon={faArrowRight}
-                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
-                                                                                    onClick={() => handleDeleteNotification(notification.notificationId)} />
-                                                                            </div>
-                                                                        </>
-                                                                    )}
-                                                                    {notification.type === 'reportComment' && (
-                                                                        <>
-                                                                            <div>
-                                                                                <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
-                                                                                    {notification.title}
-                                                                                </div>
-                                                                            </div><div className="mb-3 mt-1 px-3">
-                                                                                {notification.message}
-                                                                            </div>
-                                                                            <div className="flex justify-center">
-                                                                                <FontAwesomeIcon
-                                                                                    icon={faArrowRight}
-                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
-                                                                                 />
+                                                                                    onClick={() => handleDeleteNotification(notification.notificationId)}
+                                                                                />
                                                                             </div>
                                                                         </>
                                                                     )}
                                                                 </div>
                                                             ))
                                                         ) : (
-                                                            <div className="text-sm bg-gray-800 p-3 rounded-md text-zinc-200">No notifications currently.</div>
+                                                            <div className="text-sm bg-gray-800 p-3 rounded-md text-zinc-200">
+                                                                {isAdmin ? "No notifications currently." : "No notifications currently."}
+                                                            </div>
                                                         )}
+
                                                     </div>
                                                 </div>
                                             )}
