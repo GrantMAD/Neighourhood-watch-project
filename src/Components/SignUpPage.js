@@ -78,6 +78,7 @@ const SignUpPage = (props) => {
                     createdAt: new Date(),
                     createdBy: user.uid,
                     role: "admin",
+                    type:'newUserSignup'
                 });
                 const notificationId = notificationDocRef.id;
                 console.log("New notification ID:", notificationId);

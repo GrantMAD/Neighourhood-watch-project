@@ -148,20 +148,20 @@ const Nav = () => {
     const handleDeleteNotification = async (notificationId) => {
         try {
             const notificationsRef = collection(db, "notifications");
-            const notificationDocRef = doc(notificationsRef, notificationId); 
-    
+            const notificationDocRef = doc(notificationsRef, notificationId);
+
             await deleteDoc(notificationDocRef);
-    
+
             const updatedNotifications = notifications.filter((item) => item.notificationId !== notificationId);
             setNotifications(updatedNotifications);
-    
+
             toast.success('Notification deleted successfully.');
             navigate('/MembersPanel');
         } catch (error) {
             console.error(error);
             toast.error('An error occurred while deleting the notification.');
         }
-    };   
+    };
 
     return (
         <nav>
@@ -263,21 +263,57 @@ const Nav = () => {
                                                         {filteredNotifications.length > 0 ? (
                                                             filteredNotifications.map((notification, index) => (
                                                                 <div key={index} className="flex flex-col text-sm mb-2 bg-gray-800 rounded-md text-white">
-                                                                    <div>
-                                                                        <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
-                                                                            {notification.title}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="mb-3 mt-1 px-3">
-                                                                        {notification.message}
-                                                                    </div>
-                                                                    <div className="flex justify-center">
-                                                                    <FontAwesomeIcon
-                                                                        icon={faArrowRight}
-                                                                        className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
-                                                                        onClick={() => handleDeleteNotification(notification.notificationId)}
-                                                                    />
-                                                                    </div>
+                                                                    {notification.type === 'newUserSignup' && (
+                                                                        <>
+                                                                            <div>
+                                                                                <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
+                                                                                    {notification.title}
+                                                                                </div>
+                                                                            </div><div className="mb-3 mt-1 px-3">
+                                                                                {notification.message}
+                                                                            </div>
+                                                                            <div className="flex justify-center">
+                                                                                <FontAwesomeIcon
+                                                                                    icon={faArrowRight}
+                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
+                                                                                    onClick={() => handleDeleteNotification(notification.notificationId)} />
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                    {notification.type === 'userAccountApproval' && (
+                                                                        <>
+                                                                            <div>
+                                                                                <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
+                                                                                    {notification.title}
+                                                                                </div>
+                                                                            </div><div className="mb-3 mt-1 px-3">
+                                                                                {notification.message}
+                                                                            </div>
+                                                                            <div className="flex justify-center">
+                                                                                <FontAwesomeIcon
+                                                                                    icon={faArrowRight}
+                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
+                                                                                    onClick={() => handleDeleteNotification(notification.notificationId)} />
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                    {notification.type === 'reportComment' && (
+                                                                        <>
+                                                                            <div>
+                                                                                <div className="font-bold underline pt-3 pb-1 px-3 rounded-md">
+                                                                                    {notification.title}
+                                                                                </div>
+                                                                            </div><div className="mb-3 mt-1 px-3">
+                                                                                {notification.message}
+                                                                            </div>
+                                                                            <div className="flex justify-center">
+                                                                                <FontAwesomeIcon
+                                                                                    icon={faArrowRight}
+                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
+                                                                                 />
+                                                                            </div>
+                                                                        </>
+                                                                    )}
                                                                 </div>
                                                             ))
                                                         ) : (
