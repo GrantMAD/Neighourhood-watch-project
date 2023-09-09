@@ -25,18 +25,18 @@ const IncidentReportPage = (props) => {
         if (commentText.trim() === "") {
             return;
         }
-
+    
         try {
             const commentData = {
                 text: commentText,
                 timestamp: new Date(),
                 uid: auth.currentUser.uid,
             };
-
+    
             const userUID = auth.currentUser.uid;
             const userQuery = query(collection(db, 'users'), where('uid', '==', userUID));
             const userQuerySnapshot = await getDocs(userQuery);
-
+    
             if (!userQuerySnapshot.empty) {
                 const userData = userQuerySnapshot.docs[0].data();
                 const userName = userData.name;
@@ -44,17 +44,32 @@ const IncidentReportPage = (props) => {
                 commentData.userName = userName;
                 commentData.userProfileImage = userProfileImage;
             }
-
+    
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
             const commentDocRef = await addDoc(commentRef, commentData);
             commentData.commentId = commentDocRef.id;
             await setDoc(doc(db, 'reports', selectedReport.id, 'comments', commentDocRef.id), commentData);
+    
+            // Create a notification
+            const notificationRef = collection(db, 'notifications');
+            const notificationData = await addDoc(notificationRef, {
+                type: 'newComment',
+                reportId: selectedReport.id,
+                userId: auth.currentUser.uid,
+                timestamp: new Date(),
+                title: 'New Comment',
+                message: `There is a new comment on your ${selectedReport.title} report.`,
+            });
+            const notificationId = notificationData.id;
+                console.log("New notification ID:", notificationId);
 
+                await updateDoc(notificationData, { notificationId });
+    
             setCommentText("");
         } catch (error) {
             console.error("Error posting comment:", error);
         }
-    };
+    };   
 
     const deleteComment = async (commentId) => {
         try {
@@ -149,7 +164,7 @@ const IncidentReportPage = (props) => {
         }
     
         setSelectedReport(report);
-    };
+    }; 
 
     useEffect(() => {
         return () => {
