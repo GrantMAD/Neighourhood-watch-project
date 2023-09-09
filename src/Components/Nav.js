@@ -87,9 +87,9 @@ const Nav = () => {
 
     const visibleNotifications = notifications.filter(notification => {
         if (notification.type === 'newUserSignup' && !isAdmin) {
-            return false; 
+            return false;
         }
-        return true; 
+        return true;
     });
 
     const handleCheckIn = async () => {
@@ -165,6 +165,24 @@ const Nav = () => {
             toast.error('An error occurred while deleting the notification.');
         }
     };
+
+    const handleNotificationButtonClick = async (reportId, notificationId) => {
+        try {
+            console.log(notificationId);
+            const notificationsRef = collection(db, "notifications");
+            const notificationDocRef = doc(notificationsRef, notificationId);
+
+            await deleteDoc(notificationDocRef);
+
+            const updatedNotifications = notifications.filter((item) => item.notificationId !== notificationId);
+            setNotifications(updatedNotifications);
+
+            navigate(`/IncidentReportPage?reportId=${reportId}`);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
 
     return (
         <nav>
@@ -282,6 +300,26 @@ const Nav = () => {
                                                                                     className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 text-lg rounded-md w-1/4 py-1 mb-3 "
                                                                                     onClick={() => handleDeleteNotification(notification.notificationId)}
                                                                                 />
+                                                                            </div>
+                                                                        </>
+                                                                    )}
+                                                                    {notification.type === 'newComment' && (
+                                                                        <>
+                                                                            <div>
+                                                                                <div className=" underline underline-offset-2 decoration-2 decoration-blue-600 pt-3 pb-1 px-3 rounded-md">
+                                                                                    {notification.title}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="mb-3 mt-1 px-3">
+                                                                                {notification.message}
+                                                                            </div>
+                                                                            <div className="flex justify-center">
+                                                                                <button
+                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-semibold rounded-md w-1/2 py-1 mb-3 "
+                                                                                    onClick={() => handleNotificationButtonClick(notification.reportId, notification.notificationId)}
+                                                                                >
+                                                                                    Go to Report
+                                                                                </button>
                                                                             </div>
                                                                         </>
                                                                     )}
