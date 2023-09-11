@@ -50,26 +50,26 @@ const IncidentReportPage = (props) => {
             commentData.commentId = commentDocRef.id;
             await setDoc(doc(db, 'reports', selectedReport.id, 'comments', commentDocRef.id), commentData);
     
-            // Create a notification
-            const notificationRef = collection(db, 'notifications');
-            const notificationData = await addDoc(notificationRef, {
-                type: 'newComment',
-                reportId: selectedReport.id,
-                userId: auth.currentUser.uid,
-                timestamp: new Date(),
-                title: 'New Comment',
-                message: `There is a new comment on your ${selectedReport.title} report.`,
-            });
-            const notificationId = notificationData.id;
-                console.log("New notification ID:", notificationId);
+            // // Create a notification
+            // const notificationRef = collection(db, 'notifications');
+            // const notificationData = await addDoc(notificationRef, {
+            //     type: 'newComment',
+            //     reportId: selectedReport.id,
+            //     userId: auth.currentUser.uid,
+            //     timestamp: new Date(),
+            //     title: 'New Comment',
+            //     message: `There is a new comment on your ${selectedReport.title} report.`,
+            // });
+            // const notificationId = notificationData.id;
+            //     console.log("New notification ID:", notificationId);
 
-                await updateDoc(notificationData, { notificationId });
+            //     await updateDoc(notificationData, { notificationId });
     
             setCommentText("");
         } catch (error) {
             console.error("Error posting comment:", error);
         }
-    };   
+    };
 
     const deleteComment = async (commentId) => {
         try {
