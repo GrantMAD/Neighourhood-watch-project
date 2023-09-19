@@ -98,7 +98,7 @@ const ProfileForm = () => {
             <div className="px-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">Profile</h3>
               <p className="mt-1 text-sm text-gray-600">
-                This information will be displayed publicly so be careful what you share.
+                This information will be displayed publicly so be careful what you share. Neighbourhood not yet apart of Sector 2? Is your neighbourhood not yet apart of Sector 2? <a className="font-bold text-blue-600" href="../AddNeighbourhoodRequest">Request</a> your neighbourhood to be added to become apart of the Sector 2 community.
               </p>
             </div>
           </div>
@@ -130,7 +130,7 @@ const ProfileForm = () => {
                         Brief description for your profile.
                       </p>
                     </div>
-                    <div className="bg-white ">
+                    <div className="bg-white">
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
                           <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 after:content-none">
