@@ -388,6 +388,7 @@ const Nav = () => {
                                                                 <div className="bg-zinc-100">
                                                                     <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
                                                                     <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
+                                                                    <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>
                                                                 </div>
                                                             )}
                                                         </div>

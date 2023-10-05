@@ -41,7 +41,7 @@ const AboutUs = () => {
                                 src="/images/profileAvatar.png"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">Petros Mtambo</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">TBD</h1>
                         <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
