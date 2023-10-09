@@ -166,6 +166,15 @@ const Nav = () => {
         }
     };
 
+    const deleteNotification = async (notificationId) => {
+        try {
+          await deleteDoc(doc(db, "notifications", notificationId));
+          console.log("Notification deleted successfully");
+        } catch (error) {
+          console.error("Error deleting notification:", error);
+        }
+      };
+
     const handleNotificationButtonClick = async (reportId, notificationId) => {
         try {
             console.log(notificationId);
@@ -182,7 +191,11 @@ const Nav = () => {
             console.error(error);
         }
     };
-    
+
+    const handleRequest = async (notificationId) => {
+        navigate('/Requests');
+        await deleteNotification(notificationId);
+    }      
 
     return (
         <nav>
@@ -323,6 +336,26 @@ const Nav = () => {
                                                                             </div>
                                                                         </>
                                                                     )}
+                                                                    {notification.type === 'neighbourhoodRequest' && (
+                                                                        <>
+                                                                            <div>
+                                                                                <div className=" underline underline-offset-2 decoration-2 decoration-blue-600 pt-3 pb-1 px-3 rounded-md">
+                                                                                    {notification.title}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="mb-3 mt-1 px-3">
+                                                                                {notification.message}
+                                                                            </div>
+                                                                            <div className="flex justify-center">
+                                                                                <button
+                                                                                    className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-semibold rounded-md w-1/2 py-1 mb-3 "
+                                                                                    onClick={() => handleRequest(notification.notificationId)}
+                                                                                >
+                                                                                    Go to Request
+                                                                                </button>
+                                                                            </div>
+                                                                        </>
+                                                                    )}
                                                                 </div>
                                                             ))
                                                         ) : (
@@ -386,6 +419,7 @@ const Nav = () => {
                                                             </button>
                                                             {showAdminOptions && (
                                                                 <div className="bg-zinc-100">
+                                                                    <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Addition's</a>
                                                                     <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
                                                                     <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
                                                                     <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>

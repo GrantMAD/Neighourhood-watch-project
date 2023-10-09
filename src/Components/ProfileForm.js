@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "../firebase";
-import { collection, query, where, updateDoc, getDocs } from "firebase/firestore";
+import { collection, query, where, updateDoc, getDocs, doc, getDoc } from "firebase/firestore";
 import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -20,8 +20,7 @@ const ProfileForm = () => {
   const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
-  const cpfSectorOptions = ["Codemore Neighbourhood Watch", "Hillside Community Watch", "Hillside Neighbourhood Watch", "Ballarat Neighbourhood Watch", "Roberts Grove Neighbourhood Watch",
-    "Armadale Neighbourhood Watch", "Kenmare Neighbourhood Watch", "Bridge Road Neighbourhood Watch", "Pioneer/Sunnyside Neighbourhood Watch", "Blairmont Neighbourhood Watch"];
+  const [neighbourhoodOptions, setNeighbourhoodOptions] = useState([]);
   const districts = ["Seaview", "Bellair", "Rossburgh"]
 
   useEffect(() => {
@@ -51,7 +50,27 @@ const ProfileForm = () => {
       setProfileImageUpload(userData.image)
       setDistrict(userData.district)
     }
-  }, [userData])
+  }, [userData]);
+
+  useEffect(() => {
+    const fetchNeighbourhoodOptions = async () => {
+      try {
+        const sectorOptionsDocRef = doc(db, "SectorOptions", "kEbia4X43HuZk6d1FsBp");
+        const sectorOptionsDocSnap = await getDoc(sectorOptionsDocRef);
+
+        if (sectorOptionsDocSnap.exists()) {
+          const data = sectorOptionsDocSnap.data();
+          if (data && data.NeighbourhoodOptions) {
+            setNeighbourhoodOptions(data.NeighbourhoodOptions);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching neighbourhood options:", error);
+      }
+    };
+
+    fetchNeighbourhoodOptions();
+  }, []);
 
   const UpdateUser = async (e) => {
     const profileURL = await uploadProfileImage();
@@ -98,7 +117,8 @@ const ProfileForm = () => {
             <div className="px-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">Profile</h3>
               <p className="mt-1 text-sm text-gray-600">
-                This information will be displayed publicly so be careful what you share. Neighbourhood not yet apart of Sector 2? Is your neighbourhood not yet apart of Sector 2? <a className="font-bold text-blue-600" href="../AddNeighbourhoodRequest">Request</a> your neighbourhood to be added to become apart of the Sector 2 community.
+                This information will be displayed publicly so be careful what you share. Neighbourhood not yet apart of Sector 2? Is your neighbourhood not yet apart of Sector 2? 
+                <a className="font-bold text-blue-600" href="../AddNeighbourhoodRequest"> Request</a> your neighbourhood to be added to become apart of the Sector 2 community.
               </p>
             </div>
           </div>
@@ -163,7 +183,7 @@ const ProfileForm = () => {
                             }}
                           >
                             <option value="">Select district</option>
-                            {cpfSectorOptions.map((option) => (
+                            {neighbourhoodOptions.map((option) => (
                               <option key={option} value={option}>
                                 {option}
                               </option>

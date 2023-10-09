@@ -30,6 +30,7 @@ import TermsAndConditions from './Components/TermsAndConditions';
 import SectorContent from './Components/SectorContent';
 import AddNeighbourhoodRequest from './AddAndEdit/AddNeighbourhoodRequest';
 import Requests from './Components/Requests';
+import SectorAddition from './Components/SectorAddition';
 
 function App() {
 
@@ -70,6 +71,7 @@ function App() {
         <Route path="/VerifiedAccount" element={ <VerifiedAccount funcNav={setShowNav}/>} />
         <Route path="/TermsAndConditions" element={ <TermsAndConditions funcNav={setShowNav}/>} />
         <Route path="/SectorContent" element={ <SectorContent />} />
+        <Route path="/SectorAddition" element={ <SectorAddition />} />
         </Routes>
       { showNav &&
         <Footer/>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Toaster, toast } from 'sonner';
 
 const Requests = () => {
     const [requests, setRequests] = useState([]);
     const [selectedReport, setSelectedReport] = useState(null);
     const [roadNamesArray, setRoadNamesArray] = useState([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -22,7 +24,36 @@ const Requests = () => {
         };
 
         fetchRequests();
-    }, []);
+        setRefresh(false);
+    }, [refresh]);
+    
+
+    const approveRequest = async () => {
+        try {
+            const sectorOptionsRef = doc(db, "SectorOptions", "kEbia4X43HuZk6d1FsBp"); 
+            const sectorOptionsSnapshot = await getDoc(sectorOptionsRef);
+            const sectorOptionsData = sectorOptionsSnapshot.data();
+
+            const updatedNeighbourhoodOptions = [
+                ...sectorOptionsData.NeighbourhoodOptions,
+                selectedReport.neighbourhoodName
+            ];
+
+            await updateDoc(sectorOptionsRef, {
+                NeighbourhoodOptions: updatedNeighbourhoodOptions
+            });
+
+            const requestRef = doc(db, "requests", selectedReport.id);
+            await deleteDoc(requestRef);
+
+            setRefresh(true);
+            toast.success('Approved');
+        } catch (error) {
+            console.error("Error approving request:", error);
+        }
+    };
+
+
 
     return (
         <div className="min-h-screen bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
@@ -80,9 +111,10 @@ const Requests = () => {
                                                 </div>
                                             </div>
                                             <div className="flex justify-end mt-5">
+                                            <Toaster richColors />
                                                 <button
                                                     className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded"
-                                                    
+                                                    onClick={approveRequest}
                                                 >
                                                     Approve
                                                 </button>
