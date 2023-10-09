@@ -28,6 +28,9 @@ import WelcomeStory from './Components/WelcomeStory';
 import VerifiedAccount from './Components/VerifiedAccount';
 import TermsAndConditions from './Components/TermsAndConditions';
 import SectorContent from './Components/SectorContent';
+import AddNeighbourhoodRequest from './AddAndEdit/AddNeighbourhoodRequest';
+import Requests from './Components/Requests';
+import SectorAddition from './Components/SectorAddition';
 
 function App() {
 
@@ -61,11 +64,14 @@ function App() {
         <Route path="/AddReport" element={ <AddReport/>} />
         <Route path="/AddStory" element={ <AddStory/>} />
         <Route path="/AddImage" element={ <AddImage/>} />
+        <Route path="/AddNeighbourhoodRequest" element={ <AddNeighbourhoodRequest/>} />
+        <Route path="/Requests" element={ <Requests/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
         <Route path="/PasswordResetPage" element={ <PasswordResetPage funcNav={setShowNav}/>} />
         <Route path="/VerifiedAccount" element={ <VerifiedAccount funcNav={setShowNav}/>} />
         <Route path="/TermsAndConditions" element={ <TermsAndConditions funcNav={setShowNav}/>} />
         <Route path="/SectorContent" element={ <SectorContent />} />
+        <Route path="/SectorAddition" element={ <SectorAddition />} />
         </Routes>
       { showNav &&
         <Footer/>
