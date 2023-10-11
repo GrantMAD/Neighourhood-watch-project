@@ -26,11 +26,11 @@ const Requests = () => {
         fetchRequests();
         setRefresh(false);
     }, [refresh]);
-    
+
 
     const approveRequest = async () => {
         try {
-            const sectorOptionsRef = doc(db, "SectorOptions", "kEbia4X43HuZk6d1FsBp"); 
+            const sectorOptionsRef = doc(db, "SectorOptions", "kEbia4X43HuZk6d1FsBp");
             const sectorOptionsSnapshot = await getDoc(sectorOptionsRef);
             const sectorOptionsData = sectorOptionsSnapshot.data();
 
@@ -53,7 +53,20 @@ const Requests = () => {
         }
     };
 
-
+    const declineRequest = async (requestId) => {
+        try {
+            const requestRef = doc(db, "requests", requestId);
+            await deleteDoc(requestRef);
+            
+            // Trigger a refresh of the data
+            setRefresh(true);
+    
+            toast.success('Request declined');
+        } catch (error) {
+            console.error("Error declining request:", error);
+        }
+    };
+    
 
     return (
         <div className="min-h-screen bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
@@ -111,7 +124,13 @@ const Requests = () => {
                                                 </div>
                                             </div>
                                             <div className="flex justify-end mt-5">
-                                            <Toaster richColors />
+                                                <Toaster richColors />
+                                                <button
+                                                    className="bg-red-500 hover:bg-red-600 hover:scale-105 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded mr-3"
+                                                    onClick={() => declineRequest(request.id)}
+                                                >
+                                                    Decline
+                                                </button>
                                                 <button
                                                     className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 hover:drop-shadow-2xl text-zinc-200 font-bold py-2 px-4 rounded"
                                                     onClick={approveRequest}
