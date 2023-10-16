@@ -4,8 +4,7 @@ import { auth, db } from "../firebase";
 import { useEffect, useState, useRef } from "react";
 import { collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faArrowRight, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
@@ -19,6 +18,7 @@ const Nav = () => {
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     const [showAdminOptions, setShowAdminOptions] = useState(false);
     const [isPanelClicked, setIsPanelClicked] = useState(false);
+    const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
     const [pendingUser, setPendingUser] = useState(false);
     const [showNotification, setShowNotification] = useState();
     const [checkedIn, setCheckedIn] = useState(
@@ -195,7 +195,11 @@ const Nav = () => {
     const handleRequest = async (notificationId) => {
         navigate('/Requests');
         await deleteNotification(notificationId);
-    }      
+    } 
+    
+    const toggleCheckOutPopup = () => {
+        setShowCheckOutPopup(!showCheckOutPopup);
+    };
 
     return (
         <nav>
@@ -258,26 +262,47 @@ const Nav = () => {
                                     <div id="popup" className="hidden p-5 rounded-md text-lime-300 max-h-min">
                                         You have checked in
                                     </div>
-                                    {user &&
-                                        <div className="mr-5 lg:block md:block hidden">
-                                            <Toaster richColors />
-                                            {(userRole === "user" || userRole === "admin") && (
-                                                <button
-                                                    className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
-                                                    onClick={() => {
-                                                        if (checkedIn) {
-                                                            toast.error('You have checked out');
-                                                        } else {
-                                                            toast.success('You have checked in');
-                                                        }
-                                                        handleCheckIn();
-                                                    }}
-                                                >
-                                                    {checkedIn ? 'Check out' : 'Check in'}
-                                                </button>
-                                            )}
-                                        </div>
-                                    }
+                                    <div className="relative">
+                                        {user &&
+                                            <div className="mr-5 lg:block md:block hidden">
+                                                <Toaster richColors />
+                                                {(userRole === "user" || userRole === "admin") && (
+                                                    <button
+                                                        className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
+                                                        onClick={() => {
+                                                            if (checkedIn) {
+                                                                toast.error('You have checked out');
+                                                                toggleCheckOutPopup();
+                                                            } else {
+                                                                toast.success('You have checked in');
+                                                            }
+                                                            handleCheckIn();
+                                                        }}
+                                                    >
+                                                        {checkedIn ? 'Check out' : 'Check in'}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        }
+                                        {showCheckOutPopup && (
+                                            <div className="absolute top-12 right-0 mt-2 bg-white p-4 rounded-md shadow-lg w-48 border border-blue-600">
+                                                <h1 className="font-semibold underline">Add Report</h1>
+                                                <p className="mt-2 text-sm">Done with your patrol? Add a incident report.</p>
+                                                <div className="flex justify-between">
+                                                    <button onClick={() => {
+                                                        navigate('/AddReport');
+                                                        toggleCheckOutPopup();
+                                                    }} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:scale-105 hover:bg-blue-700">Add Report</button>
+                                                    <button onClick={toggleCheckOutPopup} className="text-xl pt-3"><FontAwesomeIcon
+                                                        icon={faTimesCircle}
+                                                        className="text-xl pt-2 text-red-500 cursor-pointer hover:scale-125"
+                                                        onClick={toggleCheckOutPopup}
+                                                    /></button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                    </div>
                                     {user && (
                                         <div className="relative">
                                             <FontAwesomeIcon
