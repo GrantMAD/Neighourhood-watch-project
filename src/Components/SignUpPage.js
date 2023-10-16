@@ -67,7 +67,9 @@ const SignUpPage = (props) => {
                 profileImage: '',
                 cpfSector: '',
                 profileUpdated: '',
-                district: ''
+                district: '',
+                emergencyContactNumber: '',
+                emergencyContactName: ''
             });
 
             if (user && user.uid) {
