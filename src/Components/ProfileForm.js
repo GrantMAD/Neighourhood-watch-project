@@ -17,6 +17,8 @@ const ProfileForm = () => {
   const [cpfSector, setCpfSector] = useState();
   const [district, setDistrict] = useState();
   const [profileImageUpload, setProfileImageUpload] = useState();
+  const [emergencyContactName, setEmergencyContactName] = useState('');
+  const [emergencyContactNumber, setEmergencyContactNumber] = useState('');
   const [profileUpdated, setProfileUpdated] = useState(false);
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
@@ -85,7 +87,9 @@ const ProfileForm = () => {
       number: newNumber,
       about: newAbout,
       cpfSector: cpfSector,
-      district: district
+      district: district, 
+      emergencyContactName: emergencyContactName || "",
+      emergencyContactNumber: emergencyContactNumber || ""
     }
 
     if (profileURL !== undefined) {
@@ -230,6 +234,38 @@ const ProfileForm = () => {
                               </option>
                             ))}
                           </select>
+                        </div>
+                        <div className="col-span-5 sm:col-span-3">
+                          <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Emergency Contact Name
+                          </label>
+                          <input
+                            defaultValue={userData.emergencyContactName}
+                            type="text"
+                            name="emergencyContactName"
+                            id="emergencyContactName"
+                            autoComplete="emergencyContactName"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setEmergencyContactName(event.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="col-span-5 sm:col-span-3">
+                          <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
+                            Emergency Contact Number
+                          </label>
+                          <input
+                            defaultValue={userData.emergencyContactNumber}
+                            type="number"
+                            name="emergencyContactNumber"
+                            id="emergencyContactNumber"
+                            autoComplete="emergencyContactNumber"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                            onChange={(event) => {
+                              setEmergencyContactNumber(event.target.value);
+                            }}
+                          />
                         </div>
                         <div className="col-span-6 sm:col-span-4">
                           <label htmlFor="number" className="block text-sm font-medium text-gray-700 after:content-none">

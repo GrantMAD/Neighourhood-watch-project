@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
 import { collection, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { deleteUser } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -10,6 +12,7 @@ const Profile = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState()
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showInfoTooltip, setShowInfoTooltip] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -56,7 +59,28 @@ const Profile = () => {
           >
             <div className="grid grid-cols-1 md:grid-cols-3">
               <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0">
-
+              <div className="relative">
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    size="2x"
+                    color="blue"
+                    onMouseEnter={() => setShowInfoTooltip(true)}
+                    onMouseLeave={() => setShowInfoTooltip(false)}
+                  />
+                  {showInfoTooltip && (
+                    <div className="absolute bg-zinc-200 rounded-md px-2 py-1 text-gray-800 border border-blue-600 mt-2 whitespace-nowrap mr-32 -right-32">
+                      <h1 className="font-bold underline">Emergency Contact Information</h1>
+                      <div>
+                        <h1 className="text-blue-600 font-bold mt-1 underline underline-offset-4 decoration-2 decoration-gray-800">Name:</h1>
+                        <p className="text-gray-800">{user.emergencyContactName}</p>
+                      </div>
+                      <div>
+                        <h1 className="text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800">Contact number:</h1>
+                        <p className="text-gray-800">{user.emergencyContactNumber}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="relative">
                 <div
