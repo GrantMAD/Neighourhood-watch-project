@@ -51,6 +51,8 @@ const ProfileForm = () => {
       setNewNumber(userData.number)
       setProfileImageUpload(userData.image)
       setDistrict(userData.district)
+      setEmergencyContactName(userData.emergencyContactName)
+      setEmergencyContactNumber(userData.emergencyContactNumber)
     }
   }, [userData]);
 
