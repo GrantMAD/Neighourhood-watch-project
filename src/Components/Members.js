@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonMember from "../Skeletons/SkeletonMember";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ const Members = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const usersCollectionRef = collection(db, 'users');
     const [groupVisibility, setGroupVisibility] = useState({});
+    const [checkedInCount, setCheckedInCount] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +29,34 @@ const Members = () => {
         });
         setUsers(sortedUsers);
         setIsLoading(false);
+    
+        // Initialize checked-in counts
+        const initialCheckedInCount = sortedUsers.reduce((counts, user) => {
+            const cpfSector = user.cpfSector || 'Unassigned';
+            counts[cpfSector] = counts[cpfSector] || 0;
+            counts[cpfSector] += user.checkedIn ? 1 : 0;
+            return counts;
+        }, {});
+        setCheckedInCount(initialCheckedInCount);
+    
+        // Set up a real-time listener for changes in checkIn field
+        const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "modified") {
+                    const updatedUser = { ...change.doc.data(), id: change.doc.id };
+                    setUsers(prevUsers => prevUsers.map(user => user.id === updatedUser.id ? updatedUser : user));
+    
+                    const cpfSector = updatedUser.cpfSector || 'Unassigned';
+                    setCheckedInCount(prevCounts => ({
+                        ...prevCounts,
+                        [cpfSector]: prevCounts[cpfSector] + (updatedUser.checkedIn ? 1 : -1)
+                    }));
+                }
+            });
+        });
+    
+        // Clean up the listener when component unmounts
+        return () => unsubscribe();
     };
 
     const toggleGroupVisibility = (cpfSector) => {
@@ -100,7 +129,8 @@ const Members = () => {
                                                 <div className="flex items-center space-x-2">
                                                     <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" />
                                                     <span className="text-xs md:text-lg">{cpfSector}</span>
-                                                    <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Members)</span>
+                                                    <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Member's)</span>
+                                                    <span className="text-xs font-normal text-gray-300"> - ({checkedInCount[cpfSector]} Member's checked in)</span>
                                                 </div>
                                             </td>
                                         </tr>
