@@ -31,6 +31,7 @@ import SectorContent from './Components/SectorContent';
 import AddNeighbourhoodRequest from './AddAndEdit/AddNeighbourhoodRequest';
 import Requests from './Components/Requests';
 import SectorAddition from './Components/SectorAddition';
+import UserMetrics from './Components/UserMetrics';
 
 function App() {
 
@@ -72,6 +73,7 @@ function App() {
         <Route path="/TermsAndConditions" element={ <TermsAndConditions funcNav={setShowNav}/>} />
         <Route path="/SectorContent" element={ <SectorContent />} />
         <Route path="/SectorAddition" element={ <SectorAddition />} />
+        <Route path="/UserMetrics" element={ <UserMetrics />} />
         </Routes>
       { showNav &&
         <Footer/>
