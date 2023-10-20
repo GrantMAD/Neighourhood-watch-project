@@ -93,18 +93,33 @@ const Nav = () => {
     });
 
     const handleCheckIn = async () => {
-        setCheckedIn(!checkedIn)
+        setCheckedIn(!checkedIn);
         try {
             if (user && user.email) {
-                const usersCollectionRef = collection(db, 'users')
-                const userQuery = query(usersCollectionRef, where("email", "==", user.email))
-                const data = await getDocs(userQuery)
-                const userDocRef = data.docs[0].ref
-                const userDoc = data.docs[0].data()
+                const usersCollectionRef = collection(db, 'users');
+                const userQuery = query(usersCollectionRef, where("email", "==", user.email));
+                const data = await getDocs(userQuery);
+                const userDocRef = data.docs[0].ref;
+                const userDoc = data.docs[0].data();
+
+                const existingSessions = userDoc.sessions || [];
+
+                const sessionID = Date.now().toString(); // Unique session ID based on current timestamp
+
+                const newSession = {
+                    sessionID,
+                    checkInTime: !checkedIn ? new Date() : null, // Set check-in time if checking in, null if checking out
+                    checkOutTime: checkedIn ? new Date() : null // Set check-out time if checking out, null if checking in
+                };
+
+                const updatedSessions = [...existingSessions, newSession];
+
                 await updateDoc(userDocRef, {
-                    "checkedIn": !checkedIn
+                    "checkedIn": !checkedIn,
+                    "sessions": updatedSessions
                 });
-                console.log(JSON.stringify(userDoc, null, 2))
+
+                console.log(JSON.stringify(userDoc, null, 2));
             }
         } catch (error) {
             console.log(error);
@@ -168,12 +183,12 @@ const Nav = () => {
 
     const deleteNotification = async (notificationId) => {
         try {
-          await deleteDoc(doc(db, "notifications", notificationId));
-          console.log("Notification deleted successfully");
+            await deleteDoc(doc(db, "notifications", notificationId));
+            console.log("Notification deleted successfully");
         } catch (error) {
-          console.error("Error deleting notification:", error);
+            console.error("Error deleting notification:", error);
         }
-      };
+    };
 
     const handleNotificationButtonClick = async (reportId, notificationId) => {
         try {
@@ -195,8 +210,8 @@ const Nav = () => {
     const handleRequest = async (notificationId) => {
         navigate('/Requests');
         await deleteNotification(notificationId);
-    } 
-    
+    }
+
     const toggleCheckOutPopup = () => {
         setShowCheckOutPopup(!showCheckOutPopup);
     };
