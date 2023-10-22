@@ -39,7 +39,7 @@ const UserMetrics = () => {
             });
         });
     };
-    
+
 
     return (
         <div className="min-h-screen bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
@@ -52,7 +52,7 @@ const UserMetrics = () => {
 
             <div className="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%] mt-10">
                 {userData.map(user => (
-                    <div key={user.email} className="bg-gray-800 p-1 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold mb-5 w-full">
+                    <div key={user.email} className="bg-gray-800 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold mb-5 w-full">
                         <div className="flex p-3 cursor-pointer" onClick={() => toggleAccordion(user.email)}>
                             <div>
                                 <FontAwesomeIcon icon={faFileAlt} className="mr-4 text-white" />
@@ -61,13 +61,27 @@ const UserMetrics = () => {
                         </div>
 
                         {user.open && (
-                            <div className="bg-white p-3 border border-gray-300">
+                            <div className="bg-white p-3 border border-gray-800">
                                 {user.sessions && user.sessions.length > 0 ? (
                                     user.sessions.map(session => (
                                         <div key={session.sessionID} className="flex justify-between border-b border-gray-300 py-2">
                                             <div>
-                                                {session.checkInTime && <div><strong>Checked-In:</strong> <div>{session.checkInTime.toDate().toLocaleString()}</div></div>}
-                                                {session.checkOutTime && <div><strong>Checked-Out:</strong> <div>{session.checkOutTime.toDate().toLocaleString()}</div></div>}
+                                                {session.checkInTime && (
+                                                    <div>
+                                                        <strong>
+                                                            <span className="text-green-500 mr-2">●</span>Checked-In:
+                                                        </strong>
+                                                        <div>{session.checkInTime.toDate().toLocaleString()}</div>
+                                                    </div>
+                                                )}
+                                                {session.checkOutTime && (
+                                                    <div>
+                                                        <strong>
+                                                            <span className="text-red-500 mr-2">●</span>Checked-Out:
+                                                        </strong>
+                                                        <div>{session.checkOutTime.toDate().toLocaleString()}</div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     ))
