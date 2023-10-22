@@ -282,33 +282,35 @@ const Nav = () => {
                                             <div className="mr-5 lg:block md:block hidden">
                                                 <Toaster richColors />
                                                 {(userRole === "user" || userRole === "admin") && (
-                                                    <button
-                                                        className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
-                                                        onClick={() => {
-                                                            if (checkedIn) {
-                                                                toast.error('You have checked out');
-                                                                toggleCheckOutPopup();
-                                                            } else {
-                                                                toast.success('You have checked in');
-                                                            }
-                                                            handleCheckIn();
-                                                        }}
-                                                    >
-                                                        {checkedIn ? 'Check out' : 'Check in'}
-                                                    </button>
+                                                    <div className="relative inline-block">
+                                                        <button
+                                                            className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
+                                                            onClick={() => {
+                                                                if (checkedIn) {
+                                                                    toast.error('You have checked out');
+                                                                    toggleCheckOutPopup();
+                                                                } else {
+                                                                    toast.success('You have checked in');
+                                                                }
+                                                                handleCheckIn();
+                                                            }}
+                                                        >
+                                                            {checkedIn ? 'Check out' : 'Check in'}
+                                                        </button>
+                                                    </div>
                                                 )}
                                             </div>
                                         }
                                         {showCheckOutPopup && (
-                                            <div className="absolute top-12 right-0 mt-2 bg-white p-4 rounded-md shadow-lg w-48 border border-blue-600">
+                                            <div className="absolute top-12 right-0 mt-2 bg-gray-800 text-zinc-200 p-4 rounded-md shadow-lg w-64">
                                                 <h1 className="font-semibold underline">Add Report</h1>
-                                                <p className="mt-2 text-sm">Done with your patrol? Add a incident report.</p>
+                                                <p className="mt-2">You have now checked out. Would you like to add an incident report?</p>
                                                 <div className="flex justify-between">
                                                     <button onClick={() => {
                                                         navigate('/AddReport');
                                                         toggleCheckOutPopup();
-                                                    }} className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:scale-105 hover:bg-blue-700">Add Report</button>
-                                                    <button onClick={toggleCheckOutPopup} className="text-xl pt-3"><FontAwesomeIcon
+                                                    }} className="mt-4 px-4 py-2 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white rounded-md text-sm">Add Report</button>
+                                                    <button onClick={toggleCheckOutPopup} className="text-xl pt-3 pr-2"><FontAwesomeIcon
                                                         icon={faTimesCircle}
                                                         className="text-xl pt-2 text-red-500 cursor-pointer hover:scale-125"
                                                         onClick={toggleCheckOutPopup}
@@ -462,6 +464,7 @@ const Nav = () => {
                                                                     <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Addition's</a>
                                                                     <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Report's</a>
                                                                     <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
+                                                                    <a href="/UserMetrics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">User Metrics</a>
                                                                     <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>
                                                                 </div>
                                                             )}
