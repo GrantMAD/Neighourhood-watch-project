@@ -129,8 +129,8 @@ const Members = () => {
                                                 <div className="flex items-center space-x-2">
                                                     <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" />
                                                     <span className="text-xs md:text-lg">{cpfSector}</span>
-                                                    <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} Member's)</span>
-                                                    <span className="text-xs font-normal text-gray-300"> - ({checkedInCount[cpfSector]} Member's checked in)</span>
+                                                    <span className="text-xs font-normal text-gray-300"> - ({usersInGroup.length} {usersInGroup.length === 1 ? 'Member' : 'Members'})</span>
+                                                    <span className="text-xs font-normal text-gray-300"> - ({checkedInCount[cpfSector]} {checkedInCount[cpfSector] === 1 ? 'Member' : 'Members'} checked in)</span>
                                                 </div>
                                             </td>
                                         </tr>
