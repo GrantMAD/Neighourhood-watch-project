@@ -23,7 +23,7 @@ const ProfileForm = () => {
   const navigate = useNavigate();
   const usersCollectionRef = collection(db, "users");
   const [neighbourhoodOptions, setNeighbourhoodOptions] = useState([]);
-  const districts = ["Seaview", "Bellair", "Rossburgh"]
+  const [districtOptions, setDistrictOptions] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -72,7 +72,23 @@ const ProfileForm = () => {
         console.error("Error fetching neighbourhood options:", error);
       }
     };
+    const fetchDistrictOptions = async () => {
+      try {
+        const sectorOptionsDocRef = doc(db, "SectorOptions", "rRQ6V0nsbnIuS7ZbIPMk");
+        const sectorOptionsDocSnap = await getDoc(sectorOptionsDocRef);
 
+        if (sectorOptionsDocSnap.exists()) {
+          const data = sectorOptionsDocSnap.data();
+          if (data && data.DistrictOptions) {
+            setDistrictOptions(data.DistrictOptions);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching district options:", error);
+      }
+    };
+
+    fetchDistrictOptions();
     fetchNeighbourhoodOptions();
   }, []);
 
@@ -188,7 +204,7 @@ const ProfileForm = () => {
                               setCpfSector(event.target.value);
                             }}
                           >
-                            <option value="">Select district</option>
+                            <option value="">Select Neighbourhood</option>
                             {neighbourhoodOptions.map((option) => (
                               <option key={option} value={option}>
                                 {option}
@@ -214,11 +230,11 @@ const ProfileForm = () => {
                           />
                         </div>
                         <div className="col-span-5 sm:col-span-3">
-                          <label htmlFor="CPFSector" className="block text-sm font-medium text-gray-700 after:content-none">
+                          <label htmlFor="district" className="block text-sm font-medium text-gray-700 after:content-none">
                             District
                           </label>
                           <select
-                            defaultValue={userData.district}
+                            value={userData.district}
                             placeholder="Sea View/Hillary"
                             type="text"
                             name="district"
@@ -230,7 +246,7 @@ const ProfileForm = () => {
                             }}
                           >
                             <option value="">Select district</option>
-                            {districts.map((option) => (
+                            {districtOptions.map((option) => (
                               <option key={option} value={option}>
                                 {option}
                               </option>

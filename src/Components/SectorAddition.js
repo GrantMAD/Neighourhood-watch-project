@@ -5,6 +5,7 @@ import { Toaster, toast } from 'sonner';
 
 const NeighbourhoodAddition = () => {
   const [newNeighbourhood, setNewNeighbourhood] = useState('');
+  const [newDistrict, setNewDistrict] = useState('');
 
   const handleAddNeighbourhood = async () => {
     if (newNeighbourhood.trim() !== '') {
@@ -14,6 +15,17 @@ const NeighbourhoodAddition = () => {
       });
 
       setNewNeighbourhood('');
+    }
+  };
+
+  const handleAddDistrict = async () => {
+    if (newDistrict.trim() !== '') {
+      const sectorOptionsRef = doc(db, 'SectorOptions', 'rRQ6V0nsbnIuS7ZbIPMk');
+      await updateDoc(sectorOptionsRef, {
+        DistrictOptions: arrayUnion(newDistrict)
+      });
+
+      setNewDistrict('');
     }
   };
 
@@ -61,6 +73,57 @@ const NeighbourhoodAddition = () => {
                       e.preventDefault();
                       handleAddNeighbourhood();
                       toast.success('Adding new neighbourhood, Please wait.');
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className='mt-5'>
+        <div className="md:grid md:grid-cols-3 md:gap-6">
+          <div className="md:col-span-1">
+            <div className="px-4 sm:px-0">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">District</h3>
+              <p className="mt-1 text-sm text-gray-600">
+                To add a new District to the list input the district's name and save
+              </p>
+            </div>
+          </div>
+          <div className="mt-5 md:col-span-2 md:mt-0">
+            <form action="#">
+              <div className="shadow sm:overflow-hidden sm:rounded-md">
+                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                  <div className="bg-white">
+                    <div className="grid grid-cols-6 gap-6">
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 after:content-none">
+                          District
+                        </label>
+                        <input
+                          type="text"
+                          name="districtName"
+                          id="districtName"
+                          autoComplete="districtName"
+                          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 sm:text-sm"
+                          onChange={(e) => setNewDistrict(e.target.value)}
+                          placeholder="Enter district name"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                  <Toaster richColors />
+                  <button
+                    className="inline-flex justify-center rounded-md border border-transparent bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleAddDistrict();
+                      toast.success('Adding new district, Please wait.');
                     }}
                   >
                     Save

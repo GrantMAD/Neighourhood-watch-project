@@ -6,14 +6,14 @@ import "../index.css";
 import { Toaster, toast } from 'sonner';
 
 const AddReport = () => {
-    const [newTitle, setNewTitle] = useState();
-    const [newPatrollerName, setNewPatrollerName] = useState();
-    const [newTime, setNewTime] = useState();
+    const [newTitle, setNewTitle] = useState('');
+    const [newPatrollerName, setNewPatrollerName] = useState('');
+    const [newTime, setNewTime] = useState('');
     const [newDate, setNewDate] = useState();
-    const [newPoliceNumber, setNewPoliceNumber] = useState();
-    const [newDateReport, setNewDateReport] = useState();
-    const [newLocation, setNewLocation] = useState();
-    const [newDescription, setNewDescription] = useState();
+    const [newPoliceNumber, setNewPoliceNumber] = useState('');
+    const [newDateReport, setNewDateReport] = useState('');
+    const [newLocation, setNewLocation] = useState('');
+    const [newDescription, setNewDescription] = useState('');
     const [showWarning, setShowWarning] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ const AddReport = () => {
         const userUID = user.uid;
 
         await addDoc(usersCollecctionRef, { title: newTitle, patrollerName: newPatrollerName, time: newTime, date: newDate, dateReport: newDateReport, location: newLocation, description: newDescription, policeNumber: newPoliceNumber, uid: userUID, viewCount: 0, });
+        
         setIsAdded(!isAdded);
         toast.success('Report saved successfully!');
         navigate('/IncidentReportPage');
