@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { db } from "../firebase";
-import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import { collection, addDoc, updateDoc, doc, getDoc, where, query, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
@@ -9,12 +9,14 @@ const AddNeighbourhoodRequest = () => {
     const [userName, setUserName] = useState();
     const [contactNumber, setContactNumber] = useState();
     const [postalCode, setPostalCode] = useState();
+    const [userRole, setUserRole] = useState('userRole');
     const [neighbourhoodName, setNeighbourhoodName] = useState();
     const [roadNames, setRoadNames] = useState();
     const [neighbourhoodOptions, setNeighbourhoodOptions] = useState([]);
     const [selectedNeighbourhoodOption, setSelectedNeighbourhoodOption] = useState("");
     const [refresh, setRefresh] = useState(false);
     const usersCollecctionRef = collection(db, "requests");
+    const usersCollectionRef = collection(db, "users");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,6 +33,24 @@ const AddNeighbourhoodRequest = () => {
         fetchNeighbourhoodOptions();
         setRefresh(false);
     }, [refresh]);
+
+    useEffect(() => {
+        localStorage.setItem('userRole', userRole);
+    }, [userRole]);
+
+    useEffect(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const userEmail = currentUser.email;
+            const userRef = query(usersCollectionRef, where("email", "==", userEmail));
+            onSnapshot(userRef, (snapshot) => {
+                snapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    setUserRole(userData.role);
+                });
+            });
+        }
+    }, [usersCollectionRef]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,6 +126,7 @@ const AddNeighbourhoodRequest = () => {
                                 Here you can request for your neighbourhood to be added to the Sector 2 group. Please fill in all of the input's as all of the information will be required to verify and approve the addtion of your neighbourhood to Sector 2. An Admin will contact the member or owner registering the neighbourhood by phone. Once an admin is able to verify all of the information your neighbourhood will be added to the list.
                             </p>
                         </div>
+                        {userRole === "admin" && (
                         <div className="mt-5 px-4 sm:px-0">
                             <div className="col-span-6 sm:col-span-4">
                                 <label htmlFor="NeighbourhoodOptions" className="block text-md font-medium leading-6 text-gray-900">
@@ -132,6 +153,7 @@ const AddNeighbourhoodRequest = () => {
                                 Remove
                             </button>
                         </div>
+                        )}
                     </div>
                     <div className="mt-5 md:col-span-2 md:mt-0 m-4 sm:m-0">
                         <form action="#">
