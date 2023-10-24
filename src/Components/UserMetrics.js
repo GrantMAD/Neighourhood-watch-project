@@ -16,8 +16,23 @@ const UserMetrics = () => {
                 const data = await getDocs(userQuery);
                 const userData = data.docs.map(doc => doc.data());
 
+                // Calculate total time for each user
+                const userDataWithTotalTime = userData.map(user => {
+                    const totalTime = user.sessions.reduce((acc, session) => {
+                        if (session.checkInTime && session.checkOutTime) {
+                            const checkInTime = new Date(session.checkInTime).getTime();
+                            const checkOutTime = new Date(session.checkOutTime).getTime();
+                            return acc + (checkOutTime - checkInTime);
+                        } else {
+                            return acc;
+                        }
+                    }, 0);
+
+                    return { ...user, totalTime };
+                });
+
                 // Add an "open" property to track whether the accordion is open or not
-                const userDataWithOpenProp = userData.map(user => ({ ...user, open: false }));
+                const userDataWithOpenProp = userDataWithTotalTime.map(user => ({ ...user, open: false }));
 
                 setUserData(userDataWithOpenProp);
             } catch (error) {
@@ -27,6 +42,7 @@ const UserMetrics = () => {
 
         getUsersData();
     }, []);
+
 
     const toggleAccordion = (email) => {
         setUserData(prevData => {
@@ -71,7 +87,7 @@ const UserMetrics = () => {
                                                         <strong>
                                                             <span className="text-green-500 mr-2">●</span>Checked-In:
                                                         </strong>
-                                                        <div>{session.checkInTime.toDate().toLocaleString()}</div>
+                                                        <div>{new Date(session.checkInTime).toLocaleString()}</div> {/* Convert to Date */}
                                                     </div>
                                                 )}
                                                 {session.checkOutTime && (
@@ -79,7 +95,7 @@ const UserMetrics = () => {
                                                         <strong>
                                                             <span className="text-red-500 mr-2">●</span>Checked-Out:
                                                         </strong>
-                                                        <div>{session.checkOutTime.toDate().toLocaleString()}</div>
+                                                        <div>{new Date(session.checkOutTime).toLocaleString()}</div> {/* Convert to Date */}
                                                     </div>
                                                 )}
                                             </div>
@@ -88,6 +104,13 @@ const UserMetrics = () => {
                                 ) : (
                                     <div className="text-gray-600">No Check in and out times available</div>
                                 )}
+                                {user.totalTime && (
+                                    <div>
+                                        <strong>Total Time (minutes):</strong>
+                                        <div>{Math.floor(user.totalTime / (60 * 1000))}</div>
+                                    </div>
+                                )}
+
                             </div>
                         )}
                     </div>
