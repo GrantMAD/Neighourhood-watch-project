@@ -8,6 +8,7 @@ import { faBell, faArrowRight, faTimesCircle } from '@fortawesome/free-solid-svg
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
+import { format } from 'date-fns';
 
 const Nav = () => {
     const [user, setUser] = useState({});
@@ -110,21 +111,40 @@ const Nav = () => {
     
                 if (checkedIn) {
                     if (lastSession && !lastSession.checkOutTime) {
-                        lastSession.checkOutTime = currentTime;
+                        lastSession.checkOutTime = format(currentTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+    
+                        // Calculate totalTime and update it
+                        const checkInTime = new Date(lastSession.checkInTime);
+                        const checkOutTime = new Date(lastSession.checkOutTime);
+                        const totalTime = checkOutTime - checkInTime;
+    
+                        // Update totalTime in session
+                        lastSession.totalTime = totalTime;
+    
+                        // Update totalTime in user's document
+                        const userTotalTime = userDoc.totalTime || 0;
+                        const newUserTotalTime = userTotalTime + totalTime;
+    
+                        await updateDoc(userDocRef, {
+                            "checkedIn": !checkedIn,
+                            "sessions": existingSessions,
+                            "totalTime": newUserTotalTime
+                        });
                     }
                 } else {
                     const newSession = {
                         sessionID,
-                        checkInTime: currentTime, 
-                        checkOutTime: null 
+                        checkInTime: format(currentTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"), 
+                        checkOutTime: null,
+                        totalTime: 0  // Add totalTime field
                     };
     
                     existingSessions.push(newSession);
                 }            
-                
+    
                 await updateDoc(userDocRef, {
                     "checkedIn": !checkedIn,
-                    "sessions": existingSessions,         
+                    "sessions": existingSessions         
                 });
     
                 setCheckedIn(!checkedIn);
@@ -133,6 +153,9 @@ const Nav = () => {
             console.log(error);
         }
     };
+    
+    
+    
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
