@@ -93,7 +93,6 @@ const Nav = () => {
     });
 
     const handleCheckIn = async () => {
-        setCheckedIn(!checkedIn);
         try {
             if (user && user.email) {
                 const usersCollectionRef = collection(db, 'users');
@@ -101,25 +100,34 @@ const Nav = () => {
                 const data = await getDocs(userQuery);
                 const userDocRef = data.docs[0].ref;
                 const userDoc = data.docs[0].data();
-
+    
                 const existingSessions = userDoc.sessions || [];
-
-                const sessionID = Date.now().toString(); // Unique session ID based on current timestamp
-
-                const newSession = {
-                    sessionID,
-                    checkInTime: !checkedIn ? new Date() : null, // Set check-in time if checking in, null if checking out
-                    checkOutTime: checkedIn ? new Date() : null // Set check-out time if checking out, null if checking in
-                };
-
-                const updatedSessions = [...existingSessions, newSession];
-
+    
+                const sessionID = Date.now().toString();
+                const currentTime = new Date();
+    
+                const lastSession = existingSessions[existingSessions.length - 1];
+    
+                if (checkedIn) {
+                    if (lastSession && !lastSession.checkOutTime) {
+                        lastSession.checkOutTime = currentTime;
+                    }
+                } else {
+                    const newSession = {
+                        sessionID,
+                        checkInTime: currentTime, 
+                        checkOutTime: null 
+                    };
+    
+                    existingSessions.push(newSession);
+                }            
+                
                 await updateDoc(userDocRef, {
                     "checkedIn": !checkedIn,
-                    "sessions": updatedSessions
+                    "sessions": existingSessions,         
                 });
-
-                console.log(JSON.stringify(userDoc, null, 2));
+    
+                setCheckedIn(!checkedIn);
             }
         } catch (error) {
             console.log(error);
