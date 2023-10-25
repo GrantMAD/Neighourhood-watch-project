@@ -12,12 +12,18 @@ const UserMetrics = () => {
             try {
                 const usersCollectionRef = collection(db, "users");
                 const userQuery = query(usersCollectionRef);
-
+    
                 const data = await getDocs(userQuery);
                 const userData = data.docs.map(doc => doc.data());
-
+    
+                // Ensure sessions is initialized as an empty array
+                const userDataWithInitializedSessions = userData.map(user => ({
+                    ...user,
+                    sessions: user.sessions || [],
+                }));
+    
                 // Calculate total time for each user
-                const userDataWithTotalTime = userData.map(user => {
+                const userDataWithTotalTime = userDataWithInitializedSessions.map(user => {
                     const totalTime = user.sessions.reduce((acc, session) => {
                         if (session.checkInTime && session.checkOutTime) {
                             const checkInTime = new Date(session.checkInTime).getTime();
@@ -27,19 +33,19 @@ const UserMetrics = () => {
                             return acc;
                         }
                     }, 0);
-
+    
                     return { ...user, totalTime };
                 });
-
+    
                 // Add an "open" property to track whether the accordion is open or not
                 const userDataWithOpenProp = userDataWithTotalTime.map(user => ({ ...user, open: false }));
-
+    
                 setUserData(userDataWithOpenProp);
             } catch (error) {
                 console.error("Error fetching user data: ", error);
             }
         };
-
+    
         getUsersData();
     }, []);
 
