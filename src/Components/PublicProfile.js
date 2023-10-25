@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
 const PublicProfile = () => {
@@ -8,6 +8,9 @@ const PublicProfile = () => {
     const location = useLocation();
     const selectedUser = location.state?.selectedUser;
     const [showInfoTooltip, setShowInfoTooltip] = useState(false);
+    const totalTimeHours = Math.floor(selectedUser.totalTime / (60 * 60 * 1000));
+    const totalTimeMinutes = Math.floor((selectedUser.totalTime % (60 * 60 * 1000)) / (60 * 1000));
+
 
     const returnMembersPage = () => {
         navigate('/Members');
@@ -70,7 +73,7 @@ const PublicProfile = () => {
                         </div>
                     </div>
 
-                    <div className="mt-20 text-center border-b pb-12">
+                    <div className="mt-20 text-center border-b pb-5">
                         <h1 className="text-4xl font-medium text-gray-800 underline underline-offset-4">{selectedUser.name}</h1>
                         <div>
                             <h1 className="text-blue-600 font-bold underline underline-offset-2 decoration-2 decoration-gray-800 mt-5">Address:</h1>
@@ -87,6 +90,22 @@ const PublicProfile = () => {
                         <div>
                             <h1 className="text-blue-600 font-bold underline underline-offset-2 decoration-2 decoration-gray-800 mt-2">Email:</h1>
                             <p className=" text-gray-800">{selectedUser.email}</p>
+                        </div>
+                        <div className="mt-5 border-t pt-3">
+                            <h1 className="text-xl font-semibold underline underline-offset-2">User's Stats</h1>
+                            <div className="flex justify-center items-center">
+                                <div className="flex justify-between mt-2">
+                                    <div>
+                                        <div className="flex">
+                                            <div className="flex items-center">
+                                                <FontAwesomeIcon icon={faClock} className="text-blue-600" />
+                                            </div>
+                                            <h1 className="text-blue-600 underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Time checked in</h1>
+                                        </div>
+                                        <p className="text-gray-800">{totalTimeHours} hours and {totalTimeMinutes} minutes</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="mt-3 flex flex-col justify-center">
