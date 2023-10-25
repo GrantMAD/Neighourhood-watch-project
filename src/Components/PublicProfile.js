@@ -96,13 +96,17 @@ const PublicProfile = () => {
                             <div className="flex justify-center items-center">
                                 <div className="flex justify-between mt-2">
                                     <div>
-                                        <div className="flex">
+                                        <div className="flex justify-center">
                                             <div className="flex items-center">
                                                 <FontAwesomeIcon icon={faClock} className="text-blue-600" />
                                             </div>
                                             <h1 className="text-blue-600 underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Time checked in</h1>
                                         </div>
-                                        <p className="text-gray-800">{totalTimeHours} hours and {totalTimeMinutes} minutes</p>
+                                        {selectedUser.totalTime ? (
+                                            <p className="text-gray-800">{totalTimeHours} hours and {totalTimeMinutes} minutes</p>
+                                        ) : (
+                                            <p className="text-gray-800">User has not yet checked in</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
