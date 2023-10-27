@@ -36,7 +36,9 @@ const UserMetrics = () => {
                         }
                     }, 0);
 
-                    return { ...user, totalTime };
+                    const reportCount = user.reportCount || 0; 
+
+                    return { ...user, totalTime, reportCount };
                 });
 
                 const userDataWithOpenProp = userDataWithTotalTime.map(user => ({ ...user, open: false }));
