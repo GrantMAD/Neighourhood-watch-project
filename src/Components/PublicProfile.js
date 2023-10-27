@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faClock, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
 const PublicProfile = () => {
@@ -92,21 +92,30 @@ const PublicProfile = () => {
                             <p className=" text-gray-800">{selectedUser.email}</p>
                         </div>
                         <div className="mt-5 border-t pt-3">
-                            <h1 className="text-xl font-semibold underline underline-offset-2">User's Stats</h1>
+                            <h1 className="text-xl font-bold underline underline-offset-2">User's Stats</h1>
                             <div className="flex justify-center items-center">
                                 <div className="flex justify-between mt-2">
-                                    <div>
+                                    <div className="mr-5">
                                         <div className="flex justify-center">
                                             <div className="flex items-center">
-                                                <FontAwesomeIcon icon={faClock} className="text-blue-600" />
+                                                <FontAwesomeIcon icon={faClock} className="text-gray-800" />
                                             </div>
-                                            <h1 className="text-blue-600 underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Time checked in</h1>
+                                            <h1 className="text-blue-600 font-semibold underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Time checked in</h1>
                                         </div>
                                         {selectedUser.totalTime ? (
                                             <p className="text-gray-800">{totalTimeHours} hours and {totalTimeMinutes} minutes</p>
                                         ) : (
                                             <p className="text-gray-800">User has not yet checked in</p>
                                         )}
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-center">
+                                            <div className="flex items-center">
+                                            <FontAwesomeIcon icon={faFileAlt} className="text-gray-800" />
+                                            </div>
+                                            <h1 className="text-blue-600 font-semibold underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Report's posted</h1>
+                                        </div>
+                                        <p className="text-gray-800 ml-[18%]">{selectedUser.reportCount}</p>
                                     </div>
                                 </div>
                             </div>

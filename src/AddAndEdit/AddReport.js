@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { db, auth } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 import { Toaster, toast } from 'sonner';
@@ -19,6 +19,32 @@ const AddReport = () => {
     const navigate = useNavigate();
     const usersCollecctionRef = collection(db, "reports");
 
+    const updateUserReportCount = async (userUID) => {
+        const usersCollectionRef = collection(db, "users");
+    
+        try {
+            const querySnapshot = await getDocs(usersCollectionRef);
+            querySnapshot.forEach(async (userDoc) => {
+                const userData = userDoc.data();
+                if (userData.uid === userUID) {
+                    const reportCount = userData.reportCount || 0;
+                    const userDocRef = doc(db, "users", userDoc.id);
+    
+                    if (!userData.hasOwnProperty("reportCount")) {
+                        await updateDoc(userDocRef, {
+                            reportCount: 1,
+                        });
+                    } else {
+                        await updateDoc(userDocRef, {
+                            reportCount: reportCount + 1,
+                        });
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Error updating user report count:", error);
+        }
+    };
 
     const addReport = async (e) => {
         e.preventDefault();
@@ -34,6 +60,8 @@ const AddReport = () => {
         
         setIsAdded(!isAdded);
         toast.success('Report saved successfully!');
+
+        await updateUserReportCount(userUID);
         navigate('/IncidentReportPage');
     }
 
