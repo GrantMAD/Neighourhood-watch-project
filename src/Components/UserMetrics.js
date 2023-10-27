@@ -8,6 +8,7 @@ const UserMetrics = () => {
     const [userData, setUserData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("checkInAndOutTimes");
+    const [activeExtraTab, setActiveExtraTab] = useState("reportsPosted");
 
     useEffect(() => {
         const getUsersData = async () => {
@@ -17,6 +18,7 @@ const UserMetrics = () => {
 
                 const data = await getDocs(userQuery);
                 const userData = data.docs.map(doc => doc.data());
+                userData.sort((a, b) => a.name.localeCompare(b.name));
 
                 const userDataWithInitializedSessions = userData.map(user => ({
                     ...user,
@@ -51,8 +53,7 @@ const UserMetrics = () => {
         };
 
         getUsersData();
-    }, [searchQuery]); // Step 3: Add searchQuery to the dependency array
-
+    }, [searchQuery]);
 
     const toggleAccordion = (email) => {
         setUserData(prevData => {
@@ -74,6 +75,10 @@ const UserMetrics = () => {
         setActiveTab(tabId);
     };
 
+    const handleExtraTabClick = (tabId) => {
+        setActiveExtraTab(tabId);
+    };
+
     return (
         <div className="min-h-screen bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
             <div className="flex justify-center pt-20 md:pt-10">
@@ -84,9 +89,9 @@ const UserMetrics = () => {
                 <p>This is where user metrics are available to view. Below there are multiple different tabs on which each display's different user metrics for all users within Sector 2. More metrics will be added in the future. This page is only visible to admins.</p>
             </div>
 
-            <div>
+            <div className="lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                 <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
-                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                    <ul className="flex flex-wrap -mb-px text-sm font-medium" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                         <li className="mr-2" role="presentation">
                             <button
                                 className={`inline-block p-4 border-b-2 rounded-t-lg ${activeTab === "checkInAndOutTimes" ? "border-blue-600" : ""}`}
@@ -122,15 +127,15 @@ const UserMetrics = () => {
 
                 <div id="myTabContent">
                     <div
-                        className={`${activeTab === "checkInAndOutTimes" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg`}
+                        className={`${activeTab === "checkInAndOutTimes" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg border border-blue-600`}
                         id="checkInAndOutTimes"
                         role="tabpanel"
                         aria-labelledby="checkInAndOutTimes-tab"
                     >
                         <div className="flex justify-center">
-                            <h1 className="mb-3 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">User Check in and out times</h1>
+                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">User Check in and out times</h1>
                         </div>
-                        <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-2/12 mb-3">
+                        <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-4/12 mb-3">
                             <button
                                 className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none"
                             >
@@ -204,20 +209,67 @@ const UserMetrics = () => {
                             </div>
                         ))}
                     </div>
-
-                    {/* Add similar divs for other tab content */}
                 </div>
                 <div id="myTabContent">
                     <div
-                        className={`${activeTab === "extraUserMetrics" ? "block" : "hidden"} p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
+                        className={`${activeTab === "extraUserMetrics" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800 border border-blue-600`}
                         id="extraUserMetrics"
                         role="tabpanel"
                         aria-labelledby="extraUserMetrics-tab"
                     >
-                        <p>There are currently no additional metrics to display</p>
+                        <div className="flex justify-center">
+                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">Additional user metrics</h1>
+                        </div>
+                        <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+                            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="extraUserMetricsTab" data-tabs-toggle="#extraUserMetricsTabContent" role="tablist">
+                                <li className="mr-2" role="presentation">
+                                    <button
+                                        className={`inline-block p-4 border-b-2 rounded-t-lg ${activeExtraTab === "reportsPosted" ? "border-blue-600" : ""}`}
+                                        id="reportsPosted-tab"
+                                        data-tabs-target="#reportsPosted"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="reportsPosted"
+                                        aria-selected={activeExtraTab === "reportsPosted"}
+                                        onClick={() => handleExtraTabClick("reportsPosted")}
+                                    >
+                                        Reports Posted
+                                    </button>
+                                </li>
+                                {/* Add more tabs if needed */}
+                            </ul>
+                        </div>
+
+                        <div id="extraUserMetricsTabContent">
+                            <div
+                                className={`${activeExtraTab === "reportsPosted" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800`}
+                                id="reportsPosted"
+                                role="tabpanel"
+                                aria-labelledby="reportsPosted-tab"
+                            >
+                                <div>
+                                    <table className="w-full border-collapse border border-gray-800">
+                                        <thead>
+                                            <tr className="bg-gray-800 text-white">
+                                                <th className="border border-gray-800 p-2">Name</th>
+                                                <th className="border border-gray-800 p-2">Reports Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {userData.map(user => (
+                                                <tr key={user.email} className="border border-gray-800">
+                                                    <td className="border border-gray-800 p-2">{user.name}</td>
+                                                    <td className="text-center border border-gray-800 p-2">{user.reportCount}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            {/* Add similar divs for other tabs within "Additional user metrics" */}
+                        </div>
                     </div>
 
-                    {/* Add similar divs for other tab content */}
                 </div>
             </div>
         </div>
