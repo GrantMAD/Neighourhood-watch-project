@@ -115,7 +115,7 @@ const PublicProfile = () => {
                                             </div>
                                             <h1 className="text-blue-600 font-semibold underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Report's posted</h1>
                                         </div>
-                                        <p className="text-gray-800 ml-[18%]">{selectedUser.reportCount}</p>
+                                        <p className="text-gray-800 ml-[18%]">{selectedUser.reportCount || 0}</p>
                                     </div>
                                 </div>
                             </div>
