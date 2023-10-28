@@ -7,6 +7,7 @@ import { db } from "../firebase";
 const UserMetrics = () => {
     const [userData, setUserData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [reportsSearchQuery, setReportsSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("checkInAndOutTimes");
     const [activeExtraTab, setActiveExtraTab] = useState("reportsPosted");
 
@@ -36,7 +37,7 @@ const UserMetrics = () => {
                         }
                     }, 0);
 
-                    const reportCount = user.reportCount || 0; 
+                    const reportCount = user.reportCount || 0;
 
                     return { ...user, totalTime, reportCount };
                 });
@@ -71,6 +72,10 @@ const UserMetrics = () => {
 
     const handleSearchInputChange = (e) => {
         setSearchQuery(e.target.value);
+    };
+
+    const handleReportsSearchInputChange = (e) => {
+        setReportsSearchQuery(e.target.value);
     };
 
     const handleTabClick = (tabId) => {
@@ -129,7 +134,7 @@ const UserMetrics = () => {
 
                 <div id="myTabContent">
                     <div
-                        className={`${activeTab === "checkInAndOutTimes" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg border border-blue-600`}
+                        className={`${activeTab === "checkInAndOutTimes" ? "block" : "hidden"} p-16 py-10 rounded-lg bg-gray-50 dark:bg-gray-800 shadow-lg border border-blue-600`}
                         id="checkInAndOutTimes"
                         role="tabpanel"
                         aria-labelledby="checkInAndOutTimes-tab"
@@ -145,7 +150,7 @@ const UserMetrics = () => {
                             </button>
                             <input
                                 type="search"
-                                placeholder="Name/CPF Sector"
+                                placeholder="User Name"
                                 className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
                                 value={searchQuery}
                                 onChange={handleSearchInputChange}
@@ -238,17 +243,31 @@ const UserMetrics = () => {
                                         Reports Posted
                                     </button>
                                 </li>
-                                {/* Add more tabs if needed */}
                             </ul>
                         </div>
 
                         <div id="extraUserMetricsTabContent">
                             <div
-                                className={`${activeExtraTab === "reportsPosted" ? "block" : "hidden"} p-10 rounded-lg bg-gray-50 dark:bg-gray-800`}
+                                className={`${activeExtraTab === "reportsPosted" ? "block" : "hidden"} p-10 pt-5 rounded-lg bg-gray-50 dark:bg-gray-800`}
                                 id="reportsPosted"
                                 role="tabpanel"
                                 aria-labelledby="reportsPosted-tab"
                             >
+                                <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-4/12 mb-3">
+                                    <button
+                                        className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none"
+                                    >
+                                        Search
+                                    </button>
+                                    <input
+                                        type="search"
+                                        placeholder="User Name"
+                                        className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
+                                        value={reportsSearchQuery}
+                                        onChange={handleReportsSearchInputChange}
+                                    />
+                                </div>
+                                <p className="mb-5">Here you can search for users and see how many reports they have posted on the Incident report page. To search for a user input their name in the search bar.</p>
                                 <div>
                                     <table className="w-full border-collapse border border-gray-800">
                                         <thead>
@@ -258,17 +277,19 @@ const UserMetrics = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {userData.map(user => (
-                                                <tr key={user.email} className="border border-gray-800">
-                                                    <td className="border border-gray-800 p-2">{user.name}</td>
-                                                    <td className="text-center border border-gray-800 p-2">{user.reportCount}</td>
-                                                </tr>
-                                            ))}
+                                            {userData
+                                                .filter(user => user.name.toLowerCase().includes(reportsSearchQuery.toLowerCase()))
+                                                .map(user => (
+                                                    <tr key={user.email} className="border border-gray-800">
+                                                        <td className="border border-gray-800 p-2">{user.name}</td>
+                                                        <td className="text-center border border-gray-800 p-2">{user.reportCount}</td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            {/* Add similar divs for other tabs within "Additional user metrics" */}
                         </div>
                     </div>
 
