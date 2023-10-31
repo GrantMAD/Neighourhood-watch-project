@@ -46,14 +46,14 @@ const Events = () => {
     }, [usersCollectionRef]);
 
     const deleteEvent = async (id, imageRef) => {
-        const storyDoc = doc(db, "storys", id);
-        await deleteDoc(storyDoc);
+        const eventDoc = doc(db, "events", id);
+        await deleteDoc(eventDoc);
 
         // Delete the story's image from storage
         const storageRef = ref(storage, imageRef);
         await deleteObject(storageRef);
 
-        setEvents(events.filter((story) => story.id !== id));
+        setEvents(events.filter((event) => event.id !== id));
         setIsDeleted(!isDeleted);
     };
 
