@@ -96,10 +96,10 @@ const LandingPage = () => {
               <p className="text-zinc-200 mb-3">To find out more information on how these groups work and the benefits of creating a group in your road or your local sector click on the contact us button and send us a message.
               </p>
               <div>
-                <button 
+                <button
                   className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
                   onClick={handleContactPage}
-                  >
+                >
                   Contact Us
                 </button>
               </div>
@@ -110,6 +110,47 @@ const LandingPage = () => {
             alt=""
             src="/images/Sector-2-logo.png"
           />
+        </div>
+      </div>
+      <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500 w-full">
+        <div className="flex justify-between">
+          <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">EVENTS</h1>
+          {userRole === "admin" && (
+            <button
+              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+              onClick={addStory}
+            >
+              Add Event
+            </button>
+          )}
+        </div>
+        <hr className="mb-5"></hr>
+        <h1 className="text-2xl font-semibold underline underline-offset-8 mb-3 decoration-1 decoration-zinc-200 text-zinc-200">Ongoing events</h1>
+        <div className="flex flex-row">
+          <div className="text-center my-5 mx-10">
+            <img
+              className="lg:h-52  border border-blue-600 rounded-md"
+              alt=""
+              src="/images/Seaview.PNG"
+            />
+            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
+          </div>
+          <div className="text-center my-5 mx-10">
+            <img
+              className="lg:h-52 border border-blue-600 rounded-md"
+              alt=""
+              src="/images/Seaview.PNG"
+            />
+            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
+          </div>
+          <div className="text-center my-5 mx-10">
+            <img
+              className="lg:h-52 border border-blue-600 rounded-md"
+              alt=""
+              src="/images/Seaview.PNG"
+            />
+            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
+          </div>
         </div>
       </div>
       <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
