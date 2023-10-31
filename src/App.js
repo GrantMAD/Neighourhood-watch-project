@@ -22,6 +22,7 @@ import PublicProfile from './Components/PublicProfile';
 import AddReport from './AddAndEdit/AddReport';
 import AddStory from './AddAndEdit/AddStory';
 import AddImage from './AddAndEdit/AddImage';
+import AddEvent from './AddAndEdit/AddEvent'
 import HomePage from './Components/HomePage';
 import MainStoryPage from './Components/MainStoryPage';
 import WelcomeStory from './Components/WelcomeStory';
@@ -32,6 +33,8 @@ import AddNeighbourhoodRequest from './AddAndEdit/AddNeighbourhoodRequest';
 import Requests from './Components/Requests';
 import SectorAddition from './Components/SectorAddition';
 import UserMetrics from './Components/UserMetrics';
+import Events from './Components/Events'
+import EventPage from './Components/EventPage';
 
 function App() {
 
@@ -58,6 +61,7 @@ function App() {
         <Route path="/MembersPanel" element={ <MembersPanel/>} />
         <Route path="/ContactPage" element={ <ContactPage/>} />
         <Route path="/AboutUs" element={ <AboutUs/>} />
+        <Route path="/Events" element={ <Events/>} />
         <Route path="/GalleryPage" element={ <GalleryPage/>} />
         <Route path="/ProfilePage" element={ <ProfilePage/>} />
         <Route path="/Profile" element={ <Profile/>} />
@@ -65,6 +69,7 @@ function App() {
         <Route path="/AddReport" element={ <AddReport/>} />
         <Route path="/AddStory" element={ <AddStory/>} />
         <Route path="/AddImage" element={ <AddImage/>} />
+        <Route path="/AddEvent" element={ <AddEvent/>} />
         <Route path="/AddNeighbourhoodRequest" element={ <AddNeighbourhoodRequest/>} />
         <Route path="/Requests" element={ <Requests/>} />
         <Route path="/PasswordResetEmail" element={ <PasswordResetEmail funcNav={setShowNav}/>} />
@@ -74,6 +79,7 @@ function App() {
         <Route path="/SectorContent" element={ <SectorContent />} />
         <Route path="/SectorAddition" element={ <SectorAddition />} />
         <Route path="/UserMetrics" element={ <UserMetrics />} />
+        <Route path="/EventPage" element={ <EventPage />} />
         </Routes>
       { showNav &&
         <Footer/>
