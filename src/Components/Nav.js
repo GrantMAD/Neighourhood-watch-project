@@ -101,30 +101,30 @@ const Nav = () => {
                 const data = await getDocs(userQuery);
                 const userDocRef = data.docs[0].ref;
                 const userDoc = data.docs[0].data();
-    
+
                 const existingSessions = userDoc.sessions || [];
-    
+
                 const sessionID = Date.now().toString();
                 const currentTime = new Date();
-    
+
                 const lastSession = existingSessions[existingSessions.length - 1];
-    
+
                 if (checkedIn) {
                     if (lastSession && !lastSession.checkOutTime) {
                         lastSession.checkOutTime = format(currentTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
-    
+
                         // Calculate totalTime and update it
                         const checkInTime = new Date(lastSession.checkInTime);
                         const checkOutTime = new Date(lastSession.checkOutTime);
                         const totalTime = checkOutTime - checkInTime;
-    
+
                         // Update totalTime in session
                         lastSession.totalTime = totalTime;
-    
+
                         // Update totalTime in user's document
                         const userTotalTime = userDoc.totalTime || 0;
                         const newUserTotalTime = userTotalTime + totalTime;
-    
+
                         await updateDoc(userDocRef, {
                             "checkedIn": !checkedIn,
                             "sessions": existingSessions,
@@ -134,28 +134,28 @@ const Nav = () => {
                 } else {
                     const newSession = {
                         sessionID,
-                        checkInTime: format(currentTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"), 
+                        checkInTime: format(currentTime, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
                         checkOutTime: null,
                         totalTime: 0  // Add totalTime field
                     };
-    
+
                     existingSessions.push(newSession);
-                }            
-    
+                }
+
                 await updateDoc(userDocRef, {
                     "checkedIn": !checkedIn,
-                    "sessions": existingSessions         
+                    "sessions": existingSessions
                 });
-    
+
                 setCheckedIn(!checkedIn);
             }
         } catch (error) {
             console.log(error);
         }
     };
-    
-    
-    
+
+
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -263,6 +263,8 @@ const Nav = () => {
                                     <div className="lg:ml-10 flex items-center">
                                         <a href="/LandingPage"
                                             className="mr-3 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
+                                        <a href="/Events" className=" text-sm font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Events
+                                        </a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Incident
                                                 Report's</a>
@@ -533,6 +535,9 @@ const Nav = () => {
                                     <ul class="flex flex-col p-2 mt-4 divide-y divide-gray-500 border border-gray-800 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                                         <li>
                                             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Events" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Events</a>
                                         </li>
                                         {user && userRole !== 'pendingUser' &&
                                             <li>

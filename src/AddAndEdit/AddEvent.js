@@ -42,16 +42,16 @@ const AddEvent = () => {
     };
 
      return (
-        <main className="h-screen p-10 bg-zinc-200"
+        <main className="min-h-screen p-10 bg-zinc-200"
         ref={mainContainerRef}
         >
-            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Story</h1>
+            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Event</h1>
             <div className="mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                     <div className="md:col-span-1">
                         <div className="px-4 sm:px-0">
-                            <h3 className="text-lg font-medium leading-6 text-gray-900">News Story</h3>
-                            <p className="mt-1 text-sm text-gray-600">To create news storys add information in inputs</p>
+                            <h3 className="text-lg font-medium leading-6 text-gray-900">Events</h3>
+                            <p className="mt-1 text-sm text-gray-600">To create an event add information in inputs and save.</p>
                         </div>
                     </div>
                     <div className="mt-5 md:col-span-2 md:mt-0">
@@ -155,7 +155,7 @@ const AddEvent = () => {
                                         className="mr-5 inline-flex justify-center rounded-md border border-transparent bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         onClick={(e) => {
                                             addEvent(e);
-                                            toast.success('Please wait, story being added')
+                                            toast.success('Please wait, event being added')
                                         }}
                                     >
                                         Save
