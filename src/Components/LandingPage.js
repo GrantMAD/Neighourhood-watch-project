@@ -12,6 +12,7 @@ const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userRole, setUserRole] = useState("");
   const usersCollectionRef = collection(db, "users");
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,13 +44,31 @@ const LandingPage = () => {
     fetchStorys();
   }, []);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const eventsCollectionRef = collection(db, 'events');
+      const eventsQuery = query(eventsCollectionRef);
+      const eventsData = await getDocs(eventsQuery);
+      setEvents(eventsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setIsLoading(false);
+    };
+
+    fetchEvents();
+  }, []);
+
+
   const addStory = () => {
     navigate('../AddStory')
+  }
+
+  const addEvent = () => {
+    navigate('../AddEvent')
   }
 
   const handleStoryClick = (story) => {
     navigate('/StoryPage', { state: { story: story } });
   }
+
 
   const handleWelcomeStoryClick = () => {
     navigate('/WelcomeStory');
@@ -57,6 +76,14 @@ const LandingPage = () => {
 
   const handleContactPage = () => {
     navigate('/ContactPage');
+  }
+
+  const handleViewAllEvents = () => {
+    navigate('/Events');
+  }
+
+  const handleEventClick = (event) => {
+    navigate('/EventPage', { state: { event: event } });
   }
 
   const timeAgo = (timestamp) => {
@@ -114,44 +141,45 @@ const LandingPage = () => {
       </div>
       <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500 w-full">
         <div className="flex justify-between">
-          <h1 className="text-5xl text-zinc-200 mb-3 font-semibold">EVENTS</h1>
+          <h1 className="lg:text-5xl text-2xl text-zinc-200 mb-3 font-semibold">EVENTS</h1>
           {userRole === "admin" && (
             <button
-              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
-              onClick={addStory}
+              className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 lg:mt-1"
+              onClick={addEvent}
             >
               Add Event
             </button>
           )}
         </div>
         <hr className="mb-5"></hr>
-        <h1 className="text-2xl font-semibold underline underline-offset-8 mb-3 decoration-1 decoration-zinc-200 text-zinc-200">Ongoing events</h1>
-        <div className="flex flex-row">
-          <div className="text-center my-5 mx-10">
-            <img
-              className="lg:h-52  border border-blue-600 rounded-md"
-              alt=""
-              src="/images/Seaview.PNG"
-            />
-            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
-          </div>
-          <div className="text-center my-5 mx-10">
-            <img
-              className="lg:h-52 border border-blue-600 rounded-md"
-              alt=""
-              src="/images/Seaview.PNG"
-            />
-            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
-          </div>
-          <div className="text-center my-5 mx-10">
-            <img
-              className="lg:h-52 border border-blue-600 rounded-md"
-              alt=""
-              src="/images/Seaview.PNG"
-            />
-            <h1 className="font-semibold text-lg mt-3">This is the Event title.</h1>
-          </div>
-        </div>
+        <h1 className="text-2xl font-semibold underline underline-offset-8 mb-3 decoration-1 decoration-zinc-200 text-zinc-200 text-center">Ongoing events</h1>
+        {events.length > 0 ? (
+          <>
+            <div className="flex lg:flex-row flex-col items-center">
+              {events.slice(0, 3).map((event) => (
+                <div className="text-center my-5 mx-10 lg:w-1/3 hover:scale-105 cursor-pointer" key={event.id} onClick={() => handleEventClick(event)}>
+                  <img
+                    className="h-52 w-52 md:w-96 lg:h-56 lg:w-96 object-fill border border-white rounded-md"
+                    alt=""
+                    src={event.image} />
+                  <h1 className="font-semibold text-xl mt-3">{event.eventTitle}</h1>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center mt-3">
+              <button
+                className="bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-zinc-200 font-bold lg:py-2 lg:px-4 py-1 px-2 rounded mr-2 h-1/4 mt-2 lg:mt-1"
+                onClick={handleViewAllEvents}
+              >
+                View All Events
+              </button>
+            </div>
+          </>
+        ) : (
+          <p className="mt-5 mb-5 text-xl text-center">Currently no events ongoing.</p>
+        )}
+
+
       </div>
       <div className="mt-10 p-5 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
         <div className="flex justify-between">

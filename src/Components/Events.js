@@ -4,12 +4,14 @@ import { collection, getDocs, query, where, onSnapshot, doc, deleteDoc } from "f
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
+import SkeletonStory from "../Skeletons/SkeletonStory";
 
 const Events = () => {
     const storage = getStorage();
     const [events, setEvents] = useState([]);
     const [userRole, setUserRole] = useState("");
     const [isDeleted, setIsDeleted] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const usersCollectionRef = collection(db, "users");
     const [hoveredDeleteButtonId, setHoveredDeleteButtonId] = useState(null);
@@ -23,6 +25,7 @@ const Events = () => {
             const eventsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
             setEvents(eventsData);
+            setIsLoading(false);
         };
 
         fetchEvents();
@@ -89,45 +92,54 @@ const Events = () => {
                 </div>
                 <hr></hr>
                 <div className="mt-8">
-                    {events.length > 0 ? (
-                        <ul className="mt-5">
+                    {isLoading ? (
+                        // Show skeleton loader while loading
+                        <SkeletonStory />
+                    ) : events.length > 0 ? (
+                        <ul className="w-full mt-5">
                             {events.map(event => (
-                                <li
-                                    className="flex justify-between mb-10"
-                                    key={event.id}>
-                                    <div>
-                                        <h3 className="text-2xl text-zinc-200 mb-2 decoration-1 underline font-semibold">{event.eventTitle}</h3>
-                                        <p className="text-base mt-3 text-zinc-200">{event.contents} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleEventClick(event)}>...Read More</button></p>
-                                        <Toaster richColors />
-                                        <div>
-                                                    <button
-                                                        className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-105"
-                                                        onMouseEnter={() => handleMouseEnter(event.id)}
-                                                        onMouseLeave={handleMouseLeave}
-                                                        onClick={() => {
-                                                            deleteEvent(event.id, event.image);
-                                                            toast.error('Story has been deleted');
-                                                        }}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                    {hoveredDeleteButtonId === event.id && (
-                                                        <div className="absolute bg-zinc-200 rounded-md px-2 py-1 mt-3 text-gray-800 border border-gray-800 whitespace-nowrap left-56 font-semibold">
-                                                            By clicking Delete you will be deleting the selected story from the database.
-                                                        </div>
-                                                    )}
-                                                </div>
-                                    </div>
-                                    <img
-                                        src={event.image}
-                                        alt={event.eventTitle}
-                                        className="w-full max-h-[250px] min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md lg:border lg:border-zinc-200 rounded-md"
-                                    />
-                                </li>
+                                <ul className="w-full mt-5">
+                                {events.map(event => (
+                                    <li
+                                        className="flex md:flex-row flex-col justify-between mb-10"
+                                        key={event.id}>
+                                        <div className="w-full md:w-3/5">
+                                            <h3 className="text-2xl text-zinc-200 mb-2 decoration-1 underline font-semibold">{event.eventTitle}</h3>
+                                            <p className="text-base mt-3 text-zinc-200">{event.contents} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleEventClick(event)}>...Read More</button></p>
+                                            <Toaster richColors />
+                                            <div className="mt-3">
+                                                <button
+                                                    className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-105"
+                                                    onMouseEnter={() => handleMouseEnter(event.id)}
+                                                    onMouseLeave={handleMouseLeave}
+                                                    onClick={() => {
+                                                        deleteEvent(event.id, event.image);
+                                                        toast.error('Event has been deleted');
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
+                                                {hoveredDeleteButtonId === event.id && (
+                                                    <div className="absolute bg-zinc-200 rounded-md px-2 py-1 mt-3 text-gray-800 border border-gray-800 whitespace-nowrap left-56 font-semibold">
+                                                        By clicking Delete you will be deleting the selected event from the database.
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-end w-full md:w-2/5 mt-5 sm:ml-5">
+                                            <img
+                                                src={event.image}
+                                                alt={event.eventTitle}
+                                                className="w-full lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md rounded-md lg:border"
+                                            />
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                             ))}
                         </ul>
                     ) : (
-                        <p className="mt-5 mb-5">Currently no events</p>
+                        <p className="mt-5 mb-5 text-xl">Currently no events</p>
                     )}
                 </div>
             </div>
