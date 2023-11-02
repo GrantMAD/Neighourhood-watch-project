@@ -69,7 +69,6 @@ const LandingPage = () => {
     navigate('/StoryPage', { state: { story: story } });
   }
 
-
   const handleWelcomeStoryClick = () => {
     navigate('/WelcomeStory');
   }
@@ -88,6 +87,11 @@ const LandingPage = () => {
 
   const timeAgo = (timestamp) => {
     return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+  };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   const Content = `Introducing "The Neighbourhood Watch App" – your community's ultimate companion for safety, awareness, and unity, currently in beta. This user-friendly and innovative application empowers residents to come together and actively participate in safeguarding their neighborhood. Stay informed and up-to-date with the latest happenings in your community through the comprehensive news area. The app curates local news, events, and updates, ensuring that every member remains well-informed and connected to what matters most in their area.
@@ -152,17 +156,19 @@ const LandingPage = () => {
           )}
         </div>
         <hr className="mb-5"></hr>
-        <h1 className="text-2xl font-semibold underline underline-offset-8 mb-3 decoration-1 decoration-zinc-200 text-zinc-200 text-center">Ongoing events</h1>
         {events.length > 0 ? (
           <>
-            <div className="flex lg:flex-row flex-col items-center">
+            <div className="flex lg:flex-row flex-col justify-center">
               {events.slice(0, 3).map((event) => (
                 <div className="text-center my-5 mx-10 lg:w-1/3 hover:scale-105 cursor-pointer" key={event.id} onClick={() => handleEventClick(event)}>
-                  <img
-                    className="h-52 w-52 md:w-96 lg:h-56 lg:w-96 object-fill border border-white rounded-md"
-                    alt=""
-                    src={event.image} />
-                  <h1 className="font-semibold text-xl mt-3">{event.eventTitle}</h1>
+                  <div className="flex justify-center">
+                    <img
+                      className="h-52 w-52 md:w-96 lg:h-56 lg:w-96 object-fill border border-white rounded-md"
+                      alt="eventImage"
+                      src={event.image} />
+                  </div>
+                  <h1 className="font-semibold text-xl mt-3 underline underline-offset-2">{event.eventTitle}</h1>
+                  <h1>{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
                 </div>
               ))}
             </div>
@@ -176,7 +182,7 @@ const LandingPage = () => {
             </div>
           </>
         ) : (
-          <p className="mt-5 mb-5 text-xl text-center">Currently no events ongoing.</p>
+          <p className="mt-5 mb-5 text-xl text-center">Currently no events scheduled</p>
         )}
 
 
