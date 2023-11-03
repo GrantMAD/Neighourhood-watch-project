@@ -13,6 +13,8 @@ const AddEvent = () => {
     const [newEventTitle, setNewEventTitle] = useState();
     const [newEventContent, setNewEventContent] = useState();
     const [EventImageUpload, setEventImageUpload] = useState();
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
     const [isAdded, setIsAdded] = useState(false);
     const navigate = useNavigate();
     const usersCollecctionRef2 = collection(db, "events");
@@ -26,7 +28,7 @@ const AddEvent = () => {
         e.preventDefault();
         const URL = await uploadStoryImage();
         const timestamp = new Date();
-        await addDoc(usersCollecctionRef2, { eventTitle: newEventTitle, contents: newEventContent, image: URL, timestamp: timestamp.toISOString(), });
+        await addDoc(usersCollecctionRef2, { eventTitle: newEventTitle, eventStartDate: startDate, eventEndDate: endDate, contents: newEventContent, image: URL, timestamp: timestamp.toISOString(), });
         setIsAdded(!isAdded)
         navigate('/LandingPage')
     }
@@ -41,9 +43,9 @@ const AddEvent = () => {
         })
     };
 
-     return (
+    return (
         <main className="min-h-screen p-10 bg-zinc-200"
-        ref={mainContainerRef}
+            ref={mainContainerRef}
         >
             <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Event</h1>
             <div className="mt-10 sm:mt-0">
@@ -59,7 +61,7 @@ const AddEvent = () => {
                             <div className="overflow-hidden shadow sm:rounded-md">
                                 <div className="bg-white px-4 py-5 sm:p-6">
                                     <div className="grid grid-cols-6 gap-6">
-                                        <div className="col-span-6 sm:col-span-3">
+                                        <div className="w-1/2 col-span-6 sm:col-span-4">
                                             <label
                                                 htmlFor="title"
                                                 className="block text-sm font-medium text-gray-700"
@@ -76,6 +78,38 @@ const AddEvent = () => {
                                                 onChange={(event) => {
                                                     setNewEventTitle(event.target.value);
                                                 }}
+                                            />
+                                        </div>
+                                        <div className="w-1/2 col-span-6 sm:col-span-4">
+                                            <label
+                                                htmlFor="start-date"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                Start Date
+                                            </label>
+                                            <input
+                                                type="date"
+                                                id="start-date"
+                                                name="start-date"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                value={startDate}
+                                                onChange={(e) => setStartDate(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="w-1/2 col-span-6 sm:col-span-4">
+                                            <label
+                                                htmlFor="end-date"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                End Date
+                                            </label>
+                                            <input
+                                                type="date"
+                                                id="end-date"
+                                                name="end-date"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                value={endDate}
+                                                onChange={(e) => setEndDate(e.target.value)}
                                             />
                                         </div>
                                         <div className="col-span-6 sm:col-span-4">

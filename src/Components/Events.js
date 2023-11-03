@@ -76,6 +76,11 @@ const Events = () => {
         setHoveredDeleteButtonId(null);
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      };
+
     return (
         <main className="pt-20 pb-10 pr-10 md:pr-20 lg:pr-60 pl-10 md:pl-20 lg:pl-60 bg-zinc-200 min-h-screen">
             <div className="mt-10 p-10 pt-6 bg-gray-800 text-white rounded-md shadow-lg shadow-gray-500">
@@ -104,10 +109,11 @@ const Events = () => {
                                         className="flex md:flex-row flex-col justify-between mb-10"
                                         key={event.id}>
                                         <div className="w-full md:w-3/5">
-                                            <h3 className="text-2xl text-zinc-200 mb-2 decoration-1 underline font-semibold">{event.eventTitle}</h3>
+                                            <h3 className="text-2xl text-zinc-200 mb-2 decoration-1 underline underline-offset-2 font-semibold">{event.eventTitle}</h3>
+                                            <h1>{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
                                             <p className="text-base mt-3 text-zinc-200">{event.contents} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleEventClick(event)}>...Read More</button></p>
                                             <Toaster richColors />
-                                            <div className="mt-3">
+                                            <div className="mt-5">
                                                 <button
                                                     className="bg-gray-800 hover:bg-red-500 hover:border-red-700 text-zinc-200 font-bold py-2 px-4 rounded shadow-sm shadow-red-500 border-2 border-red-500 hover:scale-105"
                                                     onMouseEnter={() => handleMouseEnter(event.id)}
@@ -139,7 +145,7 @@ const Events = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="mt-5 mb-5 text-xl">Currently no events</p>
+                        <p className="mt-5 mb-5 text-xl">Currently no events scheduled</p>
                     )}
                 </div>
             </div>

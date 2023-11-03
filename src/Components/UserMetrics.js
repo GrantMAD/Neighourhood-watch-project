@@ -168,6 +168,7 @@ const UserMetrics = () => {
 
                                 {user.open && (
                                     <div className="bg-white p-3 border border-gray-800">
+                                        <h1 className="text-center text-xl font-bold underline underline-offset-2">Time logs</h1>
                                         {user.sessions && user.sessions.length > 0 ? (
                                             user.sessions.map(session => (
                                                 <div key={session.sessionID} className="flex justify-between border-b border-gray-300 py-2">

@@ -17,6 +17,11 @@ const EventPage = (props) => {
     navigate('/Events')
   }
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <div className="flex-container flex flex-col min-h-screen"
       ref={mainContainerRef}
@@ -32,6 +37,7 @@ const EventPage = (props) => {
               alt={event?.eventTitle}
               src={event?.image}
             />
+            <h1 className="mb-5 font-semibold text-lg">{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
             <p className="text-zinc-200 whitespace-pre-line">{event?.contents}</p>
           </div>
           <div className="pt-5 pb-2">
