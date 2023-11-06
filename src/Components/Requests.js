@@ -76,8 +76,11 @@ const Requests = () => {
             <p className="text-center mt-5">Requests below are from users for the addition of new neighborhoods to the Sector 2 group.</p>
 
             <div className="mt-5">
-                {requests.map((request, index) => (
-                    <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
+            {requests.length === 0 ? (
+                    <p className="text-center lg:text-2xl md:text-2xl text-lg font-semibold">There are currently no requests</p>
+                ) : (
+                    requests.map((request, index) => (
+                        <div class="flex flex-col items-center mb-3 lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
                         <div class="w-full pr-10 pl-10">
                             <div key={request.id}>
                                 <input type="checkbox" name="panel" id={`panel-${index + 1}`} class="hidden" />
@@ -144,7 +147,8 @@ const Requests = () => {
                             </div>
                         </div>
                     </div>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     );
