@@ -68,10 +68,10 @@ const AboutUs = () => {
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
-                                src="/images/Kyara-SECRETARY.jpg"
+                                src="/images/profileAvatar.png"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">Kyara Naicker</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">TBD</h1>
                         <h1 className="text-center text-gray-500">Secretary</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
