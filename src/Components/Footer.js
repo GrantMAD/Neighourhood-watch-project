@@ -36,6 +36,11 @@ const Footer = () => {
                             Home
                         </a>
                     </div>
+                    <div className="px-5 py-2">
+                        <a href="/Events" className="text-base leading-6 text-white hover:text-lg font-medium">
+                            Events
+                        </a>
+                    </div>
                     {user && userRole !== 'pendingUser' &&
                         <div className="px-5 py-2">
                             <a href="/IncidentReportPage" className="text-base leading-6 text-white hover:text-lg font-medium">

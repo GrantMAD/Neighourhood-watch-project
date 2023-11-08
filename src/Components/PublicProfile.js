@@ -111,7 +111,7 @@ const PublicProfile = () => {
                                     <div>
                                         <div className="flex justify-center">
                                             <div className="flex items-center">
-                                            <FontAwesomeIcon icon={faFileAlt} className="text-gray-800" />
+                                                <FontAwesomeIcon icon={faFileAlt} className="text-gray-800" />
                                             </div>
                                             <h1 className="text-blue-600 font-semibold underline underline-offset-2 decoration-2 decoration-gray-800 ml-2">Report's posted</h1>
                                         </div>
@@ -123,9 +123,12 @@ const PublicProfile = () => {
                     </div>
                     <div className="mt-3 flex flex-col justify-center">
                         <h1 className="text-2xl text-blue-600 font-bold mt-2 underline underline-offset-4 decoration-2 decoration-gray-800 text-center mb-5">About</h1>
-                        <p className="text-gray-800 text-center font-light lg:px-16">{selectedUser.about}</p>
+                        {selectedUser.about ? (
+                            <p className="text-gray-800 text-center font-light lg:px-16">{selectedUser.about}</p>
+                        ) : (
+                            <p className="text-gray-800 text-center font-light lg:px-16">None</p>
+                        )}
                     </div>
-
                 </div>
 
             </div>
