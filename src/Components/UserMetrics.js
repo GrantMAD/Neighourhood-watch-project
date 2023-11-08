@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
-import { faFileAlt, faClock, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faClock, faChartBar, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { db } from "../firebase";
 
@@ -163,7 +163,10 @@ const UserMetrics = () => {
                                     <div>
                                         <FontAwesomeIcon icon={faFileAlt} className="mr-4 text-white" />
                                     </div>
-                                    <h2 className="text-lg text-zinc-200 font-semibold">{user.name}</h2>
+                                    <div className="flex items-center justify-between w-full">
+                                        <h2 className="text-zinc-200 font-semibold">{user.name}</h2>
+                                        <FontAwesomeIcon icon={user.open ? faMinus : faPlus} className={`ml-2, text-white`} />
+                                    </div>
                                 </div>
 
                                 {user.open && (
@@ -273,8 +276,8 @@ const UserMetrics = () => {
                                     <table className="w-full border-collapse border border-gray-800">
                                         <thead>
                                             <tr className="bg-gray-800 text-white">
-                                                <th className="border border-gray-800 p-2">Name</th>
-                                                <th className="border border-gray-800 p-2">Reports Count</th>
+                                                <th className="border border-gray-800 p-2">User Name</th>
+                                                <th className="border border-gray-800 p-2">Report Count</th>
                                             </tr>
                                         </thead>
                                         <tbody>
