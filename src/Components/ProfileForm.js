@@ -234,7 +234,7 @@ const ProfileForm = () => {
                             District
                           </label>
                           <select
-                            value={userData.district}
+                            defaultValue={userData.district}
                             placeholder="Sea View/Hillary"
                             type="text"
                             name="district"
