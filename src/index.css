@@ -55,3 +55,7 @@
 .shadow-white {
   filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 1));
 }
+
+.group:hover .hidden {
+  display: block;
+}

@@ -18,6 +18,7 @@ const Nav = () => {
     const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
     const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || '');
     const [showAdminOptions, setShowAdminOptions] = useState(false);
+    const [showAdminOptionsOutsideMenu, setShowAdminOptionsOutsideMenu] = useState(false);
     const [isPanelClicked, setIsPanelClicked] = useState(false);
     const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
     const [pendingUser, setPendingUser] = useState(false);
@@ -154,9 +155,6 @@ const Nav = () => {
         }
     };
 
-
-
-
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -191,7 +189,10 @@ const Nav = () => {
 
     const handleClick = () => {
         setShowAdminOptions(!showAdminOptions);
-        setIsPanelClicked(!showAdminOptions);
+    };
+
+    const handleAdminPanelClick = () => {
+        setShowAdminOptionsOutsideMenu(!showAdminOptionsOutsideMenu);
     };
 
     const handleDeleteNotification = async (notificationId) => {
@@ -246,6 +247,25 @@ const Nav = () => {
     const toggleCheckOutPopup = () => {
         setShowCheckOutPopup(!showCheckOutPopup);
     };
+
+    const handleSendEmail = async () => {
+        try {
+            const usersCollectionRef = collection(db, "users");
+            const usersSnapshot = await getDocs(usersCollectionRef);
+
+            // Extract email addresses from the snapshot
+            const emailAddresses = usersSnapshot.docs.map(doc => doc.data().email);
+
+            // Join the email addresses into a comma-separated string
+            const recipients = emailAddresses.join(',');
+
+            // Open the user's email sending service
+            window.location.href = `mailto:${recipients}`;
+        } catch (error) {
+            console.error("Error sending emails:", error);
+        }
+    };
+
 
     return (
         <nav>
@@ -487,18 +507,29 @@ const Nav = () => {
                                                         >
                                                             <button
                                                                 className="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 w-full"
-                                                                onClick={handleClick}
+                                                                onClick={handleAdminPanelClick}
                                                                 ref={adminPanelRef}
                                                             >
                                                                 Admin Panel
                                                             </button>
-                                                            {showAdminOptions && (
-                                                                <div className="bg-zinc-100">
+                                                            {showAdminOptionsOutsideMenu && (
+                                                                <div className="bg-zinc-100 border border-blue-600">
                                                                     <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Additions</a>
                                                                     <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Reports</a>
                                                                     <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
                                                                     <a href="/UserMetrics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">User Metrics</a>
                                                                     <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>
+                                                                    <div className="group relative hover:bg-gray-200 hover:scale-10 ">
+                                                                        <button
+                                                                            className="block px-4 py-2 text-sm text-gray-700"
+                                                                            onClick={handleSendEmail}
+                                                                        >
+                                                                            Send Newsletter
+                                                                        </button>
+                                                                        <div className="hidden group-hover:block absolute bg-white text-black py-1 px-2 border border-blue-700 rounded text-sm mt-2 left-1/2 transform -translate-x-1/2 w-[300px]">
+                                                                            This will open your email client with all user emails added as recipients.
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             )}
                                                         </div>
@@ -536,6 +567,37 @@ const Nav = () => {
                                         <li>
                                             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Home</a>
                                         </li>
+                                        {userRole === "admin" && (
+                                            <li>
+                                                <div
+                                                    className={`flex items-center justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent w-full ${isPanelClicked ? "border-2 border-blue-700 bg-zinc-300 rounded-sm" : ""}`}
+                                                    onClick={handleClick}
+                                                    ref={adminPanelRef}
+                                                >
+                                                    Admin Panel
+                                                </div>
+                                                {showAdminOptions && (
+                                                    <ul className="bg-zinc-100">
+                                                        <li>
+                                                            <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Additions</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Reports</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/UserMetrics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">User Metrics</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>
+                                                        </li>
+                                                    </ul>
+                                                )}
+                                            </li>
+                                        )}
+
                                         <li>
                                             <a href="/Events" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 md:hover:bg-transparent  md:p-0">Events</a>
                                         </li>
