@@ -3,7 +3,7 @@ import { db, auth } from "../firebase";
 import { collection, getDocs, addDoc, deleteDoc, doc, setDoc, query, orderBy, onSnapshot, where, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import SkeletonReport from "../Skeletons/SkeletonReport";
-import { faFileAlt, faComments, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faComments, faTrash, faPrint } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "../index.css";
 
@@ -25,18 +25,18 @@ const IncidentReportPage = (props) => {
         if (commentText.trim() === "") {
             return;
         }
-    
+
         try {
             const commentData = {
                 text: commentText,
                 timestamp: new Date(),
                 uid: auth.currentUser.uid,
             };
-    
+
             const userUID = auth.currentUser.uid;
             const userQuery = query(collection(db, 'users'), where('uid', '==', userUID));
             const userQuerySnapshot = await getDocs(userQuery);
-    
+
             if (!userQuerySnapshot.empty) {
                 const userData = userQuerySnapshot.docs[0].data();
                 const userName = userData.name;
@@ -44,12 +44,12 @@ const IncidentReportPage = (props) => {
                 commentData.userName = userName;
                 commentData.userProfileImage = userProfileImage;
             }
-    
+
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
             const commentDocRef = await addDoc(commentRef, commentData);
             commentData.commentId = commentDocRef.id;
             await setDoc(doc(db, 'reports', selectedReport.id, 'comments', commentDocRef.id), commentData);
-    
+
             // // Create a notification
             // const notificationRef = collection(db, 'notifications');
             // const notificationData = await addDoc(notificationRef, {
@@ -64,7 +64,7 @@ const IncidentReportPage = (props) => {
             //     console.log("New notification ID:", notificationId);
 
             //     await updateDoc(notificationData, { notificationId });
-    
+
             setCommentText("");
         } catch (error) {
             console.error("Error posting comment:", error);
@@ -157,22 +157,51 @@ const IncidentReportPage = (props) => {
     };
 
     const handleReportClick = async (report) => {
-        
+
         if (!openedReports.has(report.id)) {
             await incrementViewCount(report.id);
             setOpenedReports(new Set([...openedReports, report.id]));
         }
-    
+
         setSelectedReport(report);
-    }; 
+    };
+
+    const handlePrint = (report) => {
+        const printWindow = window.open('', '_blank');
+    
+        const content = `
+            <html>
+                <head>
+                    <title>Incident report</title>
+                </head>
+                <body>
+                    <h1>${report.title}</h1>
+                    <p>Patroller's Name: ${report.patrollerName}</p>
+                    <p>Location: ${report.location}</p>
+                    <p>Date of Report: ${report.dateReport}</p>
+                    <p>Date of Incident: ${report.date}</p>
+                    <p>Referance number: ${report.policeNumber}</p>
+                    <p>Time of incident: ${report.time}</p>
+                    <p>Description: ${report.description}</p>
+                </body>
+            </html>
+        `;
+    
+        printWindow.document.write(content);
+        printWindow.document.close();
+        printWindow.print();
+        printWindow.close();
+    };
+    
+
 
     useEffect(() => {
         return () => {
             setOpenedReports(new Set());
         };
     }, []);
-    
-    
+
+
     useEffect(() => {
         if (selectedReport) {
             const commentRef = collection(db, 'reports', selectedReport.id, 'comments');
@@ -325,7 +354,7 @@ const IncidentReportPage = (props) => {
                                                 <h1 className="mr-2">{report.viewCount || 0}</h1>
                                                 <h1 className="font-semibold text-gray-500 text-sm">Views</h1>
                                             </div>
-                                            <div className="text-gray-400 mt-3">
+                                            <div className="flex justify-between text-gray-400 mt-3">
                                                 <button
                                                     onClick={() => setIsCommentSectionExpanded(!isCommentSectionExpanded)}
                                                     className="cursor-pointer text-blue-600 font-semibold hover:scale-105 hover:text-blue-700"
@@ -335,6 +364,16 @@ const IncidentReportPage = (props) => {
                                                         ? "Currently no comments, click here to post a new comment"
                                                         : commentCountText}
                                                 </button>
+                                                <div className="text-gray-400">
+                                                    <button
+                                                        onClick={() => handlePrint(report)}
+                                                        className="cursor-pointer text-blue-600 font-semibold hover:scale-105 hover:text-blue-700"
+                                                    >
+                                                        <FontAwesomeIcon icon={faPrint} className="mr-2" />
+                                                        Print Report
+                                                    </button>
+                                                </div>
+
                                             </div>
                                             {isCommentSectionExpanded && (
                                                 <div

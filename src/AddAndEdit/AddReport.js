@@ -160,7 +160,7 @@ const AddReport = () => {
                                             <div class="flex">
                                                 <div class="mb-3 xl:w-96">
                                                     <label for="name" className="form-label inline-block mb-2 font-medium text-gray-700"
-                                                    >Referance number</label>
+                                                    >Police Referance number</label>
                                                     <input
                                                         type="number"
                                                         className="
