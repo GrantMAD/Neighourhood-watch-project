@@ -14,12 +14,31 @@ const IncidentReportPage = (props) => {
     const [openedReports, setOpenedReports] = useState(new Set());
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [userRole, setUserRole] = useState("");
     const [selectedReport, setSelectedReport] = useState(null);
     const [selectedReportComments, setSelectedReportComments] = useState([]);
     const [commentText, setCommentText] = useState("");
     const [isCommentSectionExpanded, setIsCommentSectionExpanded] = useState(false);
     const defaultProfileAvatar = "/images/profileAvatar.png";
     const navigate = useNavigate();
+    const usersCollectionRef = collection(db, "users");
+
+    useEffect(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          const userEmail = currentUser.email;
+          const userRef = query(usersCollectionRef, where('email', '==', userEmail));
+          const unsubscribe = onSnapshot(userRef, (snapshot) => {
+            snapshot.forEach((doc) => {
+              const userData = doc.data();
+              setUserRole(userData.role);
+            });
+          });
+    
+          // Cleanup the listener when the component unmounts
+          return () => unsubscribe();
+        }
+      }, [usersCollectionRef]);
 
     const addComment = async () => {
         if (commentText.trim() === "") {
@@ -364,6 +383,7 @@ const IncidentReportPage = (props) => {
                                                         ? "Currently no comments, click here to post a new comment"
                                                         : commentCountText}
                                                 </button>
+                                                {userRole === "admin" && (
                                                 <div className="text-gray-400">
                                                     <button
                                                         onClick={() => handlePrint(report)}
@@ -373,7 +393,7 @@ const IncidentReportPage = (props) => {
                                                         Print Report
                                                     </button>
                                                 </div>
-
+                                                )}
                                             </div>
                                             {isCommentSectionExpanded && (
                                                 <div
