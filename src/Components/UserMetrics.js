@@ -89,11 +89,11 @@ const UserMetrics = () => {
     return (
         <div className="min-h-screen bg-zinc-200 md:p-10 lg:pt-24 lg:pb-24 lg:px-10">
             <div className="flex justify-center pt-20 md:pt-10">
-                <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">User Metrics</h1>
+                <h1 className="text-3xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">User Data</h1>
             </div>
 
             <div className="lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%] mt-5 mb-5">
-                <p>This is where user metrics are available to view. Below there are multiple different tabs on which each display's different user metrics for all users within Sector 2. More metrics will be added in the future. This page is only visible to admins.</p>
+                <p>This is where user data are available to view. Below there are multiple different tabs on which each display's different user data for all users within Sector 2. More metrics will be added in the future. This page is only visible to admins.</p>
             </div>
 
             <div className="lg:mr-[25%] lg:ml-[25%] md:ml-[4%] md:mr-[4%]">
@@ -126,7 +126,7 @@ const UserMetrics = () => {
                                 onClick={() => handleTabClick("extraUserMetrics")}
                             >
                                 <FontAwesomeIcon icon={faChartBar} className="mr-2 text-blue-700" />
-                                Additional user metrics
+                                Additional user data
                             </button>
                         </li>
                     </ul>
@@ -156,69 +156,76 @@ const UserMetrics = () => {
                                 onChange={handleSearchInputChange}
                             />
                         </div>
-                        <p className="mb-5">This is where you can search and monitor user's check in and out times. You are able to search for user's by name. Use the search input to search for a specific user's name.</p>
-                        {userData.map(user => (
-                            <div key={user.email} className="bg-gray-800 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold mb-5 w-full">
-                                <div className="flex p-3 cursor-pointer" onClick={() => toggleAccordion(user.email)}>
-                                    <div>
-                                        <FontAwesomeIcon icon={faFileAlt} className="mr-4 text-white" />
-                                    </div>
-                                    <div className="flex items-center justify-between w-full">
-                                        <h2 className="text-zinc-200 font-semibold">{user.name}</h2>
-                                        <FontAwesomeIcon icon={user.open ? faMinus : faPlus} className={`ml-2, text-white`} />
-                                    </div>
-                                </div>
-
-                                {user.open && (
-                                    <div className="bg-white p-3 border border-gray-800">
-                                        <h1 className="text-center text-xl font-bold underline underline-offset-2">Time logs</h1>
-                                        {user.sessions && user.sessions.length > 0 ? (
-                                            user.sessions.map(session => (
-                                                <div key={session.sessionID} className="flex justify-between border-b border-gray-300 py-2">
-                                                    <div>
-                                                        {session.checkInTime && (
-                                                            <div>
-                                                                <strong>
-                                                                    <span className="text-green-500 mr-2">●</span>Checked-In:
-                                                                </strong>
-                                                                <div>{new Date(session.checkInTime).toLocaleString()}</div>
-                                                            </div>
-                                                        )}
-                                                        {session.checkOutTime && (
-                                                            <div>
-                                                                <strong>
-                                                                    <span className="text-red-500 mr-2">●</span>Checked-Out:
-                                                                </strong>
-                                                                <div>{new Date(session.checkOutTime).toLocaleString()}</div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <div className="text-gray-600">No Check in and out times available</div>
-                                        )}
-                                        {user.totalTime > 0 && (
+                        <p className="mb-3">This is where you can search and monitor user's check in, out and total time checked in.</p>
+                        <hr className="border-1 border-gray-800 mb-5"></hr>
+                        {searchQuery === "" ? (
+                            <p className="mb-3 font-semibold text-lg text-center">To find a user's check-in and check-out times, input their name into the search bar.</p>
+                        ) : (
+                            <>
+                                {userData.map(user => (
+                                    <div key={user.email} className="bg-gray-800 shadow-md accordion rounded-tl-lg rounded-tr-lg hover:bg-gray-700 font-semibold mb-5 w-full">
+                                        <div className="flex p-3 cursor-pointer" onClick={() => toggleAccordion(user.email)}>
                                             <div>
-                                                <strong>
-                                                    <FontAwesomeIcon icon={faClock} className="mt-3 mr-2 text-blue-700" />
-                                                    Total Time checked in:
-                                                </strong>
-                                                <div>
-                                                    {user.totalTime >= 60 * 60 * 1000
-                                                        ? `${Math.floor(user.totalTime / (60 * 60 * 1000))} ${Math.floor(user.totalTime / (60 * 60 * 1000)) === 1 ? 'hour' : 'hours'} `
-                                                        : ''}
-                                                    {user.totalTime % (60 * 60 * 1000) >= 60 * 1000
-                                                        ? `${Math.floor((user.totalTime % (60 * 60 * 1000)) / (60 * 1000))} ${Math.floor((user.totalTime % (60 * 60 * 1000)) / (60 * 1000)) === 1 ? 'minute' : 'minutes'}`
-                                                        : ''}
-                                                </div>
+                                                <FontAwesomeIcon icon={faFileAlt} className="mr-4 text-white" />
+                                            </div>
+                                            <div className="flex items-center justify-between w-full">
+                                                <h2 className="text-zinc-200 font-semibold">{user.name}</h2>
+                                                <FontAwesomeIcon icon={user.open ? faMinus : faPlus} className={`ml-2, text-white`} />
+                                            </div>
+                                        </div>
+
+                                        {user.open && (
+                                            <div className="bg-white p-3 border border-gray-800">
+                                                <h1 className="text-center text-xl font-bold underline underline-offset-2">Time logs</h1>
+                                                {user.sessions && user.sessions.length > 0 ? (
+                                                    user.sessions.map(session => (
+                                                        <div key={session.sessionID} className="flex justify-between border-b border-gray-300 py-2">
+                                                            <div>
+                                                                {session.checkInTime && (
+                                                                    <div>
+                                                                        <strong>
+                                                                            <span className="text-green-500 mr-2">●</span>Checked-In:
+                                                                        </strong>
+                                                                        <div>{new Date(session.checkInTime).toLocaleString()}</div>
+                                                                    </div>
+                                                                )}
+                                                                {session.checkOutTime && (
+                                                                    <div>
+                                                                        <strong>
+                                                                            <span className="text-red-500 mr-2">●</span>Checked-Out:
+                                                                        </strong>
+                                                                        <div>{new Date(session.checkOutTime).toLocaleString()}</div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div className="text-gray-600">No Check in and out times available</div>
+                                                )}
+                                                {user.totalTime > 0 && (
+                                                    <div>
+                                                        <strong>
+                                                            <FontAwesomeIcon icon={faClock} className="mt-3 mr-2 text-blue-700" />
+                                                            Total Time checked in:
+                                                        </strong>
+                                                        <div>
+                                                            {user.totalTime >= 60 * 60 * 1000
+                                                                ? `${Math.floor(user.totalTime / (60 * 60 * 1000))} ${Math.floor(user.totalTime / (60 * 60 * 1000)) === 1 ? 'hour' : 'hours'} `
+                                                                : ''}
+                                                            {user.totalTime % (60 * 60 * 1000) >= 60 * 1000
+                                                                ? `${Math.floor((user.totalTime % (60 * 60 * 1000)) / (60 * 1000))} ${Math.floor((user.totalTime % (60 * 60 * 1000)) / (60 * 1000)) === 1 ? 'minute' : 'minutes'}`
+                                                                : ''}
+                                                        </div>
+                                                    </div>
+                                                )}
+
                                             </div>
                                         )}
-
                                     </div>
-                                )}
-                            </div>
-                        ))}
+                                ))}
+                            </>
+                        )}
                     </div>
                 </div>
                 <div id="myTabContent">
@@ -229,7 +236,7 @@ const UserMetrics = () => {
                         aria-labelledby="extraUserMetrics-tab"
                     >
                         <div className="flex justify-center">
-                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">Additional user metrics</h1>
+                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">Additional user data</h1>
                         </div>
                         <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
                             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="extraUserMetricsTab" data-tabs-toggle="#extraUserMetricsTabContent" role="tablist">
@@ -304,4 +311,3 @@ const UserMetrics = () => {
 };
 
 export default UserMetrics;
-

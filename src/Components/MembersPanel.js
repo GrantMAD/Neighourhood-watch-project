@@ -47,10 +47,7 @@ const MembersPanel = () => {
             const nameMatch = user.name
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase());
-            const CPFSectorMatch = user.CPFSector
-                ?.toLowerCase()
-                .includes(searchTerm.toLowerCase());
-            return nameMatch || CPFSectorMatch;
+            return nameMatch ;
         }
     };
 
@@ -122,16 +119,14 @@ const MembersPanel = () => {
                         </button>
                         <input
                             type="search"
-                            placeholder="Name/CPF Sector"
+                            placeholder="User name"
                             className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
                             onChange={handleSearch}
                         />
                     </div>
                     <div className="mt-3 pb-3">
                         <p>
-                            This page is only accessible to admins. Here you will get
-                            information on all members that aren't already on the main members
-                            page. To change a users role click on the arrow in the dropdown and select the desired role.
+                            This page is only accessible to admins. To search for a specific user input their name into the search bar above. To change a users role click on the arrow in the dropdown and select the desired role.
                         </p>
                     </div>
                 </div>
