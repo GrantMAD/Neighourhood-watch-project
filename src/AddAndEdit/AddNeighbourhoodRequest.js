@@ -163,7 +163,7 @@ const AddNeighbourhoodRequest = () => {
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-4">
                                                 <label htmlFor="UserName" className="block text-sm font-medium text-gray-700 after:content-none">
-                                                    User Name
+                                                    User name
                                                 </label>
                                                 <input
                                                     type="text"
@@ -191,7 +191,7 @@ const AddNeighbourhoodRequest = () => {
                                             </div>
                                             <div className="col-span-6 sm:col-span-4">
                                                 <label htmlFor="PostalCode" className="block text-sm font-medium text-gray-700 after:content-none">
-                                                    Postal code of Area
+                                                    Postal code of area
                                                 </label>
                                                 <input
                                                     type="number"
@@ -205,7 +205,7 @@ const AddNeighbourhoodRequest = () => {
                                             </div>
                                             <div className="col-span-6 sm:col-span-3">
                                                 <label htmlFor="NeighbourhoodName" className="block text-sm font-medium text-gray-700 after:content-none">
-                                                    Neighbourhood Name
+                                                    Neighbourhood name
                                                 </label>
                                                 <input
                                                     type="text"
