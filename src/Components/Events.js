@@ -102,8 +102,6 @@ const Events = () => {
                         <SkeletonStory />
                     ) : events.length > 0 ? (
                         <ul className="w-full mt-5">
-                            {events.map(event => (
-                                <ul className="w-full mt-5">
                                 {events.map(event => (
                                     <li
                                         className="flex md:flex-row flex-col justify-between mb-10"
@@ -142,8 +140,6 @@ const Events = () => {
                                     </li>
                                 ))}
                             </ul>
-                            ))}
-                        </ul>
                     ) : (
                         <p className="mt-5 mb-5 text-xl">Currently no events scheduled</p>
                     )}
