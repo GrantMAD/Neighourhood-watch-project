@@ -145,33 +145,38 @@ const UserMetrics = () => {
                         aria-labelledby="checkInAndOutTimes-tab"
                     >
                         <div className="flex justify-center">
-                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600">User Check in and out times</h1>
+                            <h1 className="mb-5 font-semibold text-2xl underline underline-offset-4 decoration-blue-600 text-center sm:text-left">
+                                User Check in and out times
+                            </h1>
                         </div>
-                        <div className="flex justify-between">
-                        <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-4/12 mb-3">
-                            <button
-                                className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none"
-                            >
-                                Search
-                            </button>
-                            <input
-                                type="search"
-                                placeholder="User Name"
-                                className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
-                                value={searchQuery}
-                                onChange={handleSearchInputChange}
-                            />
-                        </div>
-                        <button
-                                onClick={handleShowAllData}
-                                className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none mb-3"
-                            >
-                                {showAllData ? 'Hide All Data' : 'Show All Data'}
-                            </button>
+                        <div className="flex lg:justify-between md:justify-between lg:flex-row md:flex-row flex-col">
+                            <div className="bg-gray-100 rounded border border-gray-800 flex items-center drop-shadow-md w-full sm:w-3/12 md:w-4/12 lg:w-4/12 mb-3">
+                                <button
+                                    className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded-l active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none"
+                                >
+                                    Search
+                                </button>
+                                <input
+                                    type="search"
+                                    placeholder="User Name"
+                                    className="bg-transparent py-1 text-gray-600 px-4 focus:outline-gray-800 w-full border-none"
+                                    value={searchQuery}
+                                    onChange={handleSearchInputChange}
+                                />
+                            </div>
+                            {searchQuery === "" && (
+                                <button
+                                    onClick={handleShowAllData}
+                                    className="py-2 px-4 bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-zinc-200 rounded active:bg-gray-200 disabled:opacity-50 inline-flex items-center justify-center focus:outline-none mb-3"
+                                >
+                                    {showAllData ? 'Hide All Data' : 'Show All Data'}
+                                </button>
+
+                            )}
                         </div>
                         <p className="mb-3">This is where you can search and monitor user's check in, out and total time checked in.</p>
                         <hr className="border-1 border-gray-800 mb-5"></hr>
-                        {searchQuery === "" && !showAllData ?  (
+                        {searchQuery === "" && !showAllData ? (
                             <div>
                                 <p className="mb-3 font-semibold text-lg text-center">To find a user's check-in and check-out times, input their name into the search bar.</p>
                             </div>

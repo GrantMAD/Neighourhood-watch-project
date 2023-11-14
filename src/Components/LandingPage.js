@@ -49,13 +49,22 @@ const LandingPage = () => {
       const eventsCollectionRef = collection(db, 'events');
       const eventsQuery = query(eventsCollectionRef);
       const eventsData = await getDocs(eventsQuery);
-      setEvents(eventsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      
+      // Filter out events with eventEndDate within the next 24 hours
+      const filteredEvents = eventsData.docs
+        .map((doc) => ({ ...doc.data(), id: doc.id }))
+        .filter((event) => {
+          const oneDayAfterEndDate = new Date(event.eventEndDate);
+          oneDayAfterEndDate.setDate(oneDayAfterEndDate.getDate() + 1);
+          return new Date() <= oneDayAfterEndDate;
+        });
+  
+      setEvents(filteredEvents);
       setIsLoading(false);
     };
-
+  
     fetchEvents();
-  }, []);
-
+  }, []);  
 
   const addStory = () => {
     navigate('../AddStory')
