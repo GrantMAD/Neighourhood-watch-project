@@ -282,24 +282,24 @@ const Nav = () => {
                                 <div className="hidden md:block">
                                     <div className="lg:ml-10 flex items-center">
                                         <a href="/LandingPage"
-                                            className="mr-3 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
+                                            className="mr-3 lg:px-3 px-2 py-2 rounded-md text-sm md:text-xs font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Home</a>
                                         <a href="/Events" className=" text-sm font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Events
                                         </a>
                                         {user && userRole !== 'pendingUser' &&
-                                            <a href="/IncidentReportPage" className=" text-sm font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Incident
+                                            <a href="/IncidentReportPage" className=" text-sm md:text-xs font-medium rounded-md text-zinc-200 px-3 py-2 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Incident
                                                 Report's</a>
                                         }
                                         <a href="/AboutUs"
-                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">About
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm md:text-xs font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">About
                                             Us</a>
                                         {user && userRole !== 'pendingUser' &&
                                             <a href="/Members"
-                                                className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
+                                                className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm md:text-xs font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Members</a>
                                         }
                                         <a href="/GalleryPage"
-                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm md:text-xs font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500">Gallery</a>
                                         <a href="/ContactPage"
-                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Contact
+                                            className="ml-4 lg:px-3 px-2 py-2 rounded-md text-sm md:text-xs font-medium text-zinc-200 hover:bg-gray-700 hover:text-base focus:outline-none focus:text-white focus:bg-gray-700 transition ease-out duration-500 md:text-center">Contact
                                             Us</a>
                                     </div>
                                 </div>
@@ -337,7 +337,8 @@ const Nav = () => {
                                                 {(userRole === "user" || userRole === "admin") && (
                                                     <div className="relative inline-block">
                                                         <button
-                                                            className={checkedIn ? 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid shadow-lg shadow-lime-300 transition ease-out duration-500 md:text-xs' : 'px-3 py-2 border border-lime-300 max-w-xs flex items-center lg:text-sm font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 hover:scale-125 md:text-xs'}
+                                                            className={`px-3 py-2 border border-lime-300 max-w-xs flex items-center text-sm md:text-[10px] md:text-xs lg:text-base font-bold rounded-md text-lime-300 hover:bg-gray-700 focus:outline-none focus:shadow-solid transition ease-out duration-500 ${checkedIn ? 'shadow-lg shadow-lime-300 md:text-xs' : 'hover:scale-125'
+                                                                }`}
                                                             onClick={() => {
                                                                 if (checkedIn) {
                                                                     toast.error('You have checked out');
@@ -524,7 +525,7 @@ const Nav = () => {
                                                                             className="block px-4 py-2 text-sm text-gray-700"
                                                                             onClick={handleSendEmail}
                                                                         >
-                                                                            Send Newsletter
+                                                                            Newsletter
                                                                         </button>
                                                                         <div className="hidden group-hover:block absolute bg-white text-black py-1 px-2 border border-blue-700 rounded text-sm mt-2 left-1/2 transform -translate-x-1/2 w-[300px]">
                                                                             This will open your email client with all user emails added as recipients.
