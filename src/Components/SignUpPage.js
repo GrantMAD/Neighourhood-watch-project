@@ -1,6 +1,6 @@
 import { db } from "../firebase";
 import { useState, useEffect, useRef } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, getAuth, fetchSignInMethodsForEmail } from "firebase/auth";
 import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -45,6 +45,14 @@ const SignUpPage = (props) => {
     const register = async () => {
         try {
             setIsLoading(true);
+            const existingUser = await fetchSignInMethodsForEmail(auth, registerEmail);
+            if (existingUser.length > 0) {
+                // Email is already registered
+                setShowAlertFail(true);
+                setShowAlertForThreeSeconds(true);
+                setError('This email address is already in use.');
+                return;
+            }
             const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             const user = userCredential.user;
 
@@ -67,7 +75,7 @@ const SignUpPage = (props) => {
                 profileImage: '',
                 cpfSector: '',
                 profileUpdated: '',
-                district: '', 
+                district: '',
                 emergencyContactNumber: '',
                 emergencyContactName: ''
             });
@@ -80,7 +88,7 @@ const SignUpPage = (props) => {
                     createdAt: new Date(),
                     createdBy: user.uid,
                     role: "admin",
-                    type:'newUserSignup'
+                    type: 'newUserSignup'
                 });
                 const notificationId = notificationDocRef.id;
                 console.log("New notification ID:", notificationId);
