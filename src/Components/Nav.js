@@ -23,6 +23,7 @@ const Nav = () => {
     const [showCheckOutPopup, setShowCheckOutPopup] = useState(false);
     const [pendingUser, setPendingUser] = useState(false);
     const [showNotification, setShowNotification] = useState();
+    const [showTooltip, setShowTooltip] = useState(false);
     const [checkedIn, setCheckedIn] = useState(
         localStorage.getItem('checkedIn') === 'true'
     );
@@ -34,6 +35,17 @@ const Nav = () => {
     useEffect(() => {
         localStorage.setItem('checkedIn', checkedIn);
     }, [checkedIn]);
+
+    useEffect(() => {
+        // Automatically hide the tooltip after 3 seconds (adjust as needed)
+        if (showTooltip) {
+            const timeoutId = setTimeout(() => {
+                setShowTooltip(false);
+            }, 5000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [showTooltip]);
 
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
@@ -141,6 +153,7 @@ const Nav = () => {
                     };
 
                     existingSessions.push(newSession);
+                    setShowTooltip(true);
                 }
 
                 await updateDoc(userDocRef, {
@@ -351,6 +364,14 @@ const Nav = () => {
                                                         >
                                                             {checkedIn ? 'Check out' : 'Check in'}
                                                         </button>
+                                                        {showTooltip && (
+                                                            <div className="absolute left-1/2 mt-3 w-60 transform -translate-x-1/2 bg-gray-800 text-white font-semibold p-2 rounded-md text-sm">
+                                                                <div className="text-center">
+                                                                    <h1 className="text-lg underline mb-2">Checked In</h1>
+                                                                </div>
+                                                                You are now checked in. Please do not forget to check out when you are done.
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 )}
                                             </div>
