@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { listAll, ref, getDownloadURL } from "firebase/storage";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { storage, auth, db } from "../firebase";
+import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import SkeletonImage from "../Skeletons/SkeletonImage";
 import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GalleryPage = () => {
     const [imageUrls, setImageUrls] = useState([]);
+    const [imageTitles, setImageTitles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [userRole, setUserRole] = useState('userRole');
     // const [selectedImages, setSelectedImages] = useState([]);
@@ -23,21 +23,21 @@ const GalleryPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const imageRef = ref(storage, 'galleryImages/');
-        setIsLoading(true); 
-        listAll(imageRef)
-            .then((response) => Promise.all(response.items.map(getDownloadURL))) 
-            .then((urls) => {
-                setImageUrls(urls);
-                setIsLoading(false); 
-            })
-            .catch((error) => {
-                console.error("Error fetching image URLs:", error);
-                setIsLoading(false); 
+        const imagesCollectionRef = collection(db, "images");
+        onSnapshot(imagesCollectionRef, (snapshot) => {
+            const imageData = [];
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                imageData.push({ imageUrl: data.imageUrl, title: data.title });
             });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
+            setImageUrls(imageData.map((item) => item.imageUrl));
+            setImageTitles(imageData.map((item) => item.title)); 
+            setIsLoading(false);
+        });
     }, []);
-    
+
+
 
     useEffect(() => {
         localStorage.setItem('userRole', userRole);
@@ -106,11 +106,11 @@ const GalleryPage = () => {
                             </button>
                     */}
                     <div className="flex lg:justify-between lg:flex-row lg:px-0 md:px-8 flex-col">
-                    
+
                         <p className="mt-5 mb-5">The images displayed here are all from past events that have happened. All images are posted by admins only. To enlarge an image, hover over it.{/*{userRole === "admin" && (
                         <p className="font-semibold">To delete an image select the image/images and click the delete button</p>
                     )}*/}</p>
-                    {userRole === "admin" && (
+                        {userRole === "admin" && (
                             <div className="flex flex-wrap justify-center lg:justify-end mb-5">
                                 <button className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl" onClick={addImage}>
                                     Add new image
@@ -120,10 +120,10 @@ const GalleryPage = () => {
                         )}
                     </div>
                     <div className="flex flex-wrap">
-                    {isLoading ? (
+                        {isLoading ? (
                             <SkeletonImage />
-                        ) : imageUrls.length === 0 ? ( 
-                            <p className="w-full text-center lg:text-2xl md:text-2xl text-lg font-semibold">No Image's Currently Displayed</p>
+                        ) : imageUrls.length === 0 ? (
+                            <p className="w-full text-center lg:text-2xl md:text-2xl text-lg font-semibold">No Images Currently Displayed</p>
                         ) : (
                             currentImages.map((url, index) => {
                                 return (
@@ -133,28 +133,22 @@ const GalleryPage = () => {
                                                 alt="gallery"
                                                 src={url}
                                                 className={`w-full h-full object-cover md:mr-[5%] md:ml-[5%]"
-                                                    }`}
-                                                // ${selectedImages.includes(url) ? "opacity-25 border-red-500" : "border-gray-800
+                            }`}
                                                 onClick={() => {
-                                                    /*
-                                                    if (selectedImages.includes(url)) {
-                                                        setSelectedImages(selectedImages.filter((selectedUrl) => selectedUrl !== url));
-                                                    } else {
-                                                        setSelectedImages([...selectedImages, url]);
-                                                    }
-                                                    */
                                                     handleImageClick(url);
                                                 }}
                                             />
                                         </div>
-                                        {isImageFullscreen && fullscreenImageUrl === url && ( // Show fullscreen image
+                                        <p className="text-center mt-2 text-xl underline underline-offset-2">{imageTitles[index]}</p>
+                                        {isImageFullscreen && fullscreenImageUrl === url && (
+                                            // Show fullscreen image
                                             <div className="fixed z-50 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 py-8" onClick={closeFullscreenImage}>
                                                 <img
                                                     alt="fullscreen"
                                                     src={url}
                                                     className="max-h-full max-w-full border-2 border-white"
                                                 />
-                                                <h1 className="text-white mt-1 font-semibold">Click anywhere outside of image to minimise</h1>
+                                                <h1 className="text-white mt-1 font-semibold">Click anywhere outside of the image to minimize</h1>
                                             </div>
                                         )}
                                     </div>
@@ -164,7 +158,7 @@ const GalleryPage = () => {
                     </div>
                     <div className="max-w-screen-lg mx-auto mt-5">
                         <div className="flex justify-center">
-                            {currentPage > 1 && ( 
+                            {currentPage > 1 && (
                                 <button
                                     className="w-full md:w-auto h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
                                     onClick={() => setCurrentPage(currentPage - 1)}
@@ -172,7 +166,7 @@ const GalleryPage = () => {
                                     <FontAwesomeIcon icon={faArrowCircleLeft} /> Previous
                                 </button>
                             )}
-                            {endIndex < imageUrls.length && ( 
+                            {endIndex < imageUrls.length && (
                                 <button
                                     className="w-full md:w-auto h-full bg-gradient-to-r from-blue-800 to-violet-600 hover:bg-gradient-to-l text-white font-bold py-2 px-4 rounded ml-2 shadow-xl"
                                     onClick={() => setCurrentPage(currentPage + 1)}
