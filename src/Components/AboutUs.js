@@ -38,20 +38,20 @@ const AboutUs = () => {
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
-                                src="/images/profileAvatar.png"
+                                src="/images/Rohan.png"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">TBD</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
                         <h1 className="text-center text-gray-500">Chairman</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
-                                src="/images/Rohan.png"
+                                src="/images/Johann.jpg"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">Rohan Davidson</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
                         <h1 className="text-center text-gray-500">Vice Chairman</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
@@ -68,10 +68,10 @@ const AboutUs = () => {
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
-                                src="/images/profileAvatar.png"
+                                src="/images/Rishin.png"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">TBD</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">Rishin Govender</h1>
                         <h1 className="text-center text-gray-500">Secretary</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
@@ -98,11 +98,11 @@ const AboutUs = () => {
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
                             <img
                                 className="object-cover w-full h-full"
-                                src="/images/Johann.jpg"
+                                src="/images/profileAvatar.png"
                                 alt="" />
                         </div>
-                        <h1 className="mt-3 text-center text-lg font-semibold">Johan Van Zyl</h1>
-                        <h1 className="text-center text-gray-500">Patrollers Coordinator</h1>
+                        <h1 className="mt-3 text-center text-lg font-semibold">TBD</h1>
+                        <h1 className="text-center text-gray-500">Executive Member</h1>
                     </span>
                     <span className="mr-10 md:mb-3">
                         <div className="h-40 w-40 rounded-full border border-blue-600 overflow-hidden aspect-w-1 aspect-h-1">
