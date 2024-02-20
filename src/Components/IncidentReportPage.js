@@ -289,7 +289,7 @@ const IncidentReportPage = (props) => {
                 </div>
             </div>
             <div className="lg:ml-[27.5%] lg:mr-[27.5%] ml-[10%] mr-[10%] mb-5">
-                <p>All Incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input either the name of the report, the patroller who created the report or the full date of when the report was created above, exp. (2023-03-24). Reports automatically get moved to archived reports after 1 month.</p>
+                <p>All Incident report's are displayed here. Registered patroller's have access to all report's that are currently posted. To search for a report input either the name of the report, the patroller who created the report or the full date of when the report was created above, exp. (2023-03-24).</p>
             </div>
             {isLoading ? (
                 <SkeletonReport />
