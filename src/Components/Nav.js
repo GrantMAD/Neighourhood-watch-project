@@ -537,7 +537,6 @@ const Nav = () => {
                                                             {showAdminOptionsOutsideMenu && (
                                                                 <div className="bg-zinc-100 border border-blue-600">
                                                                     <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Additions</a>
-                                                                    <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Reports</a>
                                                                     <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
                                                                     <a href="/UserMetrics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">User Data</a>
                                                                     <a href="/Requests" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Requests</a>
@@ -602,9 +601,6 @@ const Nav = () => {
                                                     <ul className="bg-zinc-100">
                                                         <li>
                                                             <a href="/SectorAddition" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Sector Additions</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="/ArchivedReports" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Archived Reports</a>
                                                         </li>
                                                         <li>
                                                             <a href="/MembersPanel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200" role="menuitem">Member's Panel</a>
