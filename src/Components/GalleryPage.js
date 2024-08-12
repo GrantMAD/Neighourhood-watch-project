@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { collection, query, onSnapshot, doc, getDoc, updateDoc, where } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { collection, query, onSnapshot, doc, getDoc, updateDoc, where, deleteDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
+import { auth, db, storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import SkeletonImage from "../Skeletons/SkeletonImage";
 import { faArrowCircleLeft, faArrowCircleRight, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast, Toaster } from 'sonner';
 
 const GalleryPage = () => {
     const [albums, setAlbums] = useState([]);
@@ -124,6 +126,74 @@ const GalleryPage = () => {
         }));
     };
 
+    const handleDeleteImage = async (imageUrl) => {
+        if (selectedAlbum) {
+            try {
+                // Create a reference to the file to delete
+                const imageRef = ref(storage, imageUrl);
+
+                // Delete the file from Firebase Storage
+                await deleteObject(imageRef);
+
+                // Filter out the deleted image from the album's images array
+                const updatedImages = selectedAlbum.images.filter(image => image.imageUrl !== imageUrl);
+
+                // Update the album's document in Firestore
+                const albumRef = doc(db, "albums", selectedAlbum.id);
+                await updateDoc(albumRef, {
+                    images: updatedImages
+                });
+
+                // Update the state to reflect the changes
+                setSelectedAlbum(prevAlbum => ({
+                    ...prevAlbum,
+                    images: updatedImages
+                }));
+                setEditedImageTitles(prevTitles => {
+                    const newTitles = { ...prevTitles };
+                    delete newTitles[imageUrl];
+                    return newTitles;
+                });
+            } catch (error) {
+                console.error("Error deleting image: ", error);
+                // Optionally, you can add a UI notification here to inform the user of the error
+            }
+        }
+    };
+
+    const handleDeleteAlbum = async () => {
+        if (selectedAlbum) {
+            try {
+                // Loop through all images in the album and delete them from Firebase Storage
+                const deletePromises = selectedAlbum.images.map(image => {
+                    const imageRef = ref(storage, image.imageUrl);
+                    return deleteObject(imageRef);
+                });
+    
+                // Wait for all delete operations to complete
+                await Promise.all(deletePromises);
+    
+                // Delete the album document from Firestore
+                const albumRef = doc(db, "albums", selectedAlbum.id);
+                await deleteDoc(albumRef);
+    
+                // Update state to remove the album from the UI
+                setAlbums(prevAlbums => prevAlbums.filter(album => album.id !== selectedAlbum.id));
+                setSelectedAlbum(null);
+                setIsEditing(false);
+    
+                // Show a success toast notification
+                toast.success("Album deleted successfully.");
+    
+            } catch (error) {
+                console.error("Error deleting album: ", error);
+                toast.error("Error deleting album.");
+            }
+        }
+    };
+    
+    
+
     const renderContent = () => {
         if (isLoading) return <SkeletonImage />;
         if (selectedAlbum) {
@@ -142,18 +212,28 @@ const GalleryPage = () => {
                                 onClick={() => handleImageClick(image.imageUrl)}
                             />
                         </div>
-                        <p className={`text-center mt-2 text-xl text-gray-800 font-semibold ${isEditing ? 'underline-none' : 'underline'}`}>
-                            {isEditing ? (
-                                <input
-                                    type="text"
-                                    value={editedImageTitles[image.imageUrl] || ''}
-                                    onChange={(e) => handleImageTitleChange(image.imageUrl, e)}
-                                    className="text-xl font-semibold bg-white border-2 border-blue-600 rounded-md outline-none"
-                                />
-                            ) : (
-                                image.title
+                        <div className="flex flex-col items-center mt-2">
+                            <p className={`text-center text-xl text-gray-800 font-semibold ${isEditing ? 'underline-none' : 'underline'}`}>
+                                {isEditing ? (
+                                    <input
+                                        type="text"
+                                        value={editedImageTitles[image.imageUrl] || ''}
+                                        onChange={(e) => handleImageTitleChange(image.imageUrl, e)}
+                                        className="text-xl font-semibold bg-white border-2 border-blue-600 rounded-md outline-none"
+                                    />
+                                ) : (
+                                    image.title
+                                )}
+                            </p>
+                            {isEditing && (
+                                <button
+                                    className="bg-red-600 text-white font-bold py-2 px-4 rounded mt-2 hover:bg-red-800"
+                                    onClick={() => handleDeleteImage(image.imageUrl)}
+                                >
+                                    Delete
+                                </button>
                             )}
-                        </p>
+                        </div>
                         {isImageFullscreen && fullscreenImageUrl === image.imageUrl && (
                             <div
                                 className="fixed z-50 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 py-8"
@@ -203,7 +283,7 @@ const GalleryPage = () => {
             );
         }
     };
-    
+
 
     return (
         <main className="min-h-screen bg-zinc-200">
@@ -246,6 +326,15 @@ const GalleryPage = () => {
                                     onClick={isEditing ? handleSaveClick : handleEditClick}
                                 >
                                     {isEditing ? 'Save' : 'Edit'}
+                                </button>
+                            )}
+                            <Toaster richColors />
+                            {selectedAlbum && userRole === "admin" && selectedAlbum.userId === auth.currentUser?.uid && (
+                                <button
+                                    className="h-full bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded shadow-xl ml-2"
+                                    onClick={handleDeleteAlbum}
+                                >
+                                    Delete Album
                                 </button>
                             )}
                             {userRole === "admin" && !isEditing && (
