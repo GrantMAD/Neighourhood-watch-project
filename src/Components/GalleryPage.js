@@ -350,7 +350,7 @@ const GalleryPage = () => {
                     <div className="flex flex-wrap">
                         {renderContent()}
                     </div>
-                    {!selectedAlbum && (
+                    {selectedAlbum && (
                         <div className="max-w-screen-lg mx-auto mt-5">
                             <div className="flex justify-center">
                                 {currentPage > 1 && (
