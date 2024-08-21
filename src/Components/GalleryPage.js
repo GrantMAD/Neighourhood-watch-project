@@ -4,7 +4,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { auth, db, storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import SkeletonImage from "../Skeletons/SkeletonImage";
-import { faArrowCircleLeft, faArrowCircleRight, faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft, faArrowCircleRight, faFolder, faTag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast, Toaster } from 'sonner';
 
@@ -37,13 +37,15 @@ const GalleryPage = () => {
                 const coverImage = data.images.length > 0
                     ? data.images[0]?.imageUrl
                     : null; // No image for album, use icon
-                albumsData.push({ id: albumId, name: data.name, coverImage, userId: data.userId });
+                const imageCount = data.images.length; // Get the number of images in the album
+                albumsData.push({ id: albumId, name: data.name, coverImage, userId: data.userId, imageCount });
             });
-
+    
             setAlbums(albumsData);
             setIsLoading(false);
         });
     }, []);
+    
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -203,7 +205,7 @@ const GalleryPage = () => {
                 </p>
             ) : (
                 currentImages.map((image, index) => (
-                    <div className="w-full py-2 md:px-10 lg:px-2 lg:w-1/2 xl:w-1/3" key={image.imageUrl + index}>
+                    <div className="w-full py-2 md:px-10 lg:px-2 lg:w-1/2 xl:w-1/3 mb-3" key={image.imageUrl + index}>
                         <div className="h-72 rounded-xl shadow-lg shadow-gray-500 hover:scale-105 border-2 border-blue-500 overflow-hidden">
                             <img
                                 alt={image.title || 'gallery'}
@@ -212,8 +214,9 @@ const GalleryPage = () => {
                                 onClick={() => handleImageClick(image.imageUrl)}
                             />
                         </div>
-                        <div className="flex flex-col items-center mt-2">
-                            <p className={`text-center text-xl text-gray-800 font-semibold ${isEditing ? 'underline-none' : 'underline'}`}>
+                        <div className="flex flex-col mt-3">
+                            <p className="text-lg text-gray-800 font-semibold">
+                            <FontAwesomeIcon icon={faTag} className="mr-2 text-blue-600" />
                                 {isEditing ? (
                                     <input
                                         type="text"
@@ -275,8 +278,11 @@ const GalleryPage = () => {
                                 />
                             )}
                         </div>
-                        <p className="text-center mt-2 text-xl text-gray-800 font-bold underline underline-offset-2">
+                        <p className="mt-2 text-xl text-gray-800 font-semibold">
                             {album.name}
+                        </p>
+                        <p className="text-md text-gray-600 font-medium">
+                            {album.imageCount} {album.imageCount === 1 ? "Image" : "Image's"}
                         </p>
                     </div>
                 ))
@@ -287,7 +293,7 @@ const GalleryPage = () => {
 
     return (
         <main className="min-h-screen bg-zinc-200">
-            <div className="grid pt-20 md:pt-24 place-content-center mb-3">
+            <div className="grid pt-20 md:pt-24 place-content-center mb-8">
                 <h1 className="text-2xl md:text-4xl text-gray-800 font-semibold underline underline-offset-8 decoration-2 decoration-gray-800">
                     {selectedAlbum ? (
                         isEditing ? (
@@ -316,7 +322,7 @@ const GalleryPage = () => {
                             </button>
                         ) : (
                             <p className="mt-5 mb-5">
-                                To view images, click on an album below.
+                                Welcome to the Gallery page, this is where you can revisit all previous memories from Sector 2.To view images, click on an album below.
                             </p>
                         )}
                         <div className="flex flex-wrap justify-center lg:justify-end mb-5">
