@@ -107,8 +107,8 @@ const Events = () => {
                                         className="flex md:flex-row flex-col justify-between mb-10"
                                         key={event.id}>
                                         <div className="w-full md:w-3/5">
-                                            <h3 className="text-2xl text-zinc-200 mb-2 decoration-1 underline underline-offset-2 font-semibold">{event.eventTitle}</h3>
-                                            <h1>{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
+                                            <h3 className="text-2xl text-zinc-200 mb-1 font-semibold">{event.eventTitle}</h3>
+                                            <h1 className="text-sm">{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
                                             <p className="text-base mt-3 text-zinc-200">{event.contents} <button className="text-blue-600 hover:text-blue-600 font-semibold" onClick={() => handleEventClick(event)}>...Read More</button></p>
                                             <Toaster richColors />
                                             <div className="mt-5">
@@ -134,7 +134,7 @@ const Events = () => {
                                             <img
                                                 src={event.image}
                                                 alt={event.eventTitle}
-                                                className="w-full lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md rounded-md lg:border"
+                                                className="w-full lg:max-h-[250px] lg:min-h-[250px] lg:object-cover md:object-contain md:float-left md:mr-5 lg:max-h-md lg:max-w-md rounded-md lg:border object-top"
                                             />
                                         </div>
                                     </li>

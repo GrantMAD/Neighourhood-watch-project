@@ -172,11 +172,11 @@ const LandingPage = () => {
                 <div className="text-center my-5 mx-10 lg:w-1/3 hover:scale-105 cursor-pointer" key={event.id} onClick={() => handleEventClick(event)}>
                   <div className="flex justify-center">
                     <img
-                      className="h-52 w-52 md:w-96 lg:h-56 lg:w-96 object-fill border border-white rounded-md"
+                      className="w-full h-52 md:h-56 lg:h-64 object-cover object-top rounded-md"
                       alt="eventImage"
                       src={event.image} />
                   </div>
-                  <h1 className="font-semibold text-xl mt-3 underline underline-offset-2">{event.eventTitle}</h1>
+                  <h1 className="font-semibold text-xl mt-3">{event.eventTitle}</h1>
                   <h1>{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
                 </div>
               ))}
