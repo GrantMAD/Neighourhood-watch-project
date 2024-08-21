@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { faCalendarDay, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EventPage = (props) => {
   const navigate = useNavigate();
@@ -37,8 +39,15 @@ const EventPage = (props) => {
               alt={event?.eventTitle}
               src={event?.image}
             />
-            <h1 className="mb-5 font-semibold text-lg">{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
+            <div className="flex mb-3">
+              <FontAwesomeIcon icon={faCalendarDay} className="mr-2 mt-1 text-blue-500" />
+              <h1 className="text-md text-gray-400">{formatDate(event.eventStartDate)} - {formatDate(event.eventEndDate)}</h1>
+            </div>
+            <h1 className="text-2xl underline underline-offset-4 mb-2">Event Description</h1>
+            <div className="flex mt-8">
+            <FontAwesomeIcon icon={faFileAlt} className="mr-2 mt-1 text-blue-500" />
             <p className="text-zinc-200 whitespace-pre-line">{event?.contents}</p>
+            </div>
           </div>
           <div className="pt-5 pb-2">
             <button

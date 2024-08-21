@@ -40,12 +40,12 @@ const GalleryPage = () => {
                 const imageCount = data.images.length; // Get the number of images in the album
                 albumsData.push({ id: albumId, name: data.name, coverImage, userId: data.userId, imageCount });
             });
-    
+
             setAlbums(albumsData);
             setIsLoading(false);
         });
     }, []);
-    
+
 
     useEffect(() => {
         const currentUser = auth.currentUser;
@@ -171,30 +171,30 @@ const GalleryPage = () => {
                     const imageRef = ref(storage, image.imageUrl);
                     return deleteObject(imageRef);
                 });
-    
+
                 // Wait for all delete operations to complete
                 await Promise.all(deletePromises);
-    
+
                 // Delete the album document from Firestore
                 const albumRef = doc(db, "albums", selectedAlbum.id);
                 await deleteDoc(albumRef);
-    
+
                 // Update state to remove the album from the UI
                 setAlbums(prevAlbums => prevAlbums.filter(album => album.id !== selectedAlbum.id));
                 setSelectedAlbum(null);
                 setIsEditing(false);
-    
+
                 // Show a success toast notification
                 toast.success("Album deleted successfully.");
-    
+
             } catch (error) {
                 console.error("Error deleting album: ", error);
                 toast.error("Error deleting album.");
             }
         }
     };
-    
-    
+
+
 
     const renderContent = () => {
         if (isLoading) return <SkeletonImage />;
@@ -216,7 +216,7 @@ const GalleryPage = () => {
                         </div>
                         <div className="flex flex-col mt-3">
                             <p className="text-lg text-gray-800 font-semibold">
-                            <FontAwesomeIcon icon={faTag} className="mr-2 text-blue-600" />
+                                <FontAwesomeIcon icon={faTag} className="mr-2 text-blue-600" />
                                 {isEditing ? (
                                     <input
                                         type="text"
@@ -278,7 +278,8 @@ const GalleryPage = () => {
                                 />
                             )}
                         </div>
-                        <p className="mt-2 text-xl text-gray-800 font-semibold">
+                        <p className="mt-2 text-lg text-gray-800 font-semibold">
+                            <FontAwesomeIcon icon={faFolder} className="mr-2 text-blue-600" />
                             {album.name}
                         </p>
                         <p className="text-md text-gray-600 font-medium">
