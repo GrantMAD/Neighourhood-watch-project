@@ -349,7 +349,7 @@ const GalleryPage = () => {
                                     className="h-full bg-gradient-to-l from-blue-800 to-violet-600 hover:bg-gradient-to-r hover:scale-105 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0 md:mr-0 md:ml-2 shadow-xl"
                                     onClick={() => navigate('../AddImage')}
                                 >
-                                    Add new image
+                                    Add new Album
                                 </button>
                             )}
                         </div>
