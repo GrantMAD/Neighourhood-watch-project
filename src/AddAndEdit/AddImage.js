@@ -150,12 +150,12 @@ const AddImage = () => {
 
     return (
         <main className="min-h-screen p-10 bg-zinc-200">
-            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Image</h1>
+            <h1 className="grid text-gray-800 text-4xl place-content-center font-semibold underline underline-offset-8 decoration-1 mb-10 mt-16">Add Album</h1>
             <div>
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                     <div className="md:col-span-1">
                         <div className="px-4 sm:px-0">
-                            <h3 className="text-lg font-medium leading-6 text-gray-900 underline underline-offset-8">Add Image's to Gallery</h3>
+                            <h3 className="text-lg font-medium leading-6 text-gray-900">Add new album</h3>
                         </div>
                     </div>
                     <div className="mt-5 md:col-span-2 md:mt-0">
