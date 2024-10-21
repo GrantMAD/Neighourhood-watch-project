@@ -12,6 +12,10 @@ const MembersPanel = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const usersCollectionRef = collection(db, "users");
     const sectorOptionsRef = collection(db, "SectorOptions"); // Reference to SectorOptions collection
+    const [editingStreet, setEditingStreet] = useState(null); // Track editing street state
+    const [editedStreet, setEditedStreet] = useState(""); // Track the new street input
+    const [editingNumber, setEditingNumber] = useState(null); // Track editing number state
+    const [editedNumber, setEditedNumber] = useState(""); // Track the new number input
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -124,6 +128,62 @@ const MembersPanel = () => {
         }
     };
 
+    const updateUserAddress = async (userId, newAddress) => {
+        try {
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, { address: newAddress });
+
+            // Update local state
+            setUsers((prevUsers) =>
+                prevUsers.map((user) =>
+                    user.id === userId ? { ...user, address: newAddress } : user
+                )
+            );
+        } catch (error) {
+            console.error('Error updating address:', error);
+        }
+    };
+
+    const handleStreetEdit = (user) => {
+        setEditingStreet(user.id); // Set the currently editing user's id
+        setEditedStreet(user.address || ""); // Initialize the input with the user's current address
+    };
+
+    const saveEditedStreet = (user) => {
+        if (editedStreet !== "") {
+            updateUserAddress(user.id, editedStreet); // Update Firestore with the new street
+            setEditingStreet(null); // Exit edit mode after saving
+        }
+    };
+
+    const updateUserNumber = async (userId, newNumber) => {
+        try {
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, { number: newNumber });
+
+            // Update local state
+            setUsers((prevUsers) =>
+                prevUsers.map((user) =>
+                    user.id === userId ? { ...user, number: newNumber } : user
+                )
+            );
+        } catch (error) {
+            console.error('Error updating number:', error);
+        }
+    };
+
+    const handleNumberEdit = (user) => {
+        setEditingNumber(user.id); // Set the currently editing user's id for number
+        setEditedNumber(user.number || ""); // Initialize the input with the user's current number
+    };
+
+    const saveEditedNumber = (user) => {
+        if (editedNumber !== "") {
+            updateUserNumber(user.id, editedNumber); // Update Firestore with the new number
+            setEditingNumber(null); // Exit edit mode after saving
+        }
+    };
+
     return (
         <main className="min-h-screen bg-zinc-200">
             <div className="pt-24">
@@ -146,7 +206,7 @@ const MembersPanel = () => {
                     </div>
                     <div className="mt-3 pb-3">
                         <p>
-                            This page is only accessible to admins. To search for a specific user input their name into the search bar above. To change a users role click on the arrow in the dropdown and select the desired role.
+                            This page is only accessible to admins. To search for a specific user input their name into the search bar above. To change a users neighbourhood watch click on the dropdown in that users row and select the prefered neighbourhood watch. <br /> To change a users role click on the arrow in the dropdown and select the desired role. To edit a users street or number click on that users current street or number value and edit/add the new value and click save.
                         </p>
                     </div>
                 </div>
@@ -185,7 +245,34 @@ const MembersPanel = () => {
                                                 </select>
                                             )}
                                         </td>
-                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">{user.address || "No street information"}</td>
+                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
+                                            {editingStreet === user.id ? (
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        value={editedStreet}
+                                                        onChange={(e) => setEditedStreet(e.target.value)}
+                                                        className="border border-gray-400 rounded p-2"
+                                                    />
+                                                    <button
+                                                        onClick={() => saveEditedStreet(user)}
+                                                        className="ml-2 text-blue-500"
+                                                    >
+                                                        Save
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setEditingStreet(null)} // Exit edit mode without saving
+                                                        className="ml-2 text-blue-800 font-bold"
+                                                    >
+                                                        X
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <span onClick={() => handleStreetEdit(user)} className="cursor-pointer hover:underline">
+                                                    {user.address || "No street information"}
+                                                </span>
+                                            )}
+                                        </td>
                                         <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
                                             <select
                                                 className="rounded-md text-center ring-4 ring-gradient-to-l from-blue-800 to-violet-600"
@@ -200,16 +287,43 @@ const MembersPanel = () => {
                                                 ))}
                                             </select>
                                         </td>
-                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">{user.number}</td>
+                                        <td className="text-md hidden lg:w-1/6 md:w-1/4 sm:w-1/3 whitespace-nowrap px-6 py-4 font-light text-gray-900 lg:table-cell">
+                                            {editingNumber === user.id ? (
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        value={editedNumber}
+                                                        onChange={(e) => setEditedNumber(e.target.value)}
+                                                        className="border border-gray-400 rounded p-2"
+                                                    />
+                                                    <button
+                                                        onClick={() => saveEditedNumber(user)}
+                                                        className="ml-2 text-blue-500"
+                                                    >
+                                                        Save
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setEditingNumber(null)} // Exit edit mode without saving
+                                                        className="ml-2 text-blue-800 font-bold"
+                                                    >
+                                                        X
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <span onClick={() => handleNumberEdit(user)} className="cursor-pointer hover:underline">
+                                                    {user.number || "No number information"}
+                                                </span>
+                                            )}
+                                        </td>
                                         <td className="w-1/6 text-md text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    <li
-                                                        className={
-                                                            user.checkedIn
-                                                                ? "text-xl lg:ml-8 md:ml-5 ml-3 text-lime-400"
-                                                                : "text-xl lg:ml-8 md:ml-5 ml-5 text-gray-900"
-                                                        }
-                                                    ></li>
-                                                </td>
+                                            <li
+                                                className={
+                                                    user.checkedIn
+                                                        ? "text-xl lg:ml-8 md:ml-5 ml-3 text-lime-400"
+                                                        : "text-xl lg:ml-8 md:ml-5 ml-5 text-gray-900"
+                                                }
+                                            ></li>
+                                        </td>
                                     </tr>
                                 ))
                             )}
