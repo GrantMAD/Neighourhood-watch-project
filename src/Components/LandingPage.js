@@ -148,7 +148,7 @@ const LandingPage = () => {
           <img
             className="h-1/4 w-1/4 md:w-1/4 md:h-1/4 py-2 px-3 lg:flex hidden"
             alt=""
-            src="/images/Sector-2-logo.png"
+            src="/images/Sector-2-logo2.png"
           />
         </div>
       </div>
