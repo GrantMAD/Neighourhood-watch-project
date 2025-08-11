@@ -11,25 +11,25 @@ const PasswordResetPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Supabase often redirects with access_token and type in the URL hash
-        const hash = window.location.hash;
-        const params = new URLSearchParams(hash.substring(1)); // Remove #
-        const accessToken = params.get('access_token');
-        const type = params.get('type');
+        const handleSession = async () => {
+            const { data: { session }, error } = await supabase.auth.getSession();
 
-        if (accessToken && type === 'recovery') {
-            // Supabase automatically sets the session if access_token is present
-            // We can verify the session is active
-            supabase.auth.getSession().then(({ data: { session } }) => {
-                if (!session) {
-                    setMessage("Invalid or expired password reset link. Please try again.");
-                    setMessageType('error');
-                }
-            });
-        } else {
-            setMessage("Invalid password reset link. Please ensure you clicked the link from your email.");
-            setMessageType('error');
-        }
+            if (error) {
+                setMessage(`Error getting session: ${error.message}`);
+                setMessageType('error');
+                return;
+            }
+
+            if (session) {
+                setMessage("Please enter your new password.");
+                setMessageType('success');
+            } else {
+                setMessage("Invalid or expired password reset link. Please ensure you clicked the link from your email.");
+                setMessageType('error');
+            }
+        };
+
+        handleSession();
     }, []);
 
     const handlePasswordReset = async (e) => {
