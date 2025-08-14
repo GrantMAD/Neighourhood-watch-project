@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock, faShieldAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { supabase } from '../../supabase';
 
@@ -12,6 +12,15 @@ function DashboardPage() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [showGroupEventsModal, setShowGroupEventsModal] = useState(false);
+  const [showEventDetailsModal, setShowEventDetailsModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showGroupNewsModal, setShowGroupNewsModal] = useState(false);
+  const [showStoryDetailsModal, setShowStoryDetailsModal] = useState(false);
+  const [selectedStory, setSelectedStory] = useState(null);
+  const [showGroupReportsModal, setShowGroupReportsModal] = useState(false);
+  const [showReportDetailsModal, setShowReportDetailsModal] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
 
   const [overallMetrics, setOverallMetrics] = useState({});
   const [groupMetrics, setGroupMetrics] = useState([]);
@@ -342,6 +351,64 @@ function DashboardPage() {
           group={selectedGroup}
           onClose={() => setShowGroupModal(false)}
           onUserClick={openUserModalFromGroup}
+          onEventsClick={() => setShowGroupEventsModal(true)}
+          onNewsClick={() => setShowGroupNewsModal(true)}
+          onReportsClick={() => setShowGroupReportsModal(true)}
+        />
+      )}
+
+      {showGroupEventsModal && (
+        <GroupEventsModal
+          group={selectedGroup}
+          onClose={() => setShowGroupEventsModal(false)}
+          onEventClick={(event) => {
+            setSelectedEvent(event);
+            setShowEventDetailsModal(true);
+          }}
+        />
+      )}
+
+      {showEventDetailsModal && (
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={() => setShowEventDetailsModal(false)}
+          onUserClick={openUserModalFromGroup}
+        />
+      )}
+
+      {showGroupNewsModal && (
+        <GroupNewsModal
+          group={selectedGroup}
+          onClose={() => setShowGroupNewsModal(false)}
+          onStoryClick={(story) => {
+            setSelectedStory(story);
+            setShowStoryDetailsModal(true);
+          }}
+        />
+      )}
+
+      {showStoryDetailsModal && (
+        <StoryDetailsModal
+          story={selectedStory}
+          onClose={() => setShowStoryDetailsModal(false)}
+        />
+      )}
+
+      {showGroupReportsModal && (
+        <GroupReportsModal
+          group={selectedGroup}
+          onClose={() => setShowGroupReportsModal(false)}
+          onReportClick={(report) => {
+            setSelectedReport(report);
+            setShowReportDetailsModal(true);
+          }}
+        />
+      )}
+
+      {showReportDetailsModal && (
+        <ReportDetailsModal
+          report={selectedReport}
+          onClose={() => setShowReportDetailsModal(false)}
         />
       )}
 
@@ -564,7 +631,7 @@ function RequestsView({ requests }) {
   );
 }
 
-function GroupDetailsModal({ group, onClose, onUserClick }) {
+function GroupDetailsModal({ group, onClose, onUserClick, onEventsClick, onNewsClick, onReportsClick }) {
   const [userNames, setUserNames] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [creatorName, setCreatorName] = useState('Loading...');
@@ -661,21 +728,21 @@ function GroupDetailsModal({ group, onClose, onUserClick }) {
 
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-3 bg-gray-50 rounded shadow-sm">
+            <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faIdBadge} className="mr-2" />
                 Group ID
               </p>
               <p className="text-gray-900">{group.id}</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded shadow-sm">
+            <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faUser} className="mr-2" />
                 Created By
               </p>
               <p className="text-gray-900">{loadingCreator ? 'Loading...' : creatorName}</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded shadow-sm col-span-2">
+            <div className="p-3 bg-gray-50 rounded shadow-sm col-span-2 border border-gray-200">
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
                 Group Email
@@ -694,7 +761,7 @@ function GroupDetailsModal({ group, onClose, onUserClick }) {
             ) : userNames.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {userNames.map((user, index) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-white rounded shadow-sm cursor-pointer" onClick={() => onUserClick(user)}>
+                  <div key={index} className="flex items-center gap-3 p-2 bg-white rounded shadow-sm cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={() => onUserClick(user)}>
                     {user.avatar_url ? (
                       <img
                         src={user.avatar_url}
@@ -720,26 +787,557 @@ function GroupDetailsModal({ group, onClose, onUserClick }) {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="p-3 bg-gray-50 rounded shadow-sm text-center">
+            <div className="p-3 bg-gray-50 rounded shadow-sm text-center cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={onEventsClick}>
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />
                 Events
               </p>
               <p className="text-gray-900">{group.events?.length || 0}</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded shadow-sm text-center">
+            <div className="p-3 bg-gray-50 rounded shadow-sm text-center cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={onNewsClick}>
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faNewspaper} className="mr-2" />
                 News
               </p>
               <p className="text-gray-900">{group.news?.length || 0}</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded shadow-sm text-center">
+            <div className="p-3 bg-gray-50 rounded shadow-sm text-center cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={onReportsClick}>
               <p className="text-gray-600 font-semibold">
                 <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
                 Reports
               </p>
               <p className="text-gray-900">{group.reports?.length || 0}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GroupEventsModal({ group, onClose, onEventClick }) {
+  if (!group) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const formatTime = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+        <h2 className="text-2xl font-bold mb-4 text-center">{group.name} Events</h2>
+        <p className="text-gray-600 mb-6 text-center">
+          Here you can view all the events for this group. Click on an event to view more details.
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          {group.events?.length > 0 ? (
+            group.events.map(event => (
+              <div key={event.id} className="p-4 bg-gray-50 rounded shadow-sm cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={() => onEventClick(event)}>
+                <div className="flex items-center mb-4">
+                  {event.image && event.image !== 'shield' ? (
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-16 h-16 rounded-full object-cover shadow-md border-4 border-indigo-500"
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center shadow-md border-4 border-indigo-500">
+                      <FontAwesomeIcon icon={faShieldAlt} className="text-gray-400 text-4xl" />
+                    </div>
+                  )}
+                  <div className="ml-4">
+                    <p className="text-lg font-semibold">{event.title}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-[auto,1fr] gap-x-4">
+                  <FontAwesomeIcon icon={faCalendarAlt} className="mt-1" />
+                  <p className="text-gray-600">{formatDate(event.startDate)} - {formatDate(event.endDate)}</p>
+                  <FontAwesomeIcon icon={faClock} className="mt-1" />
+                  <p className="text-gray-600">{formatTime(event.startDate)} - {formatTime(event.endDate)}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400">No events for this group.</p>
+          )}
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EventDetailsModal({ event, onClose, onUserClick }) {
+  const [attendees, setAttendees] = useState([]);
+  const [loadingAttendees, setLoadingAttendees] = useState(true);
+
+  useEffect(() => {
+    async function fetchAttendees() {
+      if (event?.attendees?.length) {
+        setLoadingAttendees(true);
+        try {
+          const { data: profiles, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .in('id', event.attendees);
+
+          if (error) {
+            console.error('Error fetching attendees profiles:', error);
+            setAttendees([{ name: 'Error loading attendees', avatar_url: null, role: 'N/A' }]);
+          } else {
+            setAttendees(profiles);
+          }
+        } catch (err) {
+          console.error('Unexpected error fetching attendees profiles:', err);
+          setAttendees([{ name: 'Error loading attendees', avatar_url: null, role: 'N/A' }]);
+        } finally {
+          setLoadingAttendees(false);
+        }
+      } else {
+        setAttendees([]);
+        setLoadingAttendees(false);
+      }
+    }
+
+    fetchAttendees();
+  }, [event]);
+
+  if (!event) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const formatTime = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-center mb-4">
+          {event.image && event.image !== 'shield' ? (
+            <img
+              src={event.image}
+              alt={event.title}
+              className="w-32 h-32 rounded-full object-cover shadow-md border-4 border-indigo-500"
+              onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+            />
+          ) : (
+            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center shadow-md border-4 border-indigo-500">
+              <FontAwesomeIcon icon={faShieldAlt} className="text-gray-400 text-6xl" />
+            </div>
+          )}
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-center">{event.title}</h2>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />Start Date:</p>
+              <p className="text-gray-600">{formatDate(event.startDate)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faClock} className="mr-2" />Start Time:</p>
+              <p className="text-gray-600">{formatTime(event.startDate)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />End Date:</p>
+              <p className="text-gray-600">{formatDate(event.endDate)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faClock} className="mr-2" />End Time:</p>
+              <p className="text-gray-600">{formatTime(event.endDate)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />Location:</p>
+              <p className="text-gray-600">{event.location}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faEye} className="mr-2" />Event Views:</p>
+              <p className="text-gray-600">{event.views}</p>
+            </div>
+          </div>
+          <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+            <p className="text-lg font-semibold"><FontAwesomeIcon icon={faEnvelope} className="mr-2" />Message:</p>
+            <p className="text-gray-600">{event.message}</p>
+          </div>
+          <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+            <p className="text-lg font-semibold"><FontAwesomeIcon icon={faUsers} className="mr-2" />Attendees:</p>
+            {loadingAttendees ? (
+              <p className="text-gray-400">Loading...</p>
+            ) : attendees.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {attendees.map((attendee, index) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-white rounded shadow-sm cursor-pointer" onClick={() => onUserClick(attendee)}>
+                    {attendee.avatar_url ? (
+                      <img
+                        src={attendee.avatar_url}
+                        alt={attendee.name}
+                        className="w-10 h-10 rounded-full object-cover border-2 border-indigo-400"
+                        onError={(e) => { e.target.onerror = null; e.target.src = '/images/avatar-placeholder.png'; }}
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center border-2 border-indigo-400">
+                        <span className="text-gray-400 text-sm">{attendee.name?.[0]}</span>
+                      </div>
+                    )}
+                    <div>
+                      <span className="text-gray-900 font-medium">{attendee.name}</span>
+                      <p className="text-gray-500 text-sm">{attendee.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-400">No attendees</p>
+            )}
+          </div>
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GroupNewsModal({ group, onClose, onStoryClick }) {
+  if (!group) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+        <h2 className="text-2xl font-bold mb-4 text-center">{group.name} News Stories</h2>
+        <p className="text-gray-600 mb-6 text-center">
+          Here you can view all the news stories for this group. Click on a story to view more details.
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          {group.news?.length > 0 ? (
+            group.news.map(story => (
+              <div key={story.id} className="p-4 bg-gray-50 rounded shadow-sm cursor-pointer hover:bg-gray-100 transition border border-gray-200" onClick={() => onStoryClick(story)}>
+                <div className="flex items-center mb-4">
+                  {story.image && story.image !== 'shield' ? ( // Assuming 'shield' is a placeholder for no image
+                    <img
+                      src={story.image}
+                      alt={story.title}
+                      className="w-16 h-16 rounded-full object-cover shadow-md border-4 border-indigo-500"
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center shadow-md border-4 border-indigo-500">
+                      <FontAwesomeIcon icon={faNewspaper} className="text-gray-400 text-4xl" /> {/* Using faNewspaper for news */}
+                    </div>
+                  )}
+                  <div className="ml-4">
+                    <p className="text-lg font-semibold">{story.title}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-[auto,1fr] gap-x-4">
+                  <FontAwesomeIcon icon={faCalendarAlt} className="mt-1" />
+                  <p className="text-gray-600">{formatDate(story.date)}</p>
+                  <FontAwesomeIcon icon={faEye} className="mt-1" />
+                  <p className="text-gray-600">{story.views || 0} Views</p> {/* Assuming 'views' property exists */}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400">No news stories for this group.</p>
+          )}
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StoryDetailsModal({ story, onClose }) {
+  if (!story) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-center mb-4">
+          {story.image && story.image !== 'shield' ? ( // Assuming 'shield' is a placeholder for no image
+            <img
+              src={story.image}
+              alt={story.title}
+              className="w-32 h-32 rounded-full object-cover shadow-md border-4 border-indigo-500"
+              onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+            />
+          ) : (
+            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center shadow-md border-4 border-indigo-500">
+              <FontAwesomeIcon icon={faNewspaper} className="text-gray-400 text-6xl" /> {/* Using faNewspaper for news */}
+            </div>
+          )}
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-center">{story.title}</h2>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />Published Date:</p>
+              <p className="text-gray-600">{formatDate(story.date)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faEye} className="mr-2" />Views:</p>
+              <p className="text-gray-600">{story.views || 0}</p>
+            </div>
+          </div>
+          <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+            <p className="text-lg font-semibold"><FontAwesomeIcon icon={faNewspaper} className="mr-2" />Content:</p>
+            <p className="text-gray-600">{story.content}</p>
+          </div>
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GroupReportsModal({ group, onClose, onReportClick }) {
+  if (!group) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const getSeverityColor = (severity) => {
+    switch ((severity || '').toLowerCase()) {
+      case 'high':
+        return 'bg-red-500';
+      case 'medium':
+        return 'bg-orange-500';
+      case 'low':
+        return 'bg-green-500';
+      default:
+        return 'bg-gray-400';
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+        <h2 className="text-2xl font-bold mb-4 text-center">{group.name} Incident Reports</h2>
+        <p className="text-gray-600 mb-6 text-center">
+          Here you can view all the incident reports for this group. Click on a report to view more details.
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          {group.reports?.length > 0 ? (
+            group.reports.map(report => (
+              <div
+                key={report.id}
+                className="relative p-4 bg-gray-50 rounded shadow-sm cursor-pointer hover:bg-gray-100 transition border border-gray-200"
+                onClick={() => onReportClick(report)}
+              >
+                {/* Severity Badge */}
+                {report.severity_tag && (
+                  <span
+                    className={`absolute top-2 right-2 text-white text-xs font-semibold px-2 py-1 rounded ${getSeverityColor(report.severity_tag)}`}
+                  >
+                    {report.severity_tag}
+                  </span>
+                )}
+
+                <div className="flex items-center mb-4">
+                  <div className="ml-4">
+                    <p className="text-2xl font-semibold">{report.title}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-[auto,1fr] gap-x-4">
+                  <FontAwesomeIcon icon={faCalendarAlt} className="mt-1" />
+                  <p className="text-gray-600">Reported: {formatDate(report.reported_at)}</p>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mt-1" />
+                  <p className="text-gray-600">Location: {report.location_of_incident}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400">No incident reports for this group.</p>
+          )}
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ReportDetailsModal({ report, onClose }) {
+  const [reporterName, setReporterName] = useState('Loading...');
+  const [loadingReporter, setLoadingReporter] = useState(true);
+
+  useEffect(() => {
+    async function fetchReporterName() {
+      if (report?.reported_by) {
+        setLoadingReporter(true);
+        try {
+          const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('name')
+            .eq('id', report.reported_by)
+            .single();
+
+          if (error) {
+            console.error('Error fetching reporter profile:', error);
+            setReporterName('Error loading reporter');
+          } else {
+            setReporterName(profile?.name || 'Unknown');
+          }
+        } catch (err) {
+          console.error('Unexpected error fetching reporter profile:', err);
+          setReporterName('Error loading reporter');
+        } finally {
+          setLoadingReporter(false);
+        }
+      } else {
+        setReporterName('N/A');
+        setLoadingReporter(false);
+      }
+    }
+
+    fetchReporterName();
+  }, [report?.reported_by]);
+
+  if (!report) return null;
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  const formatTime = (timeString) => {
+    if (!timeString) return 'N/A';
+    return timeString;
+  };
+
+  // Determine badge color based on severity
+  const getSeverityColor = (severity) => {
+    switch ((severity || '').toLowerCase()) {
+      case 'high': return 'bg-red-500';
+      case 'medium': return 'bg-orange-500';
+      case 'low': return 'bg-green-500';
+      default: return 'bg-gray-400';
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 text-gray-900" onClick={e => e.stopPropagation()}>
+
+        {/* Title and Severity Badge */}
+        <div className="flex justify-between items-start mb-4">
+          <h2 className="text-3xl font-bold">{report.title}</h2>
+          {report.severity_tag && (
+            <span className={`text-white px-3 py-1 rounded-full font-semibold ${getSeverityColor(report.severity_tag)}`}>
+              {report.severity_tag}
+            </span>
+          )}
+        </div>
+
+        <div className="space-y-4">
+          <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+            <p className="text-lg font-semibold"><FontAwesomeIcon icon={faNewspaper} className="mr-2" />Description:</p>
+            <p className="text-gray-600">{report.description}</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />Reported At:</p>
+              <p className="text-gray-600">{formatDate(report.reported_at)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faUser} className="mr-2" />Reported By:</p>
+              <p className="text-gray-600">{loadingReporter ? 'Loading...' : reporterName}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />Incident Date:</p>
+              <p className="text-gray-600">{formatDate(report.date_of_incident)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faClock} className="mr-2" />Incident Time:</p>
+              <p className="text-gray-600">{formatTime(report.time_of_incident)}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />Location:</p>
+              <p className="text-gray-600">{report.location_of_incident}</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded shadow-sm col-span-2 border border-gray-200">
+              <p className="text-lg font-semibold"><FontAwesomeIcon icon={faIdBadge} className="mr-2" />Police Reference:</p>
+              <p className="text-gray-600">{report.police_reference || 'N/A'}</p>
             </div>
           </div>
         </div>
@@ -856,43 +1454,43 @@ function UserDetailsModal({ user, onClose }) {
 
         <div className="grid grid-cols-2 gap-4">
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faUserTag} className="mr-2" />Role</p>
             <p className="text-gray-900">{user.role}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faUsers} className="mr-2" />Group</p>
             <p className="text-gray-900">{groupName}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faCheckCircle} className="mr-2" />Checked In</p>
             <p className="text-gray-900">{user.checked_in ? 'Yes' : 'No'}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />Address</p>
             <p className="text-gray-900">{user.street || 'N/A'}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faPhone} className="mr-2" />Number</p>
             <p className="text-gray-900">{user.number || 'N/A'}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm">
+          <div className="p-3 bg-gray-50 rounded shadow-sm border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faFirstAid} className="mr-2" />Emergency Contact</p>
             <p className="text-gray-900">{user.emergency_contact || 'N/A'}</p>
           </div>
 
-          <div className="p-3 bg-gray-50 rounded shadow-sm col-span-2">
+          <div className="p-3 bg-gray-50 rounded shadow-sm col-span-2 border border-gray-200">
             <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faCar} className="mr-2" />Vehicle Info</p>
             <p className="text-gray-900">{user.vehicle_info || 'N/A'}</p>
           </div>
 
           {/* Check-in dropdown */}
-          <div className="p-3 bg-gray-50 rounded shadow-sm cursor-pointer col-span-2" onClick={() => setShowCheckIn(!showCheckIn)}>
+          <div className="p-3 bg-gray-50 rounded shadow-sm cursor-pointer col-span-2 border border-gray-200" onClick={() => setShowCheckIn(!showCheckIn)}>
             <div className="flex justify-between items-center">
               <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faClock} className="mr-2" />Check-In Times</p>
               <FontAwesomeIcon icon={showCheckIn ? faChevronUp : faChevronDown} />
@@ -912,7 +1510,7 @@ function UserDetailsModal({ user, onClose }) {
           </div>
 
           {/* Check-out dropdown */}
-          <div className="p-3 bg-gray-50 rounded shadow-sm cursor-pointer col-span-2" onClick={() => setShowCheckOut(!showCheckOut)}>
+          <div className="p-3 bg-gray-50 rounded shadow-sm cursor-pointer col-span-2 border border-gray-200" onClick={() => setShowCheckOut(!showCheckOut)}>
             <div className="flex justify-between items-center">
               <p className="text-gray-600 font-semibold"><FontAwesomeIcon icon={faClock} className="mr-2" />Check-Out Times</p>
               <FontAwesomeIcon icon={showCheckOut ? faChevronUp : faChevronDown} />
