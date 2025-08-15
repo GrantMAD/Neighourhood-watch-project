@@ -12,7 +12,7 @@ function MobileAppLandingPage() {
       <Link to="/login" className="absolute top-4 right-4 text-white text-3xl font-bold cursor-pointer transition-colors duration-200 hover:text-gray-400 hover:scale-110 transform">
         &#8226;&#8226;&#8226;
       </Link>
-      <img src="/images/nwLogo.png" alt="Neighbourhood Watch Logo" className="h-24 sm:h-32 object-contain mb-10 fade-in" />
+      <img src="/images/nwLogo.png" alt="Neighbourhood Watch Logo" className="h-24 sm:h-32 object-contain mt-20 mb-16 fade-in" />
       <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-8 leading-snug tracking-wide w-full text-center" style={{textShadow: '0 2px 4px rgba(0,0,0,0.7)'}}>Welcome to the<br/>Neighbourhood Watch Mobile App!</h1>
       <p className="text-lg sm:text-2xl text-gray-300 text-center max-w-4xl mb-16 font-light leading-relaxed" style={{textShadow: '0 1px 3px rgba(0,0,0,0.5)'}}>
         The Neighbourhood Watch Mobile App is your dedicated platform for fostering safer, more connected communities. Designed specifically for neighbourhood watch initiatives and local groups, this

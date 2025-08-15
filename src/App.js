@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import MobileAppLandingPage from './Components/MobileAppAccess/MobileAppLandingPage';
 import Footer from './Components/Footer';
 import SignInPageSupabase from './Components/MobileAppAccess/SignInPageSupabase';
@@ -10,15 +10,26 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MobileAppLandingPage />} />
-          <Route path="/login" element={<SignInPageSupabase />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/reset-password" element={<PasswordResetPage />} />
-        </Routes>
+        <AppContent />
       </BrowserRouter>
-      <Footer />
     </div>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  const showFooter = location.pathname !== '/dashboard';
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<MobileAppLandingPage />} />
+        <Route path="/login" element={<SignInPageSupabase />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/reset-password" element={<PasswordResetPage />} />
+      </Routes>
+      {showFooter && <Footer />}
+    </>
   );
 }
 
