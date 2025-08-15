@@ -178,14 +178,14 @@ function DashboardPage() {
         <img
           src="/images/nwLogo.png"
           alt="NeighWatch Logo"
-          className="mb-8 w-48 object-contain select-none mx-auto"
+          className="mb-8 object-contain select-none"
           draggable={false}
         />
         {['overall', 'groups', 'users', 'events', 'news', 'incidents', 'requests'].map(cat => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`mb-3 px-5 py-3 rounded-lg text-lg font-medium transition
+            className={`mb-3 px-5 py-3 rounded-lg text-lg font-medium transition text-left w-full flex justify-start pl-4
               ${activeCategory === cat ? 'bg-indigo-600 text-white shadow-lg' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}
               focus:outline-none focus:ring-2 focus:ring-indigo-500`}
           >
@@ -211,7 +211,7 @@ function DashboardPage() {
         {/* Overall */}
         {!loading && activeCategory === 'overall' && (
           <>
-            <h2 className="text-3xl font-bold mb-2">Overall Application Metrics</h2>
+            <h2 className="text-4xl font-bold mb-2 pb-2 border-b-2 border-blue-500">Overall Application Metrics</h2>
             <p className="mb-6 text-gray-600">
               This section provides a snapshot of the key statistics across all users, groups, events, news, and incidents in the application.
             </p>
@@ -276,7 +276,10 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               View all events across groups with details such as date, location, and associated group.
             </p>
-            <EventsTable events={eventMetrics} onDelete={handleDeleteEvent} />
+            <EventsTable events={eventMetrics} onDelete={handleDeleteEvent} onRowClick={(event) => {
+              setSelectedEvent(event);
+              setShowEventDetailsModal(true);
+            }} />
           </>
         )}
 
@@ -289,7 +292,10 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               Review published news stories for all groups and manage content.
             </p>
-            <NewsTable news={newsMetrics} onDelete={handleDeleteNews} />
+            <NewsTable news={newsMetrics} onDelete={handleDeleteNews} onRowClick={(story) => {
+              setSelectedStory(story);
+              setShowStoryDetailsModal(true);
+            }} />
           </>
         )}
 
@@ -302,7 +308,10 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               Browse reported incidents with status and group details.
             </p>
-            <IncidentsTable incidents={incidentMetrics} onDelete={handleDeleteIncident} />
+            <IncidentsTable incidents={incidentMetrics} onDelete={handleDeleteIncident} onRowClick={(report) => {
+              setSelectedReport(report);
+              setShowReportDetailsModal(true);
+            }} />
           </>
         )}
 
@@ -438,7 +447,7 @@ function MetricCard({ icon, title, value, onClick, whiteBg = false }) {
       onClick={onClick}
       type="button"
       className={`
-        rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:bg-gray-100 transition
+        rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:bg-gray-100 transition border border-gray-200
         ${whiteBg ? 'bg-white text-gray-900 hover:bg-gray-200' : 'bg-gray-800 text-white hover:bg-gray-700'}
       `}
     >
@@ -548,7 +557,7 @@ function UsersTable({ users, onRowClick }) {
 }
 
 
-function EventsTable({ events, onDelete }) {
+function EventsTable({ events, onDelete, onRowClick }) {
   const columns = [
     { key: 'title', label: 'Title' },
     {
@@ -568,10 +577,10 @@ function EventsTable({ events, onDelete }) {
     { label: 'Delete', onClick: e => onDelete(e.id, e.groupId), color: 'red' },
   ];
 
-  return <Table columns={columns} rows={events} actions={actions} />;
+  return <Table columns={columns} rows={events} actions={actions} onRowClick={onRowClick} />;
 }
 
-function NewsTable({ news, onDelete }) {
+function NewsTable({ news, onDelete, onRowClick }) {
   const columns = [
     { key: 'title', label: 'Title' },
     { key: 'date', label: 'Published', render: n => new Date(n.date).toLocaleDateString() },
@@ -582,10 +591,10 @@ function NewsTable({ news, onDelete }) {
     { label: 'Delete', onClick: n => onDelete(n.id, n.groupId), color: 'red' },
   ];
 
-  return <Table columns={columns} rows={news} actions={actions} />;
+  return <Table columns={columns} rows={news} actions={actions} onRowClick={onRowClick} />;
 }
 
-function IncidentsTable({ incidents, onDelete }) {
+function IncidentsTable({ incidents, onDelete, onRowClick }) {
   const columns = [
     { key: 'title', label: 'Title' },
     { key: 'reported_at', label: 'Reported', render: i => new Date(i.reported_at).toLocaleDateString() },
@@ -599,7 +608,7 @@ function IncidentsTable({ incidents, onDelete }) {
     { label: 'Delete', onClick: i => onDelete(i.id, i.groupId), color: 'red' },
   ];
 
-  return <Table columns={columns} rows={incidents} actions={actions} />;
+  return <Table columns={columns} rows={incidents} actions={actions} onRowClick={onRowClick} />;
 }
 
 function RequestsView({ requests }) {
