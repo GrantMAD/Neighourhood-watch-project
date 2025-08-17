@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock, faShieldAlt, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock, faShieldAlt, faEye, faUserCheck, faPercent, faBell, faCalendarDay, faLayerGroup, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { supabase } from '../../supabase';
 
@@ -21,6 +21,7 @@ function DashboardPage() {
   const [showGroupReportsModal, setShowGroupReportsModal] = useState(false);
   const [showReportDetailsModal, setShowReportDetailsModal] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
+  const [filteredUserRole, setFilteredUserRole] = useState(null);
 
   const [overallMetrics, setOverallMetrics] = useState({});
   const [groupMetrics, setGroupMetrics] = useState([]);
@@ -38,12 +39,14 @@ function DashboardPage() {
     setTimeout(() => setToast(t => ({ ...t, visible: false })), 3000);
   }, []);
 
+  const [roleBasedMetrics, setRoleBasedMetrics] = useState({ adminUsers: 0, memberUsers: 0 });
+
   const fetchDataForCategory = useCallback(async (category) => {
     setLoading(true);
     try {
       switch (category) {
         case 'overall': {
-          const { count: totalUsers } = await supabase.from('profiles').select('id', { count: 'exact', head: true });
+          const { data: profilesData, count: totalUsers } = await supabase.from('profiles').select('id, name, email, number, street, emergency_contact, avatar_url, checked_in, check_in_notifications, event_notifications, news_notifications', { count: 'exact' });
           const { count: totalGroups } = await supabase.from('groups').select('id', { count: 'exact', head: true });
           const { data: allGroupsData } = await supabase.from('groups').select('events, news, reports');
           let totalEvents = 0, totalNews = 0, totalIncidents = 0;
@@ -52,7 +55,54 @@ function DashboardPage() {
             totalNews += g.news?.length || 0;
             totalIncidents += g.reports?.length || 0;
           });
-          setOverallMetrics({ totalUsers, totalGroups, totalEvents, totalNews, totalIncidents });
+
+          let checkedInUsers = 0;
+          let completeProfiles = 0;
+          let checkInOptIn = 0;
+          let eventOptIn = 0;
+          let newsOptIn = 0;
+
+          if (profilesData) {
+            profilesData.forEach(profile => {
+              if (profile.checked_in) {
+                checkedInUsers++;
+              }
+
+              // Profile Completeness (adjust fields as needed)
+              if (profile.name && profile.email && profile.number && profile.street && profile.emergency_contact) {
+                completeProfiles++;
+              }
+
+              // Notification Opt-in Rates
+              if (profile.check_in_notifications) {
+                checkInOptIn++;
+              }
+              if (profile.event_notifications) {
+                eventOptIn++;
+              }
+              if (profile.news_notifications) {
+                newsOptIn++;
+              }
+            });
+          }
+
+          const profileCompletenessPercentage = totalUsers > 0 ? (completeProfiles / totalUsers) * 100 : 0;
+          const checkInOptInPercentage = totalUsers > 0 ? (checkInOptIn / totalUsers) * 100 : 0;
+          const eventOptInPercentage = totalUsers > 0 ? (eventOptIn / totalUsers) * 100 : 0;
+          const newsOptInPercentage = totalUsers > 0 ? (newsOptIn / totalUsers) * 100 : 0;
+
+          setOverallMetrics({
+            totalUsers,
+            totalGroups,
+            totalEvents,
+            totalNews,
+            totalIncidents,
+            checkedInUsers,
+            profileCompletenessPercentage,
+            checkInOptInPercentage,
+            eventOptInPercentage,
+            newsOptInPercentage,
+          });
           break;
         }
         case 'groups': {
@@ -64,7 +114,22 @@ function DashboardPage() {
           const { data } = await supabase
             .from('profiles')
             .select('id, name, email, role, group_id, checked_in, number, street, emergency_contact, vehicle_info, check_in_time, check_out_time, avatar_url');
+
+          let adminUsers = 0;
+          let memberUsers = 0;
+
+          if (data) {
+            data.forEach(user => {
+              if (user.role === 'Admin') {
+                adminUsers++;
+              } else if (user.role === 'Member') {
+                memberUsers++;
+              }
+            });
+          }
+
           setUserMetrics(data || []);
+          setRoleBasedMetrics({ adminUsers, memberUsers });
           break;
         }
         case 'events': {
@@ -215,12 +280,39 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               This section provides a snapshot of the key statistics across all users, groups, events, news, and incidents in the application.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              <MetricCard icon="users" title="Total Users" value={overallMetrics.totalUsers || 0} onClick={() => setActiveCategory('users')} whiteBg />
-              <MetricCard icon="layer-group" title="Total Groups" value={overallMetrics.totalGroups || 0} onClick={() => setActiveCategory('groups')} whiteBg />
-              <MetricCard icon="calendar-check" title="Total Events" value={overallMetrics.totalEvents || 0} onClick={() => setActiveCategory('events')} whiteBg />
-              <MetricCard icon="newspaper" title="Total News" value={overallMetrics.totalNews || 0} onClick={() => setActiveCategory('news')} whiteBg />
-              <MetricCard icon="exclamation-triangle" title="Total Incidents" value={overallMetrics.totalIncidents || 0} onClick={() => setActiveCategory('incidents')} whiteBg />
+
+            {/* General Overview */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 pb-2 border-b border-gray-300">General Overview</h3>
+              <p className="mb-6 text-gray-600">Key statistics across all users, groups, events, news, and incidents.</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <MetricCard icon={faUsers} title="Total Users" value={overallMetrics.totalUsers || 0} onClick={() => setActiveCategory('users')} whiteBg />
+                <MetricCard icon={faLayerGroup} title="Total Groups" value={overallMetrics.totalGroups || 0} onClick={() => setActiveCategory('groups')} whiteBg />
+                <MetricCard icon={faCalendarCheck} title="Total Events" value={overallMetrics.totalEvents || 0} onClick={() => setActiveCategory('events')} whiteBg />
+                <MetricCard icon={faNewspaper} title="Total News" value={overallMetrics.totalNews || 0} onClick={() => setActiveCategory('news')} whiteBg />
+                <MetricCard icon={faExclamationTriangle} title="Total Incidents" value={overallMetrics.totalIncidents || 0} onClick={() => setActiveCategory('incidents')} whiteBg />
+              </div>
+            </div>
+
+            {/* Real-time Activity */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 pb-2 border-b border-gray-300">Real-time Activity</h3>
+              <p className="mb-6 text-gray-600">Current status of user check-ins.</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <MetricCard icon={faUserCheck} title="Checked-in Users" value={overallMetrics.checkedInUsers || 0} whiteBg />
+              </div>
+            </div>
+
+            {/* User Engagement */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 pb-2 border-b border-gray-300">User Engagement</h3>
+              <p className="mb-6 text-gray-600">Metrics related to user profile completion and notification preferences.</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <MetricCard icon={faPercent} title="Profile Completeness" value={`${overallMetrics.profileCompletenessPercentage?.toFixed(1) || 0}%`} whiteBg />
+                <MetricCard icon={faBell} title="Check-in Notif. Opt-in" value={`${overallMetrics.checkInOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
+                <MetricCard icon={faCalendarDay} title="Event Notif. Opt-in" value={`${overallMetrics.eventOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
+                <MetricCard icon={faCalendarDay} title="Event Notif. Opt-in" value={`${overallMetrics.eventOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
+              </div>
             </div>
           </>
         )}
@@ -250,15 +342,49 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               Manage users, view roles, and check users’ group assignments and check-in statuses.
             </p>
-            <input
-              type="text"
-              placeholder="Search users by name..."
-              className="mb-6 w-full max-w-md px-4 py-3 rounded-lg border border-indigo-400 bg-white text-indigo-900 placeholder-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-            />
+
+            {/* Role-Based Metrics */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-4 pb-2 border-b border-gray-300">Role-Based Metrics</h3>
+              <p className="mb-6 text-gray-600">Breakdown of users by their assigned roles within the application.</p>
+              <div className="grid grid-cols-2 gap-6">
+                <MetricCard
+                  title="Total Admins"
+                  value={roleBasedMetrics.adminUsers || 0}
+                  onClick={() => setFilteredUserRole('Admin')}
+                  whiteBg
+                />
+                <MetricCard
+                  title="Total Members"
+                  value={roleBasedMetrics.memberUsers || 0}
+                  onClick={() => setFilteredUserRole('Member')}
+                  whiteBg
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center mb-6 space-x-4"> {/* Flex container for search and button */}
+              <input
+                type="text"
+                placeholder="Search users by name..."
+                className="w-full max-w-md px-4 py-3 rounded-lg border border-indigo-400 bg-white text-indigo-900 placeholder-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+              {filteredUserRole && (
+                <button
+                  onClick={() => setFilteredUserRole(null)}
+                  className="px-4 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
+                >
+                  Show All Users
+                </button>
+              )}
+            </div>
             <UsersTable
-              users={userMetrics.filter(u => u.name?.toLowerCase().includes(searchQuery.toLowerCase()))}
+              users={userMetrics.filter(u =>
+                (filteredUserRole ? u.role === filteredUserRole : true) &&
+                u.name?.toLowerCase().includes(searchQuery.toLowerCase())
+              )}
               onRowClick={(user) => {
                 setSelectedUser(user);
                 setShowUserModal(true);
@@ -441,21 +567,44 @@ function DashboardPage() {
   );
 }
 
-function MetricCard({ icon, title, value, onClick, whiteBg = false }) {
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      className={`
-        rounded-lg shadow p-6 flex flex-col items-center cursor-pointer hover:bg-gray-100 transition border border-gray-200
-        ${whiteBg ? 'bg-white text-gray-900 hover:bg-gray-200' : 'bg-gray-800 text-white hover:bg-gray-700'}
-      `}
-    >
-      <i className={`fas fa-${icon} text-4xl mb-4 ${whiteBg ? 'text-gray-700' : 'text-gray-300'}`}></i>
+function MetricCard({ title, value, icon, onClick, whiteBg = false }) {
+  const baseClasses = `rounded-lg shadow p-6 flex flex-col items-center transition border border-gray-200`;
+  const bgColorClasses = whiteBg ? 'bg-white text-gray-900' : 'bg-gray-800 text-white';
+  const hoverBgColorClasses = whiteBg ? 'hover:bg-gray-200' : 'hover:bg-gray-700';
+
+  const content = (
+    <>
+      {icon && (
+        <div className="mb-2 text-2xl">
+          <FontAwesomeIcon icon={icon} />
+        </div>
+      )}
       <span className="text-3xl font-bold">{value}</span>
-      <span className={`mt-2 ${whiteBg ? 'text-gray-600' : 'text-gray-400'}`}>{title}</span>
-    </button>
+      <span className={`mt-2 ${whiteBg ? 'text-gray-600' : 'text-gray-400'}`}>
+        {title}
+      </span>
+    </>
   );
+
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        type="button"
+        className={`${baseClasses} cursor-pointer ${bgColorClasses} ${hoverBgColorClasses}`}
+      >
+        {content}
+      </button>
+    );
+  } else {
+    return (
+      <div
+        className={`${baseClasses} ${bgColorClasses}`}
+      >
+        {content}
+      </div>
+    );
+  }
 }
 
 function Table({ columns, rows, actions, onRowClick }) {
@@ -555,7 +704,6 @@ function UsersTable({ users, onRowClick }) {
 
   return <Table columns={columns} rows={users} onRowClick={onRowClick} />;
 }
-
 
 function EventsTable({ events, onDelete, onRowClick }) {
   const columns = [
