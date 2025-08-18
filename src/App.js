@@ -5,7 +5,6 @@ import Footer from './Components/Footer';
 import SignInPageSupabase from './Components/MobileAppAccess/SignInPageSupabase';
 import DashboardPage from './Components/MobileAppAccess/DashboardPage';
 import PasswordResetPage from './Components/MobileAppAccess/PasswordResetPage';
-import VerificationPage from './Components/MobileAppAccess/VerificationPage';
 
 function App() {
   return (
@@ -28,7 +27,6 @@ function AppContent() {
         <Route path="/login" element={<SignInPageSupabase />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/reset-password" element={<PasswordResetPage />} />
-        <Route path="/verification" element={<VerificationPage />} />
       </Routes>
       {showFooter && <Footer />}
     </>
