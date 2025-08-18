@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock, faShieldAlt, faEye, faUserCheck, faPercent, faBell, faCalendarDay, faLayerGroup, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge, faUser, faEnvelope, faUsers, faCalendarAlt, faNewspaper, faExclamationTriangle, faChevronDown, faChevronUp, faUserTag, faCheckCircle, faMapMarkerAlt, faPhone, faFirstAid, faCar, faClock, faShieldAlt, faEye, faUserCheck, faPercent, faLayerGroup, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { supabase } from '../../supabase';
 
@@ -46,7 +46,7 @@ function DashboardPage() {
     try {
       switch (category) {
         case 'overall': {
-          const { data: profilesData, count: totalUsers } = await supabase.from('profiles').select('id, name, email, number, street, emergency_contact, avatar_url, checked_in, check_in_notifications, event_notifications, news_notifications', { count: 'exact' });
+          const { data: profilesData, count: totalUsers } = await supabase.from('profiles').select('id, name, email, number, street, emergency_contact, avatar_url, checked_in', { count: 'exact' });
           const { count: totalGroups } = await supabase.from('groups').select('id', { count: 'exact', head: true });
           const { data: allGroupsData } = await supabase.from('groups').select('events, news, reports');
           let totalEvents = 0, totalNews = 0, totalIncidents = 0;
@@ -58,9 +58,6 @@ function DashboardPage() {
 
           let checkedInUsers = 0;
           let completeProfiles = 0;
-          let checkInOptIn = 0;
-          let eventOptIn = 0;
-          let newsOptIn = 0;
 
           if (profilesData) {
             profilesData.forEach(profile => {
@@ -72,24 +69,10 @@ function DashboardPage() {
               if (profile.name && profile.email && profile.number && profile.street && profile.emergency_contact) {
                 completeProfiles++;
               }
-
-              // Notification Opt-in Rates
-              if (profile.check_in_notifications) {
-                checkInOptIn++;
-              }
-              if (profile.event_notifications) {
-                eventOptIn++;
-              }
-              if (profile.news_notifications) {
-                newsOptIn++;
-              }
             });
           }
 
           const profileCompletenessPercentage = totalUsers > 0 ? (completeProfiles / totalUsers) * 100 : 0;
-          const checkInOptInPercentage = totalUsers > 0 ? (checkInOptIn / totalUsers) * 100 : 0;
-          const eventOptInPercentage = totalUsers > 0 ? (eventOptIn / totalUsers) * 100 : 0;
-          const newsOptInPercentage = totalUsers > 0 ? (newsOptIn / totalUsers) * 100 : 0;
 
           setOverallMetrics({
             totalUsers,
@@ -99,9 +82,6 @@ function DashboardPage() {
             totalIncidents,
             checkedInUsers,
             profileCompletenessPercentage,
-            checkInOptInPercentage,
-            eventOptInPercentage,
-            newsOptInPercentage,
           });
           break;
         }
@@ -306,12 +286,9 @@ function DashboardPage() {
             {/* User Engagement */}
             <div className="mb-8">
               <h3 className="text-2xl font-bold mb-4 pb-2 border-b border-gray-300">User Engagement</h3>
-              <p className="mb-6 text-gray-600">Metrics related to user profile completion and notification preferences.</p>
+              <p className="mb-6 text-gray-600">Metrics related to user profile completion.</p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <MetricCard icon={faPercent} title="Profile Completeness" value={`${overallMetrics.profileCompletenessPercentage?.toFixed(1) || 0}%`} whiteBg />
-                <MetricCard icon={faBell} title="Check-in Notif. Opt-in" value={`${overallMetrics.checkInOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
-                <MetricCard icon={faCalendarDay} title="Event Notif. Opt-in" value={`${overallMetrics.eventOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
-                <MetricCard icon={faCalendarDay} title="Event Notif. Opt-in" value={`${overallMetrics.eventOptInPercentage?.toFixed(1) || 0}%`} whiteBg />
               </div>
             </div>
           </>
