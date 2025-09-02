@@ -6,6 +6,7 @@ import SignInPageSupabase from './Components/MobileAppAccess/SignInPageSupabase'
 import DashboardPage from './Components/MobileAppAccess/DashboardPage';
 import PasswordResetPage from './Components/MobileAppAccess/PasswordResetPage';
 import PrivacyPolicy from './Components/MobileAppAccess/PrivacyPolicy';
+import AccountDeletionRequest from './Components/MobileAppAccess/AccountDeletionRequest';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function AppContent() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/reset-password" element={<PasswordResetPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/request-account-deletion" element={<AccountDeletionRequest />} />
       </Routes>
       {showFooter && <Footer />}
     </>
