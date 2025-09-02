@@ -1,8 +1,11 @@
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+
 const Footer = () => {
 
     return (
-        <div className="bg-gray-900 border-t border-gray-700 mt-auto py-4">
+        <div className="bg-gray-900 border-t border-gray-700 mt-auto py-2">
             <div className="max-w-screen-xl px-4 py-8 mx-auto overflow-hidden sm:px-6 lg:px-8">
                 <div className="mt-5">
                     <div className="justify-center space-x-6 mb-8 hidden">
@@ -25,7 +28,13 @@ const Footer = () => {
                             </svg>
                         </a>
                     </div>
-                    <p className="mt-8 text-base leading-6 text-center text-gray-400">
+                    <div className="text-center text-gray-400">
+                        <a href="/privacy-policy" className="hover:text-white transition-colors duration-300">
+                            <FontAwesomeIcon icon={faShieldAlt} className="mr-2" />
+                            Privacy Policy
+                        </a>
+                    </div>
+                    <p className="mt-4 text-base leading-6 text-center text-gray-400">
                         © {new Date().getFullYear()} The Neighbourhood Watch App Beta. All rights reserved.
                     </p>
                 </div>

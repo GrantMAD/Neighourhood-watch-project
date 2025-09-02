@@ -5,6 +5,7 @@ import Footer from './Components/Footer';
 import SignInPageSupabase from './Components/MobileAppAccess/SignInPageSupabase';
 import DashboardPage from './Components/MobileAppAccess/DashboardPage';
 import PasswordResetPage from './Components/MobileAppAccess/PasswordResetPage';
+import PrivacyPolicy from './Components/MobileAppAccess/PrivacyPolicy';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
 
 function AppContent() {
   const location = useLocation();
-  const showFooter = location.pathname !== '/dashboard';
+  const showFooter = location.pathname !== '/dashboard' && location.pathname !== '/privacy-policy';
 
   return (
     <>
@@ -27,6 +28,7 @@ function AppContent() {
         <Route path="/login" element={<SignInPageSupabase />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/reset-password" element={<PasswordResetPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
       {showFooter && <Footer />}
     </>
