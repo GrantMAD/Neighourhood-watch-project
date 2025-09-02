@@ -1,6 +1,6 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShieldAlt, faUserMinus } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
 
@@ -32,6 +32,9 @@ const Footer = () => {
                         <a href="/privacy-policy" className="hover:text-white transition-colors duration-300">
                             <FontAwesomeIcon icon={faShieldAlt} className="mr-2" />
                             Privacy Policy
+                        </a>
+                        <a href="/request-account-deletion" className="ml-4 hover:text-white transition-colors duration-300">
+                            <FontAwesomeIcon icon={faUserMinus} className="mr-2" /> Request Account Deletion
                         </a>
                     </div>
                     <p className="mt-4 text-base leading-6 text-center text-gray-400">

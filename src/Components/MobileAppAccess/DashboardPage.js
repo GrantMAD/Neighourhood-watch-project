@@ -29,7 +29,7 @@ function DashboardPage() {
   const [eventMetrics, setEventMetrics] = useState([]);
   const [newsMetrics, setNewsMetrics] = useState([]);
   const [incidentMetrics, setIncidentMetrics] = useState([]);
-  const [requestMetrics, setRequestMetrics] = useState({ userRequests: [], groupRequests: [] });
+  const [requestMetrics, setRequestMetrics] = useState({ userRequests: [], groupRequests: [], deletionRequests: [] });
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -133,9 +133,11 @@ function DashboardPage() {
         case 'requests': {
           const { data: users } = await supabase.from('profiles').select('id, name, email, Requests');
           const { data: groups } = await supabase.from('groups').select('id, name, created_by, requests');
+          const { data: deletionRequests } = await supabase.from('deletion_requests').select('*');
+          console.log('Fetched deletion requests:', deletionRequests);
           const userRequests = users?.flatMap(u => (u.Requests || []).map(r => ({ ...r, userId: u.id, userName: u.name, userEmail: u.email }))) || [];
           const groupRequests = groups?.flatMap(g => (g.requests || []).map(r => ({ ...r, groupId: g.id, groupName: g.name, creatorId: g.created_by }))) || [];
-          setRequestMetrics({ userRequests, groupRequests });
+          setRequestMetrics({ userRequests, groupRequests, deletionRequests: deletionRequests || [] });
           break;
         }
         default:
@@ -188,6 +190,117 @@ function DashboardPage() {
       if (error) throw error;
       showToast('Incident report successfully deleted.');
       fetchDataForCategory('incidents');
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
+  }
+
+  async function handleApprove(request) {
+    try {
+      // 1. Get user profile
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('email', request.email)
+        .single();
+
+      if (profileError) {
+        console.error('Profile fetch error:', profileError);
+        throw new Error(`Error fetching profile: ${profileError.message}`);
+      }
+      if (!profile) throw new Error('User profile not found.');
+
+      const userId = profile.id;
+
+      // 2. If in a group, remove from group and events
+      if (profile.group_id) {
+        const { data: group, error: groupError } = await supabase
+          .from('groups')
+          .select('users, events')
+          .eq('id', profile.group_id)
+          .single();
+
+        if (groupError) throw new Error(`Error fetching group: ${groupError.message}`);
+
+        if (group) {
+          // Remove user from group's users array
+          const updatedUsers = group.users.filter(id => id !== userId);
+
+          // Remove user from event attendees
+          const updatedEvents = group.events.map(event => {
+            if (event.attendees) {
+              event.attendees = event.attendees.filter(attendeeId => attendeeId !== userId);
+            }
+            return event;
+          });
+
+          const { error: updateGroupError } = await supabase
+            .from('groups')
+            .update({ users: updatedUsers, events: updatedEvents })
+            .eq('id', profile.group_id);
+
+          if (updateGroupError) throw new Error(`Error updating group: ${updateGroupError.message}`);
+        }
+      }
+
+      // 3. Delete user's profile
+      const { error: deleteProfileError } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId);
+
+      if (deleteProfileError) throw new Error(`Error deleting profile: ${deleteProfileError.message}`);
+
+      // 4. Invoke edge function to delete user from auth
+      const { error: functionError } = await supabase.functions.invoke('delete-user', {
+        body: { userId },
+      });
+
+      if (functionError) throw new Error(`Error deleting user from auth: ${functionError.message}`);
+
+      // 5. Update request status
+      const { error: updateRequestError } = await supabase
+        .from('deletion_requests')
+        .update({ status: 'approved' })
+        .eq('id', request.id);
+
+      if (updateRequestError) {
+        console.error('Update request error:', updateRequestError);
+        throw new Error(`Error updating request: ${updateRequestError.message}`);
+      }
+
+      // 6. Delete the deletion request itself
+      const { error: deleteRequestError } = await supabase
+        .from('deletion_requests')
+        .delete()
+        .eq('id', request.id);
+
+      if (deleteRequestError) {
+        console.error('Delete request error:', deleteRequestError);
+        throw new Error(`Error deleting request: ${deleteRequestError.message}`);
+      }
+
+      showToast('User deletion approved and processed.');
+      fetchDataForCategory('requests');
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
+  }
+
+  async function handleDeny(requestId) {
+    try {
+      const { error } = await supabase
+        .from('deletion_requests')
+        .update({ status: 'denied' })
+        .eq('id', requestId);
+
+      if (error) {
+        console.error('Deny request update error:', error);
+        throw error;
+      }
+
+      showToast('Request denied.');
+      fetchDataForCategory('requests');
     } catch (error) {
       showToast(error.message, 'error');
     }
@@ -427,7 +540,7 @@ function DashboardPage() {
             <p className="mb-6 text-gray-600">
               View and manage pending user and group requests.
             </p>
-            <RequestsView requests={requestMetrics} />
+            <RequestsView requests={requestMetrics} onApprove={handleApprove} onDeny={handleDeny} />
           </>
         )}
 
@@ -736,8 +849,9 @@ function IncidentsTable({ incidents, onDelete, onRowClick }) {
   return <Table columns={columns} rows={incidents} actions={actions} onRowClick={onRowClick} />;
 }
 
-function RequestsView({ requests }) {
-  const { userRequests, groupRequests } = requests;
+function RequestsView({ requests, onApprove, onDeny }) {
+  const { userRequests, groupRequests, deletionRequests } = requests;
+  console.log('RequestsView props:', requests);
 
   return (
     <div>
@@ -760,6 +874,21 @@ function RequestsView({ requests }) {
           { key: 'requestedAt', label: 'Requested At', render: r => new Date(r.requestedAt).toLocaleString() },
         ]}
         rows={groupRequests}
+      />
+
+      <h3 className="text-2xl font-semibold mt-8 mb-4">Deletion Requests</h3>
+      <Table
+        columns={[
+          { key: 'name', label: 'Name' },
+          { key: 'email', label: 'Email' },
+          { key: 'reason', label: 'Reason' },
+          { key: 'status', label: 'Status' },
+        ]}
+        rows={deletionRequests}
+        actions={[
+          { label: 'Approve', onClick: (request) => onApprove(request), color: 'green' },
+          { label: 'Deny', onClick: (request) => onDeny(request.id), color: 'red' },
+        ]}
       />
     </div>
   );
