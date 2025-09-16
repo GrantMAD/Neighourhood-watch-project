@@ -56,10 +56,10 @@ const PasswordResetPage = (props) => {
                 className="w-64 bg-indigo-600 text-center py-3 rounded text-white hover:bg-indigo-700 focus:outline-none my-1"
                 onClick={() => {
                     resetPassword(query.get('oobCode'), newPassword)
-                    .then(response => 
-                        console.log(response))
+                    .then(response => {
+                        console.log(response)
                         setSuccessShowAlert(true);
-                        navigate('/SignInPage')
+                    })
                     .catch(error => 
                         console.log(error.message))
                 }}
