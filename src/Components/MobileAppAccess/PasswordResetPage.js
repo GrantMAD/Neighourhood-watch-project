@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabase';
-import { useNavigate } from 'react-router-dom';
 
 const PasswordResetPage = () => {
     const [password, setPassword] = useState('');
@@ -8,28 +7,27 @@ const PasswordResetPage = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
     const [messageType, setMessageType] = useState(''); // 'success' or 'error'
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const handleSession = async () => {
-            const { data: { session }, error } = await supabase.auth.getSession();
+        // Supabase often redirects with access_token and type in the URL hash
+        const hash = window.location.hash;
+        const params = new URLSearchParams(hash.substring(1)); // Remove #
+        const accessToken = params.get('access_token');
+        const type = params.get('type');
 
-            if (error) {
-                setMessage(`Error getting session: ${error.message}`);
-                setMessageType('error');
-                return;
-            }
-
-            if (session) {
-                setMessage("Please enter your new password.");
-                setMessageType('success');
-            } else {
-                setMessage("Invalid or expired password reset link. Please ensure you clicked the link from your email.");
-                setMessageType('error');
-            }
-        };
-
-        handleSession();
+        if (accessToken && type === 'recovery') {
+            // Supabase automatically sets the session if access_token is present
+            // We can verify the session is active
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                if (!session) {
+                    setMessage("Invalid or expired password reset link. Please try again.");
+                    setMessageType('error');
+                }
+            });
+        } else {
+            setMessage("Invalid password reset link. Please ensure you clicked the link from your email.");
+            setMessageType('error');
+        }
     }, []);
 
     const handlePasswordReset = async (e) => {
@@ -61,10 +59,6 @@ const PasswordResetPage = () => {
 
             setMessage("Your password has been successfully updated!");
             setMessageType('success');
-            // Optionally redirect after a short delay
-            setTimeout(() => {
-                navigate('/login'); // Redirect to login page
-            }, 3000);
 
         } catch (error) {
             setMessage(`Error updating password: ${error.message}`);
